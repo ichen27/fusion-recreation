@@ -11,3 +11,5 @@ The reference is installed Autodesk Fusion 2705.1.15. Raw vendor binaries and re
 Development and engineering computation run on the Mac mini SSD. Read `/Volumes/SamsungSSD1/AGENTS.md` and the project registry. The architecture was approved on 2026-10-11. The foundation plan awaits review before implementation. No product-parity claim is made.
 
 - [Foundation implementation plan](docs/superpowers/plans/2026-10-11-fusion-foundation.md)
+
+- [Custom-kernel feasibility results](docs/research/2026-10-11-custom-kernel-experiment.md): disposable planar-solid probe completed; OCCT remains the app baseline.
