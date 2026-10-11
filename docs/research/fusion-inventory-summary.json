@@ -1,0 +1,21 @@
+{
+  "command_definition_records": 1142,
+  "distinct_command_identifiers": 1084,
+  "xml_sources": 32,
+  "by_application": {
+    "Animation": 13,
+    "Electron": 154,
+    "Fusion": 419,
+    "FusionDoc": 155,
+    "ParaMesh": 33,
+    "Simulation": 361,
+    "VolumetricField": 7
+  },
+  "parse_errors": [],
+  "api_classes_by_module": {
+    "cam": 358,
+    "core": 369,
+    "fusion": 1051
+  },
+  "scope": "Selected packaged CommandDefinitions XML and three adsk Python API modules, not a complete runtime command inventory. Metadata presence does not establish behavior or entitlement."
+}
