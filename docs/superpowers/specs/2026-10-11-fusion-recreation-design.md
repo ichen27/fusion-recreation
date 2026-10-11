@@ -1,7 +1,7 @@
 # Fusion recreation — full-product design specification
 
 Date: 2026-10-11  
-Status: proposed architecture; awaiting design review. No recreation product code exists yet.  
+Status: architecture approved by Ivan on 2026-10-11; foundation implementation plan awaiting review. No recreation product code exists yet.
 Reference: installed Autodesk Fusion 2705.1.15, bundle com.autodesk.fusion360.  
 Working project name: fusion-recreation (an internal identifier, not a public brand).
 
@@ -11,7 +11,7 @@ Ivan explicitly requested recreation of the entire application after the initial
 
 Build an independently runnable CAD/CAM/CAE/ECAD application whose supported workflows can be compared against a frozen Fusion reference. Development and engineering computation run on the Mac mini SSD. The MacBook is the interactive client. Functional equivalence, interaction fidelity, file interoperability and numerical agreement are distinct dimensions and will be measured separately.
 
-Proposed defaults, not previously supplied requirements: a browser interface, local display rendering, a mini-hosted authoritative modeling service, single-user operation first, and implementation using established open-source foundations. No timeline, budget, team size, or complete parity claim has been established.
+Architecture defaults approved on 2026-10-11: a browser interface, local display rendering, a mini-hosted authoritative modeling service, single-user operation first, and implementation using established open-source foundations. No timeline, budget, team size, or complete parity claim has been established.
 
 Completion means all agreed reference capabilities have implementations and passing evidence-linked acceptance tests, including cross-workspace changes and recovery. Neither a similar interface nor an advertised command count establishes completion.
 
@@ -169,4 +169,4 @@ Reverse engineering follows concrete behavioral questions. Reuse documented API 
 
 Keep the inspected vendor binaries and research artifacts out of any public source repository. The project should pin dependencies and review their actual distribution terms; no license compatibility conclusion is made here. OCCT and FreeCAD license documentation are inputs to that review, not a substitute for it.
 
-The immediate review decision is whether the proposed independent browser-plus-mini OCCT architecture matches the requested recreation. Approval advances this written specification to a concrete implementation plan and foundation work. A request to prioritize a FreeCAD-based foundation changes the architecture while retaining the full product scope.
+Ivan approved the independent browser-plus-mini OCCT architecture on 2026-10-11. The foundation implementation plan is docs/superpowers/plans/2026-10-11-fusion-foundation.md. Gate 0 still tests integration viability; approval is not evidence that the kernel/solver or complete app works.
