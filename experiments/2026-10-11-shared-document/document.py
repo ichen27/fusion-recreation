@@ -11,7 +11,7 @@ import sys
 import tempfile
 
 EXPERIMENTS = Path(__file__).resolve().parents[1]
-for name in ("2026-10-11-boundary-kernel", "2026-10-11-cylinder-kernel"):
+for name in ("2026-10-11-boundary-kernel", "2026-10-11-cylinder-kernel", "2026-10-12-shared-topology"):
     sys.path.append(str(EXPERIMENTS / name))
 from kernel import Solid
 from boundary import Body as PlanarBody
@@ -99,6 +99,10 @@ class Model:
     def area(self):
         return self.shape.boundary.area() if self.backend == "rational-planar" else self.shape.area
 
+    def topology(self):
+        from adapters import from_model
+        return from_model(self.backend, self.shape)
+
     def validate(self):
         errors = (self.shape.boundary.validate() if self.backend == "rational-planar"
                   else self.shape.validate())
@@ -108,6 +112,11 @@ class Model:
             errors = errors + ["Nonfinite model measurement"]
         if self.volume < 0 or self.area < 0:
             errors = errors + ["Negative model measurement"]
+        if not errors:
+            try:
+                errors = errors + list(self.topology().validate())
+            except ValueError as error:
+                errors = errors + ["Shared topology: " + str(error)]
         return tuple(sorted(set(errors)))
 
     def summary(self):
