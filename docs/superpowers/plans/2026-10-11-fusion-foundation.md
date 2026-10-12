@@ -155,3 +155,5 @@ Profile closure, imported-body parameters and monotonic undo revisions are speci
 
 ## Execution record (2026-10-12)
 All six foundation tasks implemented. Native tests and runner fixture pass locally; Linux CI and PR integration are tracked separately. Fresh reviewer findings on persistence, worker shutdown and translated geometry were reproduced and fixed with regressions. Arc solving remains explicitly unsupported; reference application workflows remain unperformed. See docs/research/foundation-results.md and freecad-comparison.md for scope rulings and measured evidence.
+
+Persistence ruling: the no-mutation-on-error contract applies before manifest publication. After atomic publication, a final sync failure cannot safely promise rollback; return CommitUncertain and require snapshot/retry with the same transaction ID. A dedicated fault test covers this boundary.

@@ -6,7 +6,7 @@ struct Snapshot {
   Document document;
   std::string journal;
 };
-enum class SaveFault { None, StopBeforePublish, FailBeforePublish };
+enum class SaveFault { None, StopBeforePublish, FailBeforePublish, FailAfterPublish };
 Result<void> save(const Document &, const std::filesystem::path &);
 Result<Document> load(const std::filesystem::path &);
 Result<Snapshot> loadSnapshot(const std::filesystem::path &);

@@ -34,3 +34,5 @@ Maximum waited-child RSS was 28,934,144 bytes, not aggregate memory.
 Observed create/extrude/hole/edit command latencies were 45.2/2.8/8.7/10.6 ms;
 creation includes process startup. These are one-run measurements.
 [Independent review and regressions](foundation-review.md).
+
+A post-publication failure test confirms that the new revision can be visible even when final durability fails. This returns CommitUncertain, requiring reopen or transaction retry; it never claims the write rolled back. Pre-publication I/O failure is exercised with a real failing file-open against a directory.

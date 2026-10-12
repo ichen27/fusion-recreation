@@ -22,6 +22,10 @@ int main(int argc, char **argv) {
   auto fault = mode == "stop"   ? SaveFault::StopBeforePublish
                : mode == "fail" ? SaveFault::FailBeforePublish
                                 : SaveFault::None;
+  if (mode == "after")
+    fault = SaveFault::FailAfterPublish;
   auto r = publishSnapshot({d.value(), ""}, path, fault);
+  if (!r)
+    std::cerr << r.error().code << "\n";
   return r ? 0 : 1;
 }

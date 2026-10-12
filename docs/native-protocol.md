@@ -22,3 +22,5 @@ Operations:
 Sketch fields: entities, constraints. Lines: type="line", id, a=[x,y], b=[x,y], construction. Circles: type="circle", id, center, radius, construction. Constraints: id, kind, entityIds, value. Kind values: 0 coincidence, 1 horizontal, 2 vertical, 3 distance, 4 radius, 5 fixed point. Point selectors use `line:start`, `line:end`, `circle:center`. Fixed point preserves its input position. Distance takes one line ID or two point selectors.
 
 See tools/native_client.py for a constrained rectangle and tools/verify_foundation.py for a full sequence. The explicit --allow-test-faults switch enables testStopWorker for preview cancellation tests only; disabled by default.
+
+A CommitUncertain error means publication happened but final durability could not be confirmed. Do not assume rollback; reopen or retry the exact transaction ID. Validation, revision and pre-publication failures leave the committed revision unchanged.

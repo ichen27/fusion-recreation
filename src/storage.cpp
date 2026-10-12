@@ -70,6 +70,7 @@ StoreLock::~StoreLock() {
   }
 }
 Result<void> publishSnapshot(const Snapshot &snapshot, const fs::path &path, SaveFault fault) {
+  bool published = false;
   try {
     auto validated = recompute(snapshot.document);
     if (!validated)
@@ -106,10 +107,17 @@ Result<void> publishSnapshot(const Snapshot &snapshot, const fs::path &path, Sav
     auto temp = path / (".current-" + std::to_string(getpid()));
     writeSync(temp, manifest);
     fs::rename(temp, path / "current.json");
+    published = true;
+    if (fault == SaveFault::FailAfterPublish)
+      writeSync(revision, "fault after publication");
     syncDir(path);
     return {};
   } catch (const std::exception &e) {
-    return fail("StorageFailure", e.what());
+    return fail(published ? "CommitUncertain" : "StorageFailure",
+                published ? std::string("Manifest published but durability could not be confirmed; "
+                                        "reopen or retry the same transaction: ") +
+                                e.what()
+                          : e.what());
   }
 }
 Result<void> save(const Document &d, const fs::path &path) {

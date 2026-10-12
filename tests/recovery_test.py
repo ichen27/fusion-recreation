@@ -2,6 +2,14 @@ import os,signal,subprocess,sys,tempfile,time,unittest
 from pathlib import Path
 DRIVER=sys.argv.pop(1)
 class Recovery(unittest.TestCase):
+ def test_post_publication_failure_is_explicitly_uncertain(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   subprocess.run([DRIVER,"initial",tmp],check=True)
+   failed=subprocess.run([DRIVER,"after",tmp],capture_output=True)
+   self.assertNotEqual(failed.returncode,0)
+   self.assertIn(b"CommitUncertain",failed.stderr)
+   self.assertEqual(subprocess.check_output([DRIVER,"read",tmp]),b"2")
+
  def test_interrupt_and_disk_failure(self):
   with tempfile.TemporaryDirectory() as tmp:
    p=Path(tmp)
