@@ -47,3 +47,11 @@ ctest --test-dir build --output-on-failure
 For other hosts set CAD_DEPS to the dependency root. All downloads must match deps/lock.json.
 The initial modeling contract accepts finite coordinates within +/-1e6 mm and positive
 dimensions above 1e-7 mm; unsupported scales return diagnostics before native modeling.
+
+The native sketch adapter uses the pinned, unmodified planeGCS sources as a shared
+library. Lines and circles support coincidence, horizontal/vertical, distance,
+radius and fixed-point constraints. Point references use `entity:start`,
+`entity:end`, or `entity:center`. Arc solving currently returns
+`UnsupportedEntity`; no polygon approximation is substituted. Boundary extraction
+supports one connected line loop; circles are returned separately. Tests report
+solver residuals, remaining degrees of freedom, conflicting and redundant IDs.
