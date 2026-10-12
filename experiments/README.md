@@ -7,6 +7,7 @@ saving them here does not promote them to production code.
 - 2026-10-11-boundary-kernel: merged planar boundaries and repeated Booleans.
 - 2026-10-11-cylinder-kernel: separate analytic parallel-axis cylinders and circular holes.
 - 2026-10-11-shared-document: common editing, validation dispatch and JSON persistence.
+- 2026-10-12-shared-topology: shared analytic boundary representation and incidence validation.
 
 The first three originated under /Volumes/SamsungSSD1/tools/fusion-recreation/experiments.
 Those copies remain unchanged as historical evidence. Future source work belongs here.
