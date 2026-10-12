@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      CAD_DEPS: ${{ runner.temp }}/cad-deps
+      CAD_DEPS: ${{ github.workspace }}/.cad-deps
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

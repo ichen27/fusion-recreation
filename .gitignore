@@ -10,3 +10,6 @@ venv/
 build/
 build-*/
 .superpowers/
+
+# Native CI dependency cache (never source).
+.cad-deps/
