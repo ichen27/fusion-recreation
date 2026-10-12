@@ -27,12 +27,25 @@ Run `python3 tools/verify_foundation.py`. It runs CTest and drives the actual ru
 
 No performance target was invented after measurement. Broader geometry, browser UI, manufacturing, electronics, simulation and collaboration remain subsequent waves.
 
-Measured clean source: 4fdafef4fd3117d50b7d8b07fb0e1bdfc80a54ee.
-[Machine-readable report](foundation-evidence.json): 11/11 CTest groups passed;
-maximum fixture volume error 1.10e-11 mm³; collector elapsed 1.33 s.
-Maximum waited-child RSS was 28,934,144 bytes, not aggregate memory.
-Observed create/extrude/hole/edit command latencies were 45.2/2.8/8.7/10.6 ms;
-creation includes process startup. These are one-run measurements.
+Latest measured clean source: 5f779e3fa6dae2ff9e260846c2b371fa5993fff5.
+[Machine-readable report](foundation-evidence.json): 11/11 native CTest groups and
+the runner fixture passed, with maximum volume error 1.10e-11 mm³.
+The collector took 1.73 s; maximum waited-child RSS was
+28,934,144 bytes, not aggregate memory. Per-command one-run
+latencies are in the report; process startup is included in the first request.
 [Independent review and regressions](foundation-review.md).
 
 A post-publication failure test confirms that the new revision can be visible even when final durability fails. This returns CommitUncertain, requiring reopen or transaction retry; it never claims the write rolled back. Pre-publication I/O failure is exercised with a real failing file-open against a directory.
+
+## Additional runtime checks
+
+A separate Debug build with UndefinedBehaviorSanitizer and
+-fno-sanitize-recover=all passed 11/11 CTest groups (3.26 s). The application and
+planeGCS were instrumented; the prebuilt OCCT libraries were not.
+
+AddressSanitizer is **unverified on this host**. Apple clang 17's ASAN runtime
+on this macOS 27.0.1 mini hung before main. A sampled stack showed reentrant ASAN
+initialization waiting in StaticSpinMutex through malloc and dyld cache enumeration.
+A standalone int main(){return 0;} built with -fsanitize=address also timed out
+after five seconds. The CAD test run was stopped and its child processes cleaned
+up. This is an observed tooling limitation, not a passing ASAN result.

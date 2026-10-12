@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "4fdafef4fd3117d50b7d8b07fb0e1bdfc80a54ee",
+  "sourceCommit": "5f779e3fa6dae2ff9e260846c2b371fa5993fff5",
   "sourceDirty": false,
   "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
   "tools": {
@@ -71,7 +71,7 @@
   },
   "ctest": {
     "exitCode": 0,
-    "output": "Test project /Volumes/SamsungSSD1/code/fusion-recreation/build\n      Start  1: kernel\n 1/11 Test  #1: kernel ...........................   Passed    0.05 sec\n      Start  2: sketch\n 2/11 Test  #2: sketch ...........................   Passed    0.04 sec\n      Start  3: document\n 3/11 Test  #3: document .........................   Passed    0.05 sec\n      Start  4: selection\n 4/11 Test  #4: selection ........................   Passed    0.05 sec\n      Start  5: storage\n 5/11 Test  #5: storage ..........................   Passed    0.06 sec\n      Start  6: exchange\n 6/11 Test  #6: exchange .........................   Passed    0.06 sec\n      Start  7: commands\n 7/11 Test  #7: commands .........................   Passed    0.05 sec\n      Start  8: bootstrap\n 8/11 Test  #8: bootstrap ........................   Passed    0.05 sec\n      Start  9: recovery\n 9/11 Test  #9: recovery .........................   Passed    0.30 sec\n      Start 10: runner\n10/11 Test #10: runner ...........................   Passed    0.23 sec\n      Start 11: foundation\n11/11 Test #11: foundation .......................   Passed    0.04 sec\n\n100% tests passed, 0 tests failed out of 11\n\nTotal Test time (real) =   0.99 sec\n"
+    "output": "Test project /Volumes/SamsungSSD1/code/fusion-recreation/build\n      Start  1: kernel\n 1/11 Test  #1: kernel ...........................   Passed    0.05 sec\n      Start  2: sketch\n 2/11 Test  #2: sketch ...........................   Passed    0.05 sec\n      Start  3: document\n 3/11 Test  #3: document .........................   Passed    0.06 sec\n      Start  4: selection\n 4/11 Test  #4: selection ........................   Passed    0.06 sec\n      Start  5: storage\n 5/11 Test  #5: storage ..........................   Passed    0.06 sec\n      Start  6: exchange\n 6/11 Test  #6: exchange .........................   Passed    0.07 sec\n      Start  7: commands\n 7/11 Test  #7: commands .........................   Passed    0.06 sec\n      Start  8: bootstrap\n 8/11 Test  #8: bootstrap ........................   Passed    0.05 sec\n      Start  9: recovery\n 9/11 Test  #9: recovery .........................   Passed    0.50 sec\n      Start 10: runner\n10/11 Test #10: runner ...........................   Passed    0.24 sec\n      Start 11: foundation\n11/11 Test #11: foundation .......................   Passed    0.05 sec\n\n100% tests passed, 0 tests failed out of 11\n\nTotal Test time (real) =   1.25 sec\n"
   },
   "scenario": {
     "status": "passed",
@@ -82,16 +82,16 @@
       "stepVolume": 1.0913936421275139e-11
     },
     "latencyMs": {
-      "create": 45.179624983575195,
-      "extrude": 2.7793750050477684,
-      "hole": 8.714291005162522,
-      "edit": 10.607791016809642,
-      "reopenSnapshot": 50.59933301527053,
-      "exportStep": 9.347541985334828
+      "create": 48.263041011523455,
+      "extrude": 3.1936670129653066,
+      "hole": 9.547082998324186,
+      "edit": 11.600124998949468,
+      "reopenSnapshot": 54.64650000794791,
+      "exportStep": 10.206791019299999
     },
-    "artifacts": "/Volumes/SamsungSSD1/code/fusion-recreation/build/foundation-evidence-nb_aa51i"
+    "artifacts": "/Volumes/SamsungSSD1/code/fusion-recreation/build/foundation-evidence-mfo9mb3h"
   },
-  "elapsedSeconds": 1.3252717080176808,
+  "elapsedSeconds": 1.7255518749880139,
   "peakChildRssBytes": 28934144,
   "memoryMeasurement": "Maximum resident set of any waited-for child; not aggregate process-tree memory"
 }
