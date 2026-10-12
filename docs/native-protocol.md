@@ -24,3 +24,5 @@ Sketch fields: entities, constraints. Lines: type="line", id, a=[x,y], b=[x,y], 
 See tools/native_client.py for a constrained rectangle and tools/verify_foundation.py for a full sequence. The explicit --allow-test-faults switch enables testStopWorker for preview cancellation tests only; disabled by default.
 
 A CommitUncertain error means publication happened but final durability could not be confirmed. Do not assume rollback; reopen or retry the exact transaction ID. Validation, revision and pre-publication failures leave the committed revision unchanged.
+
+Duplicate-command acknowledgement confirms the current manifest directory sync under the writer lock. If confirmation still fails, retry remains CommitUncertain. Reopening establishes visibility, not crash durability. Library fault-injection arguments default to None and are not exposed by commit messages.

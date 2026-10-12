@@ -13,6 +13,8 @@ Result<Snapshot> loadSnapshot(const std::filesystem::path &);
 // Internal single-writer interface: callers must hold StoreLock while publishing.
 Result<void> publishSnapshot(const Snapshot &, const std::filesystem::path &,
                              SaveFault = SaveFault::None);
+// Call under StoreLock before acknowledging a previously published transaction.
+Result<void> confirmDurability(const std::filesystem::path &, bool injectFailure = false);
 class StoreLock {
   int fd_ = -1;
 

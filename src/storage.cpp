@@ -120,6 +120,17 @@ Result<void> publishSnapshot(const Snapshot &snapshot, const fs::path &path, Sav
                           : e.what());
   }
 }
+Result<void> confirmDurability(const fs::path &path, bool injectFailure) {
+  try {
+    if (injectFailure)
+      writeSync(path, "fault during confirmation");
+    syncDir(path);
+    return {};
+  } catch (const std::exception &e) {
+    return fail("CommitUncertain",
+                std::string("Cannot confirm published manifest durability: ") + e.what());
+  }
+}
 Result<void> save(const Document &d, const fs::path &path) {
   try {
     StoreLock lock(path);

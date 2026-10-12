@@ -51,5 +51,17 @@ int main() {
   std::get<SketchCommand>(invalid.parameters).sketch.constraints.back().value = -1;
   CHECK(!reopened.apply(invalid));
   CHECK(reopened.snapshot().value().document.revision == 3);
+  Command uncertain{"doc", 3, "uncertain", Operation::Extrude, ExtrudeCommand{"e", {"s", 10}}};
+  auto pending = reopened.apply(uncertain, SaveFault::FailAfterPublish);
+  CHECK(!pending);
+  CHECK(pending.error().code == "CommitUncertain");
+  CHECK(reopened.snapshot().value().document.revision == 4);
+  auto stillPending = reopened.apply(uncertain, SaveFault::FailAfterPublish);
+  CHECK(!stillPending);
+  CHECK(stillPending.error().code == "CommitUncertain");
+  auto confirmed = reopened.apply(uncertain);
+  CHECK(confirmed);
+  CHECK(confirmed.value().committedRevision == 4);
+  CHECK(reopened.snapshot().value().document.features.size() == 2);
   fs::remove_all(path);
 }

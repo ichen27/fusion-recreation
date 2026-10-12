@@ -125,7 +125,7 @@ CommandStore::CommandStore(std::filesystem::path path, Id documentId) : path_(st
 Result<Snapshot> CommandStore::snapshot() const {
   return loadSnapshot(path_);
 }
-Result<Reply> CommandStore::apply(const Command &c) {
+Result<Reply> CommandStore::apply(const Command &c, SaveFault fault) {
   try {
     StoreLock lock(path_);
     auto initial = loadSnapshot(path_);
@@ -135,9 +135,13 @@ Result<Reply> CommandStore::apply(const Command &c) {
     if (!next)
       return next.error();
     if (next.value().snapshot.document.revision != initial.value().document.revision) {
-      auto written = publishSnapshot(next.value().snapshot, path_);
+      auto written = publishSnapshot(next.value().snapshot, path_, fault);
       if (!written)
         return written.error();
+    } else {
+      auto confirmed = confirmDurability(path_, fault == SaveFault::FailAfterPublish);
+      if (!confirmed)
+        return confirmed.error();
     }
     return next.value().reply;
   } catch (const std::exception &e) {

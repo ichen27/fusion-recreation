@@ -37,7 +37,7 @@ class CommandStore {
 
 public:
   CommandStore(std::filesystem::path path, Id documentId);
-  Result<Reply> apply(const Command &);
+  Result<Reply> apply(const Command &, SaveFault fault = SaveFault::None);
   Result<Snapshot> snapshot() const;
 };
 } // namespace cad
