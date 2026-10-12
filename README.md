@@ -28,3 +28,5 @@ GitHub reflects pushed commits; local edits are not a live autosave.
 - [Shared-document experiment](docs/research/2026-10-11-shared-document-experiment.md):
   common editing, validation dispatch and atomic JSON persistence for both research engines.
 - Run dependency-free checks: `python3 scripts/check.py`.
+
+- [Shared boundary topology](docs/research/2026-10-12-shared-topology-experiment.md): common analytic face/edge/vertex representation and validation; 54 OCCT comparisons.

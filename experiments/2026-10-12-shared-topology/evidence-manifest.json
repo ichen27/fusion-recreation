@@ -1,0 +1,21 @@
+{
+  "scope": "Research shared boundary and incidence checker; separate Boolean engines",
+  "verification": {
+    "new_test_methods": 19,
+    "full_test_executions": 104,
+    "occt_comparisons": 54,
+    "surface_samples": 16045
+  },
+  "sha256": {
+    "experiments/2026-10-11-shared-document/document.py": "6e6a8a18a8054818136444f98d9116a57ee0efc1c0e48276c847a7c504ce1ee1",
+    "experiments/2026-10-12-shared-topology/README.md": "27efac4bda7970aeaad7289fc5c93b8d22657537b4783962f1f98b4b9f5f9186",
+    "experiments/2026-10-12-shared-topology/adapters.py": "edea656e5fba10f840f0b8b8ec317525a46fab9fcef56a0304f566a9ca9f2bae",
+    "experiments/2026-10-12-shared-topology/compare_topology.py": "8de0172c0a079c9479b873617f42adef6010168e02c515a991ae966c99797be4",
+    "experiments/2026-10-12-shared-topology/render_topology.py": "a52f1e44d9f5281a6742a89954cd2159627d5998e65ca8dde8b36bd69e4799d1",
+    "experiments/2026-10-12-shared-topology/shared-topology.png": "3e4a2f06385b4573efd795d7ce72311e20f7f20266a8cd1c0a0d5091329184da",
+    "experiments/2026-10-12-shared-topology/test_topology.py": "d3cb1c7c707627a7528b672ddd4ae96e7c9ed6bd4d1cbf901db2f40ff3f5d8ae",
+    "experiments/2026-10-12-shared-topology/topology-comparison.json": "d5bf6c9df05d3476738d0728129673f16a76ba7e7c559c24f2b5026c2686c1e5",
+    "experiments/2026-10-12-shared-topology/topology-render.png": "9d54579c87f2a70e61dc40c7caa0a9973559c6ce738dfb60e63ca952f5247270",
+    "experiments/2026-10-12-shared-topology/topology.py": "c92c3eb488e7d0e4d71bc29eaf7ada991d871701895d722ab9bb7656fd6b2c23"
+  }
+}

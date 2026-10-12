@@ -37,9 +37,10 @@ Use rectangle and cylinder together for flat plates with circular holes.
 ## Limits
 
 Feature IDs identify construction steps, not persistent face/edge topology.
-Validation dispatches to each existing engine and checks measurements; this does not
-add a general curved-shell manifold validator. No shared B-rep or mixed-backend Boolean
-algorithm exists yet. Existing precision/tangency restrictions remain.
+Since 2026-10-12, validation also builds the shared analytic boundary and checks edge
+ownership, face orientation, vertex links and shell Euler characteristics. Model.topology()
+exposes that representation. It does not test general self-intersections or shell nesting.
+No mixed-backend Boolean algorithm exists yet. Existing precision/tangency restrictions remain.
 Every edit replays all features; the 128-feature and 1 MiB limits bound document size,
 not geometry complexity or execution time. This is a trusted local research format,
 not a hostile-file processing service. Atomic replacement prevents partial files but
