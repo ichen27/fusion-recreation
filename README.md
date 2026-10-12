@@ -1,6 +1,6 @@
 # Fusion recreation
 
-Full-product recreation research and approved design. No recreation application code has been implemented yet.
+Independent CAD recreation with a working headless native foundation and separate custom-kernel research. The full application and browser interface remain under development.
 
 - [Approved full-product specification](docs/superpowers/specs/2026-10-11-fusion-recreation-design.md)
 - [Initial static research findings](docs/research/2026-10-11-fusion-findings.md)
@@ -8,7 +8,7 @@ Full-product recreation research and approved design. No recreation application 
 
 The reference is installed Autodesk Fusion 2705.1.15. Raw vendor binaries and resources remain outside this repository in `/Volumes/SamsungSSD1/tools/rea/work/fusion-2705.1.15/`.
 
-Development and engineering computation run on the Mac mini SSD. Read `/Volumes/SamsungSSD1/AGENTS.md` and the project registry. The architecture was approved on 2026-10-11. The foundation plan awaits review before implementation. No product-parity claim is made.
+Development and engineering computation run on the Mac mini SSD. Read `/Volumes/SamsungSSD1/AGENTS.md` and the project registry. The architecture was approved on 2026-10-11. The six-task foundation plan has been implemented and reviewed; native CI verifies integration. No product-parity claim is made.
 
 - [Foundation implementation plan](docs/superpowers/plans/2026-10-11-fusion-foundation.md)
 
@@ -31,7 +31,7 @@ GitHub reflects pushed commits; local edits are not a live autosave.
 
 - [Shared boundary topology](docs/research/2026-10-12-shared-topology-experiment.md): common analytic face/edge/vertex representation and validation; 54 OCCT comparisons.
 
-## Native foundation (in development)
+## Native foundation
 On 2026-10-12 Ivan authorized autonomous execution of the foundation plan.
 The native foundation uses C++20, pinned OCCT/OCAF and planeGCS. Experimental Python probes remain separate.
 
@@ -40,7 +40,7 @@ Build tools in that isolated environment are CMake 4.1.2 and Ninja 1.13.0.
 With Python 3.12+ and those build tools:
 ```sh
 python3 tools/bootstrap.py --root /Volumes/SamsungSSD1/tools/fusion-recreation/native-deps
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j 6
 ctest --test-dir build --output-on-failure
 ```
@@ -55,3 +55,9 @@ radius and fixed-point constraints. Point references use `entity:start`,
 `UnsupportedEntity`; no polygon approximation is substituted. Boundary extraction
 supports one connected line loop; circles are returned separately. Tests report
 solver residuals, remaining degrees of freedom, conflicting and redundant IDs.
+
+Run the measured fixture: python3 tools/verify_foundation.py.
+Start the local process service: build/cad-runner --store /SSD/path/to/document --document document.
+See [protocol](docs/native-protocol.md), [results](docs/research/foundation-results.md),
+and [reference status](docs/research/freecad-comparison.md).
+Native CTest and independent Python research checks run in GitHub Actions.

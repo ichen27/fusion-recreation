@@ -1,4 +1,4 @@
-import json,os,select,subprocess,sys,tempfile,time,unittest
+import json,os,select,signal,subprocess,sys,tempfile,time,unittest
 RUNNER=sys.argv.pop(1)
 def sketch(width=40):
  return {"entities":[{"type":"line","id":"b","a":[0,0],"b":[width,0],"construction":False},
@@ -32,6 +32,16 @@ class Client:
    except subprocess.TimeoutExpired:self.p.kill();self.p.wait()
   self.p.stdout.close();self.p.stderr.close()
 class Runner(unittest.TestCase):
+ def test_disconnect_with_large_diagnostic_reaps_worker(self):
+  with tempfile.TemporaryDirectory() as path:
+   p=subprocess.Popen([RUNNER,"--store",path,"--document","doc"],stdin=subprocess.PIPE,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
+   try:
+    cmd=command();cmd["parameters"]["sketch"]["entities"][0]["id"]="bad:"+("x"*131072)
+    p.stdin.write((json.dumps({"protocolVersion":1,"kind":"commit","command":cmd})+"\n").encode());p.stdin.close()
+    self.assertEqual(p.wait(timeout=4),0)
+   finally:
+    if p.poll() is None:os.killpg(p.pid,signal.SIGKILL);p.wait()
+
  def test_writers_restart_validation_and_previews(self):
   with tempfile.TemporaryDirectory() as path:
    a,b=Client(path),Client(path)

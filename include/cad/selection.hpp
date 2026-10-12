@@ -3,6 +3,10 @@
 #include "types.hpp"
 namespace cad {
 struct Document;
-struct Selection {Id featureId;std::string semanticRole;std::vector<Id> evolutionIds;};
-Result<Id> resolve(const Document&,const Selection&);
-}
+struct Selection {
+  Id featureId;
+  std::string semanticRole;
+  std::vector<Id> evolutionIds;
+};
+Result<Id> resolve(const Document &, const Selection &);
+} // namespace cad
