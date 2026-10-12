@@ -1,0 +1,108 @@
+{
+  "schema": "fusion-research-document/1",
+  "units": "mm",
+  "features": [
+    {
+      "id": "plate",
+      "operation": "rectangle",
+      "parameters": {
+        "bounds": [
+          -8,
+          -5,
+          8,
+          5
+        ],
+        "z": [
+          0,
+          4
+        ]
+      }
+    },
+    {
+      "id": "drill",
+      "operation": "cylinder",
+      "parameters": {
+        "center": [
+          -3,
+          0
+        ],
+        "radius": 1,
+        "z": [
+          -1,
+          5
+        ]
+      }
+    },
+    {
+      "id": "drilled",
+      "operation": "cut",
+      "parameters": {
+        "left": "plate",
+        "right": "drill"
+      }
+    },
+    {
+      "id": "bore",
+      "operation": "cylinder",
+      "parameters": {
+        "center": [
+          -3,
+          0
+        ],
+        "radius": 2.5,
+        "z": [
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "id": "counterbored",
+      "operation": "cut",
+      "parameters": {
+        "left": "drilled",
+        "right": "bore"
+      }
+    },
+    {
+      "id": "block",
+      "operation": "box",
+      "parameters": {
+        "hi": [
+          32,
+          5,
+          4
+        ],
+        "lo": [
+          20,
+          -5,
+          0
+        ]
+      }
+    },
+    {
+      "id": "slot",
+      "operation": "box",
+      "parameters": {
+        "hi": [
+          24,
+          1,
+          5
+        ],
+        "lo": [
+          22,
+          -1,
+          -1
+        ]
+      }
+    },
+    {
+      "id": "slotted",
+      "operation": "cut",
+      "parameters": {
+        "left": "block",
+        "right": "slot"
+      }
+    }
+  ]
+}

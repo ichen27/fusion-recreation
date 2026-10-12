@@ -1,0 +1,22 @@
+{
+  "status": "throwaway feasibility experiment; not product code",
+  "files": {
+    "kernel.py": "ca386f6d1876973e9400eba20f87d98dadbea8e59d9a61d17a016d522c3f5626",
+    "test_kernel.py": "71d3f1fc63d8647d02ce5f8d2a2a9218c53eeb39a61a36f723b8f46289821da9",
+    "boundary.py": "55e1d220ba4472a7989a62f6abd98fcd8fddc59cf533affdf0c4d2cb78bdfcbc",
+    "test_boundary.py": "b67c28d27ad438a88ccbd1afe8680b575be7dd939cacee2512ea3816f43ce7a4",
+    "fixtures.py": "20eacac8cf7c6e934b72795aeb0af121688836714ce6e56a44d6f54f0438af0a",
+    "compare_boundary.py": "bd8ee85e1d88ccfcbde4d2118b521f5cb41dbafdd1d34da26bf90c7e4e93d5fb",
+    "boundary-comparison.json": "470a6b029368fc35b040ab7e25990355fb01400d097bfb1d6725eb0f965f71f7",
+    "plot_boundary.py": "1d271f03ac86c850df309bfce892a0a7548711be705bc0b038f7f8f753b655f3",
+    "boundary-experiment.png": "84e6e7c59c926e7ba0448484943db3338df9017b891f2a3afc3891a8ed2a8edc",
+    "comparison-requirements.txt": "8157b1e25b5e31db49d48f3368d2d787a7f34d053445aeb388bd6d58d2956a03"
+  },
+  "verification": {
+    "unit_test_methods_passed": 30,
+    "new_boundary_test_methods": 16,
+    "occt_workflows": 14,
+    "occt_operation_steps_passed": 20,
+    "sample_evaluations": 5253
+  }
+}

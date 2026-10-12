@@ -1,0 +1,407 @@
+{
+  "model_states": 24,
+  "rows": [
+    {
+      "stage": "original",
+      "feature": "plate",
+      "backend": "analytic-parallel",
+      "volume_mm3": 640.0,
+      "exact_volume_mm3": null,
+      "area_mm2": 528.0,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 0,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "drill",
+      "backend": "analytic-parallel",
+      "volume_mm3": 42.41150082346221,
+      "exact_volume_mm3": null,
+      "area_mm2": 70.68583470577035,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 7.105427357601002e-15,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "drilled",
+      "backend": "analytic-parallel",
+      "volume_mm3": 611.7256661176918,
+      "exact_volume_mm3": null,
+      "area_mm2": 551.5619449019234,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 2.2737367544323206e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "bore",
+      "backend": "analytic-parallel",
+      "volume_mm3": 39.269908169872416,
+      "exact_volume_mm3": null,
+      "area_mm2": 70.68583470577035,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "counterbored",
+      "backend": "analytic-parallel",
+      "volume_mm3": 599.1592955033327,
+      "exact_volume_mm3": null,
+      "area_mm2": 557.845130209103,
+      "surfaces": {
+        "planar_wall_patches": 8,
+        "cylindrical_walls": 2,
+        "cap_regions": 3
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "block",
+      "backend": "rational-planar",
+      "volume_mm3": 400.0,
+      "exact_volume_mm3": "400",
+      "area_mm2": 360.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "slot",
+      "backend": "rational-planar",
+      "volume_mm3": 24.0,
+      "exact_volume_mm3": "24",
+      "area_mm2": 56.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "original",
+      "feature": "slotted",
+      "backend": "rational-planar",
+      "volume_mm3": 384.0,
+      "exact_volume_mm3": "384",
+      "area_mm2": 384.0,
+      "surfaces": {
+        "planar_faces": 10,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 5.684341886080802e-14,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "plate",
+      "backend": "analytic-parallel",
+      "volume_mm3": 640.0,
+      "exact_volume_mm3": null,
+      "area_mm2": 528.0,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 0,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "drill",
+      "backend": "analytic-parallel",
+      "volume_mm3": 18.849555921538762,
+      "exact_volume_mm3": null,
+      "area_mm2": 43.982297150257104,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 3.552713678800501e-15,
+      "area_error_mm2": 7.105427357601002e-15
+    },
+    {
+      "stage": "edited",
+      "feature": "drilled",
+      "backend": "analytic-parallel",
+      "volume_mm3": 627.4336293856409,
+      "exact_volume_mm3": null,
+      "area_mm2": 546.8495559215388,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "bore",
+      "backend": "analytic-parallel",
+      "volume_mm3": 39.269908169872416,
+      "exact_volume_mm3": null,
+      "area_mm2": 70.68583470577035,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "counterbored",
+      "backend": "analytic-parallel",
+      "volume_mm3": 610.9402679542944,
+      "exact_volume_mm3": null,
+      "area_mm2": 556.2743338823082,
+      "surfaces": {
+        "planar_wall_patches": 8,
+        "cylindrical_walls": 2,
+        "cap_regions": 3
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "block",
+      "backend": "rational-planar",
+      "volume_mm3": 480.0,
+      "exact_volume_mm3": "480",
+      "area_mm2": 416.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "slot",
+      "backend": "rational-planar",
+      "volume_mm3": 24.0,
+      "exact_volume_mm3": "24",
+      "area_mm2": 56.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "edited",
+      "feature": "slotted",
+      "backend": "rational-planar",
+      "volume_mm3": 464.0,
+      "exact_volume_mm3": "464",
+      "area_mm2": 440.0,
+      "surfaces": {
+        "planar_faces": 10,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "plate",
+      "backend": "analytic-parallel",
+      "volume_mm3": 640.0,
+      "exact_volume_mm3": null,
+      "area_mm2": 528.0,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 0,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "drill",
+      "backend": "analytic-parallel",
+      "volume_mm3": 18.849555921538762,
+      "exact_volume_mm3": null,
+      "area_mm2": 43.982297150257104,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 3.552713678800501e-15,
+      "area_error_mm2": 7.105427357601002e-15
+    },
+    {
+      "stage": "reloaded",
+      "feature": "drilled",
+      "backend": "analytic-parallel",
+      "volume_mm3": 627.4336293856409,
+      "exact_volume_mm3": null,
+      "area_mm2": 546.8495559215388,
+      "surfaces": {
+        "planar_wall_patches": 4,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "bore",
+      "backend": "analytic-parallel",
+      "volume_mm3": 39.269908169872416,
+      "exact_volume_mm3": null,
+      "area_mm2": 70.68583470577035,
+      "surfaces": {
+        "planar_wall_patches": 0,
+        "cylindrical_walls": 1,
+        "cap_regions": 2
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "counterbored",
+      "backend": "analytic-parallel",
+      "volume_mm3": 610.9402679542944,
+      "exact_volume_mm3": null,
+      "area_mm2": 556.2743338823082,
+      "surfaces": {
+        "planar_wall_patches": 8,
+        "cylindrical_walls": 2,
+        "cap_regions": 3
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 1.1368683772161603e-13,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "block",
+      "backend": "rational-planar",
+      "volume_mm3": 480.0,
+      "exact_volume_mm3": "480",
+      "area_mm2": 416.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "slot",
+      "backend": "rational-planar",
+      "volume_mm3": 24.0,
+      "exact_volume_mm3": "24",
+      "area_mm2": 56.0,
+      "surfaces": {
+        "planar_faces": 6,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    },
+    {
+      "stage": "reloaded",
+      "feature": "slotted",
+      "backend": "rational-planar",
+      "volume_mm3": 464.0,
+      "exact_volume_mm3": "464",
+      "area_mm2": 440.0,
+      "surfaces": {
+        "planar_faces": 10,
+        "cylindrical_walls": 0
+      },
+      "validation_errors": [],
+      "occt_valid": true,
+      "volume_error_mm3": 0.0,
+      "area_error_mm2": 0.0
+    }
+  ],
+  "max_volume_error_mm3": 2.2737367544323206e-13,
+  "max_area_error_mm2": 7.105427357601002e-15,
+  "scope": "Editing/replay and area/volume comparisons, not full surface equivalence"
+}
