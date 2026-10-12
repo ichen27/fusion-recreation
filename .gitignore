@@ -7,3 +7,6 @@ venv/
 !.env.example
 .DS_Store
 .mpl-cache/
+build/
+build-*/
+.superpowers/

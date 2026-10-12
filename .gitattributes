@@ -1,1 +1,2 @@
 *.step binary
+deps/licenses/** -whitespace

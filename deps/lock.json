@@ -1,0 +1,39 @@
+{
+  "sources": {
+    "occt": {
+      "commit": "b8f597c677811d1f9f4d8a97f5ae2825c0353a42",
+      "url": "https://codeload.github.com/Open-Cascade-SAS/OCCT/tar.gz/b8f597c677811d1f9f4d8a97f5ae2825c0353a42",
+      "sha256": "dba62b81078dd43cec23feba89432be301582341001edad1b93342ad8bda35ea",
+      "directory": "OCCT-b8f597c677811d1f9f4d8a97f5ae2825c0353a42"
+    },
+    "freecad": {
+      "commit": "4fd3bf320d9566a27e60069fc8387448aaa3a094",
+      "url": "https://codeload.github.com/FreeCAD/FreeCAD/tar.gz/4fd3bf320d9566a27e60069fc8387448aaa3a094",
+      "sha256": "d381064aede10f7d9388bd78d2073d05f07b4da53f723940a16860e0c5fe446a",
+      "directory": "FreeCAD-4fd3bf320d9566a27e60069fc8387448aaa3a094"
+    },
+    "eigen": {
+      "version": "3.4.0",
+      "url": "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz",
+      "sha256": "8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72",
+      "directory": "eigen-3.4.0"
+    },
+    "boost": {
+      "version": "1.88.0",
+      "url": "https://archives.boost.io/release/1.88.0/source/boost_1_88_0.tar.gz",
+      "sha256": "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4",
+      "directory": "boost_1_88_0"
+    },
+    "json": {
+      "version": "3.12.0",
+      "url": "https://codeload.github.com/nlohmann/json/tar.gz/refs/tags/v3.12.0",
+      "sha256": "4b92eb0c06d10683f7447ce9406cb97cd4b453be18d7279320f7b2f025c10187",
+      "directory": "json-3.12.0"
+    }
+  },
+  "tools": {
+    "cmake": "4.1.2",
+    "ninja": "1.13.0",
+    "compiler": "Apple clang 17.0.0 (clang-1700.6.3.2)"
+  }
+}

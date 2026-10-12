@@ -30,3 +30,20 @@ GitHub reflects pushed commits; local edits are not a live autosave.
 - Run dependency-free checks: `python3 scripts/check.py`.
 
 - [Shared boundary topology](docs/research/2026-10-12-shared-topology-experiment.md): common analytic face/edge/vertex representation and validation; 54 OCCT comparisons.
+
+## Native foundation (in development)
+On 2026-10-12 Ivan authorized autonomous execution of the foundation plan.
+The native foundation uses C++20, pinned OCCT/OCAF and planeGCS. Experimental Python probes remain separate.
+
+On the mini, add /Volumes/SamsungSSD1/tools/fusion-recreation/build-env/bin to PATH.
+Build tools in that isolated environment are CMake 4.1.2 and Ninja 1.13.0.
+With Python 3.12+ and those build tools:
+```sh
+python3 tools/bootstrap.py --root /Volumes/SamsungSSD1/tools/fusion-recreation/native-deps
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build -j 6
+ctest --test-dir build --output-on-failure
+```
+For other hosts set CAD_DEPS to the dependency root. All downloads must match deps/lock.json.
+The initial modeling contract accepts finite coordinates within +/-1e6 mm and positive
+dimensions above 1e-7 mm; unsupported scales return diagnostics before native modeling.
