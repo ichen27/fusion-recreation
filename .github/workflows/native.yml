@@ -1,0 +1,37 @@
+name: Native foundation
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      CAD_DEPS: ${{ github.workspace }}/.cad-deps
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python -m pip install cmake==4.1.2 ninja==1.13.0
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.CAD_DEPS }}
+          key: native-ubuntu24-gcc-${{ hashFiles('deps/lock.json', 'tools/bootstrap.py') }}
+      - name: Build locked native dependencies
+        run: python tools/bootstrap.py --root "$CAD_DEPS" --jobs 2
+      - uses: actions/cache/save@v4
+        with:
+          path: ${{ env.CAD_DEPS }}
+          key: native-ubuntu24-gcc-${{ hashFiles('deps/lock.json', 'tools/bootstrap.py') }}
+      - name: Configure and build
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCAD_DEPS="$CAD_DEPS"
+          cmake --build build -j 2
+      - name: Test native foundation
+        run: python tools/verify_foundation.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-foundation-evidence
+          path: build/foundation-report.json

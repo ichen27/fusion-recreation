@@ -1,0 +1,5 @@
+set(CAD_DEPS "$ENV{CAD_DEPS}" CACHE PATH "Verified dependency root")
+if(NOT CAD_DEPS)
+ set(CAD_DEPS "/Volumes/SamsungSSD1/tools/fusion-recreation/native-deps")
+endif()
+find_package(OpenCASCADE REQUIRED CONFIG PATHS "${CAD_DEPS}/occt-install/lib/cmake/opencascade" NO_DEFAULT_PATH)
