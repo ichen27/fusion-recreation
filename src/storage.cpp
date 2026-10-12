@@ -97,8 +97,11 @@ Result<void> publishSnapshot(const Snapshot &snapshot, const fs::path &path, Sav
       writeSync(path / "fault-ready", "ready");
       raise(SIGSTOP);
     }
-    if (fault == SaveFault::FailBeforePublish)
-      return fail("StorageFailure", "Injected disk-write failure before publication");
+    if (fault == SaveFault::FailBeforePublish) {
+      // Force a real failing write-open against a directory before publication.
+      writeSync(revision, "fault");
+      return fail("StorageFailure", "Fault injection unexpectedly allowed a directory write");
+    }
     auto manifest = Json{{"schema", 1}, {"payload", hash}, {"sha256", hash}}.dump();
     auto temp = path / (".current-" + std::to_string(getpid()));
     writeSync(temp, manifest);
