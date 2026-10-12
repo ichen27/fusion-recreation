@@ -15,3 +15,5 @@ Development and engineering computation run on the Mac mini SSD. Read `/Volumes/
 - [Custom-kernel feasibility results](docs/research/2026-10-11-custom-kernel-experiment.md): disposable planar-solid probe completed; OCCT remains the app baseline.
 
 - [Merged-boundary experiment](docs/research/2026-10-11-kernel-boundary-experiment.md): internal seams removed for tested planar solids; repeated-cut, cavity and boundary comparisons recorded.
+
+- [Analytic-cylinder experiment](docs/research/2026-10-11-kernel-cylinder-experiment.md): separate parallel-axis curve prototype, 34 OCCT comparisons and a verified STEP demonstration.
