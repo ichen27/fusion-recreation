@@ -26,3 +26,11 @@ Run `python3 tools/verify_foundation.py`. It runs CTest and drives the actual ru
 - [Reference comparisons](freecad-comparison.md) remain incomplete. Neither FreeCAD nor Fusion is labeled passed.
 
 No performance target was invented after measurement. Broader geometry, browser UI, manufacturing, electronics, simulation and collaboration remain subsequent waves.
+
+Measured clean source: 4fdafef4fd3117d50b7d8b07fb0e1bdfc80a54ee.
+[Machine-readable report](foundation-evidence.json): 11/11 CTest groups passed;
+maximum fixture volume error 1.10e-11 mm³; collector elapsed 1.33 s.
+Maximum waited-child RSS was 28,934,144 bytes, not aggregate memory.
+Observed create/extrude/hole/edit command latencies were 45.2/2.8/8.7/10.6 ms;
+creation includes process startup. These are one-run measurements.
+[Independent review and regressions](foundation-review.md).

@@ -38,3 +38,7 @@ add_executable(cad-inspect src/inspect.cpp)
 target_link_libraries(cad-inspect PRIVATE cad)
 target_include_directories(cad-inspect PRIVATE ${CAD_DEPS}/${JSON_DIR}/single_include)
 add_test(NAME foundation COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/foundation_test.py)
+
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/test-tmp")
+get_property(CAD_TESTS DIRECTORY PROPERTY TESTS)
+set_tests_properties(${CAD_TESTS} PROPERTIES TIMEOUT 120 ENVIRONMENT "TMPDIR=${CMAKE_BINARY_DIR}/test-tmp")

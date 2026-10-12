@@ -1,0 +1,97 @@
+{
+  "sourceCommit": "4fdafef4fd3117d50b7d8b07fb0e1bdfc80a54ee",
+  "sourceDirty": false,
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "tools": {
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin",
+    "cmake": "cmake version 4.1.2\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+    "ninja": "1.13.0.git.kitware.jobserver-pipe-1",
+    "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]"
+  },
+  "dependencies": {
+    "sources": {
+      "occt": {
+        "commit": "b8f597c677811d1f9f4d8a97f5ae2825c0353a42",
+        "url": "https://codeload.github.com/Open-Cascade-SAS/OCCT/tar.gz/b8f597c677811d1f9f4d8a97f5ae2825c0353a42",
+        "sha256": "dba62b81078dd43cec23feba89432be301582341001edad1b93342ad8bda35ea",
+        "directory": "OCCT-b8f597c677811d1f9f4d8a97f5ae2825c0353a42"
+      },
+      "freecad": {
+        "commit": "4fd3bf320d9566a27e60069fc8387448aaa3a094",
+        "url": "https://codeload.github.com/FreeCAD/FreeCAD/tar.gz/4fd3bf320d9566a27e60069fc8387448aaa3a094",
+        "sha256": "d381064aede10f7d9388bd78d2073d05f07b4da53f723940a16860e0c5fe446a",
+        "directory": "FreeCAD-4fd3bf320d9566a27e60069fc8387448aaa3a094"
+      },
+      "eigen": {
+        "version": "3.4.0",
+        "url": "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz",
+        "sha256": "8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72",
+        "directory": "eigen-3.4.0"
+      },
+      "boost": {
+        "version": "1.88.0",
+        "url": "https://archives.boost.io/release/1.88.0/source/boost_1_88_0.tar.gz",
+        "sha256": "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4",
+        "directory": "boost_1_88_0"
+      },
+      "json": {
+        "version": "3.12.0",
+        "url": "https://codeload.github.com/nlohmann/json/tar.gz/refs/tags/v3.12.0",
+        "sha256": "4b92eb0c06d10683f7447ce9406cb97cd4b453be18d7279320f7b2f025c10187",
+        "directory": "json-3.12.0"
+      }
+    },
+    "tools": {
+      "cmake": "4.1.2",
+      "ninja": "1.13.0",
+      "compiler": "Apple clang 17.0.0 (clang-1700.6.3.2)"
+    }
+  },
+  "references": {
+    "freecad": {
+      "status": "unperformed",
+      "executable": null,
+      "reason": "FreeCADCmd unavailable"
+    },
+    "fusion": {
+      "status": "unobserved",
+      "reason": "No dedicated fresh Fusion reference document was exercised on the mini"
+    }
+  },
+  "foundation": {
+    "status": "passed",
+    "decision": "conditional-go",
+    "scope": "Headless bounded foundation only; not full CAD application or Fusion parity",
+    "riskDecisions": [
+      "Line-loop extrusion and centered through holes only; arcs and circular extrusion reject explicitly",
+      "Semantic naming covers unique top support only; general split/deletion repair remains open",
+      "Immutable local snapshots use file locks, checksums and fsync; power-loss/filesystem guarantees are not exhaustively proven",
+      "Reference-application comparisons remain incomplete and cannot count as passed"
+    ]
+  },
+  "ctest": {
+    "exitCode": 0,
+    "output": "Test project /Volumes/SamsungSSD1/code/fusion-recreation/build\n      Start  1: kernel\n 1/11 Test  #1: kernel ...........................   Passed    0.05 sec\n      Start  2: sketch\n 2/11 Test  #2: sketch ...........................   Passed    0.04 sec\n      Start  3: document\n 3/11 Test  #3: document .........................   Passed    0.05 sec\n      Start  4: selection\n 4/11 Test  #4: selection ........................   Passed    0.05 sec\n      Start  5: storage\n 5/11 Test  #5: storage ..........................   Passed    0.06 sec\n      Start  6: exchange\n 6/11 Test  #6: exchange .........................   Passed    0.06 sec\n      Start  7: commands\n 7/11 Test  #7: commands .........................   Passed    0.05 sec\n      Start  8: bootstrap\n 8/11 Test  #8: bootstrap ........................   Passed    0.05 sec\n      Start  9: recovery\n 9/11 Test  #9: recovery .........................   Passed    0.30 sec\n      Start 10: runner\n10/11 Test #10: runner ...........................   Passed    0.23 sec\n      Start 11: foundation\n11/11 Test #11: foundation .......................   Passed    0.04 sec\n\n100% tests passed, 0 tests failed out of 11\n\nTotal Test time (real) =   0.99 sec\n"
+  },
+  "scenario": {
+    "status": "passed",
+    "absoluteErrorsMm3": {
+      "initialVolume": 1.8189894035458565e-12,
+      "editedVolume": 0.0,
+      "reopenedVolume": 0.0,
+      "stepVolume": 1.0913936421275139e-11
+    },
+    "latencyMs": {
+      "create": 45.179624983575195,
+      "extrude": 2.7793750050477684,
+      "hole": 8.714291005162522,
+      "edit": 10.607791016809642,
+      "reopenSnapshot": 50.59933301527053,
+      "exportStep": 9.347541985334828
+    },
+    "artifacts": "/Volumes/SamsungSSD1/code/fusion-recreation/build/foundation-evidence-nb_aa51i"
+  },
+  "elapsedSeconds": 1.3252717080176808,
+  "peakChildRssBytes": 28934144,
+  "memoryMeasurement": "Maximum resident set of any waited-for child; not aggregate process-tree memory"
+}
