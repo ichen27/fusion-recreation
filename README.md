@@ -17,3 +17,14 @@ Development and engineering computation run on the Mac mini SSD. Read `/Volumes/
 - [Merged-boundary experiment](docs/research/2026-10-11-kernel-boundary-experiment.md): internal seams removed for tested planar solids; repeated-cut, cavity and boundary comparisons recorded.
 
 - [Analytic-cylinder experiment](docs/research/2026-10-11-kernel-cylinder-experiment.md): separate parallel-axis curve prototype, 34 OCCT comparisons and a verified STEP demonstration.
+
+## Source and GitHub
+Private repository: https://github.com/ichen27/fusion-recreation.
+All original prototype source is now preserved in [experiments/](experiments/README.md).
+Future source changes are committed on feature branches, pushed at meaningful checkpoints,
+checked by GitHub Actions, and reviewed through PRs. See [AGENTS.md](AGENTS.md).
+GitHub reflects pushed commits; local edits are not a live autosave.
+
+- [Shared-document experiment](docs/research/2026-10-11-shared-document-experiment.md):
+  common editing, validation dispatch and atomic JSON persistence for both research engines.
+- Run dependency-free checks: `python3 scripts/check.py`.
