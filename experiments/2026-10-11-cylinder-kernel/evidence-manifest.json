@@ -1,0 +1,30 @@
+{
+  "status": "throwaway parallel-axis analytic-curve experiment; not integrated product code",
+  "files": {
+    "curves.py": "317a5a396a44d10febb7c50fca301a88ff85baabba8936a17bea39898fcd6fd4",
+    "cylinders.py": "9f07945670cc4889f1fbb48177d9346db52d818c081d6a93778f7ba23fcdba42",
+    "test_curves.py": "ade2d9797aace949882c5012ba3159ce8f1648525b65ff500bfde1f4a507f708",
+    "curved_fixtures.py": "30038cd7c156140d2a10e44117c8969cbf6014bdf43f42681e5256354a6b5d16",
+    "compare_cylinders.py": "d8e898840a6676f5b4f23863e0eee29613fbffda24eae863c6a0d941fa7c4d0f",
+    "cylinder-comparison.json": "23dc4c7e5ba3b8383b476a03fdf397739b44d3fcb2e1be6cb346cd2950c66429",
+    "demo_export.py": "c4bbe34ed1402b1a67d2d8dd8ffd2aaf2b7bc537dbdf5c03ec56026035f320d4",
+    "render_curves.py": "c63dd449311dfc1c8ff5f0b3bc25ddeb445acb0852a12b01fc32bfffc49dafc4",
+    "curved-kernel-demo.step": "1a5e977b845d07c881c01eb528c3a4f33e167dff04aec5c9ce293269570b0b48",
+    "step-roundtrip.json": "681d2524166c5e835b557e27021575aae0af5f7eb70a79d787ec186e183ac608",
+    "cylinder-experiment.png": "592c022794df30528d384c645b98aa2a160ed8adfb31726dcd958a2f4680edfe",
+    "comparison-requirements.txt": "8157b1e25b5e31db49d48f3368d2d787a7f34d053445aeb388bd6d58d2956a03"
+  },
+  "comparison_helpers": {
+    "/Volumes/SamsungSSD1/tools/fusion-recreation/experiments/2026-10-11-boundary-kernel/compare_boundary.py": "bd8ee85e1d88ccfcbde4d2118b521f5cb41dbafdd1d34da26bf90c7e4e93d5fb",
+    "/Volumes/SamsungSSD1/tools/fusion-recreation/experiments/2026-10-11-boundary-kernel/boundary.py": "55e1d220ba4472a7989a62f6abd98fcd8fddc59cf533affdf0c4d2cb78bdfcbc",
+    "/Volumes/SamsungSSD1/tools/fusion-recreation/experiments/2026-10-11-boundary-kernel/kernel.py": "ca386f6d1876973e9400eba20f87d98dadbea8e59d9a61d17a016d522c3f5626",
+    "/Volumes/SamsungSSD1/tools/fusion-recreation/experiments/2026-10-11-boundary-kernel/fixtures.py": "20eacac8cf7c6e934b72795aeb0af121688836714ce6e56a44d6f54f0438af0a"
+  },
+  "verification": {
+    "unit_test_methods_passed": 21,
+    "occt_workflows": 21,
+    "occt_model_states_passed": 34,
+    "sample_evaluations": 8354,
+    "step_roundtrip_valid": true
+  }
+}

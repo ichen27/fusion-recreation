@@ -1,0 +1,12 @@
+{
+  "format": "STEP",
+  "units": "mm",
+  "export_adapter": "OCCT",
+  "history_preserved": false,
+  "reference": "original analytic profile/layer boundary",
+  "expected_volume": 585.0221285621786,
+  "imported_volume": 585.0221285621784,
+  "expected_area": 576.6946861306418,
+  "imported_area": 576.6946861306459,
+  "imported_valid": true
+}

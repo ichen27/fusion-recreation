@@ -1,0 +1,18 @@
+{
+  "status": "throwaway feasibility probe",
+  "files": {
+    "kernel.py": "ca386f6d1876973e9400eba20f87d98dadbea8e59d9a61d17a016d522c3f5626",
+    "test_kernel.py": "71d3f1fc63d8647d02ce5f8d2a2a9218c53eeb39a61a36f723b8f46289821da9",
+    "compare_occt.py": "7102eddb45fad02fb0ce7198e77bdd81c1ca4c8f0a2d369b6404d03f93820193",
+    "comparison.json": "d5a6d54f7ba43e6fd5558aa941a15f6c7d08c875f1cb5c6cd2ca5d2e710d793b",
+    "comparison-requirements.txt": "8157b1e25b5e31db49d48f3368d2d787a7f34d053445aeb388bd6d58d2956a03",
+    "plot_probe.py": "b4693a3b87abdef471f89abd5c967e3f62139a7b33bc1ffa2b8c3675d39858f0",
+    "kernel-experiment.png": "d07eacd9390d349111969bab3c5d256e84c3af3796f06e17be38704de08575ae"
+  },
+  "verification": {
+    "unit_test_methods_passed": 14,
+    "box_pairs": 120,
+    "rotated_pairs": 24,
+    "ordinary_occt_comparisons_passed": 24
+  }
+}
