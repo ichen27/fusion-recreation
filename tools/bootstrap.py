@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tarfile
 import urllib.request
 
@@ -48,6 +49,10 @@ def main():
     command=["cmake","-S",str(args.root/lock["sources"]["occt"]["directory"]),"-B",str(args.root/"occt-build"),
              "-G","Ninja","-DCMAKE_BUILD_TYPE=Release","-DINSTALL_DIR="+str(args.root/"occt-install"),
              "-DBUILD_ADDITIONAL_TOOLKITS=TKPrim TKBool TKCAF TKBin TKDESTEP TKXCAF TKBinXCAF TKMesh"]
+    # Linux RUNPATH is not inherited from the executable by indirect dependencies.
+    # Each installed OCCT library must find its sibling libraries itself.
+    if sys.platform.startswith("linux"):
+        command += ["-DCMAKE_INSTALL_RPATH=$ORIGIN"]
     command += ["-DBUILD_MODULE_"+name+"=OFF" for name in options]
     command += ["-DUSE_"+name+"=OFF" for name in ("TK","FREETYPE","OPENGL","XLIB")]
     subprocess.run(command,check=True)

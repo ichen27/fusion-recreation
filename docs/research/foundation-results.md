@@ -49,3 +49,8 @@ initialization waiting in StaticSpinMutex through malloc and dyld cache enumerat
 A standalone int main(){return 0;} built with -fsanitize=address also timed out
 after five seconds. The CAD test run was stopped and its child processes cleaned
 up. This is an observed tooling limitation, not a passing ASAN result.
+
+The initial Linux CI run compiled successfully but failed at program startup:
+installed OCCT libraries had empty runtime paths, so indirect sibling libraries
+could not be found. The bootstrap now installs those Linux libraries with an
+$ORIGIN runtime path; the final CI run must verify the complete native suite.

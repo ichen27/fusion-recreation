@@ -18,6 +18,7 @@ jobs:
         with:
           path: ${{ env.CAD_DEPS }}
           key: native-ubuntu24-gcc-${{ hashFiles('deps/lock.json', 'tools/bootstrap.py') }}
+          restore-keys: native-ubuntu24-gcc-
       - name: Build locked native dependencies
         run: python tools/bootstrap.py --root "$CAD_DEPS" --jobs 2
       - uses: actions/cache/save@v4
