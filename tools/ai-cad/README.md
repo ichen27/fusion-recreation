@@ -1,0 +1,94 @@
+# AI-native CAD: first editable workflow
+
+A bounded working slice of an original CAD engine. A signed-in Codex or Claude Code client can use typed MCP tools to inspect and change a local editable model. The same document is visible and editable in a WebGL 2 browser viewer. Geometry is computed by our Rust boundary kernel, with no OCCT modeling fallback.
+
+**Status:** working model/command contract and tested MCP transport, not a general CAD product. Natural-language reasoning happens in the connected agent client. The viewer has dimension controls, not an embedded AI chat. A fresh authenticated subscription-client conversation has not yet been verified.
+
+## Quickstart
+
+Requires macOS/Linux, Python 3.14, Rust 1.85.1 with Cargo, and a WebGL 2 browser. Run from the repository root. Store your own documents outside the repository (or in ignored `work/`). This host uses POSIX file locks and is not yet supported on Windows.
+
+```sh
+cargo +1.85.1 build --manifest-path crates/model-engine/Cargo.toml --release --locked
+mkdir -p work
+python3 tools/ai-cad/cad.py --store work/demo.cad.json < examples/ai-cad/create.json
+python3 tools/ai-cad/cad.py --store work/demo.cad.json < examples/ai-cad/widen.json
+python3 tools/ai-cad/viewer.py --store work/demo.cad.json
+```
+
+Open http://127.0.0.1:8765. You should see width 120, depth 60, thickness 12, corner setback 10, and exact volume **85,800 mm³**. Repeating the two fixture commands returns their receipts without applying them twice. Use a new document path to start an independent demo.
+
+The viewer can change unlocked dimensions, preview/save, discard, undo, redo, orbit and zoom. It polls for other clients' saved changes, but retains pending form edits/previews and reports revision conflicts. Decimal input is currently expressed as a fraction (`25/2`, not `12.5`). Volume display is rounded; the exact value is in the tooltip and tool result.
+
+To view a mini-hosted service on another computer, forward the loopback port with SSH and open the forwarded URL. Use the same local/remote port (8765) because the host checks its Host/Origin headers. The HTTP server is a local development viewer, not an internet service. It binds only to 127.0.0.1 and has no account system.
+
+## Connect your subscription client
+
+Install the optional MCP adapter into an isolated environment on the computation host:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r tools/ai-cad/requirements.lock
+```
+
+In your agent client's MCP settings, register a **stdio** server:
+
+```json
+{
+  "command": "/absolute/path/to/repository/.venv/bin/python",
+  "args": [
+    "/absolute/path/to/repository/tools/ai-cad/mcp_server.py",
+    "--store",
+    "/absolute/path/to/repository/work/my-part.cad.json"
+  ]
+}
+```
+
+Use absolute paths and choose the same document for viewer and MCP. The store path is host configuration; the model cannot request arbitrary paths through the CAD tools. For a client on another computer, launch this exact command over your existing SSH connection to the computation host. Python, the Rust binary and the document must all be on that host.
+
+With Codex signed in through an eligible ChatGPT plan, the agent uses subscription access. Claude Code also supports signing in with a Claude subscription and using MCP tools. The CAD server does not read or forward provider credentials. Plan limits still apply. This is a user-operated agent workflow; embedding inference inside a distributed app is a separate product/authentication decision.
+
+Verified references, 2026-10-15: [Codex authentication](https://learn.chatgpt.com/docs/auth), [Codex MCP](https://learn.chatgpt.com/docs/extend/mcp?surface=cli), [Claude Code MCP](https://code.claude.com/docs/en/mcp), [Claude authentication/integration rules](https://code.claude.com/docs/en/legal-and-compliance). Anthropic directs developers embedding Claude capabilities in their own products to API authentication, and disallows collecting/intermediating Claude subscription credentials.
+
+Start with an empty document and say:
+
+> Use the CAD tools to create a 100 × 60 × 12 mm block. Cut the +X/+Y vertical corner with a 10 mm setback along each adjacent edge. Fix thickness and corner size. Inspect, preview, then commit the model.
+
+Then:
+
+> Make that block 20 mm wider while preserving depth, thickness and corner-cut size. Edit its width parameter, preview and commit.
+
+Tools: `cad_inspect`, `cad_preview`, `cad_commit`, `cad_history`. The adapter gives the agent typed operation schemas, supported-geometry descriptions, exact measurements and structured errors. No prompts are sent to an AI provider by this server itself.
+
+## Contract
+
+See [the full command contract](../../docs/ai-cad-contract.md). CLI requests are JSON on stdin; one JSON reply is written to stdout. Errors use `{ "error": { "code", "entity", "message" } }`. Successful replies have a `result` with revision, editable model, exact boundary, volume and changed parameter IDs.
+
+- Model: named exact rational parameters in mm, ordered features, explicit fixed-value constraints.
+- Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Only terminal features are displayed. Independent bodies are supported but all start at the origin and can overlap; their volumes are per-body, not a union volume.
+- Operations: define/set/adjust parameter, add feature, fix/release parameter. Constraints must be explicitly released to change them.
+- Preview and commit take an expected revision and a list of parameter IDs to preserve. The whole proposed model must pass Rust validation.
+- Atomic snapshots retain 64 undo/redo steps and up to 1024 transaction receipts. Revision increases for undo/redo. Receipt exhaustion fails explicitly; there is no silent idempotency expiry.
+- Stable feature/parameter IDs are supported. Boundary face/edge array indices are **not** persistent topology names.
+
+## Validation and artifacts
+
+```sh
+cargo +1.85.1 fmt --manifest-path crates/model-engine/Cargo.toml --check
+cargo +1.85.1 clippy --manifest-path crates/model-engine/Cargo.toml --locked --all-targets -- -D warnings
+python3 -m unittest discover -s tools/ai-cad -p 'test_*.py' -v
+.venv/bin/python tools/ai-cad/verify_mcp.py
+python3 scripts/check.py
+```
+
+[Example artifacts](../../examples/ai-cad/README.md) contain both commands, actual JSON results, a reopenable document and a screenshot. The integration tests exercise the compiled Rust engine, constraints, undo/reopen, exact retry receipts, failed saves and competing processes. The stdio test uses the official MCP client; it does not consume model inference or substitute for an authenticated natural-language end-to-end test. CI repeats the contract tests on Linux.
+
+## Architecture and limits
+
+`crates/model-engine` owns model interpretation and exact geometry; it currently imports the bounded research crate in `experiments/2026-10-15-rust-boundary`. `store.py` owns revisions, locking, receipts, undo and atomic file publication. CLI, MCP and browser share that host. Moving kernel code to a maintained production crate remains future work.
+
+The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Full model/history revalidation and a new Rust process per evaluation favor correctness and isolation over throughput; this is not the final large-document scheduler.
+
+No sketches, constraint solver beyond fixed values, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+
+The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.

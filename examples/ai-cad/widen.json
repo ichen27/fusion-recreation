@@ -1,0 +1,7 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "demo-widen-v1",
+  "preserve": ["depth", "thickness", "corner_size"],
+  "operations": [{"op": "adjust_parameter", "id": "width", "delta_mm": "20"}]
+}

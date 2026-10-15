@@ -1,0 +1,318 @@
+const $ = (id) => document.getElementById(id);
+let saved,
+  preview,
+  proposed,
+  editPending = false,
+  busy = false;
+const canvas = $("viewport");
+const gl = canvas.getContext("webgl2", { antialias: true });
+let yaw = -0.65,
+  pitch = 0.65,
+  zoom = 1,
+  triangles = [],
+  lines = [],
+  center = [0, 0, 0],
+  extent = 100;
+function shader(type, source) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, source);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS))
+    throw Error(gl.getShaderInfoLog(s));
+  return s;
+}
+let program, buffer;
+if (gl) {
+  program = gl.createProgram();
+  gl.attachShader(
+    program,
+    shader(
+      gl.VERTEX_SHADER,
+      `#version 300 es
+    in vec3 position; in vec3 color; out vec3 tint;
+    uniform vec3 center; uniform vec2 angles; uniform float extent; uniform float aspect;
+    void main(){ vec3 p=(position-center)/extent;
+      float c=cos(angles.x),s=sin(angles.x);p=vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);
+      c=cos(angles.y);s=sin(angles.y);p=vec3(p.x,-s*p.y+c*p.z,c*p.y+s*p.z);
+      gl_Position=vec4(p.x/aspect,p.y,-p.z*0.2,1.0);tint=color; }`,
+    ),
+  );
+  gl.attachShader(
+    program,
+    shader(
+      gl.FRAGMENT_SHADER,
+      `#version 300 es
+    precision highp float; in vec3 tint; out vec4 outputColor;
+    void main(){outputColor=vec4(tint,1.0);}`,
+    ),
+  );
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+    throw Error(gl.getProgramInfoLog(program));
+  buffer = gl.createBuffer();
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  for (const [name, offset] of [
+    ["position", 0],
+    ["color", 12],
+  ]) {
+    const location = gl.getAttribLocation(program, name);
+    gl.enableVertexAttribArray(location);
+    gl.vertexAttribPointer(location, 3, gl.FLOAT, false, 24, offset);
+  }
+  gl.enable(gl.DEPTH_TEST);
+} else {
+  $("status").textContent =
+    "WebGL 2 is unavailable. Model editing remains available.";
+}
+const number = (s) => {
+  const parts = s.split("/").map(Number);
+  return parts.length === 2 ? parts[0] / parts[1] : parts[0];
+};
+function geometry(bodies) {
+  triangles = [];
+  lines = [];
+  const all = [];
+  for (const body of bodies) {
+    const b = body.boundary,
+      vertices = b.vertices.map((p) => p.map(number));
+    all.push(...vertices);
+    for (const face of b.faces) {
+      const ids = face.loops[0].map(
+        (u) => b.edges[u.edge].vertices[u.forward ? 0 : 1],
+      );
+      const n = face.normal.map(number),
+        length = Math.hypot(...n);
+      const shade =
+        0.72 + (0.25 * (n[0] * 0.3 + n[1] * -0.4 + n[2] * 0.86)) / length;
+      const color = [0.36 * shade, 0.65 * shade, 0.58 * shade];
+      for (let i = 1; i < ids.length - 1; i++)
+        for (const id of [ids[0], ids[i], ids[i + 1]])
+          triangles.push(...vertices[id], ...color);
+    }
+    for (const edge of b.edges)
+      for (const id of edge.vertices)
+        lines.push(...vertices[id], 0.15, 0.31, 0.27);
+  }
+  if (all.length) {
+    const min = [0, 1, 2].map((i) => Math.min(...all.map((p) => p[i]))),
+      max = [0, 1, 2].map((i) => Math.max(...all.map((p) => p[i])));
+    center = min.map((v, i) => (v + max[i]) / 2);
+    extent = Math.max(...max.map((v, i) => v - min[i])) * 0.85;
+  }
+  draw();
+}
+function draw() {
+  if (!gl) return;
+  const ratio = Math.min(devicePixelRatio, 2),
+    w = Math.round(canvas.clientWidth * ratio),
+    h = Math.round(canvas.clientHeight * ratio);
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+  }
+  gl.viewport(0, 0, w, h);
+  gl.clearColor(0, 0, 0, 0);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.uniform3fv(gl.getUniformLocation(program, "center"), center);
+  gl.uniform2f(gl.getUniformLocation(program, "angles"), yaw, pitch);
+  gl.uniform1f(gl.getUniformLocation(program, "extent"), extent / zoom);
+  gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
+  gl.enable(gl.POLYGON_OFFSET_FILL);
+  gl.polygonOffset(1, 1);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangles), gl.DYNAMIC_DRAW);
+  gl.drawArrays(gl.TRIANGLES, 0, triangles.length / 6);
+  gl.disable(gl.POLYGON_OFFSET_FILL);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lines), gl.DYNAMIC_DRAW);
+  gl.drawArrays(gl.LINES, 0, lines.length / 6);
+}
+let pointer;
+canvas.addEventListener("pointerdown", (e) => {
+  pointer = [e.clientX, e.clientY];
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (!pointer) return;
+  yaw += (e.clientX - pointer[0]) * 0.008;
+  pitch += (e.clientY - pointer[1]) * 0.008;
+  pointer = [e.clientX, e.clientY];
+  draw();
+});
+canvas.addEventListener("pointerup", () => (pointer = null));
+canvas.addEventListener("pointercancel", () => (pointer = null));
+canvas.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault();
+    zoom = Math.min(4, Math.max(0.3, zoom * Math.exp(-e.deltaY * 0.001)));
+    draw();
+  },
+  { passive: false },
+);
+new ResizeObserver(draw).observe(canvas);
+function controls() {
+  $("undo").disabled = busy || !!preview || !saved?.can_undo;
+  $("redo").disabled = busy || !!preview || !saved?.can_redo;
+  $("commit").disabled = busy;
+  $("dimensions").querySelector("button").disabled = busy || !!preview;
+}
+function render(state) {
+  $("revision").textContent = `Revision ${state.revision} · Millimeters`;
+  $("mode").textContent = preview ? "EDIT PREVIEW" : "SAVED MODEL";
+  $("preview-actions").hidden = !preview;
+  $("features").replaceChildren(
+    ...state.model.features.map((f) => {
+      const div = document.createElement("div");
+      div.className = "feature";
+      div.textContent = `${f.kind === "block" ? "◇" : "◩"}  ${f.id} · ${f.kind.replaceAll("_", " ")}`;
+      return div;
+    }),
+  );
+  $("parameters").replaceChildren(
+    ...Object.entries(state.model.parameters).map(([id, value]) => {
+      const div = document.createElement("div");
+      div.className = "field";
+      const label = document.createElement("label");
+      label.htmlFor = `p-${id}`;
+      label.textContent = id.replaceAll("_", " ");
+      const fixed = id in state.model.fixed;
+      if (fixed) {
+        const note = document.createElement("small");
+        note.textContent = "FIXED";
+        label.append(note);
+      }
+      const input = document.createElement("input");
+      input.id = `p-${id}`;
+      input.name = id;
+      input.value = value;
+      input.disabled = fixed || !!preview;
+      input.autocomplete = "off";
+      input.addEventListener("input", () => (editPending = true));
+      div.append(label, input);
+      return div;
+    }),
+  );
+  $("volume").textContent = state.bodies.length
+    ? state.bodies
+        .map(
+          (b) =>
+            `${number(b.volume_mm3).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm³`,
+        )
+        .join(" + ")
+    : "Empty document";
+  $("volume").title = state.bodies
+    .map((b) => `${b.feature_id}: ${b.volume_mm3} mm³ (exact)`)
+    .join("\n");
+  geometry(state.bodies);
+  controls();
+}
+async function call(command) {
+  const response = await fetch("/api/command", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(command),
+  });
+  const data = await response.json();
+  if (data.error) throw Error(`${data.error.code}: ${data.error.message}`);
+  return data.result;
+}
+async function refresh(force = false) {
+  if (busy) return;
+  try {
+    const data = await (await fetch("/api/model")).json();
+    if (data.error) throw Error(data.error.message);
+    if (busy || (saved && data.result.revision < saved.revision)) return;
+    if ((preview || editPending) && !force) {
+      if (data.result.revision !== saved.revision)
+        $("status").textContent =
+          "The saved model changed elsewhere. Your edit remains visible; refresh to discard it and replan.";
+      return;
+    }
+    if (force || !saved || data.result.revision !== saved.revision) {
+      saved = data.result;
+      preview = null;
+      editPending = false;
+      render(saved);
+      $("status").textContent =
+        "Saved model loaded. All geometric checks passed.";
+    }
+  } catch (e) {
+    $("status").textContent = e.message;
+  }
+}
+async function task(fn) {
+  busy = true;
+  controls();
+  try {
+    await fn();
+  } catch (e) {
+    $("status").textContent = e.message;
+  } finally {
+    busy = false;
+    controls();
+  }
+}
+$("dimensions").addEventListener("submit", (e) => {
+  e.preventDefault();
+  task(async () => {
+    if (!saved) return;
+    const operations = [];
+    for (const input of $("parameters").querySelectorAll("input"))
+      if (!input.disabled && input.value !== saved.model.parameters[input.name])
+        operations.push({
+          op: "set_parameter",
+          id: input.name,
+          mm: input.value,
+        });
+    if (!operations.length)
+      throw Error(
+        "Change an unlocked dimension first. Use integers or fractions, such as 25/2.",
+      );
+    const changed = new Set(operations.map((o) => o.id));
+    proposed = {
+      expected_revision: saved.revision,
+      operations,
+      preserve: Object.keys(saved.model.parameters).filter(
+        (id) => !changed.has(id),
+      ),
+    };
+    preview = await call({ action: "preview", ...proposed });
+    render(preview);
+    $("status").textContent =
+      "Preview valid. Fixed dimensions and preserved parameters are unchanged.";
+  });
+});
+$("commit").addEventListener("click", () =>
+  task(async () => {
+    // Retain the same transaction ID for an uncertain acknowledgement and retry.
+    proposed.transaction_id ??= crypto.randomUUID();
+    saved = await call({ action: "commit", ...proposed });
+    preview = null;
+    editPending = false;
+    render(saved);
+    $("status").textContent = "Edit saved. Undo is available.";
+  }),
+);
+$("cancel").addEventListener("click", () => {
+  preview = null;
+  editPending = false;
+  render(saved);
+  $("status").textContent = "Preview discarded.";
+});
+for (const action of ["undo", "redo"])
+  $(action).addEventListener("click", () =>
+    task(async () => {
+      saved = await call({
+        action,
+        expected_revision: saved.revision,
+        transaction_id: crypto.randomUUID(),
+      });
+      editPending = false;
+      render(saved);
+      $("status").textContent =
+        `${action === "undo" ? "Undo" : "Redo"} saved as revision ${saved.revision}.`;
+    }),
+  );
+$("refresh").addEventListener("click", () => refresh(true));
+await refresh();
+setInterval(() => refresh(), 2000);

@@ -1,0 +1,16 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "demo-create-v1",
+  "preserve": [],
+  "operations": [
+    {"op": "define_parameter", "id": "width", "mm": "100"},
+    {"op": "define_parameter", "id": "depth", "mm": "60"},
+    {"op": "define_parameter", "id": "thickness", "mm": "12"},
+    {"op": "define_parameter", "id": "corner_size", "mm": "10"},
+    {"op": "add_feature", "feature": {"kind": "block", "id": "stock", "width": "width", "depth": "depth", "height": "thickness"}},
+    {"op": "add_feature", "feature": {"kind": "corner_cut", "id": "corner", "input": "stock", "size": "corner_size"}},
+    {"op": "fix_parameter", "id": "thickness"},
+    {"op": "fix_parameter", "id": "corner_size"}
+  ]
+}

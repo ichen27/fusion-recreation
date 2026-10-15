@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Original CAD · Model workspace</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="mark">◈</span> ORIGINAL CAD
+        <span class="badge">EARLY ENGINE</span>
+      </div>
+      <span id="revision">Connecting…</span>
+    </header>
+    <main>
+      <aside>
+        <p class="eyebrow">EDITABLE MODEL</p>
+        <h1>Corner block</h1>
+        <p class="subtle">Precise geometry. Shared intent.</p>
+        <div id="features"></div>
+        <h2>Dimensions <span>mm</span></h2>
+        <form id="dimensions">
+          <div id="parameters"></div>
+          <button type="submit" class="primary">Preview changes</button>
+        </form>
+        <div class="actions">
+          <button id="undo">Undo</button><button id="redo">Redo</button>
+        </div>
+        <p class="hint">
+          Fixed dimensions stay locked across human and AI edits.
+        </p>
+      </aside>
+      <section class="scene">
+        <div class="scene-label">
+          <span id="mode">SAVED MODEL</span
+          ><span>Drag to orbit · Scroll to zoom</span>
+        </div>
+        <canvas
+          id="viewport"
+          aria-label="Interactive 3D model viewport"
+        ></canvas>
+        <div class="measure">
+          <span>Exact solid volume</span><strong id="volume">—</strong>
+        </div>
+        <div id="preview-actions" hidden>
+          <span>Unsaved preview</span
+          ><button id="commit" class="primary">Save edit</button
+          ><button id="cancel">Discard</button>
+        </div>
+      </section>
+      <aside class="activity">
+        <p class="eyebrow">CONNECTED WORKFLOW</p>
+        <h2>Your AI, your engine.</h2>
+        <p>
+          Use the CAD tools in Codex or Claude Code. Committed edits appear here
+          automatically.
+        </p>
+        <blockquote>
+          “Make it 20 mm wider. Keep the thickness and corner cut.”
+        </blockquote>
+        <div class="status-dot">Exact Rust geometry · mm</div>
+        <h2>Model feedback</h2>
+        <p id="status" role="status">Loading saved document…</p>
+        <button id="refresh">Refresh model</button>
+        <details>
+          <summary>Supported geometry</summary>
+          <p>
+            Origin-aligned blocks and a 45° vertical cut at the +X/+Y corner.
+            Cut size is its setback along each edge. This is a bounded engine
+            prototype.
+          </p>
+        </details>
+      </aside>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

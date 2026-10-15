@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Loopback-only CAD viewer. Forward this port over SSH for a remote browser."""
+
+import argparse
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+from pathlib import Path
+from store import Store, dispatch
+
+
+def handler(store, port):
+    class Handler(BaseHTTPRequestHandler):
+        def reply(self, status, data, content_type="application/json"):
+            self.send_response(status)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header(
+                "Content-Security-Policy",
+                "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'",
+            )
+            self.end_headers()
+            self.wfile.write(data)
+
+        def allowed(self):
+            hosts = {f"127.0.0.1:{port}", f"localhost:{port}"}
+            origin = self.headers.get("Origin")
+            return self.headers.get("Host") in hosts and (
+                origin is None or origin in {"http://" + h for h in hosts}
+            )
+
+        def do_GET(self):
+            if not self.allowed():
+                return self.reply(403, b"{}")
+            if self.path == "/api/model":
+                return self.reply(
+                    200, json.dumps(dispatch(store, {"action": "inspect"})).encode()
+                )
+            files = {
+                "/": ("index.html", "text/html; charset=utf-8"),
+                "/app.js": ("app.js", "text/javascript"),
+                "/style.css": ("style.css", "text/css"),
+            }
+            if self.path not in files:
+                return self.reply(404, b"{}")
+            name, kind = files[self.path]
+            self.reply(200, (Path(__file__).parent / "web" / name).read_bytes(), kind)
+
+        def do_POST(self):
+            if (
+                not self.allowed()
+                or self.headers.get("Content-Type") != "application/json"
+            ):
+                return self.reply(403, b"{}")
+            if self.path != "/api/command":
+                return self.reply(404, b"{}")
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 0 < length <= 262144:
+                    return self.reply(413, b"{}")
+                self.connection.settimeout(5)
+                command = json.loads(self.rfile.read(length))
+                reply = dispatch(store, command)
+                self.reply(400 if "error" in reply else 200, json.dumps(reply).encode())
+            except (ValueError, TimeoutError):
+                self.reply(400, b'{"error":{"message":"Invalid JSON request"}}')
+
+    return Handler
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--store", required=True)
+    parser.add_argument("--port", type=int, default=8765)
+    args = parser.parse_args()
+    server = HTTPServer(("127.0.0.1", args.port), handler(Store(args.store), args.port))
+    print(f"CAD viewer: http://127.0.0.1:{args.port}", flush=True)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
