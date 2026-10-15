@@ -31,6 +31,12 @@ GitHub reflects pushed commits; local edits are not a live autosave.
 
 - [Shared boundary topology](docs/research/2026-10-12-shared-topology-experiment.md): common analytic face/edge/vertex representation and validation; 54 OCCT comparisons.
 
+- [Custom Rust boundary clipping](experiments/2026-10-15-rust-boundary/README.md):
+  original exact plane clipping directly on shared convex planar boundaries, with
+  48 OCCT reference comparisons. This continues the custom-engine research;
+  the C++ application below still uses OCCT. Source, JSON fixtures, measured
+  results and PNG/SVG illustrations are included.
+
 ## Native foundation
 On 2026-10-12 Ivan authorized autonomous execution of the foundation plan.
 The native foundation uses C++20, pinned OCCT/OCAF and planeGCS. Experimental Python probes remain separate.

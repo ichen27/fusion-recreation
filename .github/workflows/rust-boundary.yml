@@ -1,0 +1,31 @@
+name: Rust boundary research
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  exact-clipping:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: experiments/2026-10-15-rust-boundary
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo test --locked
+      - run: cargo build --release --locked
+      - run: python verify.py
+      - name: Compare against independent OCCT operations
+        run: |
+          python -m pip install cadquery-ocp==8.0.1.1.0
+          python compare_occt.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rust-boundary-occt-evidence
+          path: experiments/2026-10-15-rust-boundary/occt-comparison.json
