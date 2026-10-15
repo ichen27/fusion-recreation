@@ -5,7 +5,11 @@ Canonical checkout: /Volumes/SamsungSSD1/code/fusion-recreation on the Mac mini.
 Read /Volumes/SamsungSSD1/AGENTS.md and the registry before edits.
 
 ## Architecture and scope
-The full app has an approved browser/OCCT architecture and an implemented headless foundation.
+Current objective (2026-10-15): an original AI-native CAD/3D modeling engine.
+For Rust model, subscription-client MCP, document host or viewer work, read
+tools/ai-cad/README.md and docs/ai-cad-contract.md; validation is listed there.
+crates/model-engine currently depends on the exact boundary research crate.
+Preserve the earlier browser/OCCT architecture and headless C++ foundation as a separate track.
 include/cad and src contain original native application code; see docs/native-protocol.md.
 experiments/ contains disposable research source, not production application code.
 Keep each probe isolated; document precision, supported geometry, failure modes and evidence.
