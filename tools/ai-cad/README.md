@@ -2,7 +2,7 @@
 
 A bounded working slice of an original CAD engine. A signed-in Codex or Claude Code client can use typed MCP tools to inspect and change a local editable model. The same document is visible and editable in a WebGL 2 browser viewer. Geometry is computed by our Rust boundary kernel, with no OCCT modeling fallback.
 
-**Status:** working model/command contract and tested MCP transport, not a general CAD product. Natural-language reasoning happens in the connected agent client. The viewer has dimension controls, not an embedded AI chat. A fresh authenticated subscription-client conversation has not yet been verified.
+**Status:** working model/command contract and tested MCP transport, not a general CAD product. Natural-language reasoning happens in the connected agent client. The viewer has dimension controls, not an embedded AI chat. A live two-turn Codex conversation using ChatGPT sign-in has now created and widened the part through MCP. [Recording, editable snapshots and replay check](../../examples/ai-cad/live-codex/README.md) are included. Claude Code remains transport-compatible but has not been tested with an authenticated session.
 
 ## Quickstart
 
@@ -44,6 +44,15 @@ In your agent client's MCP settings, register a **stdio** server:
 }
 ```
 
+For the Codex CLI, the equivalent registration is:
+
+```sh
+codex mcp add original-cad -- /absolute/path/to/repository/.venv/bin/python /absolute/path/to/repository/tools/ai-cad/mcp_server.py --store /absolute/path/to/working-part.cad.json
+codex mcp get original-cad
+```
+
+Start a new Codex session after registration so the tools are loaded. Ask it to use `original-cad`; the configuration entry is named with a hyphen, and clients may normalize tool names. To remove the connection, run `codex mcp remove original-cad` (the CAD document remains on disk).
+
 Use absolute paths and choose the same document for viewer and MCP. The store path is host configuration; the model cannot request arbitrary paths through the CAD tools. For a client on another computer, launch this exact command over your existing SSH connection to the computation host. Python, the Rust binary and the document must all be on that host.
 
 With Codex signed in through an eligible ChatGPT plan, the agent uses subscription access. Claude Code also supports signing in with a Claude subscription and using MCP tools. The CAD server does not read or forward provider credentials. Plan limits still apply. This is a user-operated agent workflow; embedding inference inside a distributed app is a separate product/authentication decision.
@@ -78,10 +87,11 @@ cargo +1.85.1 fmt --manifest-path crates/model-engine/Cargo.toml --check
 cargo +1.85.1 clippy --manifest-path crates/model-engine/Cargo.toml --locked --all-targets -- -D warnings
 python3 -m unittest discover -s tools/ai-cad -p 'test_*.py' -v
 .venv/bin/python tools/ai-cad/verify_mcp.py
+python3 tools/ai-cad/verify_codex_recording.py
 python3 scripts/check.py
 ```
 
-[Example artifacts](../../examples/ai-cad/README.md) contain both commands, actual JSON results, a reopenable document and a screenshot. The integration tests exercise the compiled Rust engine, constraints, undo/reopen, exact retry receipts, failed saves and competing processes. The stdio test uses the official MCP client; it does not consume model inference or substitute for an authenticated natural-language end-to-end test. CI repeats the contract tests on Linux.
+[Example artifacts](../../examples/ai-cad/README.md) contain both commands, actual JSON results, a reopenable document and a screenshot. The integration tests exercise the compiled Rust engine, constraints, undo/reopen, exact retry receipts, failed saves and competing processes. The stdio test uses the official MCP client; it does not consume model inference. The separate live Codex recording documents one authenticated natural-language run; its replay check validates those accepted commands without repeating inference. CI repeats the contract tests on Linux.
 
 ## Architecture and limits
 

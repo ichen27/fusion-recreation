@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "client": "codex-cli 0.159.2",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "authentication": "Logged in using ChatGPT (codex login status)",
+  "source_commit": "b0199b11f1e2d55ae7a881f1a8480b9d76e766ba",
+  "same_conversation": true,
+  "notes": [
+    "Two live natural-language turns; second used codex exec resume with the first conversation ID.",
+    "Only original_cad MCP tool calls executed; no shell or file edits.",
+    "Raw event logs, runtime paths and conversation IDs remain local; reasoning is not included.",
+    "The only client warning was the under-development skip_host_skill_discovery feature used to isolate this test."
+  ],
+  "kernel_binary_sha256": "504178ad380cff9a66053adb6e05ee6a79897a01acf6694e783985d5738a6485",
+  "turns": [
+    {
+      "prompt": "Use only the original_cad MCP tools to operate the CAD document. This is a CAD modeling session, not a software development task. Create a 100 x 60 x 12 mm block. Cut the +X/+Y vertical corner with a 10 mm setback along each adjacent edge. Fix thickness and corner size. Inspect, preview, then commit. Report the saved dimensions and exact solid volume. You are authorized to commit this requested model.",
+      "calls": [
+        {
+          "tool": "cad_inspect",
+          "arguments": {},
+          "observed": {
+            "revision": 0,
+            "model": {
+              "features": [],
+              "fixed": {},
+              "parameters": {}
+            },
+            "changed_parameters": [],
+            "can_undo": false,
+            "can_redo": false,
+            "preview": false,
+            "bodies": []
+          }
+        },
+        {
+          "tool": "cad_preview",
+          "arguments": {
+            "expected_revision": 0,
+            "operations": [
+              {
+                "op": "define_parameter",
+                "id": "width",
+                "mm": "100"
+              },
+              {
+                "op": "define_parameter",
+                "id": "depth",
+                "mm": "60"
+              },
+              {
+                "op": "define_parameter",
+                "id": "thickness",
+                "mm": "12"
+              },
+              {
+                "op": "define_parameter",
+                "id": "corner_size",
+                "mm": "10"
+              },
+              {
+                "op": "add_feature",
+                "feature": {
+                  "kind": "block",
+                  "id": "block",
+                  "width": "width",
+                  "depth": "depth",
+                  "height": "thickness"
+                }
+              },
+              {
+                "op": "add_feature",
+                "feature": {
+                  "kind": "corner_cut",
+                  "id": "corner_cut",
+                  "input": "block",
+                  "size": "corner_size"
+                }
+              },
+              {
+                "op": "fix_parameter",
+                "id": "thickness"
+              },
+              {
+                "op": "fix_parameter",
+                "id": "corner_size"
+              }
+            ],
+            "preserve": []
+          },
+          "observed": {
+            "revision": 0,
+            "model": {
+              "features": [
+                {
+                  "depth": "depth",
+                  "height": "thickness",
+                  "id": "block",
+                  "kind": "block",
+                  "width": "width"
+                },
+                {
+                  "id": "corner_cut",
+                  "input": "block",
+                  "kind": "corner_cut",
+                  "size": "corner_size"
+                }
+              ],
+              "fixed": {
+                "corner_size": "10",
+                "thickness": "12"
+              },
+              "parameters": {
+                "corner_size": "10",
+                "depth": "60",
+                "thickness": "12",
+                "width": "100"
+              }
+            },
+            "changed_parameters": [
+              "corner_size",
+              "depth",
+              "thickness",
+              "width"
+            ],
+            "can_undo": false,
+            "can_redo": false,
+            "preview": true,
+            "bodies": [
+              {
+                "feature_id": "corner_cut",
+                "volume_mm3": "71400"
+              }
+            ]
+          }
+        },
+        {
+          "tool": "cad_commit",
+          "arguments": {
+            "expected_revision": 0,
+            "operations": [
+              {
+                "op": "define_parameter",
+                "id": "width",
+                "mm": "100"
+              },
+              {
+                "op": "define_parameter",
+                "id": "depth",
+                "mm": "60"
+              },
+              {
+                "op": "define_parameter",
+                "id": "thickness",
+                "mm": "12"
+              },
+              {
+                "op": "define_parameter",
+                "id": "corner_size",
+                "mm": "10"
+              },
+              {
+                "op": "add_feature",
+                "feature": {
+                  "kind": "block",
+                  "id": "block",
+                  "width": "width",
+                  "depth": "depth",
+                  "height": "thickness"
+                }
+              },
+              {
+                "op": "add_feature",
+                "feature": {
+                  "kind": "corner_cut",
+                  "id": "corner_cut",
+                  "input": "block",
+                  "size": "corner_size"
+                }
+              },
+              {
+                "op": "fix_parameter",
+                "id": "thickness"
+              },
+              {
+                "op": "fix_parameter",
+                "id": "corner_size"
+              }
+            ],
+            "preserve": [],
+            "transaction_id": "create-block-corner-20261015-01"
+          },
+          "observed": {
+            "revision": 1,
+            "model": {
+              "features": [
+                {
+                  "depth": "depth",
+                  "height": "thickness",
+                  "id": "block",
+                  "kind": "block",
+                  "width": "width"
+                },
+                {
+                  "id": "corner_cut",
+                  "input": "block",
+                  "kind": "corner_cut",
+                  "size": "corner_size"
+                }
+              ],
+              "fixed": {
+                "corner_size": "10",
+                "thickness": "12"
+              },
+              "parameters": {
+                "corner_size": "10",
+                "depth": "60",
+                "thickness": "12",
+                "width": "100"
+              }
+            },
+            "changed_parameters": [
+              "corner_size",
+              "depth",
+              "thickness",
+              "width"
+            ],
+            "can_undo": true,
+            "can_redo": false,
+            "committed_revision": 1,
+            "replayed": false,
+            "bodies": [
+              {
+                "feature_id": "corner_cut",
+                "volume_mm3": "71400"
+              }
+            ]
+          }
+        }
+      ],
+      "assistant_messages": [
+        "I\u2019ll create the block and corner cut, verify the fixed dimensions, inspect the preview, then commit the model and report its saved dimensions and exact volume.",
+        "Inspected, previewed, and committed as revision 1.\n\n- Saved dimensions: **100 \u00d7 60 \u00d7 12 mm**\n- +X/+Y vertical corner cut: **10 mm setback along each adjacent edge**\n- Fixed: **12 mm thickness** and **10 mm corner size**\n- Exact solid volume: **71,400 mm\u00b3**"
+      ],
+      "usage": {
+        "input_tokens": 95356,
+        "cached_input_tokens": 73728,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 475,
+        "reasoning_output_tokens": 0
+      },
+      "raw_event_sha256": "b6e5d1a9560eeea3209793b1ba0bd9ebb56ced9888316a0cdbd5618939a7644b"
+    },
+    {
+      "prompt": "Make that block 20 mm wider while preserving its depth, thickness, and corner-cut size. Update the existing model, preview the edit, then commit it. Report what changed and the exact volume.",
+      "calls": [
+        {
+          "tool": "cad_inspect",
+          "arguments": {},
+          "observed": {
+            "revision": 1,
+            "model": {
+              "features": [
+                {
+                  "depth": "depth",
+                  "height": "thickness",
+                  "id": "block",
+                  "kind": "block",
+                  "width": "width"
+                },
+                {
+                  "id": "corner_cut",
+                  "input": "block",
+                  "kind": "corner_cut",
+                  "size": "corner_size"
+                }
+              ],
+              "fixed": {
+                "corner_size": "10",
+                "thickness": "12"
+              },
+              "parameters": {
+                "corner_size": "10",
+                "depth": "60",
+                "thickness": "12",
+                "width": "100"
+              }
+            },
+            "changed_parameters": [],
+            "can_undo": true,
+            "can_redo": false,
+            "preview": false,
+            "bodies": [
+              {
+                "feature_id": "corner_cut",
+                "volume_mm3": "71400"
+              }
+            ]
+          }
+        },
+        {
+          "tool": "cad_preview",
+          "arguments": {
+            "expected_revision": 1,
+            "operations": [
+              {
+                "op": "adjust_parameter",
+                "id": "width",
+                "delta_mm": "20"
+              }
+            ],
+            "preserve": [
+              "depth",
+              "thickness",
+              "corner_size"
+            ]
+          },
+          "observed": {
+            "revision": 1,
+            "model": {
+              "features": [
+                {
+                  "depth": "depth",
+                  "height": "thickness",
+                  "id": "block",
+                  "kind": "block",
+                  "width": "width"
+                },
+                {
+                  "id": "corner_cut",
+                  "input": "block",
+                  "kind": "corner_cut",
+                  "size": "corner_size"
+                }
+              ],
+              "fixed": {
+                "corner_size": "10",
+                "thickness": "12"
+              },
+              "parameters": {
+                "corner_size": "10",
+                "depth": "60",
+                "thickness": "12",
+                "width": "120"
+              }
+            },
+            "changed_parameters": [
+              "width"
+            ],
+            "can_undo": true,
+            "can_redo": false,
+            "preview": true,
+            "bodies": [
+              {
+                "feature_id": "corner_cut",
+                "volume_mm3": "85800"
+              }
+            ]
+          }
+        },
+        {
+          "tool": "cad_commit",
+          "arguments": {
+            "expected_revision": 1,
+            "operations": [
+              {
+                "op": "adjust_parameter",
+                "id": "width",
+                "delta_mm": "20"
+              }
+            ],
+            "preserve": [
+              "depth",
+              "thickness",
+              "corner_size"
+            ],
+            "transaction_id": "widen-block-20mm-20261015-02"
+          },
+          "observed": {
+            "revision": 2,
+            "model": {
+              "features": [
+                {
+                  "depth": "depth",
+                  "height": "thickness",
+                  "id": "block",
+                  "kind": "block",
+                  "width": "width"
+                },
+                {
+                  "id": "corner_cut",
+                  "input": "block",
+                  "kind": "corner_cut",
+                  "size": "corner_size"
+                }
+              ],
+              "fixed": {
+                "corner_size": "10",
+                "thickness": "12"
+              },
+              "parameters": {
+                "corner_size": "10",
+                "depth": "60",
+                "thickness": "12",
+                "width": "120"
+              }
+            },
+            "changed_parameters": [
+              "width"
+            ],
+            "can_undo": true,
+            "can_redo": false,
+            "committed_revision": 2,
+            "replayed": false,
+            "bodies": [
+              {
+                "feature_id": "corner_cut",
+                "volume_mm3": "85800"
+              }
+            ]
+          }
+        }
+      ],
+      "assistant_messages": [
+        "I\u2019ll inspect the saved model, increase its width by 20 mm, and preview and commit the edit while preserving the other dimensions.",
+        "Previewed and committed the existing model as revision 2.\n\n- Width increased **100 \u2192 120 mm**.\n- Depth **60 mm**, thickness **12 mm**, and corner setback **10 mm** preserved.\n- Thickness and corner size remain fixed.\n- Exact solid volume: **85,800 mm\u00b3**."
+      ],
+      "usage": {
+        "input_tokens": 199247,
+        "cached_input_tokens": 171008,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 878,
+        "reasoning_output_tokens": 0
+      },
+      "raw_event_sha256": "c700449f059527e6f33201bf218ead6fb8fa6c0066ed89d0d5be1587dde66ab9"
+    }
+  ]
+}
