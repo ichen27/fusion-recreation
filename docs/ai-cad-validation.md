@@ -17,3 +17,9 @@ The browser screenshot is [included](../examples/ai-cad/viewer.png). It shows th
 MCP transport was tested with the official SDK client, not a new signed-in Codex/Claude conversation. No provider credential, account configuration or paid inference was used by the test harness. Natural-language quality and subscription-client configuration remain to be evaluated in a fresh client session. The deterministic fixtures should not be described as recorded model outputs.
 
 File/directory fsync failure injection is not physical power-loss certification. Geometry is limited to the supported exact planar feature subset; this evidence does not establish general CAD robustness or large-document performance. WebGL 2 rendering does not implement GPU geometry computation. CI repeats model/transport checks on Linux; browser verification here is manual, not an automated visual regression suite.
+
+## Follow-up: authenticated Codex run
+
+On 2026-10-15, Codex CLI 0.159.2 authenticated via ChatGPT successfully completed two natural-language turns in the same conversation using the existing configured model, gpt-6-astra (high). Turn 1 inspected, previewed and committed the 100×60×12 mm block with a 10 mm corner setback. Turn 2 inspected, previewed and committed an adjustment of width by 20 mm while explicitly preserving depth, thickness and corner size. Feature IDs and fixed constraints were retained. Exact volumes were 71400 and 85800 mm³.
+
+[The live recording](../examples/ai-cad/live-codex/README.md) supersedes the earlier unverified-Codex-session limitation above. It does not establish Claude authentication, desktop hot-loading, reliability across a wider task corpus, or a full CAD product. The recorded calls and editable snapshots can be verified offline with `python3 tools/ai-cad/verify_codex_recording.py`; CI runs this replay without credentials or model inference.

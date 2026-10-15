@@ -14,3 +14,7 @@ All files are synthetic project examples, not private user designs.
 The JSON commands are explicit accepted programs corresponding to the two natural-language instructions. They are not a claim of a recorded live model inference run. Reproduce them with the [quickstart](../../tools/ai-cad/README.md). Exact rational geometry is in the replies; float triangles exist only in the viewer. The saved snapshot uses a checksum envelope and should be changed through the host, not by hand.
 
 License/ownership follows the repository; no public redistribution license for original source/artifacts has been selected. No third-party CAD data is included.
+
+## Live subscription-client run
+
+A separate [live Codex recording](live-codex/README.md) now contains the actual tool calls from two natural-language turns using ChatGPT sign-in. The deterministic fixtures above remain the original baseline and are not relabeled as live model output.
