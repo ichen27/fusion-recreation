@@ -8,6 +8,7 @@ saving them here does not promote them to production code.
 - 2026-10-11-cylinder-kernel: separate analytic parallel-axis cylinders and circular holes.
 - 2026-10-11-shared-document: common editing, validation dispatch and JSON persistence.
 - 2026-10-12-shared-topology: shared analytic boundary representation and incidence validation.
+- 2026-10-15-rust-boundary: exact convex half-space clipping directly on shared boundaries in Rust.
 
 The first three originated under /Volumes/SamsungSSD1/tools/fusion-recreation/experiments.
 Those copies remain unchanged as historical evidence. Future source work belongs here.
@@ -17,5 +18,10 @@ The repository versions use relative helper imports and a portable render-cache 
 New tests run from this checkout; do not treat historical hashes as current-source hashes.
 
 Run all dependency-free suites with `python3 scripts/check.py` from the repository root.
-Optional OCCT comparisons run separately; CI does not claim to run OCCT or STEP checks.
+For those earlier Python probes, optional OCCT comparisons run separately; their
+CI does not claim to run OCCT or STEP checks.
 Do not commit dependency installations, vendor artifacts or user designs.
+
+The Rust probe has its own Cargo and Python integration commands; see its README.
+Its separate Linux CI job also runs the pinned OCCT reference comparison. This
+does not change the comparison coverage of the earlier Python probes.

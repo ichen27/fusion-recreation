@@ -13,3 +13,7 @@ build-*/
 
 # Native CI dependency cache (never source).
 .cad-deps/
+
+# Rust build output and local task scratch (fixtures/reports stay tracked).
+target/
+/work/
