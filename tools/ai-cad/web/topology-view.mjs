@@ -16,7 +16,7 @@ function label(reference) {
   };
   return `Hole ${role[1]} · ${names[role[2]] ?? role[2]}`;
 }
-export function renderTopology(container, info) {
+export function renderTopology(container, info, onSelect) {
   container.replaceChildren();
   const summary = document.createElement("p");
   summary.textContent = `${Object.keys(info.surfaces).length} surfaces · ${info.shells.length} closed shell${info.shells.length === 1 ? "" : "s"} · ${info.components.length} material component${info.components.length === 1 ? "" : "s"}.`;
@@ -39,6 +39,15 @@ export function renderTopology(container, info) {
         : `Plane · normal (${surface.normal.join(", ")}); normal · position = ${surface.offset}.`;
     id.textContent = `Reference: ${reference}`;
     details.append(title, geometry, id);
+    if (onSelect) {
+      const select = document.createElement("button");
+      select.type = "button";
+      select.dataset.surface = reference;
+      select.textContent = "Select surface";
+      select.setAttribute("aria-label", `Select ${label(reference)}`);
+      select.addEventListener("click", () => onSelect(reference));
+      details.append(select);
+    }
     container.append(details);
   }
 }

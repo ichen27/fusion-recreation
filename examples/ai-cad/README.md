@@ -89,3 +89,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Counterbored through-holes](counterbores/README.md): browser/MCP authoring, editable recess dimensions, exact measurements, native history, downloaded STL and eight independently compared analytic STEP models.
 
 - [Shared surface topology](shared-topology/README.md): exact shared native edges/surfaces, browser/MCP inspection, STEP reconstruction and independent solid comparisons.
+
+- [Shared surface context](surface-context/README.md): explicit surface selection across browser/MCP, linked-copy source impact, revision invalidation and native checkpoints.

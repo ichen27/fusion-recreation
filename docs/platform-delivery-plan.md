@@ -177,3 +177,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Shared surface checkpoint
 
 [Explicit shared native topology](../examples/ai-cad/shared-topology/README.md) now exposes exact planes/cylinders, oriented line/quarter-circle loops, closed shells and source-derived analytic surface names through browser/MCP. Exact support/incidence/orientation checks and independent STEP reconstruction cover holes, cavities and disconnected material. Names are scoped to a body and revision; general Boolean naming and imported B-rep validation remain open. Next connect surface context to precise human/AI inspection and targeted feature reasoning, retaining explicit revision guards before editing.
+
+## Surface context checkpoint
+
+[Shared surface selection](../examples/ai-cad/surface-context/README.md) connects browser inspection to MCP with exact world support, source feature, body and revision. Linked-copy context exposes shared-driver impact through the existing explanation tool. Actual browser-to-MCP handoff, parameter edits, stale/missing rejection and old body-only compatibility are verified. The viewport still highlights whole bodies; geometric surface picking and selection-bound edit preconditions remain ahead.

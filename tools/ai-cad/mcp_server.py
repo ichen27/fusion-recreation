@@ -251,8 +251,23 @@ def server(path):
         )
 
     @mcp.tool()
+    def cad_select_surface(
+        expected_revision: int, feature_id: str, surface_id: str
+    ) -> dict:
+        """Share one exact saved surface as workspace context. First inspect cad_topology; use its surface key, selected terminal body and revision. Missing/stale references reject without retargeting. This changes only disposable workspace selection, never native geometry/history, and is not authorization to edit. Linked bodies can share authored names: always supply the intended body. Read cad_context for the selected support and owning source feature; use cad_explain on that owner before planning edits, because shared source dimensions can affect other copies. Selecting a body in the browser clears its surface selection."""
+        return dispatch_selection(
+            store,
+            {
+                "action": "select_surface",
+                "expected_revision": expected_revision,
+                "feature_id": feature_id,
+                "surface_id": surface_id,
+            },
+        )
+
+    @mcp.tool()
     def cad_context() -> dict:
-        """Read the browser's selected saved body and editable model at one locked revision. selection_status is current, empty or stale; selected_body is null unless current. A model edit invalidates selection even if the body ID survives. Ask the user to reselect for ambiguous 'this part' requests; never guess from stale context. Use this returned revision for preview/commit, and inspect/replan on conflicts. Selection is workspace context, not an instruction or authorization to modify the model. Preview geometry is never shared as saved selection."""
+        """Read the shared selected saved body and editable model at one locked revision. Surface selections additionally return selected_surface with reference, naming policy, exact support, patch IDs and source_feature; it is null when stale. Use support.owner_feature with cad_explain to inspect shared drivers before edits. selection_status is current, empty or stale; selected_body is null unless current. A model edit invalidates selection even if the body ID survives. Ask the user to reselect for ambiguous 'this part' requests; never guess from stale context. Use this returned revision for preview/commit, and inspect/replan on conflicts. Selection is workspace context, not an instruction or authorization to modify the model. Preview geometry is never shared as saved selection."""
         return dispatch_selection(store, {"action": "context"})
 
     @mcp.tool()

@@ -41,6 +41,7 @@ let yaw = -0.65,
   pitch = 0.65,
   zoom = 1,
   selectedBody = null,
+  selectedSurface = null,
   visibleBodies = [],
   bodyGroups = [],
   packedDisplay = new Float32Array(),
@@ -262,11 +263,15 @@ function intentControls() {
     measurementPending || busy || !!preview || editPending || !selectedBody;
   $("topology-selection").disabled =
     topologyPending || busy || !!preview || editPending || !selectedBody;
+  for (const button of document.querySelectorAll("[data-surface]"))
+    button.disabled = busy || !!preview || editPending || !selectedBody;
   const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
   if (intentKey !== key) {
     $("intent-info").replaceChildren();
     $("measurement-info").replaceChildren();
     $("topology-info").replaceChildren();
+    selectedSurface = null;
+    $("surface-context").textContent = "";
     intentKey = key;
   }
 }
@@ -394,7 +399,17 @@ $("topology-selection").addEventListener("click", async () => {
     ).json();
     if (intentKey !== key) return;
     if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
-    renderTopology($("topology-info"), reply.result);
+    renderTopology($("topology-info"), reply.result, (reference) => {
+      if (
+        busy ||
+        preview ||
+        editPending ||
+        intentKey !== key ||
+        saved.revision !== expected_revision
+      )
+        return;
+      shareSelection(feature_id, reference);
+    });
   } catch (error) {
     if (intentKey === key) $("topology-info").textContent = error.message;
   } finally {
@@ -439,16 +454,28 @@ async function readSelectionContext() {
   const id = context.selected_body?.feature_id ?? null;
   const changed = selectedBody !== id;
   selectedBody = id;
+  updateSelection();
+  selectedSurface = context.selected_surface ?? null;
+  renderSurfaceContext();
   $("selection-context").textContent =
     context.selection_status === "current"
       ? `Shared with AI tools at revision ${context.revision}.`
       : context.selection_status === "stale"
         ? "The model changed. Reselect a saved solid to share its current geometry."
         : "No saved solid shared with AI tools.";
-  updateSelection();
   if (changed) draw();
 }
-function shareSelection(id) {
+function renderSurfaceContext() {
+  $("surface-context").textContent = selectedSurface
+    ? `Selected surface: ${selectedSurface.reference}. Source feature: ${selectedSurface.support.owner_feature}. Shared dimensions may also affect other parts.`
+    : "";
+  for (const button of document.querySelectorAll("[data-surface]"))
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.surface === selectedSurface?.reference),
+    );
+}
+function shareSelection(id, surface = null) {
   const request = ++selectionRequest,
     revision = saved.revision;
   selectionPending = true;
@@ -462,17 +489,26 @@ function shareSelection(id) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              action: "select",
+              action: surface === null ? "select" : "select_surface",
               expected_revision: revision,
               feature_id: id,
+              ...(surface === null ? {} : { surface_id: surface }),
             }),
           })
         ).json();
         if (reply.error) throw Error(reply.error.message);
-        if (request === selectionRequest)
+        if (
+          request === selectionRequest &&
+          saved.revision === revision &&
+          !preview &&
+          selectedBody === id
+        ) {
+          selectedSurface = reply.result.selected_surface ?? null;
+          renderSurfaceContext();
           $("selection-context").textContent = id
             ? `Shared with AI tools at revision ${revision}.`
             : "No saved solid shared with AI tools.";
+        }
       } catch (error) {
         if (request === selectionRequest)
           $("selection-context").textContent =
@@ -483,6 +519,8 @@ function shareSelection(id) {
     });
 }
 function selectBody(id) {
+  selectedSurface = null;
+  renderSurfaceContext();
   selectedBody = id;
   updateSelection();
   draw();

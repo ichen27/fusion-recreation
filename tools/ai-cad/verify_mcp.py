@@ -31,6 +31,7 @@ async def main():
                     "cad_explain",
                     "cad_measure",
                     "cad_topology",
+                    "cad_select_surface",
                     "cad_preview",
                     "cad_commit",
                     "cad_history",

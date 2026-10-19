@@ -8,7 +8,8 @@ import hashlib
 import json
 import os
 import tempfile
-from store import CadError, encode
+from store import BINARY, CadError, encode
+from topology import topology_model
 
 
 class Selection:
@@ -28,9 +29,25 @@ class Selection:
                 len(data) > 4096
                 or not isinstance(value, dict)
                 or set(value)
-                != {"schema_version", "revision", "document_hash", "feature_id"}
+                not in (
+                    {"schema_version", "revision", "document_hash", "feature_id"},
+                    {
+                        "schema_version",
+                        "revision",
+                        "document_hash",
+                        "feature_id",
+                        "surface_id",
+                    },
+                )
                 or type(value["schema_version"]) is not int
-                or value["schema_version"] != 1
+                or value["schema_version"] != (2 if "surface_id" in value else 1)
+                or (
+                    "surface_id" in value
+                    and (
+                        not isinstance(value["surface_id"], str)
+                        or not isinstance(value["feature_id"], str)
+                    )
+                )
                 or type(value["revision"]) is not int
                 or not isinstance(value["document_hash"], str)
                 or len(value["document_hash"]) != 64
@@ -68,6 +85,9 @@ class Selection:
             and set(command) == {"action"}
             or action == "select"
             and set(command) == {"action", "expected_revision", "feature_id"}
+            or action == "select_surface"
+            and set(command)
+            == {"action", "expected_revision", "feature_id", "surface_id"}
         ):
             raise CadError(
                 "invalid_command", "Expected context or revision-bound select"
@@ -77,7 +97,8 @@ class Selection:
             fingerprint = hashlib.sha256(encode(state)).hexdigest()
             result = self.store.inspect_model(state["model"])
             bodies = {b["feature_id"]: b for b in result["bodies"]}
-            if action == "select":
+            surface = None
+            if action in ("select", "select_surface"):
                 if (
                     type(command["expected_revision"]) is not int
                     or command["expected_revision"] != state["revision"]
@@ -96,6 +117,11 @@ class Selection:
                     "document_hash": fingerprint,
                     "feature_id": feature,
                 }
+                if action == "select_surface":
+                    surface = self._surface(
+                        result["model"], feature, command["surface_id"]
+                    )
+                    selection.update(schema_version=2, surface_id=command["surface_id"])
                 self._write(selection)
             else:
                 selection = self._read()
@@ -113,12 +139,54 @@ class Selection:
                     )
                 else:
                     status, body = "current", bodies[selection["feature_id"]]
-            return {
+            response = {
                 "revision": state["revision"],
                 "selection_status": status,
                 "selected_body": body,
                 "model": result["model"],
             }
+            if selection and "surface_id" in selection:
+                response["selected_surface"] = (
+                    surface
+                    or self._surface(
+                        result["model"],
+                        selection["feature_id"],
+                        selection["surface_id"],
+                    )
+                    if status == "current"
+                    else None
+                )
+            return response
+
+    def _surface(self, model, feature, reference):
+        if (
+            not isinstance(feature, str)
+            or not isinstance(reference, str)
+            or not reference
+        ):
+            raise CadError(
+                "missing_surface", "Select a surface from the saved solid inspection"
+            )
+        topology = self.store.evaluations.get(
+            BINARY,
+            {"topology_model": model, "feature_id": feature},
+            lambda: topology_model(model, feature),
+        )
+        surface = topology["surfaces"].get(reference)
+        if surface is None:
+            raise CadError(
+                "missing_surface",
+                "Surface is absent; inspect and reselect without guessing a replacement",
+            )
+        return {
+            "reference": reference,
+            "naming": topology["naming"],
+            "support": surface,
+            "faces": [f["id"] for f in topology["faces"] if f["surface"] == reference],
+            "source_feature": next(
+                f for f in model["features"] if f["id"] == surface["owner_feature"]
+            ),
+        }
 
 
 def dispatch_selection(store, command):

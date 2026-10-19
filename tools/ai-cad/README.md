@@ -240,3 +240,10 @@ python tools/ai-cad/verify_topology_recording.py
 # Optional STEP comparison environment:
 python tools/ai-cad/verify_topology_export.py
 ```
+
+Inside **Inspect surfaces**, expand a surface and choose **Select surface** to share it with AI tools. `cad_context` then returns its exact support, owning feature and body/revision scope; `cad_select_surface` can explicitly select an inspected saved reference. Use `cad_explain` on the owner to see shared dimensions and affected copies. Any model edit requires reselection. [Recorded surface-context workflow](../../examples/ai-cad/surface-context/README.md).
+
+```sh
+python tools/ai-cad/verify_surface_context_mcp.py
+python tools/ai-cad/verify_surface_context_recording.py
+```
