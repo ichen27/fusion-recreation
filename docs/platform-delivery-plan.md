@@ -197,3 +197,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Startup recovery checkpoint
 
 [Bounded connection handling and visible recovery](../examples/ai-cad/startup-recovery/README.md) prevent browser preconnections from monopolizing HTTP parsing. Model/cache operations remain serialized. Socket tests cover partial headers, budget exhaustion and conflicting writes; actual browser fault injection/reload and eight later loads preserve native bytes. Large-model scheduling and broader product packaging remain separate work.
+
+## Countersink checkpoint
+
+[Original conical through-hole recesses](../examples/ai-cad/countersinks/README.md) reuse exact conical supports with inward orientation, cylindrical apertures and symbolic moments. Browser/MCP authoring, guarded edits, native history and downloaded STL are retained; eight independent solid comparisons check STEP and shared topology. Mixed-depth groups, arbitrary axes, angle-driven authoring and general curved Booleans remain open.

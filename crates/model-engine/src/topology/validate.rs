@@ -96,6 +96,7 @@ fn on_surface(surface: &Surface, edge: &Edge, points: &[Point]) -> Result<()> {
             bottom_radius,
             top_radius,
             height,
+            ..
         } => {
             let origin = point(origin)?;
             let direction = axis(*direction)?;
@@ -233,7 +234,11 @@ fn orientation(
         | Surface::ConicalFrustum {
             axis: direction, ..
         } => {
-            let inward = matches!(surface, Surface::Cylinder { inward: true, .. });
+            let inward = matches!(
+                surface,
+                Surface::Cylinder { inward: true, .. }
+                    | Surface::ConicalFrustum { inward: true, .. }
+            );
             if index != 0 || ring.len() != 4 {
                 return Err(fail("Round wall patches require one four-edge loop"));
             }

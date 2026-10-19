@@ -76,7 +76,7 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
           class: "hole-circle",
         }),
       );
-      if (draft.kind === "counterbore_holes") {
+      if (["counterbore_holes", "countersink_holes"].includes(draft.kind)) {
         const bore = number(draft.values[draft.boreRadius]);
         if (Number.isFinite(bore) && bore > 0)
           shapes.push(
@@ -145,15 +145,20 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
       }),
     );
     $("hole-count").textContent =
-      `${draft.holes.length} ${draft.kind === "blind_holes" ? "blind" : draft.kind === "counterbore_holes" ? "counterbored" : "through"} holes · millimeters`;
+      `${draft.holes.length} ${draft.kind === "blind_holes" ? "blind" : draft.kind === "counterbore_holes" ? "counterbored" : draft.kind === "countersink_holes" ? "countersunk" : "through"} holes · millimeters`;
     $("hole-remove").disabled = pending || !draft.holes.length;
     $("hole-add").disabled = pending || draft.holes.length >= 16;
     $("hole-kind").value = draft.kind;
     $("hole-kind").disabled = pending || !!draft.featureId;
-    $("hole-depth-row").hidden = !["blind_holes", "counterbore_holes"].includes(
-      draft.kind,
-    );
-    $("hole-bore-radius-row").hidden = draft.kind !== "counterbore_holes";
+    $("hole-depth-row").hidden = ![
+      "blind_holes",
+      "counterbore_holes",
+      "countersink_holes",
+    ].includes(draft.kind);
+    $("hole-bore-radius-row").hidden = ![
+      "counterbore_holes",
+      "countersink_holes",
+    ].includes(draft.kind);
     $("hole-bore-radius").value = draft.values[draft.boreRadius];
     $("hole-bore-radius").disabled =
       pending || !editable(draft, draft.boreRadius);

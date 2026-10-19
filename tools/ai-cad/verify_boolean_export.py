@@ -59,7 +59,12 @@ def oracle(model):
                 values[f["radius"]],
                 values[f["height"]],
             ).Shape()
-        elif f["kind"] in ("through_holes", "blind_holes", "counterbore_holes"):
+        elif f["kind"] in (
+            "through_holes",
+            "blind_holes",
+            "counterbore_holes",
+            "countersink_holes",
+        ):
             source = next(
                 feature for feature in model["features"] if feature["id"] == f["input"]
             )
@@ -78,7 +83,25 @@ def oracle(model):
                 result = BRepAlgoAPI_Cut(shape, tool)
                 assert result.IsDone()
                 shape = result.Shape()
-                if f["kind"] == "counterbore_holes":
+                if f["kind"] == "countersink_holes":
+                    recess_depth = values[f["depth"]]
+                    recess = BRepPrimAPI_MakeCone(
+                        gp_Ax2(
+                            gp_Pnt(
+                                values[hole["x"]],
+                                values[hole["y"]],
+                                height - recess_depth,
+                            ),
+                            gp_Dir(0, 0, 1),
+                        ),
+                        values[hole["radius"]],
+                        values[f["rim_radius"]],
+                        recess_depth,
+                    ).Shape()
+                    result = BRepAlgoAPI_Cut(shape, recess)
+                    assert result.IsDone()
+                    shape = result.Shape()
+                elif f["kind"] == "counterbore_holes":
                     recess_depth = values[f["depth"]]
                     recess = BRepPrimAPI_MakeCylinder(
                         gp_Ax2(

@@ -1,6 +1,6 @@
 """Optional OCCT translation of an already validated analytic boundary; no booleans."""
 
-from frustum_export import conical_faces
+from frustum_export import conical_faces, conical_wall
 from fractions import Fraction
 import math
 import os
@@ -63,7 +63,8 @@ def translate(body):
             converted = conical_faces(shape)
         else:
             h = number(shape["height"])
-            bore = shape.get("counterbore")
+            sink = shape.get("countersink")
+            bore = shape.get("counterbore") or sink
             depth = number(
                 bore["depth"] if bore else shape.get("hole_depth", shape["height"])
             )
@@ -202,7 +203,21 @@ def translate(body):
                             ).Shape()
                         )
                     )
-                if index and bore:
+                if index and sink:
+                    hole = shape["holes"][index - 1]
+                    x, y = map(number, hole["center"])
+                    converted.append(
+                        conical_wall(
+                            x,
+                            y,
+                            floor,
+                            number(hole["radius"]),
+                            number(sink["radius"]),
+                            depth,
+                            inward=True,
+                        )
+                    )
+                elif index and bore:
                     large = large_rings[index - 1]
                     for edge in large:
                         converted.extend(

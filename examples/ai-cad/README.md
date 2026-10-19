@@ -99,3 +99,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Tapered round stock](tapered-stock/README.md): exact conical geometry, editable radii, viewport surface context, browser/MCP history, symbolic measurements and fourteen independently checked STEP exports.
 
 - [Viewer startup recovery](startup-recovery/README.md): bounded idle connections, preserved revision semantics and actual interrupted-module reload evidence.
+
+- [Countersunk through-holes](countersinks/README.md): exact inward conical walls, editable recess dimensions, surface-bound editing, native history and independent STEP/moment checks.

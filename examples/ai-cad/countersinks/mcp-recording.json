@@ -1,0 +1,3195 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "r",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x2",
+            "mm": "88"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_radius",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_depth",
+            "mm": "2"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "polygon_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "c1",
+                  "y": "c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "c1",
+                  "y": "c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c2"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "solid",
+              "profile": "outline",
+              "height": "height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "countersink_holes",
+              "id": "part",
+              "input": "solid",
+              "holes": [
+                {
+                  "id": "left",
+                  "x": "x",
+                  "y": "y",
+                  "radius": "r"
+                },
+                {
+                  "id": "right",
+                  "x": "x2",
+                  "y": "y",
+                  "radius": "r"
+                }
+              ],
+              "depth": "recess_depth",
+              "rim_radius": "recess_radius"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "countersink": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "412/3"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (412/3)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "height",
+            "r",
+            "recess_depth",
+            "recess_radius",
+            "x",
+            "x2",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "r",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x2",
+            "mm": "88"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_radius",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_depth",
+            "mm": "2"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "polygon_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "c1",
+                  "y": "c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "c1",
+                  "y": "c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c2"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "solid",
+              "profile": "outline",
+              "height": "height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "countersink_holes",
+              "id": "part",
+              "input": "solid",
+              "holes": [
+                {
+                  "id": "left",
+                  "x": "x",
+                  "y": "y",
+                  "radius": "r"
+                },
+                {
+                  "id": "right",
+                  "x": "x2",
+                  "y": "y",
+                  "radius": "r"
+                }
+              ],
+              "depth": "recess_depth",
+              "rim_radius": "recess_radius"
+            }
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "countersink": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "412/3"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (412/3)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "height",
+            "r",
+            "recess_depth",
+            "recess_radius",
+            "x",
+            "x2",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "part"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-1648)*pi)/(36000 + (-412/3)*pi)",
+            "(108000 + (-1444/3)*pi)/(36000 + (-412/3)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-3133884000)*pi + (374644/3)*pi*pi)/(36000 + (-412/3)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-11307964000)*pi + (246234268/9)*pi*pi)/(36000 + (-412/3)*pi)",
+              "((-44928000)*pi)/(36000 + (-412/3)*pi)"
+            ],
+            [
+              "0",
+              "((-44928000)*pi)/(36000 + (-412/3)*pi)",
+              "(1468800000000 + (-14376606400)*pi + (1231116152/45)*pi*pi)/(36000 + (-412/3)*pi)"
+            ]
+          ],
+          "feature_id": "part",
+          "volume_mm3": "36000 - (412/3)*pi"
+        }
+      }
+    },
+    {
+      "tool": "cad_topology",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "part"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "components": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21
+            ]
+          ],
+          "edges": [
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                0
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                4,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                5,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                6,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                7,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                8,
+                9
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                9,
+                10
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                10,
+                11
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                11,
+                8
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                12,
+                13
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                13,
+                14
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                14,
+                15
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                15,
+                12
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                16,
+                17
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                17,
+                18
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                18,
+                19
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "12",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                19,
+                16
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                8,
+                12
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                9,
+                13
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                10,
+                14
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                11,
+                15
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                12,
+                16
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                13,
+                17
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                14,
+                18
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                15,
+                19
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                20,
+                21
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                21,
+                22
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                22,
+                23
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                23,
+                20
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                24,
+                25
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                25,
+                26
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                26,
+                27
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "4"
+                ],
+                "kind": "quarter_circle",
+                "radius": "3"
+              },
+              "vertices": [
+                27,
+                24
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                28,
+                29
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                29,
+                30
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                30,
+                31
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "88",
+                  "12",
+                  "6"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                31,
+                28
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                20,
+                24
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                21,
+                25
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                22,
+                26
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                23,
+                27
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                24,
+                28
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                25,
+                29
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                26,
+                30
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                27,
+                31
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "id": "feature/solid/outer/side/v0/v1",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 9,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/solid/outer/side/v0/v1"
+            },
+            {
+              "id": "feature/solid/outer/side/v1/v2",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 10,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 9,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/solid/outer/side/v1/v2"
+            },
+            {
+              "id": "feature/solid/outer/side/v2/v3",
+              "loops": [
+                [
+                  {
+                    "edge": 2,
+                    "forward": true
+                  },
+                  {
+                    "edge": 11,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/solid/outer/side/v2/v3"
+            },
+            {
+              "id": "feature/solid/outer/side/v0/v3",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 8,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": false
+                  },
+                  {
+                    "edge": 11,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/solid/outer/side/v0/v3"
+            },
+            {
+              "id": "feature/part/hole/left/lower/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 24,
+                    "forward": true
+                  },
+                  {
+                    "edge": 16,
+                    "forward": true
+                  },
+                  {
+                    "edge": 25,
+                    "forward": false
+                  },
+                  {
+                    "edge": 12,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/lower"
+            },
+            {
+              "id": "feature/part/hole/left/lower/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 25,
+                    "forward": true
+                  },
+                  {
+                    "edge": 17,
+                    "forward": true
+                  },
+                  {
+                    "edge": 26,
+                    "forward": false
+                  },
+                  {
+                    "edge": 13,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/lower"
+            },
+            {
+              "id": "feature/part/hole/left/lower/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 26,
+                    "forward": true
+                  },
+                  {
+                    "edge": 18,
+                    "forward": true
+                  },
+                  {
+                    "edge": 27,
+                    "forward": false
+                  },
+                  {
+                    "edge": 14,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/lower"
+            },
+            {
+              "id": "feature/part/hole/left/lower/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 27,
+                    "forward": true
+                  },
+                  {
+                    "edge": 19,
+                    "forward": true
+                  },
+                  {
+                    "edge": 24,
+                    "forward": false
+                  },
+                  {
+                    "edge": 15,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/lower"
+            },
+            {
+              "id": "feature/part/hole/left/taper/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 28,
+                    "forward": true
+                  },
+                  {
+                    "edge": 20,
+                    "forward": true
+                  },
+                  {
+                    "edge": 29,
+                    "forward": false
+                  },
+                  {
+                    "edge": 16,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/taper"
+            },
+            {
+              "id": "feature/part/hole/left/taper/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 29,
+                    "forward": true
+                  },
+                  {
+                    "edge": 21,
+                    "forward": true
+                  },
+                  {
+                    "edge": 30,
+                    "forward": false
+                  },
+                  {
+                    "edge": 17,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/taper"
+            },
+            {
+              "id": "feature/part/hole/left/taper/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 30,
+                    "forward": true
+                  },
+                  {
+                    "edge": 22,
+                    "forward": true
+                  },
+                  {
+                    "edge": 31,
+                    "forward": false
+                  },
+                  {
+                    "edge": 18,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/taper"
+            },
+            {
+              "id": "feature/part/hole/left/taper/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 31,
+                    "forward": true
+                  },
+                  {
+                    "edge": 23,
+                    "forward": true
+                  },
+                  {
+                    "edge": 28,
+                    "forward": false
+                  },
+                  {
+                    "edge": 19,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/left/taper"
+            },
+            {
+              "id": "feature/part/hole/right/lower/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 44,
+                    "forward": true
+                  },
+                  {
+                    "edge": 36,
+                    "forward": true
+                  },
+                  {
+                    "edge": 45,
+                    "forward": false
+                  },
+                  {
+                    "edge": 32,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/lower"
+            },
+            {
+              "id": "feature/part/hole/right/lower/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 45,
+                    "forward": true
+                  },
+                  {
+                    "edge": 37,
+                    "forward": true
+                  },
+                  {
+                    "edge": 46,
+                    "forward": false
+                  },
+                  {
+                    "edge": 33,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/lower"
+            },
+            {
+              "id": "feature/part/hole/right/lower/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 46,
+                    "forward": true
+                  },
+                  {
+                    "edge": 38,
+                    "forward": true
+                  },
+                  {
+                    "edge": 47,
+                    "forward": false
+                  },
+                  {
+                    "edge": 34,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/lower"
+            },
+            {
+              "id": "feature/part/hole/right/lower/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 47,
+                    "forward": true
+                  },
+                  {
+                    "edge": 39,
+                    "forward": true
+                  },
+                  {
+                    "edge": 44,
+                    "forward": false
+                  },
+                  {
+                    "edge": 35,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/lower"
+            },
+            {
+              "id": "feature/part/hole/right/taper/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 48,
+                    "forward": true
+                  },
+                  {
+                    "edge": 40,
+                    "forward": true
+                  },
+                  {
+                    "edge": 49,
+                    "forward": false
+                  },
+                  {
+                    "edge": 36,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/taper"
+            },
+            {
+              "id": "feature/part/hole/right/taper/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 49,
+                    "forward": true
+                  },
+                  {
+                    "edge": 41,
+                    "forward": true
+                  },
+                  {
+                    "edge": 50,
+                    "forward": false
+                  },
+                  {
+                    "edge": 37,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/taper"
+            },
+            {
+              "id": "feature/part/hole/right/taper/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 50,
+                    "forward": true
+                  },
+                  {
+                    "edge": 42,
+                    "forward": true
+                  },
+                  {
+                    "edge": 51,
+                    "forward": false
+                  },
+                  {
+                    "edge": 38,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/taper"
+            },
+            {
+              "id": "feature/part/hole/right/taper/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 51,
+                    "forward": true
+                  },
+                  {
+                    "edge": 43,
+                    "forward": true
+                  },
+                  {
+                    "edge": 48,
+                    "forward": false
+                  },
+                  {
+                    "edge": 39,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/part/hole/right/taper"
+            },
+            {
+              "id": "feature/solid/cap/bottom",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": false
+                  },
+                  {
+                    "edge": 2,
+                    "forward": false
+                  },
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 0,
+                    "forward": false
+                  }
+                ],
+                [
+                  {
+                    "edge": 12,
+                    "forward": true
+                  },
+                  {
+                    "edge": 13,
+                    "forward": true
+                  },
+                  {
+                    "edge": 14,
+                    "forward": true
+                  },
+                  {
+                    "edge": 15,
+                    "forward": true
+                  }
+                ],
+                [
+                  {
+                    "edge": 32,
+                    "forward": true
+                  },
+                  {
+                    "edge": 33,
+                    "forward": true
+                  },
+                  {
+                    "edge": 34,
+                    "forward": true
+                  },
+                  {
+                    "edge": 35,
+                    "forward": true
+                  }
+                ]
+              ],
+              "surface": "feature/solid/cap/bottom"
+            },
+            {
+              "id": "feature/solid/cap/top",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": true
+                  }
+                ],
+                [
+                  {
+                    "edge": 23,
+                    "forward": false
+                  },
+                  {
+                    "edge": 22,
+                    "forward": false
+                  },
+                  {
+                    "edge": 21,
+                    "forward": false
+                  },
+                  {
+                    "edge": 20,
+                    "forward": false
+                  }
+                ],
+                [
+                  {
+                    "edge": 43,
+                    "forward": false
+                  },
+                  {
+                    "edge": 42,
+                    "forward": false
+                  },
+                  {
+                    "edge": 41,
+                    "forward": false
+                  },
+                  {
+                    "edge": 40,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/solid/cap/top"
+            }
+          ],
+          "feature_id": "part",
+          "naming": "authored_surfaces",
+          "shell_euler": [
+            -2
+          ],
+          "shells": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21
+            ]
+          ],
+          "surfaces": {
+            "feature/part/hole/left/lower": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "inward": true,
+              "kind": "cylinder",
+              "origin": [
+                "12",
+                "12",
+                "0"
+              ],
+              "owner_feature": "part",
+              "radius": "3"
+            },
+            "feature/part/hole/left/taper": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "3",
+              "height": "2",
+              "inward": true,
+              "kind": "conical_frustum",
+              "origin": [
+                "12",
+                "12",
+                "4"
+              ],
+              "owner_feature": "part",
+              "top_radius": "5"
+            },
+            "feature/part/hole/right/lower": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "inward": true,
+              "kind": "cylinder",
+              "origin": [
+                "88",
+                "12",
+                "0"
+              ],
+              "owner_feature": "part",
+              "radius": "3"
+            },
+            "feature/part/hole/right/taper": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "3",
+              "height": "2",
+              "inward": true,
+              "kind": "conical_frustum",
+              "origin": [
+                "88",
+                "12",
+                "4"
+              ],
+              "owner_feature": "part",
+              "top_radius": "5"
+            },
+            "feature/solid/cap/bottom": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "offset": "0",
+              "owner_feature": "solid"
+            },
+            "feature/solid/cap/top": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "6",
+              "owner_feature": "solid"
+            },
+            "feature/solid/outer/side/v0/v1": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "-100",
+                "0"
+              ],
+              "offset": "0",
+              "owner_feature": "solid"
+            },
+            "feature/solid/outer/side/v0/v3": {
+              "kind": "plane",
+              "normal": [
+                "-60",
+                "0",
+                "0"
+              ],
+              "offset": "0",
+              "owner_feature": "solid"
+            },
+            "feature/solid/outer/side/v1/v2": {
+              "kind": "plane",
+              "normal": [
+                "60",
+                "0",
+                "0"
+              ],
+              "offset": "6000",
+              "owner_feature": "solid"
+            },
+            "feature/solid/outer/side/v2/v3": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "100",
+                "0"
+              ],
+              "offset": "6000",
+              "owner_feature": "solid"
+            }
+          },
+          "vertices": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "0"
+            ],
+            [
+              "0",
+              "60",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "6"
+            ],
+            [
+              "100",
+              "0",
+              "6"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ],
+            [
+              "0",
+              "60",
+              "6"
+            ],
+            [
+              "15",
+              "12",
+              "0"
+            ],
+            [
+              "12",
+              "15",
+              "0"
+            ],
+            [
+              "9",
+              "12",
+              "0"
+            ],
+            [
+              "12",
+              "9",
+              "0"
+            ],
+            [
+              "15",
+              "12",
+              "4"
+            ],
+            [
+              "12",
+              "15",
+              "4"
+            ],
+            [
+              "9",
+              "12",
+              "4"
+            ],
+            [
+              "12",
+              "9",
+              "4"
+            ],
+            [
+              "17",
+              "12",
+              "6"
+            ],
+            [
+              "12",
+              "17",
+              "6"
+            ],
+            [
+              "7",
+              "12",
+              "6"
+            ],
+            [
+              "12",
+              "7",
+              "6"
+            ],
+            [
+              "91",
+              "12",
+              "0"
+            ],
+            [
+              "88",
+              "15",
+              "0"
+            ],
+            [
+              "85",
+              "12",
+              "0"
+            ],
+            [
+              "88",
+              "9",
+              "0"
+            ],
+            [
+              "91",
+              "12",
+              "4"
+            ],
+            [
+              "88",
+              "15",
+              "4"
+            ],
+            [
+              "85",
+              "12",
+              "4"
+            ],
+            [
+              "88",
+              "9",
+              "4"
+            ],
+            [
+              "93",
+              "12",
+              "6"
+            ],
+            [
+              "88",
+              "17",
+              "6"
+            ],
+            [
+              "83",
+              "12",
+              "6"
+            ],
+            [
+              "88",
+              "7",
+              "6"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_select_surface",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "part",
+        "surface_id": "feature/part/hole/left/taper"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "selection_status": "current",
+          "selected_body": {
+            "analytic": {
+              "countersink": {
+                "depth": "2",
+                "radius": "5"
+              },
+              "height": "6",
+              "holes": [
+                {
+                  "center": [
+                    "12",
+                    "12"
+                  ],
+                  "id": "left",
+                  "radius": "3"
+                },
+                {
+                  "center": [
+                    "88",
+                    "12"
+                  ],
+                  "id": "right",
+                  "radius": "3"
+                }
+              ],
+              "kind": "perforated_prism",
+              "outer": [
+                [
+                  "0",
+                  "0"
+                ],
+                [
+                  "100",
+                  "0"
+                ],
+                [
+                  "100",
+                  "60"
+                ],
+                [
+                  "0",
+                  "60"
+                ]
+              ],
+              "volume": {
+                "constant_mm3": "36000",
+                "pi_subtract_mm3": "412/3"
+              }
+            },
+            "feature_id": "part",
+            "volume_mm3": "36000 - (412/3)*pi"
+          },
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "selected_surface": {
+            "reference": "feature/part/hole/left/taper",
+            "naming": "authored_surfaces",
+            "support": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "3",
+              "height": "2",
+              "inward": true,
+              "kind": "conical_frustum",
+              "origin": [
+                "12",
+                "12",
+                "4"
+              ],
+              "owner_feature": "part",
+              "top_radius": "5"
+            },
+            "faces": [
+              "feature/part/hole/left/taper/patch/0",
+              "feature/part/hole/left/taper/patch/1",
+              "feature/part/hole/left/taper/patch/2",
+              "feature/part/hole/left/taper/patch/3"
+            ],
+            "source_feature": {
+              "depth": "recess_depth",
+              "holes": [
+                {
+                  "id": "left",
+                  "radius": "r",
+                  "x": "x",
+                  "y": "y"
+                },
+                {
+                  "id": "right",
+                  "radius": "r",
+                  "x": "x2",
+                  "y": "y"
+                }
+              ],
+              "id": "part",
+              "input": "solid",
+              "kind": "countersink_holes",
+              "rim_radius": "recess_radius"
+            }
+          }
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "part",
+          "surface_id": "feature/part/hole/left/taper"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_depth",
+            "mm": "3"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "countersink": {
+                  "depth": "3",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "152"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (152)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "recess_depth"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "3",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "part",
+          "surface_id": "feature/part/hole/left/taper"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_depth",
+            "mm": "3"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "deeper"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "countersink": {
+                  "depth": "3",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "152"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (152)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "recess_depth"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "3",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_radius",
+            "mm": "12"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "hole_clearance",
+          "message": "Countersink must have positive clearance inside stock",
+          "entity": "left"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "countersink": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "412/3"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (412/3)*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "countersink_holes",
+                "rim_radius": "recess_radius"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 3,
+        "feature_id": "part"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-1648)*pi)/(36000 + (-412/3)*pi)",
+            "(108000 + (-1444/3)*pi)/(36000 + (-412/3)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-3133884000)*pi + (374644/3)*pi*pi)/(36000 + (-412/3)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-11307964000)*pi + (246234268/9)*pi*pi)/(36000 + (-412/3)*pi)",
+              "((-44928000)*pi)/(36000 + (-412/3)*pi)"
+            ],
+            [
+              "0",
+              "((-44928000)*pi)/(36000 + (-412/3)*pi)",
+              "(1468800000000 + (-14376606400)*pi + (1231116152/45)*pi*pi)/(36000 + (-412/3)*pi)"
+            ]
+          ],
+          "feature_id": "part",
+          "volume_mm3": "36000 - (412/3)*pi"
+        }
+      }
+    }
+  ]
+}

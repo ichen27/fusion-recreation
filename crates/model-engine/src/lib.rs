@@ -134,6 +134,13 @@ pub enum Feature {
         depth: String,
         holes: Vec<Hole>,
     },
+    CountersinkHoles {
+        id: String,
+        input: String,
+        depth: String,
+        rim_radius: String,
+        holes: Vec<Hole>,
+    },
     CounterboreHoles {
         id: String,
         input: String,
@@ -172,6 +179,7 @@ impl Feature {
             | Self::ConicalFrustum { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
+            | Self::CountersinkHoles { id, .. }
             | Self::PlaneCut { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
@@ -515,7 +523,8 @@ fn evaluate_geometry_from(
         let (boundary, plane) = match feature {
             Feature::ThroughHoles { input, holes, .. }
             | Feature::BlindHoles { input, holes, .. }
-            | Feature::CounterboreHoles { input, holes, .. } => {
+            | Feature::CounterboreHoles { input, holes, .. }
+            | Feature::CountersinkHoles { input, holes, .. } => {
                 let parent = m
                     .features
                     .iter()
@@ -552,7 +561,10 @@ fn evaluate_geometry_from(
                     Feature::BlindHoles { depth, .. } => holes::blind(m, id, depth, shape)?,
                     Feature::CounterboreHoles {
                         depth, bore_radius, ..
-                    } => holes::counterbore(m, id, depth, bore_radius, shape)?,
+                    } => holes::recess(m, id, depth, bore_radius, shape, false)?,
+                    Feature::CountersinkHoles {
+                        depth, rim_radius, ..
+                    } => holes::recess(m, id, depth, rim_radius, shape, true)?,
                     _ => shape,
                 };
                 if !consumed.insert(input.clone()) {

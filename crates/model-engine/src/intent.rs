@@ -69,6 +69,13 @@ impl Feature {
                 bore_radius,
                 holes,
                 ..
+            }
+            | Self::CountersinkHoles {
+                input,
+                depth,
+                rim_radius: bore_radius,
+                holes,
+                ..
             } => (
                 vec![input],
                 [depth, bore_radius]

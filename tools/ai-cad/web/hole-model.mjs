@@ -33,9 +33,12 @@ export function draftHoles(model, input, featureId = null) {
     ? model.features.find(
         (f) =>
           f.id === featureId &&
-          ["through_holes", "blind_holes", "counterbore_holes"].includes(
-            f.kind,
-          ),
+          [
+            "through_holes",
+            "blind_holes",
+            "counterbore_holes",
+            "countersink_holes",
+          ].includes(f.kind),
       )
     : null;
   if (featureId && !feature) throw Error("Select a hole group");
@@ -59,7 +62,8 @@ export function draftHoles(model, input, featureId = null) {
     throw Error("Select a polygon extrusion");
   const prefix = featureId ?? nextHolePrefix(model);
   const depth = feature?.depth ?? `${prefix}.depth`;
-  const boreRadius = feature?.bore_radius ?? `${prefix}.bore_radius`;
+  const boreRadius =
+    feature?.bore_radius ?? feature?.rim_radius ?? `${prefix}.bore_radius`;
   return {
     model: structuredClone(model),
     input,
@@ -123,13 +127,15 @@ export function holeProposal(state, draft) {
     throw Error("Place at least one hole");
   const refs = [...new Set(draft.holes.flatMap((h) => [h.x, h.y, h.radius]))];
   if (
-    ["blind_holes", "counterbore_holes"].includes(draft.kind) &&
+    ["blind_holes", "counterbore_holes", "countersink_holes"].includes(
+      draft.kind,
+    ) &&
     draft.holes.length &&
     !refs.includes(draft.depth)
   )
     refs.push(draft.depth);
   if (
-    draft.kind === "counterbore_holes" &&
+    ["counterbore_holes", "countersink_holes"].includes(draft.kind) &&
     draft.holes.length &&
     !refs.includes(draft.boreRadius)
   )
@@ -149,12 +155,16 @@ export function holeProposal(state, draft) {
   );
   const feature = {
     kind: draft.kind,
-    ...(["blind_holes", "counterbore_holes"].includes(draft.kind)
+    ...(["blind_holes", "counterbore_holes", "countersink_holes"].includes(
+      draft.kind,
+    )
       ? { depth: draft.depth }
       : {}),
     ...(draft.kind === "counterbore_holes"
       ? { bore_radius: draft.boreRadius }
-      : {}),
+      : draft.kind === "countersink_holes"
+        ? { rim_radius: draft.boreRadius }
+        : {}),
     id: draft.featureId ?? draft.prefix,
     input: draft.input,
     holes: structuredClone(draft.holes),
@@ -186,7 +196,7 @@ export function setHoleDepth(draft, value) {
 export function setCounterboreRadius(draft, value) {
   if (!editable(draft, draft.boreRadius))
     throw Error(
-      "Counterbore radius is fixed or derived; edit its controlling parameter",
+      "Recess rim radius is fixed or derived; edit its controlling parameter",
     );
   draft.values[draft.boreRadius] = String(value);
 }

@@ -15,6 +15,7 @@ function label(reference) {
     wall: "wall",
     floor: "floor",
     shoulder: "shoulder",
+    taper: "conical recess",
   };
   return `Hole ${role[1]} · ${names[role[2]] ?? role[2]}`;
 }
@@ -37,7 +38,7 @@ export function renderTopology(container, info, onSelect) {
     title.textContent = label(reference);
     geometry.textContent =
       surface.kind === "conical_frustum"
-        ? `Conical wall · bottom radius ${surface.bottom_radius} mm · top radius ${surface.top_radius} mm · height ${surface.height} mm · axis (${surface.axis.join(", ")}). Axis origin (${surface.origin.join(", ")}) mm.`
+        ? `Conical ${surface.inward ? "inner" : "outer"} wall · bottom radius ${surface.bottom_radius} mm · top radius ${surface.top_radius} mm · height ${surface.height} mm · axis (${surface.axis.join(", ")}). Axis origin (${surface.origin.join(", ")}) mm.`
         : surface.kind === "cylinder"
           ? `Cylinder · radius ${surface.radius} mm · axis (${surface.axis.join(", ")}) · ${surface.inward ? "inner" : "outer"} wall. Axis origin (${surface.origin.join(", ")}) mm.`
           : `Plane · normal (${surface.normal.join(", ")}); normal · position = ${surface.offset}.`;
