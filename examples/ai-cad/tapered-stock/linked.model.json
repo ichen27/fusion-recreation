@@ -1,0 +1,34 @@
+{
+  "parameters": {
+    "x": "0",
+    "y": "0",
+    "bottom": "10",
+    "top": "5",
+    "height": "12",
+    "copy.x": "50",
+    "copy.y": "0",
+    "copy.z": "0"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "conical_frustum",
+      "id": "taper",
+      "x": "x",
+      "y": "y",
+      "bottom_radius": "bottom",
+      "top_radius": "top",
+      "height": "height"
+    },
+    {
+      "kind": "instance",
+      "id": "copy",
+      "source": "taper",
+      "offset": [
+        "copy.x",
+        "copy.y",
+        "copy.z"
+      ]
+    }
+  ]
+}

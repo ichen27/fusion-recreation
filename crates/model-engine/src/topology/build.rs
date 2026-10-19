@@ -192,7 +192,9 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
                 holes = Some(id.as_str());
                 current = input;
             }
-            Feature::Extrude { .. } | Feature::Cylinder { .. } => return Ok((f, holes)),
+            Feature::Extrude { .. } | Feature::Cylinder { .. } | Feature::ConicalFrustum { .. } => {
+                return Ok((f, holes))
+            }
             _ => return Err(fail("Unsupported analytic source")),
         }
     }
@@ -207,8 +209,29 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
         let center = [value(&circle.center[0])?, value(&circle.center[1])?];
         let r = value(&circle.radius)?;
         let bottom = b.circle(&center, &r, &q(0));
-        let top = b.circle(&center, &r, &h);
-        b.cylinder(owner, "outer/cylinder", &center, &r, (&bottom, &top), false);
+        let top_radius = shape
+            .top_radius
+            .as_ref()
+            .map(|s| value(s))
+            .transpose()?
+            .unwrap_or(r.clone());
+        let top = b.circle(&center, &top_radius, &h);
+        if shape.top_radius.is_some() {
+            let surface = b.surface(
+                owner,
+                "outer/frustum",
+                Surface::ConicalFrustum {
+                    origin: output(&[center[0].clone(), center[1].clone(), q(0)]),
+                    axis: [0, 0, 1],
+                    bottom_radius: r.to_string(),
+                    top_radius: top_radius.to_string(),
+                    height: h.to_string(),
+                },
+            );
+            b.wall(&[surface], &bottom, &top, false);
+        } else {
+            b.cylinder(owner, "outer/cylinder", &center, &r, (&bottom, &top), false);
+        }
         (bottom, top)
     } else {
         let points = shape
@@ -361,7 +384,8 @@ fn place(topology: &mut Topology, frame: &crate::placement::Placement) -> Result
                 *offset = (value(offset)? + dot(&n, &origin)).to_string();
                 *normal = output(&n);
             }
-            Surface::Cylinder { origin, axis, .. } => {
+            Surface::Cylinder { origin, axis, .. }
+            | Surface::ConicalFrustum { origin, axis, .. } => {
                 *origin = output(&position(&point(origin)?));
                 *axis = direction(axis);
             }

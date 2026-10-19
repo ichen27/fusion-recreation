@@ -155,3 +155,51 @@ fn authored_surface_names_survive_dimensions_winding_and_placement_but_not_hole_
         .keys()
         .any(|s| s.contains("/hole/new_hole/")));
 }
+#[test]
+fn conical_support_rejects_damaged_radii_height_axis_and_generators() {
+    let m: Model = serde_json::from_value(serde_json::json!({
+        "parameters":{"x":"0","y":"0","r0":"10","r1":"5","h":"12"},
+        "features":[{"kind":"conical_frustum","id":"taper","x":"x","y":"y","bottom_radius":"r0","top_radius":"r1","height":"h"}],
+        "fixed":{}
+    })).unwrap();
+    let good = topology(&m);
+    for damage in 0..5 {
+        let mut broken = good.clone();
+        let support = &mut broken
+            .surfaces
+            .get_mut("feature/taper/outer/frustum")
+            .unwrap()
+            .geometry;
+        if let Surface::ConicalFrustum {
+            bottom_radius,
+            top_radius,
+            height,
+            axis,
+            origin,
+        } = support
+        {
+            match damage {
+                0 => *bottom_radius = "9".into(),
+                1 => *top_radius = "6".into(),
+                2 => *height = "11".into(),
+                3 => *axis = [0, 0, -1],
+                _ => origin[0] = "1/3".into(),
+            }
+        } else {
+            panic!();
+        }
+        assert!(validate::check(&broken).is_err());
+    }
+    let mut broken = good.clone();
+    let generators: Vec<_> = broken
+        .edges
+        .iter()
+        .enumerate()
+        .filter(|(_, e)| matches!(e.curve, Curve::Line))
+        .map(|(i, _)| i)
+        .collect();
+    assert_eq!(generators.len(), 4);
+    let end = broken.edges[generators[1]].vertices[1];
+    broken.edges[generators[0]].vertices[1] = end;
+    assert!(validate::check(&broken).is_err());
+}

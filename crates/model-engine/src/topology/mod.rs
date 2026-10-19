@@ -40,6 +40,13 @@ pub enum Surface {
         normal: Coordinates,
         offset: String,
     },
+    ConicalFrustum {
+        origin: Coordinates,
+        axis: [i32; 3],
+        bottom_radius: String,
+        top_radius: String,
+        height: String,
+    },
     Cylinder {
         origin: Coordinates,
         axis: [i32; 3],

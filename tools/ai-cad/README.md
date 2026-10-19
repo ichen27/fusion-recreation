@@ -260,3 +260,14 @@ You can also click a visible surface directly in the viewport. The chosen native
 ```sh
 python tools/ai-cad/verify_surface_picking.py
 ```
+
+### Tapered round stock
+
+Choose **New solid stock → Tapered round stock** to enter the center, bottom/top radii and height. Both radii must be positive and different. Preview/save, surface picking, exact measurement, movement, quarter turns, linked copies and STEP/STL exports work with the analytic conical wall. Holes and curved Booleans remain unsupported. [Native files, recorded browser/MCP workflow and independent STEP evidence](../../examples/ai-cad/tapered-stock/README.md).
+
+```sh
+python tools/ai-cad/verify_frustum.py
+python tools/ai-cad/verify_frustum_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_frustum_export.py
+```

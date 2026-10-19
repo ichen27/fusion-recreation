@@ -80,6 +80,14 @@ pub enum Feature {
         radius: String,
         height: String,
     },
+    ConicalFrustum {
+        id: String,
+        x: String,
+        y: String,
+        bottom_radius: String,
+        top_radius: String,
+        height: String,
+    },
     /// Keep the closed half-space normal dot position <= offset.
     PlaneCut {
         id: String,
@@ -161,6 +169,7 @@ impl Feature {
             | Self::Extrude { id, .. }
             | Self::ThroughHoles { id, .. }
             | Self::Cylinder { id, .. }
+            | Self::ConicalFrustum { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
             | Self::PlaneCut { id, .. }
@@ -734,6 +743,32 @@ fn evaluate_geometry_from(
                     }
                 }
                 evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
+                continue;
+            }
+            Feature::ConicalFrustum {
+                x,
+                y,
+                bottom_radius,
+                top_radius,
+                height,
+                ..
+            } => {
+                let shape = holes::frustum(m, x, y, bottom_radius, top_radius, height)?;
+                let volume_mm3 = format!(
+                    "{}*pi",
+                    shape.volume.pi_subtract_mm3.trim_start_matches('-')
+                );
+                evaluated.insert(
+                    id.into(),
+                    Body {
+                        feature_id: id.into(),
+                        components: None,
+                        polyhedral: None,
+                        boundary: None,
+                        analytic: Some(shape),
+                        volume_mm3,
+                    },
+                );
                 continue;
             }
             Feature::Cylinder {

@@ -250,7 +250,27 @@ fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<
                 .enumerate()
                 .map(|(i, p)| [p[0], p[1], if i < outer_n { 0.0 } else { floor }]),
         );
-        mesh.vertices.extend(points.iter().map(|p| [p[0], p[1], h]));
+        if let Some(top) = &shape.top_radius {
+            let circle = shape.outer_circle.as_ref().ok_or_else(fail)?;
+            let x = value(&circle.center[0])?;
+            let y = value(&circle.center[1])?;
+            let bottom = value(&circle.radius)?;
+            let top = value(top)?;
+            if top == bottom {
+                return Err(fail());
+            }
+            mesh.vertices.extend(points.iter().map(|p| {
+                [
+                    x + (p[0] - x) * top / bottom,
+                    y + (p[1] - y) * top / bottom,
+                    h,
+                ]
+            }));
+            mesh.max_radial_error_mm =
+                bottom.max(top) * (1.0 - (std::f64::consts::PI / segments as f64).cos());
+        } else {
+            mesh.vertices.extend(points.iter().map(|p| [p[0], p[1], h]));
+        }
         let orient = |t: &[usize]| {
             let (a, b, c) = (points[t[0]], points[t[1]], points[t[2]]);
             let mut ids = [t[0], t[1], t[2]];
@@ -289,6 +309,8 @@ fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<
                 let b = if a + 1 == ring[1] { ring[0] } else { a + 1 };
                 let role = if ring_index > 0 {
                     format!("hole/{}/wall", shape.holes[ring_index - 1].id)
+                } else if shape.top_radius.is_some() {
+                    "outer/frustum".into()
                 } else if shape.outer_circle.is_some() {
                     "outer/cylinder".into()
                 } else {

@@ -1,0 +1,1142 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 0,
+        "operations": [
+          {
+            "id": "stock1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.bottom_radius",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.top_radius",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.height",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "bottom_radius": "stock1.bottom_radius",
+              "height": "stock1.height",
+              "id": "stock1",
+              "kind": "conical_frustum",
+              "top_radius": "stock1.top_radius",
+              "x": "stock1.x",
+              "y": "stock1.y"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "job_id": "1f11d788-a9a2-4f04-887b-a4fe4e22a3b8",
+          "revision": 0,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "1f11d788-a9a2-4f04-887b-a4fe4e22a3b8",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "12",
+                    "holes": [],
+                    "kind": "conical_frustum",
+                    "outer_circle": {
+                      "center": [
+                        "0",
+                        "0"
+                      ],
+                      "radius": "10"
+                    },
+                    "top_radius": "5",
+                    "volume": {
+                      "constant_mm3": "0",
+                      "pi_subtract_mm3": "-700"
+                    }
+                  },
+                  "feature_id": "stock1",
+                  "volume_mm3": "700*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": false,
+              "changed_parameters": [
+                "stock1.bottom_radius",
+                "stock1.height",
+                "stock1.top_radius",
+                "stock1.x",
+                "stock1.y"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "bottom_radius": "stock1.bottom_radius",
+                    "height": "stock1.height",
+                    "id": "stock1",
+                    "kind": "conical_frustum",
+                    "top_radius": "stock1.top_radius",
+                    "x": "stock1.x",
+                    "y": "stock1.y"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "stock1.bottom_radius": "10",
+                  "stock1.height": "12",
+                  "stock1.top_radius": "5",
+                  "stock1.x": "0",
+                  "stock1.y": "0"
+                }
+              },
+              "preview": true,
+              "revision": 0,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 0,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=1f11d788-a9a2-4f04-887b-a4fe4e22a3b8"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 0,
+        "operations": [
+          {
+            "id": "stock1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.bottom_radius",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.top_radius",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "id": "stock1.height",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "bottom_radius": "stock1.bottom_radius",
+              "height": "stock1.height",
+              "id": "stock1",
+              "kind": "conical_frustum",
+              "top_radius": "stock1.top_radius",
+              "x": "stock1.x",
+              "y": "stock1.y"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "03e8f296-30fe-4f91-883c-028f3d1cd869"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "5",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-700"
+                }
+              },
+              "feature_id": "stock1",
+              "volume_mm3": "700*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "stock1.bottom_radius",
+            "stock1.height",
+            "stock1.top_radius",
+            "stock1.x",
+            "stock1.y"
+          ],
+          "committed_revision": 1,
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "stock1.bottom_radius",
+                "height": "stock1.height",
+                "id": "stock1",
+                "kind": "conical_frustum",
+                "top_radius": "stock1.top_radius",
+                "x": "stock1.x",
+                "y": "stock1.y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "stock1.bottom_radius": "10",
+              "stock1.height": "12",
+              "stock1.top_radius": "5",
+              "stock1.x": "0",
+              "stock1.y": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 1,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "select",
+        "expected_revision": 1,
+        "feature_id": "stock1"
+      },
+      "reply": {
+        "result": {
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "stock1.bottom_radius",
+                "height": "stock1.height",
+                "id": "stock1",
+                "kind": "conical_frustum",
+                "top_radius": "stock1.top_radius",
+                "x": "stock1.x",
+                "y": "stock1.y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "stock1.bottom_radius": "10",
+              "stock1.height": "12",
+              "stock1.top_radius": "5",
+              "stock1.x": "0",
+              "stock1.y": "0"
+            }
+          },
+          "revision": 1,
+          "selected_body": {
+            "analytic": {
+              "height": "12",
+              "holes": [],
+              "kind": "conical_frustum",
+              "outer_circle": {
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "10"
+              },
+              "top_radius": "5",
+              "volume": {
+                "constant_mm3": "0",
+                "pi_subtract_mm3": "-700"
+              }
+            },
+            "feature_id": "stock1",
+            "volume_mm3": "700*pi"
+          },
+          "selection_status": "current"
+        }
+      },
+      "url": "/api/selection"
+    },
+    {
+      "command": {
+        "expected_revision": 1,
+        "feature_id": "stock1"
+      },
+      "reply": {
+        "result": {
+          "components": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "edges": [
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                3,
+                0
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                4,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                5,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                6,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                7,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                7
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "id": "feature/stock1/outer/frustum/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 9,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/outer/frustum"
+            },
+            {
+              "id": "feature/stock1/outer/frustum/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 10,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 9,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/outer/frustum"
+            },
+            {
+              "id": "feature/stock1/outer/frustum/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 2,
+                    "forward": true
+                  },
+                  {
+                    "edge": 11,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/outer/frustum"
+            },
+            {
+              "id": "feature/stock1/outer/frustum/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 8,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": false
+                  },
+                  {
+                    "edge": 11,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/outer/frustum"
+            },
+            {
+              "id": "feature/stock1/cap/bottom",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": false
+                  },
+                  {
+                    "edge": 2,
+                    "forward": false
+                  },
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 0,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/cap/bottom"
+            },
+            {
+              "id": "feature/stock1/cap/top",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": true
+                  }
+                ]
+              ],
+              "surface": "feature/stock1/cap/top"
+            }
+          ],
+          "feature_id": "stock1",
+          "naming": "authored_surfaces",
+          "revision": 1,
+          "shell_euler": [
+            2
+          ],
+          "shells": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "surfaces": {
+            "feature/stock1/cap/bottom": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "offset": "0",
+              "owner_feature": "stock1"
+            },
+            "feature/stock1/cap/top": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "12",
+              "owner_feature": "stock1"
+            },
+            "feature/stock1/outer/frustum": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "10",
+              "height": "12",
+              "kind": "conical_frustum",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "stock1",
+              "top_radius": "5"
+            }
+          },
+          "vertices": [
+            [
+              "10",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "10",
+              "0"
+            ],
+            [
+              "-10",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "-10",
+              "0"
+            ],
+            [
+              "5",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "5",
+              "12"
+            ],
+            [
+              "-5",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "-5",
+              "12"
+            ]
+          ]
+        }
+      },
+      "url": "/api/topology"
+    },
+    {
+      "command": {
+        "action": "select_surface",
+        "expected_revision": 1,
+        "feature_id": "stock1",
+        "surface_id": "feature/stock1/outer/frustum"
+      },
+      "reply": {
+        "result": {
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "stock1.bottom_radius",
+                "height": "stock1.height",
+                "id": "stock1",
+                "kind": "conical_frustum",
+                "top_radius": "stock1.top_radius",
+                "x": "stock1.x",
+                "y": "stock1.y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "stock1.bottom_radius": "10",
+              "stock1.height": "12",
+              "stock1.top_radius": "5",
+              "stock1.x": "0",
+              "stock1.y": "0"
+            }
+          },
+          "revision": 1,
+          "selected_body": {
+            "analytic": {
+              "height": "12",
+              "holes": [],
+              "kind": "conical_frustum",
+              "outer_circle": {
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "10"
+              },
+              "top_radius": "5",
+              "volume": {
+                "constant_mm3": "0",
+                "pi_subtract_mm3": "-700"
+              }
+            },
+            "feature_id": "stock1",
+            "volume_mm3": "700*pi"
+          },
+          "selected_surface": {
+            "faces": [
+              "feature/stock1/outer/frustum/patch/0",
+              "feature/stock1/outer/frustum/patch/1",
+              "feature/stock1/outer/frustum/patch/2",
+              "feature/stock1/outer/frustum/patch/3"
+            ],
+            "naming": "authored_surfaces",
+            "reference": "feature/stock1/outer/frustum",
+            "source_feature": {
+              "bottom_radius": "stock1.bottom_radius",
+              "height": "stock1.height",
+              "id": "stock1",
+              "kind": "conical_frustum",
+              "top_radius": "stock1.top_radius",
+              "x": "stock1.x",
+              "y": "stock1.y"
+            },
+            "support": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "10",
+              "height": "12",
+              "kind": "conical_frustum",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "stock1",
+              "top_radius": "5"
+            }
+          },
+          "selection_status": "current"
+        }
+      },
+      "url": "/api/selection"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "stock1.top_radius",
+            "mm": "15",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "stock1.bottom_radius",
+          "stock1.height",
+          "stock1.x",
+          "stock1.y"
+        ],
+        "selection_guard": {
+          "feature_id": "stock1",
+          "surface_id": "feature/stock1/outer/frustum"
+        }
+      },
+      "reply": {
+        "result": {
+          "job_id": "fbe3b8d6-2d6e-4201-a22a-93baa42da6bb",
+          "revision": 1,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "fbe3b8d6-2d6e-4201-a22a-93baa42da6bb",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "12",
+                    "holes": [],
+                    "kind": "conical_frustum",
+                    "outer_circle": {
+                      "center": [
+                        "0",
+                        "0"
+                      ],
+                      "radius": "10"
+                    },
+                    "top_radius": "15",
+                    "volume": {
+                      "constant_mm3": "0",
+                      "pi_subtract_mm3": "-1900"
+                    }
+                  },
+                  "feature_id": "stock1",
+                  "volume_mm3": "1900*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "stock1.top_radius"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "bottom_radius": "stock1.bottom_radius",
+                    "height": "stock1.height",
+                    "id": "stock1",
+                    "kind": "conical_frustum",
+                    "top_radius": "stock1.top_radius",
+                    "x": "stock1.x",
+                    "y": "stock1.y"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "stock1.bottom_radius": "10",
+                  "stock1.height": "12",
+                  "stock1.top_radius": "15",
+                  "stock1.x": "0",
+                  "stock1.y": "0"
+                }
+              },
+              "preview": true,
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=fbe3b8d6-2d6e-4201-a22a-93baa42da6bb"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "stock1.top_radius",
+            "mm": "15",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "stock1.bottom_radius",
+          "stock1.height",
+          "stock1.x",
+          "stock1.y"
+        ],
+        "selection_guard": {
+          "feature_id": "stock1",
+          "surface_id": "feature/stock1/outer/frustum"
+        },
+        "transaction_id": "3aeaf06f-47bf-4d86-8726-c5481604713e"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "15",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1900"
+                }
+              },
+              "feature_id": "stock1",
+              "volume_mm3": "1900*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "stock1.top_radius"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "stock1.bottom_radius",
+                "height": "stock1.height",
+                "id": "stock1",
+                "kind": "conical_frustum",
+                "top_radius": "stock1.top_radius",
+                "x": "stock1.x",
+                "y": "stock1.y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "stock1.bottom_radius": "10",
+              "stock1.height": "12",
+              "stock1.top_radius": "15",
+              "stock1.x": "0",
+              "stock1.y": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "stock1.top_radius",
+            "mm": "10",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "stock1.bottom_radius",
+          "stock1.height",
+          "stock1.x",
+          "stock1.y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "64d0d5ff-d230-4d37-acf9-efaec3c8adfe",
+          "revision": 2,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "64d0d5ff-d230-4d37-acf9-efaec3c8adfe",
+          "reply": {
+            "error": {
+              "code": "invalid_taper",
+              "entity": "stock1.top_radius",
+              "message": "Frustum radii must differ; use a cylinder for equal radii"
+            }
+          },
+          "revision": 2,
+          "status": "failed"
+        }
+      },
+      "url": "/api/preview-jobs?id=64d0d5ff-d230-4d37-acf9-efaec3c8adfe"
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "738a2fbe-e99c-4df6-a01f-9a1d804b92bc"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "5",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-700"
+                }
+              },
+              "feature_id": "stock1",
+              "volume_mm3": "700*pi"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "stock1.bottom_radius",
+                "height": "stock1.height",
+                "id": "stock1",
+                "kind": "conical_frustum",
+                "top_radius": "stock1.top_radius",
+                "x": "stock1.x",
+                "y": "stock1.y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "stock1.bottom_radius": "10",
+              "stock1.height": "12",
+              "stock1.top_radius": "5",
+              "stock1.x": "0",
+              "stock1.y": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    }
+  ]
+}

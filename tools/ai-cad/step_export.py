@@ -1,5 +1,6 @@
 """Optional OCCT translation of an already validated analytic boundary; no booleans."""
 
+from frustum_export import conical_faces
 from fractions import Fraction
 import math
 import os
@@ -58,165 +59,177 @@ def translate(body):
     converted = []
     if "analytic" in body:
         shape = body["analytic"]
-        h = number(shape["height"])
-        bore = shape.get("counterbore")
-        depth = number(
-            bore["depth"] if bore else shape.get("hole_depth", shape["height"])
-        )
-        floor = h - depth
-        if ("hole_depth" in shape or bore) and (depth <= 1e-6 or floor <= 1e-6):
-            raise RuntimeError(
-                "STEP adapter requires blind depth and remaining floor above 1e-6 mm"
+        if "top_radius" in shape:
+            converted = conical_faces(shape)
+        else:
+            h = number(shape["height"])
+            bore = shape.get("counterbore")
+            depth = number(
+                bore["depth"] if bore else shape.get("hole_depth", shape["height"])
             )
-        points = [[number(v) for v in p] + [0.0] for p in shape.get("outer", [])]
-        outer_circle = shape.get("outer_circle")
-        round_outer = (
-            (
-                [number(v) for v in outer_circle["center"]]
-                + [number(outer_circle["radius"])]
-            )
-            if outer_circle
-            else None
-        )
-        if round_outer and round_outer[2] <= 1e-6:
-            raise RuntimeError("STEP adapter requires outer radius above 1e-6 mm")
-        disks = [
-            (
-                number(c["center"][0]),
-                number(c["center"][1]),
-                number(bore["radius"] if bore else c["radius"]),
-            )
-            for c in shape["holes"]
-        ]
-        if h <= 1e-6 or any(r <= 1e-6 for _, _, r in disks):
-            raise RuntimeError("STEP adapter requires height/radii above 1e-6 mm")
-        if bore and any(
-            number(c["radius"]) <= 1e-6
-            or number(bore["radius"]) - number(c["radius"]) <= 1e-6
-            for c in shape["holes"]
-        ):
-            raise RuntimeError(
-                "STEP adapter requires through radii and counterbore shoulders above 1e-6 mm"
-            )
-        for i, (x, y, r) in enumerate(disks):
-            if (
-                round_outer
-                and round_outer[2]
-                - math.hypot(x - round_outer[0], y - round_outer[1])
-                - r
-                <= 1e-6
-            ):
+            floor = h - depth
+            if ("hole_depth" in shape or bore) and (depth <= 1e-6 or floor <= 1e-6):
                 raise RuntimeError(
-                    "STEP adapter requires outer circle clearance above 1e-6 mm"
+                    "STEP adapter requires blind depth and remaining floor above 1e-6 mm"
                 )
-            for a, b in zip(points, points[1:] + points[:1]):
-                dx, dy = b[0] - a[0], b[1] - a[1]
-                length = math.hypot(dx, dy)
-                if length <= 1e-6:
-                    raise RuntimeError("STEP adapter requires edges above 1e-6 mm")
-                t = max(
-                    0.0,
-                    min(1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (length * length)),
+            points = [[number(v) for v in p] + [0.0] for p in shape.get("outer", [])]
+            outer_circle = shape.get("outer_circle")
+            round_outer = (
+                (
+                    [number(v) for v in outer_circle["center"]]
+                    + [number(outer_circle["radius"])]
                 )
-                if math.hypot(x - a[0] - t * dx, y - a[1] - t * dy) - r <= 1e-6:
-                    raise RuntimeError(
-                        "STEP adapter requires edge length and hole clearance above 1e-6 mm"
-                    )
-            if any(
-                math.hypot(x - xx, y - yy) - r - rr <= 1e-6 for xx, yy, rr in disks[:i]
-            ):
-                raise RuntimeError(
-                    "STEP adapter requires hole separation above 1e-6 mm"
+                if outer_circle
+                else None
+            )
+            if round_outer and round_outer[2] <= 1e-6:
+                raise RuntimeError("STEP adapter requires outer radius above 1e-6 mm")
+            disks = [
+                (
+                    number(c["center"][0]),
+                    number(c["center"][1]),
+                    number(bore["radius"] if bore else c["radius"]),
                 )
-        rings = [
-            [
-                BRepBuilderAPI_MakeEdge(gp_Pnt(*a), gp_Pnt(*b)).Edge()
-                for a, b in zip(points, points[1:] + points[:1])
+                for c in shape["holes"]
             ]
-        ]
-        if round_outer:
-            x, y, r = round_outer
-            circle = gp_Circ(gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), r)
-            rings = [[BRepBuilderAPI_MakeEdge(circle).Edge()]]
-        for hole in shape["holes"]:
-            x, y = map(number, hole["center"])
-            circle = gp_Circ(
-                gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), number(hole["radius"])
-            )
-            rings.append(
-                [TopoDS.Edge(BRepBuilderAPI_MakeEdge(circle).Edge().Reversed())]
-            )
-        cap = BRepBuilderAPI_MakeFace(wire(rings[0]), True)
-        for ring in rings[1:]:
-            cap.Add(wire(ring))
-        if not cap.IsDone():
-            raise RuntimeError("STEP cap construction failed")
-        # Translation only: sweep each boundary edge into its corresponding wall;
-        # move the existing cap, then sew this supplied boundary. No solid cutting.
-
-        def moved(value, z):
-            transform = gp_Trsf()
-            transform.SetTranslation(gp_Vec(0, 0, z))
-            return BRepBuilderAPI_Transform(value, transform, True).Shape()
-
-        bottom = (
-            BRepBuilderAPI_MakeFace(wire(rings[0]), True).Face()
-            if "hole_depth" in shape
-            else cap.Face()
-        )
-        top = cap.Face()
-        large_rings = []
-        if bore:
-            top_builder = BRepBuilderAPI_MakeFace(wire(rings[0]), True)
+            if h <= 1e-6 or any(r <= 1e-6 for _, _, r in disks):
+                raise RuntimeError("STEP adapter requires height/radii above 1e-6 mm")
+            if bore and any(
+                number(c["radius"]) <= 1e-6
+                or number(bore["radius"]) - number(c["radius"]) <= 1e-6
+                for c in shape["holes"]
+            ):
+                raise RuntimeError(
+                    "STEP adapter requires through radii and counterbore shoulders above 1e-6 mm"
+                )
+            for i, (x, y, r) in enumerate(disks):
+                if (
+                    round_outer
+                    and round_outer[2]
+                    - math.hypot(x - round_outer[0], y - round_outer[1])
+                    - r
+                    <= 1e-6
+                ):
+                    raise RuntimeError(
+                        "STEP adapter requires outer circle clearance above 1e-6 mm"
+                    )
+                for a, b in zip(points, points[1:] + points[:1]):
+                    dx, dy = b[0] - a[0], b[1] - a[1]
+                    length = math.hypot(dx, dy)
+                    if length <= 1e-6:
+                        raise RuntimeError("STEP adapter requires edges above 1e-6 mm")
+                    t = max(
+                        0.0,
+                        min(
+                            1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (length * length)
+                        ),
+                    )
+                    if math.hypot(x - a[0] - t * dx, y - a[1] - t * dy) - r <= 1e-6:
+                        raise RuntimeError(
+                            "STEP adapter requires edge length and hole clearance above 1e-6 mm"
+                        )
+                if any(
+                    math.hypot(x - xx, y - yy) - r - rr <= 1e-6
+                    for xx, yy, rr in disks[:i]
+                ):
+                    raise RuntimeError(
+                        "STEP adapter requires hole separation above 1e-6 mm"
+                    )
+            rings = [
+                [
+                    BRepBuilderAPI_MakeEdge(gp_Pnt(*a), gp_Pnt(*b)).Edge()
+                    for a, b in zip(points, points[1:] + points[:1])
+                ]
+            ]
+            if round_outer:
+                x, y, r = round_outer
+                circle = gp_Circ(gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), r)
+                rings = [[BRepBuilderAPI_MakeEdge(circle).Edge()]]
             for hole in shape["holes"]:
                 x, y = map(number, hole["center"])
                 circle = gp_Circ(
-                    gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), number(bore["radius"])
+                    gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), number(hole["radius"])
                 )
-                large_ring = [
-                    TopoDS.Edge(BRepBuilderAPI_MakeEdge(circle).Edge().Reversed())
-                ]
-                large_rings.append(large_ring)
-                top_builder.Add(wire(large_ring))
-            if not top_builder.IsDone():
-                raise RuntimeError("STEP counterbore top construction failed")
-            top = top_builder.Face()
-        converted.extend([TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(top, h))])
-        for index, ring in enumerate(rings):
-            for edge in ring:
-                start = floor if index and not bore else 0.0
-                wall_height = (floor if bore else depth) if index else h
-                converted.extend(
-                    faces(
-                        BRepPrimAPI_MakePrism(
-                            moved(edge, start), gp_Vec(0, 0, wall_height)
-                        ).Shape()
+                rings.append(
+                    [TopoDS.Edge(BRepBuilderAPI_MakeEdge(circle).Edge().Reversed())]
+                )
+            cap = BRepBuilderAPI_MakeFace(wire(rings[0]), True)
+            for ring in rings[1:]:
+                cap.Add(wire(ring))
+            if not cap.IsDone():
+                raise RuntimeError("STEP cap construction failed")
+            # Translation only: sweep each boundary edge into its corresponding wall;
+            # move the existing cap, then sew this supplied boundary. No solid cutting.
+
+            def moved(value, z):
+                transform = gp_Trsf()
+                transform.SetTranslation(gp_Vec(0, 0, z))
+                return BRepBuilderAPI_Transform(value, transform, True).Shape()
+
+            bottom = (
+                BRepBuilderAPI_MakeFace(wire(rings[0]), True).Face()
+                if "hole_depth" in shape
+                else cap.Face()
+            )
+            top = cap.Face()
+            large_rings = []
+            if bore:
+                top_builder = BRepBuilderAPI_MakeFace(wire(rings[0]), True)
+                for hole in shape["holes"]:
+                    x, y = map(number, hole["center"])
+                    circle = gp_Circ(
+                        gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), number(bore["radius"])
                     )
-                )
-            if index and bore:
-                large = large_rings[index - 1]
-                for edge in large:
+                    large_ring = [
+                        TopoDS.Edge(BRepBuilderAPI_MakeEdge(circle).Edge().Reversed())
+                    ]
+                    large_rings.append(large_ring)
+                    top_builder.Add(wire(large_ring))
+                if not top_builder.IsDone():
+                    raise RuntimeError("STEP counterbore top construction failed")
+                top = top_builder.Face()
+            converted.extend(
+                [TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(top, h))]
+            )
+            for index, ring in enumerate(rings):
+                for edge in ring:
+                    start = floor if index and not bore else 0.0
+                    wall_height = (floor if bore else depth) if index else h
                     converted.extend(
                         faces(
                             BRepPrimAPI_MakePrism(
-                                moved(edge, floor), gp_Vec(0, 0, depth)
+                                moved(edge, start), gp_Vec(0, 0, wall_height)
                             ).Shape()
                         )
                     )
-                shoulder = BRepBuilderAPI_MakeFace(
-                    wire([TopoDS.Edge(edge.Reversed()) for edge in reversed(large)]),
-                    True,
-                )
-                shoulder.Add(wire(ring))
-                if not shoulder.IsDone():
-                    raise RuntimeError("STEP counterbore shoulder construction failed")
-                converted.append(TopoDS.Face(moved(shoulder.Face(), floor)))
-            if index and "hole_depth" in shape:
-                floor_wire = wire(
-                    [TopoDS.Edge(edge.Reversed()) for edge in reversed(ring)]
-                )
-                floor_face = BRepBuilderAPI_MakeFace(floor_wire, True).Face()
-                converted.append(TopoDS.Face(moved(floor_face, floor)))
+                if index and bore:
+                    large = large_rings[index - 1]
+                    for edge in large:
+                        converted.extend(
+                            faces(
+                                BRepPrimAPI_MakePrism(
+                                    moved(edge, floor), gp_Vec(0, 0, depth)
+                                ).Shape()
+                            )
+                        )
+                    shoulder = BRepBuilderAPI_MakeFace(
+                        wire(
+                            [TopoDS.Edge(edge.Reversed()) for edge in reversed(large)]
+                        ),
+                        True,
+                    )
+                    shoulder.Add(wire(ring))
+                    if not shoulder.IsDone():
+                        raise RuntimeError(
+                            "STEP counterbore shoulder construction failed"
+                        )
+                    converted.append(TopoDS.Face(moved(shoulder.Face(), floor)))
+                if index and "hole_depth" in shape:
+                    floor_wire = wire(
+                        [TopoDS.Edge(edge.Reversed()) for edge in reversed(ring)]
+                    )
+                    floor_face = BRepBuilderAPI_MakeFace(floor_wire, True).Face()
+                    converted.append(TopoDS.Face(moved(floor_face, floor)))
         v = shape["volume"]
         expected = number(v["constant_mm3"]) - math.pi * number(v["pi_subtract_mm3"])
     else:

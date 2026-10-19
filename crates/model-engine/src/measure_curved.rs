@@ -73,6 +73,21 @@ fn quotient(mut numerator: Polynomial, denominator: &Linear) -> Result<String> {
     }
 }
 
+// Integrate z^moment * (r0 + (r1-r0) z/h)^power over [0,h].
+fn radial_integral(r0: &Q, r1: &Q, h: &Q, power: usize, moment: usize) -> Q {
+    let delta = r1 - r0;
+    let mut choose = 1;
+    let mut sum = q(0);
+    for k in 0..=power {
+        sum += q(choose) * r0.pow((power - k) as i32) * delta.pow(k as i32)
+            / q((k + moment + 1) as i32);
+        if k < power {
+            choose = choose * (power - k) as i32 / (k + 1) as i32;
+        }
+    }
+    h.pow((moment + 1) as i32) * sum
+}
+
 pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Result<Measurements> {
     let height = value(&shape.height)?;
     let mut volume: Linear = [q(0), q(0)];
@@ -84,7 +99,14 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
     if let Some(circle) = &shape.outer_circle {
         let x = value(&circle.center[0])?;
         let y = value(&circle.center[1])?;
-        let r = value(&circle.radius)?;
+        let bottom_r = value(&circle.radius)?;
+        let r = shape
+            .top_radius
+            .as_ref()
+            .map(|s| value(s))
+            .transpose()?
+            .unwrap_or(bottom_r.clone())
+            .max(bottom_r);
         bounds[0][0] = &x - &r;
         bounds[1][0] = &x + &r;
         bounds[0][1] = &y - &r;
@@ -138,14 +160,38 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
         .unwrap_or(height.clone());
     let mut disks = Vec::new();
     if let Some(c) = &shape.outer_circle {
-        disks.push((
-            value(&c.center[0])?,
-            value(&c.center[1])?,
-            value(&c.radius)?,
-            q(0),
-            height.clone(),
-            q(1),
-        ));
+        if let Some(top) = &shape.top_radius {
+            let x = value(&c.center[0])?;
+            let y = value(&c.center[1])?;
+            let r0 = value(&c.radius)?;
+            let r1 = value(top)?;
+            let v = radial_integral(&r0, &r1, &height, 2, 0);
+            let z1 = radial_integral(&r0, &r1, &height, 2, 1);
+            let z2 = radial_integral(&r0, &r1, &height, 2, 2);
+            let radial_second = radial_integral(&r0, &r1, &height, 4, 0) / q(4);
+            volume[1] = v.clone();
+            first[0][1] = &x * &v;
+            first[1][1] = &y * &v;
+            first[2][1] = z1.clone();
+            second[0][0][1] = &x * &x * &v + &radial_second;
+            second[1][1][1] = &y * &y * &v + radial_second;
+            second[2][2][1] = z2;
+            second[0][1][1] = &x * &y * &v;
+            second[1][0][1] = second[0][1][1].clone();
+            second[0][2][1] = &x * &z1;
+            second[2][0][1] = second[0][2][1].clone();
+            second[1][2][1] = &y * &z1;
+            second[2][1][1] = second[1][2][1].clone();
+        } else {
+            disks.push((
+                value(&c.center[0])?,
+                value(&c.center[1])?,
+                value(&c.radius)?,
+                q(0),
+                height.clone(),
+                q(1),
+            ));
+        }
     }
     for c in &shape.holes {
         disks.push((

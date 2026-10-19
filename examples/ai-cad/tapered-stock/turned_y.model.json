@@ -1,0 +1,36 @@
+{
+  "parameters": {
+    "x": "0",
+    "y": "0",
+    "bottom": "10",
+    "top": "5",
+    "height": "12",
+    "turn.x": "1",
+    "turn.y": "2",
+    "turn.z": "3"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "conical_frustum",
+      "id": "taper",
+      "x": "x",
+      "y": "y",
+      "bottom_radius": "bottom",
+      "top_radius": "top",
+      "height": "height"
+    },
+    {
+      "kind": "rotate_quarter",
+      "id": "turned",
+      "input": "taper",
+      "axis": "y",
+      "turns": 3,
+      "pivot": [
+        "turn.x",
+        "turn.y",
+        "turn.z"
+      ]
+    }
+  ]
+}

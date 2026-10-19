@@ -1,0 +1,1107 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "bottom",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "top",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "12"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "conical_frustum",
+              "id": "taper",
+              "x": "x",
+              "y": "y",
+              "bottom_radius": "bottom",
+              "top_radius": "top",
+              "height": "height"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "5",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-700"
+                }
+              },
+              "feature_id": "taper",
+              "volume_mm3": "700*pi"
+            }
+          ],
+          "changed_parameters": [
+            "bottom",
+            "height",
+            "top",
+            "x",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "5",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "bottom",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "top",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "12"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "conical_frustum",
+              "id": "taper",
+              "x": "x",
+              "y": "y",
+              "bottom_radius": "bottom",
+              "top_radius": "top",
+              "height": "height"
+            }
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "5",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-700"
+                }
+              },
+              "feature_id": "taper",
+              "volume_mm3": "700*pi"
+            }
+          ],
+          "changed_parameters": [
+            "bottom",
+            "height",
+            "top",
+            "x",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "5",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "taper"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "-10",
+              "-10",
+              "0"
+            ],
+            [
+              "10",
+              "10",
+              "12"
+            ]
+          ],
+          "centroid_mm": [
+            "0",
+            "0",
+            "33/7"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(133755/7)*pi",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(133755/7)*pi",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "(23250)*pi"
+            ]
+          ],
+          "feature_id": "taper",
+          "volume_mm3": "700*pi"
+        }
+      }
+    },
+    {
+      "tool": "cad_topology",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "taper"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "components": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "edges": [
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "10"
+              },
+              "vertices": [
+                3,
+                0
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                4,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                5,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                6,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "5"
+              },
+              "vertices": [
+                7,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                7
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "id": "feature/taper/outer/frustum/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 9,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/taper/outer/frustum"
+            },
+            {
+              "id": "feature/taper/outer/frustum/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 10,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 9,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/taper/outer/frustum"
+            },
+            {
+              "id": "feature/taper/outer/frustum/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 2,
+                    "forward": true
+                  },
+                  {
+                    "edge": 11,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/taper/outer/frustum"
+            },
+            {
+              "id": "feature/taper/outer/frustum/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 8,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": false
+                  },
+                  {
+                    "edge": 11,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/taper/outer/frustum"
+            },
+            {
+              "id": "feature/taper/cap/bottom",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": false
+                  },
+                  {
+                    "edge": 2,
+                    "forward": false
+                  },
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 0,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/taper/cap/bottom"
+            },
+            {
+              "id": "feature/taper/cap/top",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": true
+                  }
+                ]
+              ],
+              "surface": "feature/taper/cap/top"
+            }
+          ],
+          "feature_id": "taper",
+          "naming": "authored_surfaces",
+          "shell_euler": [
+            2
+          ],
+          "shells": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "surfaces": {
+            "feature/taper/cap/bottom": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "offset": "0",
+              "owner_feature": "taper"
+            },
+            "feature/taper/cap/top": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "12",
+              "owner_feature": "taper"
+            },
+            "feature/taper/outer/frustum": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "10",
+              "height": "12",
+              "kind": "conical_frustum",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "taper",
+              "top_radius": "5"
+            }
+          },
+          "vertices": [
+            [
+              "10",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "10",
+              "0"
+            ],
+            [
+              "-10",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "-10",
+              "0"
+            ],
+            [
+              "5",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "5",
+              "12"
+            ],
+            [
+              "-5",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "-5",
+              "12"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_select_surface",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "taper",
+        "surface_id": "feature/taper/outer/frustum"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "selection_status": "current",
+          "selected_body": {
+            "analytic": {
+              "height": "12",
+              "holes": [],
+              "kind": "conical_frustum",
+              "outer_circle": {
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "10"
+              },
+              "top_radius": "5",
+              "volume": {
+                "constant_mm3": "0",
+                "pi_subtract_mm3": "-700"
+              }
+            },
+            "feature_id": "taper",
+            "volume_mm3": "700*pi"
+          },
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "5",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "selected_surface": {
+            "reference": "feature/taper/outer/frustum",
+            "naming": "authored_surfaces",
+            "support": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "bottom_radius": "10",
+              "height": "12",
+              "kind": "conical_frustum",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "taper",
+              "top_radius": "5"
+            },
+            "faces": [
+              "feature/taper/outer/frustum/patch/0",
+              "feature/taper/outer/frustum/patch/1",
+              "feature/taper/outer/frustum/patch/2",
+              "feature/taper/outer/frustum/patch/3"
+            ],
+            "source_feature": {
+              "bottom_radius": "bottom",
+              "height": "height",
+              "id": "taper",
+              "kind": "conical_frustum",
+              "top_radius": "top",
+              "x": "x",
+              "y": "y"
+            }
+          }
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "taper",
+          "surface_id": "feature/taper/outer/frustum"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "top",
+            "mm": "15"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "15",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1900"
+                }
+              },
+              "feature_id": "taper",
+              "volume_mm3": "1900*pi"
+            }
+          ],
+          "changed_parameters": [
+            "top"
+          ],
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "15",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "taper",
+          "surface_id": "feature/taper/outer/frustum"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "top",
+            "mm": "15"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "wider"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "15",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1900"
+                }
+              },
+              "feature_id": "taper",
+              "volume_mm3": "1900*pi"
+            }
+          ],
+          "changed_parameters": [
+            "top"
+          ],
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "15",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "top",
+            "mm": "10"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_taper",
+          "message": "Frustum radii must differ; use a cylinder for equal radii",
+          "entity": "top"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "conical_frustum",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "10"
+                },
+                "top_radius": "5",
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-700"
+                }
+              },
+              "feature_id": "taper",
+              "volume_mm3": "700*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "bottom_radius": "bottom",
+                "height": "height",
+                "id": "taper",
+                "kind": "conical_frustum",
+                "top_radius": "top",
+                "x": "x",
+                "y": "y"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bottom": "10",
+              "height": "12",
+              "top": "5",
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 3,
+        "feature_id": "taper"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "bounds_mm": [
+            [
+              "-10",
+              "-10",
+              "0"
+            ],
+            [
+              "10",
+              "10",
+              "12"
+            ]
+          ],
+          "centroid_mm": [
+            "0",
+            "0",
+            "33/7"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(133755/7)*pi",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(133755/7)*pi",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "(23250)*pi"
+            ]
+          ],
+          "feature_id": "taper",
+          "volume_mm3": "700*pi"
+        }
+      }
+    }
+  ]
+}

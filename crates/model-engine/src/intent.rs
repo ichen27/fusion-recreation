@@ -33,6 +33,14 @@ impl Feature {
                 height,
                 ..
             } => (vec![], vec![x, y, radius, height]),
+            Self::ConicalFrustum {
+                x,
+                y,
+                bottom_radius,
+                top_radius,
+                height,
+                ..
+            } => (vec![], vec![x, y, bottom_radius, top_radius, height]),
             Self::PolygonProfile { vertices, .. } | Self::PlanarProfile { vertices, .. } => {
                 (vec![], vertices.iter().flat_map(|v| [&v.x, &v.y]).collect())
             }

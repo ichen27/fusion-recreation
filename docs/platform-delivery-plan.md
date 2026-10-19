@@ -189,3 +189,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Direct surface picking checkpoint
 
 [Native triangle provenance and viewport picking](../examples/ai-cad/surface-picking/README.md) connect a visible cap/wall/shoulder directly to exact shared surface context. The original mesh builder retains source references, and CPU picking uses the same rebased display coordinates as the GPU. Only the chosen surface is highlighted; actual picking/orbit records show zero geometry uploads. Native geometry and untagged STL meshes remain unchanged. Exact curved ray intersections, edge picking, broader feature geometry and scalable rendering remain open.
+
+## Tapered stock checkpoint
+
+[Conical frustum stock](../examples/ai-cad/tapered-stock/README.md) adds exact conical walls, two circular caps, polynomial volume moments, placement/instances and surface provenance to the original engine. Twelve browser/ten MCP calls exercise creation, surface selection, guarded widening, rejection and undo; fourteen STEP readbacks compare with seven independent solid references. Apex cones, tapered holes/countersinks, general curved Booleans and arbitrary rotations remain open. Startup robustness and user-facing recoverability also need attention alongside added geometry.

@@ -95,3 +95,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Selection-bound edits](selection-guard/README.md): preview/save context guards, actual browser/MCP conflict and explicit recovery, native checkpoints.
 
 - [Viewport surface picking](surface-picking/README.md): native triangle provenance, direct cap/wall/shoulder selection and isolated highlights without geometry uploads.
+
+- [Tapered round stock](tapered-stock/README.md): exact conical geometry, editable radii, viewport surface context, browser/MCP history, symbolic measurements and fourteen independently checked STEP exports.
