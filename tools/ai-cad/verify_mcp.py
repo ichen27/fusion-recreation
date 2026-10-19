@@ -29,6 +29,7 @@ async def main():
                     "cad_inspect",
                     "cad_context",
                     "cad_explain",
+                    "cad_measure",
                     "cad_preview",
                     "cad_commit",
                     "cad_history",
