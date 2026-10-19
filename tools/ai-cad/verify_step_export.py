@@ -130,7 +130,14 @@ def main(write=False):
         else:
             raise AssertionError("Sub-tolerance STEP radius was accepted")
         verify(example / "bracket.step", expected, state["model"]["parameters"])
-        assert (example / "bracket.stl").read_bytes() == data
+        archived_triangles = read_stl((example / "bracket.stl").read_bytes())
+        # libm trig rounding can differ across macOS/Linux. Verify the delivered
+        # artifact geometrically rather than requiring platform-specific bytes.
+        assert len(archived_triangles) == len(mesh["triangles"])
+        assert (
+            abs(audit_triangles(archived_triangles, 3) - result["stl_volume_mm3"])
+            < 1e-6
+        )
     report = {
         "cases": rows,
         "step_adapter": "cadquery-ocp 8.0.1.1.0; analytic boundary translation only",
