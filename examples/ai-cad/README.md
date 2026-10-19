@@ -97,3 +97,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Viewport surface picking](surface-picking/README.md): native triangle provenance, direct cap/wall/shoulder selection and isolated highlights without geometry uploads.
 
 - [Tapered round stock](tapered-stock/README.md): exact conical geometry, editable radii, viewport surface context, browser/MCP history, symbolic measurements and fourteen independently checked STEP exports.
+
+- [Viewer startup recovery](startup-recovery/README.md): bounded idle connections, preserved revision semantics and actual interrupted-module reload evidence.

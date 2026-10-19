@@ -193,3 +193,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Tapered stock checkpoint
 
 [Conical frustum stock](../examples/ai-cad/tapered-stock/README.md) adds exact conical walls, two circular caps, polynomial volume moments, placement/instances and surface provenance to the original engine. Twelve browser/ten MCP calls exercise creation, surface selection, guarded widening, rejection and undo; fourteen STEP readbacks compare with seven independent solid references. Apex cones, tapered holes/countersinks, general curved Booleans and arbitrary rotations remain open. Startup robustness and user-facing recoverability also need attention alongside added geometry.
+
+## Startup recovery checkpoint
+
+[Bounded connection handling and visible recovery](../examples/ai-cad/startup-recovery/README.md) prevent browser preconnections from monopolizing HTTP parsing. Model/cache operations remain serialized. Socket tests cover partial headers, budget exhaustion and conflicting writes; actual browser fault injection/reload and eight later loads preserve native bytes. Large-model scheduling and broader product packaging remain separate work.

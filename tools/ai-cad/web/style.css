@@ -574,3 +574,14 @@ dialog p[role="status"] {
   fill: none;
   stroke-dasharray: 2 1;
 }
+#startup-panel {
+  padding: 12px 24px;
+  background: #fff4da;
+  color: #503e16;
+}
+#startup-panel[hidden] {
+  display: none;
+}
+#startup-reload {
+  margin-left: 12px;
+}

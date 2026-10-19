@@ -659,7 +659,8 @@ function controls() {
     $(id).disabled = busy || !!preview || editPending || !saved;
   $("export-stl").disabled =
     busy || !!preview || editPending || !saved?.bodies.length;
-  $("dimensions").querySelector("button").disabled = busy || !!preview;
+  $("dimensions").querySelector("button").disabled =
+    busy || !!preview || !saved;
 }
 function render(state) {
   $("display-status").textContent = state.bodies
