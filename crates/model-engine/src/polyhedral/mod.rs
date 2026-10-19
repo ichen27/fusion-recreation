@@ -58,6 +58,17 @@ impl Solid {
         }
         Self::from_cells(vec![checked.boundary])
     }
+    pub(crate) fn from_profile(profile: &crate::profile::Profile, height: &Q) -> Result<Self> {
+        let cells = crate::profile::convex_cells(profile, height)?;
+        // Validate each independently constructed triangular prism before it can
+        // enter the trusted disjoint-cell pipeline.
+        let mut checked = Vec::new();
+        for boundary in cells {
+            let solid = Self::from_convex(boundary)?;
+            checked.extend(solid.cells);
+        }
+        Self::from_cells(checked)
+    }
     fn from_cells(cells: Vec<Boundary>) -> Result<Self> {
         cells::budget(&cells)?;
         if cells.is_empty() {

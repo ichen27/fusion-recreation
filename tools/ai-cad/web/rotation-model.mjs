@@ -13,7 +13,7 @@ export function rotationDraft(state, input, featureId = null) {
     !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
   )
     throw Error(
-      "Select terminal convex planar stock or a previous planar Boolean result",
+      "Select terminal unperforated planar stock or a previous planar Boolean result",
     );
   let id = featureId;
   if (!id)

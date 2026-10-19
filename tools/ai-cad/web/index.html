@@ -273,8 +273,9 @@
         <p class="hint">
           For example, normal (1, 0, 1) and offset 40 keeps x + z ≤ 40. A cut
           cannot remove the entire solid. Previous Boolean results may have
-          cavities, holes or separate pieces. Initial sketch stock must be
-          convex, with no holes. Preview checks this before saving.
+          cavities, holes or separate pieces. Simple concave sketch stock is
+          supported; analytic curved stock and round hole groups are
+          unsupported.
         </p>
         <button type="submit" id="plane-preview" class="primary">
           Preview cut
@@ -361,10 +362,10 @@
           ></select
         ></label>
         <p class="hint">
-          Start with convex planar solids or previous Boolean results. Cavities,
-          through-holes and separate pieces are supported. Curved inputs and
-          initial concave extrusions are unsupported. Edge/point-only joins and
-          empty results reject.
+          Start with unperforated planar solids or previous Boolean results.
+          Concave sketches, cavities, through-holes and separate pieces are
+          supported. Analytic curved inputs, edge/point-only joins and empty
+          results reject.
         </p>
         <button type="submit" id="boolean-preview" class="primary">
           Preview Boolean
@@ -418,10 +419,10 @@
           >Z offset (mm)<input id="translate-z" aria-label="Z offset" required
         /></label>
         <p class="hint">
-          Convex planar stock and previous Boolean results, including cavities
-          and separate pieces. Offsets are signed integers or fractions, up to
-          ±1,000,000 mm per axis. Analytic curved stock and initial concave
-          extrusions are unsupported.
+          Simple planar stock and previous Boolean results, including concave
+          sketches, cavities and separate pieces. Offsets are signed integers or
+          fractions, up to ±1,000,000 mm per axis. Analytic curved stock and
+          round hole groups are unsupported.
         </p>
         <button type="submit" id="translate-preview" class="primary">
           Preview move
@@ -459,9 +460,9 @@
           >Pivot Z (mm)<input id="rotation-z" aria-label="Pivot Z" required
         /></label>
         <p class="hint">
-          Convex planar stock and previous Boolean results, including cavities
-          and separate pieces. Exact 90°, 180° or 270° rotations. Preview checks
-          downstream features.
+          Simple planar stock and previous Boolean results, including concave
+          sketches, cavities and separate pieces. Exact 90°, 180° or 270°
+          rotations. Preview checks downstream features.
         </p>
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation

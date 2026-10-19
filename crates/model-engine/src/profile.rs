@@ -133,6 +133,85 @@ fn strictly_convex(points: &[[Q; 2]], twice_area: &Q) -> bool {
     })
 }
 
+/// Exact convex decomposition of an already validated simple profile.
+/// Ear clipping uses rational orientation and containment predicates. Display
+/// triangulation is never used to define native geometry.
+pub(super) fn convex_cells(profile: &Profile, height: &Q) -> Result<Vec<Boundary>> {
+    let mut points = profile.points.clone();
+    if profile.twice_area.is_negative() {
+        points.reverse();
+    }
+    let mut remaining: Vec<usize> = (0..points.len()).collect();
+    let mut triangles = Vec::new();
+    while remaining.len() > 3 {
+        let ear = (0..remaining.len())
+            .find(|&i| {
+                let [a, b, c] = [
+                    remaining[(i + remaining.len() - 1) % remaining.len()],
+                    remaining[i],
+                    remaining[(i + 1) % remaining.len()],
+                ];
+                if !cross(&points[a], &points[b], &points[c]).is_positive() {
+                    return false;
+                }
+                !remaining.iter().copied().any(|p| {
+                    ![a, b, c].contains(&p)
+                        && cross(&points[a], &points[b], &points[p]) >= Q::zero()
+                        && cross(&points[b], &points[c], &points[p]) >= Q::zero()
+                        && cross(&points[c], &points[a], &points[p]) >= Q::zero()
+                })
+            })
+            .ok_or_else(|| {
+                error(
+                    "invalid_profile",
+                    &profile.id,
+                    "Exact convex decomposition failed",
+                )
+            })?;
+        triangles.push([
+            remaining[(ear + remaining.len() - 1) % remaining.len()],
+            remaining[ear],
+            remaining[(ear + 1) % remaining.len()],
+        ]);
+        remaining.remove(ear);
+    }
+    triangles.push([remaining[0], remaining[1], remaining[2]]);
+    let mut area = Q::zero();
+    let mut cells = Vec::new();
+    for indices in triangles {
+        let vertices = indices.map(|i| points[i].clone());
+        let twice_area = cross(&vertices[0], &vertices[1], &vertices[2]);
+        if !twice_area.is_positive() {
+            return Err(error(
+                "invalid_profile",
+                &profile.id,
+                "Degenerate exact decomposition cell",
+            ));
+        }
+        area += &twice_area;
+        let triangle = Profile {
+            id: profile.id.clone(),
+            vertex_ids: vec![],
+            points: vertices.into(),
+            twice_area,
+            convex_only: true,
+        };
+        cells.push(extrude(&triangle, height));
+    }
+    if area != profile.twice_area.abs() {
+        return Err(error(
+            "invalid_profile",
+            &profile.id,
+            "Exact decomposition area mismatch",
+        ));
+    }
+    Ok(cells)
+}
+
+pub(super) fn is_convex(profile: &Profile) -> bool {
+    strictly_convex(&profile.points, &profile.twice_area)
+}
+
 pub(super) fn convex_boundary(
     profile: &Profile,
     height: &Q,

@@ -20,7 +20,15 @@ def main():
         ]:
             before = path.read_bytes() if path.exists() else None
             reply = dispatch(store, row["command"])
-            assert reply == row["reply"]
+            if row["reply"].get("error", {}).get("code") == "unsupported_reference":
+                # Keep the historical recording unchanged. This once-unsupported
+                # concave preview is now accepted through exact decomposition.
+                assert row["command"]["action"] == "preview"
+                assert row["reply"]["error"]["entity"] == "sketch1.solid"
+                # Area 550 * height 20 minus integral s(20-s)/18, s=0..20.
+                assert reply["result"]["bodies"][0]["volume_mm3"] == "295000/27"
+            else:
+                assert reply == row["reply"]
             if "error" in reply or row["command"]["action"] == "preview":
                 assert (path.read_bytes() if path.exists() else None) == before
             else:
@@ -39,7 +47,7 @@ def main():
                 assert x + z <= 100 + 1e-8
                 assert 3 * x + y <= 300 + 1e-8
     print(
-        "PASS: eight actual sketch/plane browser calls, native edit/undo/reopen, rejected concavity and downloaded STL"
+        "PASS: eight actual sketch/plane browser calls, native edit/undo/reopen, historical concavity rejection now accepted exactly, and downloaded STL"
     )
 
 

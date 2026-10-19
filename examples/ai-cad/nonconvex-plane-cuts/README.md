@@ -51,3 +51,5 @@ python3 tools/ai-cad/viewer.py --store work/pocket.cad.json
 Run `verify_polyhedral_cut_mcp.py` in an environment with `tools/ai-cad/requirements.lock`; run `verify_polyhedral_cut_export.py` with `tools/ai-cad/step-requirements.txt`. Their optional `--write` regenerates their synthetic MCP/STEP artifact sets. Additional exact tests use seeded oblique planes through a symmetric cavity, unchanged cuts, subsequent transforms/Booleans, zero-normal and empty-result rejection, and native undo/reopen.
 
 Initial concave-profile extrusions, analytic curved stock, curved hole groups and arbitrary imported boundaries remain unsupported. Legacy convex `intersection` is unchanged; use `boolean` for nonconvex intersections. Cell, patch, topology, rational and process limits still apply and may reject a valid complex result. Material components are geometry subsets, not independently editable assembly instances. Face/edge indices are regenerated.
+
+Subsequent support: [simple concave extrusion inputs](../concave-operations/README.md) are now admitted through exact rational decomposition. Earlier initial-stock limitations above describe this checkpoint.
