@@ -75,6 +75,18 @@ impl Solid {
             volume,
         })
     }
+    /// Retain the half-space of each cell; regenerate topology after discarding
+    /// empty or lower-dimensional cells. The complete solid must remain nonempty.
+    pub(crate) fn clipped(&self, plane: &boundary_clip::Plane) -> Result<Self> {
+        let mut cells = Vec::new();
+        for cell in &self.cells {
+            if let Some(boundary) = cells::clip(cell, plane.clone())? {
+                cells.push(boundary);
+            }
+        }
+        Self::from_cells(cells)
+    }
+
     /// Transform each backing cell exactly, then regenerate the merged boundary.
     /// The supplied convex operation validates each transformed cell.
     pub(crate) fn transform(

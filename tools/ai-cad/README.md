@@ -201,3 +201,7 @@ The original Rust implementation retains disjoint convex cells and merges expose
 ## Move and orient Boolean results
 
 **Move solid** and **Quarter-turn solid** now handle complete planar Boolean results, including through-holes, cavities and separate pieces. Their exact backing cells remain available for subsequent Booleans. Whole-result placement remains parameter-backed and undoable; individual component instances and arbitrary-angle rotations are not yet supported. See [native files, actual browser/MCP recordings and STEP/STL verification](../../examples/ai-cad/planar-transforms/README.md).
+
+## Trim nonconvex planar results
+
+**Cut with plane** and **Edit plane** now accept planar Boolean results and their rigid transforms. A cut can open a cavity into a pocket, trim a hole, or remove separated pieces; it retains exact cells for later transforms/Booleans. Empty results reject atomically. [Browser/MCP recordings, native history, pocket STL and independent STEP references](../../examples/ai-cad/nonconvex-plane-cuts/README.md) are included. Initial concave extrusions and analytic curved stock remain unsupported.

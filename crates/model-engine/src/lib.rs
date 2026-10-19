@@ -753,7 +753,6 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 offset,
                 ..
             } => {
-                let boundary = convex_input(m, &profiles, &evaluated, input, "Plane cuts")?;
                 if !consumed.insert(input.as_str()) {
                     return Err(error("unsupported_branch",input,"A solid can have only one consuming feature; apply further cuts to the previous cut"));
                 }
@@ -765,12 +764,24 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 if parsed.iter().all(Zero::is_zero) {
                     return Err(error("plane_normal", id, "Plane normal must be nonzero"));
                 }
+                let plane = Plane {
+                    normal: parsed.map(|n| n.to_string()),
+                    offset: parameter(m, offset)?.to_string(),
+                };
+                if let Some(solid) = evaluated
+                    .get(input.as_str())
+                    .and_then(|b| b.polyhedral.as_ref())
+                {
+                    let result = solid.clipped(&plane).map_err(|mut e| {
+                        e.entity = id.into();
+                        e
+                    })?;
+                    evaluated.insert(id, polyhedral_body(id, result));
+                    continue;
+                }
                 (
-                    boundary,
-                    Plane {
-                        normal: parsed.map(|n| n.to_string()),
-                        offset: parameter(m, offset)?.to_string(),
-                    },
+                    convex_input(m, &profiles, &evaluated, input, "Plane cuts")?,
+                    plane,
                 )
             }
             Feature::CornerCut { input, size, .. } => {

@@ -1,0 +1,4298 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane1",
+              "input": "result",
+              "kind": "plane_cut",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "plane1.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "a.c0",
+          "a.c1",
+          "a.height",
+          "b.c0",
+          "b.c1",
+          "b.height",
+          "b.z",
+          "b.zero"
+        ]
+      },
+      "elapsed_ms": 13.200000047683716,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "c1e14d7a-f33f-4174-9a0e-240244ca1e63",
+          "revision": 1,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 1.5,
+      "path": "/api/preview-jobs?id=c1e14d7a-f33f-4174-9a0e-240244ca1e63",
+      "reply": {
+        "result": {
+          "job_id": "c1e14d7a-f33f-4174-9a0e-240244ca1e63",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "boundary": {
+                    "edges": [
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          2
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          12
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          8
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          10
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          10
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          13,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          3,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          7,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          9,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          9
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          1
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          9
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          10,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          14,
+                          15
+                        ]
+                      }
+                    ],
+                    "faces": [
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 0,
+                              "forward": true
+                            },
+                            {
+                              "edge": 1,
+                              "forward": true
+                            },
+                            {
+                              "edge": 2,
+                              "forward": false
+                            },
+                            {
+                              "edge": 3,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 4,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": false
+                            },
+                            {
+                              "edge": 7,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 8,
+                              "forward": true
+                            },
+                            {
+                              "edge": 9,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": false
+                            },
+                            {
+                              "edge": 11,
+                              "forward": false
+                            }
+                          ],
+                          [
+                            {
+                              "edge": 12,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": false
+                            },
+                            {
+                              "edge": 15,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "5"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 3,
+                              "forward": true
+                            },
+                            {
+                              "edge": 16,
+                              "forward": true
+                            },
+                            {
+                              "edge": 8,
+                              "forward": false
+                            },
+                            {
+                              "edge": 17,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 18,
+                              "forward": true
+                            },
+                            {
+                              "edge": 15,
+                              "forward": true
+                            },
+                            {
+                              "edge": 19,
+                              "forward": false
+                            },
+                            {
+                              "edge": 4,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 6,
+                              "forward": true
+                            },
+                            {
+                              "edge": 20,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": false
+                            },
+                            {
+                              "edge": 21,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "-8"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 22,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": true
+                            },
+                            {
+                              "edge": 23,
+                              "forward": false
+                            },
+                            {
+                              "edge": 1,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "10"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 17,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": true
+                            },
+                            {
+                              "edge": 22,
+                              "forward": false
+                            },
+                            {
+                              "edge": 0,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 7,
+                              "forward": true
+                            },
+                            {
+                              "edge": 21,
+                              "forward": true
+                            },
+                            {
+                              "edge": 12,
+                              "forward": false
+                            },
+                            {
+                              "edge": 18,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 19,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": true
+                            },
+                            {
+                              "edge": 20,
+                              "forward": false
+                            },
+                            {
+                              "edge": 5,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "-8"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 2,
+                              "forward": true
+                            },
+                            {
+                              "edge": 23,
+                              "forward": true
+                            },
+                            {
+                              "edge": 9,
+                              "forward": false
+                            },
+                            {
+                              "edge": 16,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "10"
+                      }
+                    ],
+                    "vertices": [
+                      [
+                        "0",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "0",
+                        "5"
+                      ],
+                      [
+                        "0",
+                        "10",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "10",
+                        "5"
+                      ],
+                      [
+                        "2",
+                        "2",
+                        "2"
+                      ],
+                      [
+                        "2",
+                        "2",
+                        "5"
+                      ],
+                      [
+                        "2",
+                        "8",
+                        "2"
+                      ],
+                      [
+                        "2",
+                        "8",
+                        "5"
+                      ],
+                      [
+                        "8",
+                        "2",
+                        "2"
+                      ],
+                      [
+                        "8",
+                        "2",
+                        "5"
+                      ],
+                      [
+                        "8",
+                        "8",
+                        "2"
+                      ],
+                      [
+                        "8",
+                        "8",
+                        "5"
+                      ],
+                      [
+                        "10",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "10",
+                        "0",
+                        "5"
+                      ],
+                      [
+                        "10",
+                        "10",
+                        "0"
+                      ],
+                      [
+                        "10",
+                        "10",
+                        "5"
+                      ]
+                    ]
+                  },
+                  "components": [
+                    [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      9,
+                      10
+                    ]
+                  ],
+                  "feature_id": "plane1",
+                  "volume_mm3": "392"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "plane1.offset"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "a.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "a.c0",
+                        "y": "a.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "a.c1",
+                        "y": "a.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "a.c1",
+                        "y": "a.c1"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "a.c0",
+                        "y": "a.c1"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "a.height",
+                    "id": "a",
+                    "kind": "extrude",
+                    "profile": "a.profile"
+                  },
+                  {
+                    "id": "b.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "b.c0",
+                        "y": "b.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "b.c1",
+                        "y": "b.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "b.c1",
+                        "y": "b.c1"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "b.c0",
+                        "y": "b.c1"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "b.height",
+                    "id": "b",
+                    "kind": "extrude",
+                    "profile": "b.profile"
+                  },
+                  {
+                    "id": "b.placed",
+                    "input": "b",
+                    "kind": "translate",
+                    "offset": [
+                      "b.zero",
+                      "b.zero",
+                      "b.z"
+                    ]
+                  },
+                  {
+                    "id": "result",
+                    "kind": "boolean",
+                    "left": "a",
+                    "operation": "difference",
+                    "right": "b.placed"
+                  },
+                  {
+                    "id": "plane1",
+                    "input": "result",
+                    "kind": "plane_cut",
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "plane1.offset"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "a.c0": "0",
+                  "a.c1": "10",
+                  "a.height": "10",
+                  "b.c0": "2",
+                  "b.c1": "8",
+                  "b.height": "6",
+                  "b.z": "2",
+                  "b.zero": "0",
+                  "plane1.offset": "5"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "100",
+                  "feature_id": "a.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "10",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "10",
+                        "10",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "10",
+                        "0"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "area_mm2": "36",
+                  "feature_id": "b.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "2",
+                        "2",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "8",
+                        "2",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "8",
+                        "8",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "2",
+                        "8",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane1",
+              "input": "result",
+              "kind": "plane_cut",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "plane1.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "a.c0",
+          "a.c1",
+          "a.height",
+          "b.c0",
+          "b.c1",
+          "b.height",
+          "b.z",
+          "b.zero"
+        ],
+        "transaction_id": "a6a6972c-2268-4c0b-ac14-ed537b735b56"
+      },
+      "elapsed_ms": 110.29999995231628,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      12
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      8
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      13,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      9,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      10,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      14,
+                      15
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ],
+                      [
+                        {
+                          "edge": 12,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": false
+                        },
+                        {
+                          "edge": 15,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "5"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 16,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        },
+                        {
+                          "edge": 17,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 18,
+                          "forward": true
+                        },
+                        {
+                          "edge": 15,
+                          "forward": true
+                        },
+                        {
+                          "edge": 19,
+                          "forward": false
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": false
+                        },
+                        {
+                          "edge": 21,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 22,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "10"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 17,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 22,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 21,
+                          "forward": true
+                        },
+                        {
+                          "edge": 12,
+                          "forward": false
+                        },
+                        {
+                          "edge": 18,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 19,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        },
+                        {
+                          "edge": 16,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "5"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "5"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "5"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "5"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "5"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+                ]
+              ],
+              "feature_id": "plane1",
+              "volume_mm3": "392"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "a.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "a.c0",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "a.c1",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "a.c1",
+                    "y": "a.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "a.c0",
+                    "y": "a.c1"
+                  }
+                ]
+              },
+              {
+                "height": "a.height",
+                "id": "a",
+                "kind": "extrude",
+                "profile": "a.profile"
+              },
+              {
+                "id": "b.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "b.c0",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "b.c1",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "b.c1",
+                    "y": "b.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "b.c0",
+                    "y": "b.c1"
+                  }
+                ]
+              },
+              {
+                "height": "b.height",
+                "id": "b",
+                "kind": "extrude",
+                "profile": "b.profile"
+              },
+              {
+                "id": "b.placed",
+                "input": "b",
+                "kind": "translate",
+                "offset": [
+                  "b.zero",
+                  "b.zero",
+                  "b.z"
+                ]
+              },
+              {
+                "id": "result",
+                "kind": "boolean",
+                "left": "a",
+                "operation": "difference",
+                "right": "b.placed"
+              },
+              {
+                "id": "plane1",
+                "input": "result",
+                "kind": "plane_cut",
+                "normal": [
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "a.c0": "0",
+              "a.c1": "10",
+              "a.height": "10",
+              "b.c0": "2",
+              "b.c1": "8",
+              "b.height": "6",
+              "b.z": "2",
+              "b.zero": "0",
+              "plane1.offset": "5"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "100",
+              "feature_id": "a.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "10",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "10",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "36",
+              "feature_id": "b.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "2",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "8",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "8",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "2",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "4",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "a.c0",
+          "a.c1",
+          "a.height",
+          "b.c0",
+          "b.c1",
+          "b.height",
+          "b.z",
+          "b.zero"
+        ]
+      },
+      "elapsed_ms": 17.399999976158142,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "d460e3f7-a348-425e-9c71-08821b3ff877",
+          "revision": 2,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 1.2999999523162842,
+      "path": "/api/preview-jobs?id=d460e3f7-a348-425e-9c71-08821b3ff877",
+      "reply": {
+        "result": {
+          "job_id": "d460e3f7-a348-425e-9c71-08821b3ff877",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "boundary": {
+                    "edges": [
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          2
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          12
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          8
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          10
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          10
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          13,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          3,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          7,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          9,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          9
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          1
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          9
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          10,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          14,
+                          15
+                        ]
+                      }
+                    ],
+                    "faces": [
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 0,
+                              "forward": true
+                            },
+                            {
+                              "edge": 1,
+                              "forward": true
+                            },
+                            {
+                              "edge": 2,
+                              "forward": false
+                            },
+                            {
+                              "edge": 3,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 4,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": false
+                            },
+                            {
+                              "edge": 7,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 8,
+                              "forward": true
+                            },
+                            {
+                              "edge": 9,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": false
+                            },
+                            {
+                              "edge": 11,
+                              "forward": false
+                            }
+                          ],
+                          [
+                            {
+                              "edge": 12,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": false
+                            },
+                            {
+                              "edge": 15,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "4"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 3,
+                              "forward": true
+                            },
+                            {
+                              "edge": 16,
+                              "forward": true
+                            },
+                            {
+                              "edge": 8,
+                              "forward": false
+                            },
+                            {
+                              "edge": 17,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 18,
+                              "forward": true
+                            },
+                            {
+                              "edge": 15,
+                              "forward": true
+                            },
+                            {
+                              "edge": 19,
+                              "forward": false
+                            },
+                            {
+                              "edge": 4,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 6,
+                              "forward": true
+                            },
+                            {
+                              "edge": 20,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": false
+                            },
+                            {
+                              "edge": 21,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "-8"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 22,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": true
+                            },
+                            {
+                              "edge": 23,
+                              "forward": false
+                            },
+                            {
+                              "edge": 1,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "10"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 17,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": true
+                            },
+                            {
+                              "edge": 22,
+                              "forward": false
+                            },
+                            {
+                              "edge": 0,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 7,
+                              "forward": true
+                            },
+                            {
+                              "edge": 21,
+                              "forward": true
+                            },
+                            {
+                              "edge": 12,
+                              "forward": false
+                            },
+                            {
+                              "edge": 18,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "2"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 19,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": true
+                            },
+                            {
+                              "edge": 20,
+                              "forward": false
+                            },
+                            {
+                              "edge": 5,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "-8"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 2,
+                              "forward": true
+                            },
+                            {
+                              "edge": 23,
+                              "forward": true
+                            },
+                            {
+                              "edge": 9,
+                              "forward": false
+                            },
+                            {
+                              "edge": 16,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "10"
+                      }
+                    ],
+                    "vertices": [
+                      [
+                        "0",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "0",
+                        "4"
+                      ],
+                      [
+                        "0",
+                        "10",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "10",
+                        "4"
+                      ],
+                      [
+                        "2",
+                        "2",
+                        "2"
+                      ],
+                      [
+                        "2",
+                        "2",
+                        "4"
+                      ],
+                      [
+                        "2",
+                        "8",
+                        "2"
+                      ],
+                      [
+                        "2",
+                        "8",
+                        "4"
+                      ],
+                      [
+                        "8",
+                        "2",
+                        "2"
+                      ],
+                      [
+                        "8",
+                        "2",
+                        "4"
+                      ],
+                      [
+                        "8",
+                        "8",
+                        "2"
+                      ],
+                      [
+                        "8",
+                        "8",
+                        "4"
+                      ],
+                      [
+                        "10",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "10",
+                        "0",
+                        "4"
+                      ],
+                      [
+                        "10",
+                        "10",
+                        "0"
+                      ],
+                      [
+                        "10",
+                        "10",
+                        "4"
+                      ]
+                    ]
+                  },
+                  "components": [
+                    [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      9,
+                      10
+                    ]
+                  ],
+                  "feature_id": "plane1",
+                  "volume_mm3": "328"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "plane1.offset"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "a.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "a.c0",
+                        "y": "a.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "a.c1",
+                        "y": "a.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "a.c1",
+                        "y": "a.c1"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "a.c0",
+                        "y": "a.c1"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "a.height",
+                    "id": "a",
+                    "kind": "extrude",
+                    "profile": "a.profile"
+                  },
+                  {
+                    "id": "b.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "b.c0",
+                        "y": "b.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "b.c1",
+                        "y": "b.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "b.c1",
+                        "y": "b.c1"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "b.c0",
+                        "y": "b.c1"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "b.height",
+                    "id": "b",
+                    "kind": "extrude",
+                    "profile": "b.profile"
+                  },
+                  {
+                    "id": "b.placed",
+                    "input": "b",
+                    "kind": "translate",
+                    "offset": [
+                      "b.zero",
+                      "b.zero",
+                      "b.z"
+                    ]
+                  },
+                  {
+                    "id": "result",
+                    "kind": "boolean",
+                    "left": "a",
+                    "operation": "difference",
+                    "right": "b.placed"
+                  },
+                  {
+                    "id": "plane1",
+                    "input": "result",
+                    "kind": "plane_cut",
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "plane1.offset"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "a.c0": "0",
+                  "a.c1": "10",
+                  "a.height": "10",
+                  "b.c0": "2",
+                  "b.c1": "8",
+                  "b.height": "6",
+                  "b.z": "2",
+                  "b.zero": "0",
+                  "plane1.offset": "4"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "100",
+                  "feature_id": "a.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "10",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "10",
+                        "10",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "10",
+                        "0"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "area_mm2": "36",
+                  "feature_id": "b.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "2",
+                        "2",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "8",
+                        "2",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "8",
+                        "8",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "2",
+                        "8",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 2,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 2,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "4",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "a.c0",
+          "a.c1",
+          "a.height",
+          "b.c0",
+          "b.c1",
+          "b.height",
+          "b.z",
+          "b.zero"
+        ],
+        "transaction_id": "af6ffe31-9684-4c1b-9e34-ac19fc8cdd24"
+      },
+      "elapsed_ms": 92.69999992847444,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      12
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      8
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      13,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      9,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      10,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      14,
+                      15
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ],
+                      [
+                        {
+                          "edge": 12,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": false
+                        },
+                        {
+                          "edge": 15,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "4"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 16,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        },
+                        {
+                          "edge": 17,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 18,
+                          "forward": true
+                        },
+                        {
+                          "edge": 15,
+                          "forward": true
+                        },
+                        {
+                          "edge": 19,
+                          "forward": false
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": false
+                        },
+                        {
+                          "edge": 21,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 22,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "10"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 17,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 22,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 21,
+                          "forward": true
+                        },
+                        {
+                          "edge": 12,
+                          "forward": false
+                        },
+                        {
+                          "edge": 18,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 19,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        },
+                        {
+                          "edge": 16,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "4"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "4"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "4"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "4"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "4"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "4"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+                ]
+              ],
+              "feature_id": "plane1",
+              "volume_mm3": "328"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "id": "a.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "a.c0",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "a.c1",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "a.c1",
+                    "y": "a.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "a.c0",
+                    "y": "a.c1"
+                  }
+                ]
+              },
+              {
+                "height": "a.height",
+                "id": "a",
+                "kind": "extrude",
+                "profile": "a.profile"
+              },
+              {
+                "id": "b.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "b.c0",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "b.c1",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "b.c1",
+                    "y": "b.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "b.c0",
+                    "y": "b.c1"
+                  }
+                ]
+              },
+              {
+                "height": "b.height",
+                "id": "b",
+                "kind": "extrude",
+                "profile": "b.profile"
+              },
+              {
+                "id": "b.placed",
+                "input": "b",
+                "kind": "translate",
+                "offset": [
+                  "b.zero",
+                  "b.zero",
+                  "b.z"
+                ]
+              },
+              {
+                "id": "result",
+                "kind": "boolean",
+                "left": "a",
+                "operation": "difference",
+                "right": "b.placed"
+              },
+              {
+                "id": "plane1",
+                "input": "result",
+                "kind": "plane_cut",
+                "normal": [
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "a.c0": "0",
+              "a.c1": "10",
+              "a.height": "10",
+              "b.c0": "2",
+              "b.c1": "8",
+              "b.height": "6",
+              "b.z": "2",
+              "b.zero": "0",
+              "plane1.offset": "4"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "100",
+              "feature_id": "a.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "10",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "10",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "36",
+              "feature_id": "b.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "2",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "8",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "8",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "2",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "0",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "a.c0",
+          "a.c1",
+          "a.height",
+          "b.c0",
+          "b.c1",
+          "b.height",
+          "b.z",
+          "b.zero"
+        ]
+      },
+      "elapsed_ms": 13.600000023841858,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "8de71b50-4748-41bd-a0a1-407f26b0a241",
+          "revision": 3,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 1.3000000715255735,
+      "path": "/api/preview-jobs?id=8de71b50-4748-41bd-a0a1-407f26b0a241",
+      "reply": {
+        "result": {
+          "job_id": "8de71b50-4748-41bd-a0a1-407f26b0a241",
+          "reply": {
+            "error": {
+              "code": "empty_solid",
+              "entity": "plane1",
+              "message": "Boolean leaves no positive-volume solid"
+            }
+          },
+          "revision": 3,
+          "status": "failed"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 3,
+        "transaction_id": "dc8c87bf-f462-4335-99ee-16ee6fe5d7ca"
+      },
+      "elapsed_ms": 11.600000023841858,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      12
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      8
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      13,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      9,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      10,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      14,
+                      15
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ],
+                      [
+                        {
+                          "edge": 12,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": false
+                        },
+                        {
+                          "edge": 15,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "5"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 16,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        },
+                        {
+                          "edge": 17,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 18,
+                          "forward": true
+                        },
+                        {
+                          "edge": 15,
+                          "forward": true
+                        },
+                        {
+                          "edge": 19,
+                          "forward": false
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": false
+                        },
+                        {
+                          "edge": 21,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 22,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "10"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 17,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 22,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 21,
+                          "forward": true
+                        },
+                        {
+                          "edge": 12,
+                          "forward": false
+                        },
+                        {
+                          "edge": 18,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 19,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-8"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        },
+                        {
+                          "edge": 16,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "5"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "2",
+                    "8",
+                    "5"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "8",
+                    "5"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "5"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "10",
+                    "5"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+                ]
+              ],
+              "feature_id": "plane1",
+              "volume_mm3": "392"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "id": "a.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "a.c0",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "a.c1",
+                    "y": "a.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "a.c1",
+                    "y": "a.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "a.c0",
+                    "y": "a.c1"
+                  }
+                ]
+              },
+              {
+                "height": "a.height",
+                "id": "a",
+                "kind": "extrude",
+                "profile": "a.profile"
+              },
+              {
+                "id": "b.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "b.c0",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "b.c1",
+                    "y": "b.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "b.c1",
+                    "y": "b.c1"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "b.c0",
+                    "y": "b.c1"
+                  }
+                ]
+              },
+              {
+                "height": "b.height",
+                "id": "b",
+                "kind": "extrude",
+                "profile": "b.profile"
+              },
+              {
+                "id": "b.placed",
+                "input": "b",
+                "kind": "translate",
+                "offset": [
+                  "b.zero",
+                  "b.zero",
+                  "b.z"
+                ]
+              },
+              {
+                "id": "result",
+                "kind": "boolean",
+                "left": "a",
+                "operation": "difference",
+                "right": "b.placed"
+              },
+              {
+                "id": "plane1",
+                "input": "result",
+                "kind": "plane_cut",
+                "normal": [
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "a.c0": "0",
+              "a.c1": "10",
+              "a.height": "10",
+              "b.c0": "2",
+              "b.c1": "8",
+              "b.height": "6",
+              "b.z": "2",
+              "b.zero": "0",
+              "plane1.offset": "5"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "100",
+              "feature_id": "a.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "10",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "10",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "36",
+              "feature_id": "b.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "2",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "8",
+                    "2",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "8",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "2",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

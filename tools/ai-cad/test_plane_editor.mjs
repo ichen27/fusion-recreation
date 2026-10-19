@@ -1,4 +1,5 @@
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -136,5 +137,38 @@ test("browser-created simple sketches feed plane cuts; concavity rejects in Rust
   assert.equal(
     planeCandidate({ analytic: { kind: "polygon_prism", holes: [{}] } }),
     false,
+  );
+});
+
+test("browser plane opens a cavity and updates its offset atomically", () => {
+  const model = JSON.parse(
+    readFileSync(
+      `${root}/examples/ai-cad/planar-booleans/cavity.model.json`,
+      "utf8",
+    ),
+  );
+  let state = { revision: 1, ...run(model).result };
+  let draft = planeDraft(state, "result");
+  draft.value = "5";
+  state = {
+    revision: 2,
+    ...run(state.model, planeProposal(state, draft)).result,
+  };
+  assert.equal(state.bodies[0].volume_mm3, "392");
+  assert.equal(state.bodies[0].components.length, 1);
+  assert.equal(
+    state.bodies[0].boundary.faces.filter((f) => f.loops.length === 2).length,
+    1,
+  );
+  draft = planeDraft(state, null, "plane1");
+  draft.value = "4";
+  assert.equal(
+    run(state.model, planeProposal(state, draft)).result.bodies[0].volume_mm3,
+    "328",
+  );
+  draft.value = "0";
+  assert.equal(
+    run(state.model, planeProposal(state, draft)).error.code,
+    "empty_solid",
   );
 });

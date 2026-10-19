@@ -23,6 +23,7 @@ jobs:
       - run: python tools/ai-cad/verify_mcp.py
       - run: python tools/ai-cad/verify_boolean_mcp.py
       - run: python tools/ai-cad/verify_polyhedral_transform_mcp.py
+      - run: python tools/ai-cad/verify_polyhedral_cut_mcp.py
       - run: python tools/ai-cad/verify_codex_recording.py
       - run: python tools/ai-cad/verify_profile_example.py
       - run: python tools/ai-cad/verify_relationship_example.py
@@ -36,6 +37,7 @@ jobs:
       - run: python tools/ai-cad/verify_sketch_plane.py
       - run: python tools/ai-cad/verify_booleans.py
       - run: python tools/ai-cad/verify_polyhedral_transforms.py
+      - run: python tools/ai-cad/verify_polyhedral_cuts.py
       - run: python tools/ai-cad/verify_intersection.py
       - run: python tools/ai-cad/verify_preview_recording.py
       - run: python tools/ai-cad/verify_intent_recording.py
@@ -51,6 +53,7 @@ jobs:
       - run: python tools/ai-cad/verify_sketch_plane_export.py
       - run: python tools/ai-cad/verify_boolean_export.py
       - run: python tools/ai-cad/verify_polyhedral_transform_export.py
+      - run: python tools/ai-cad/verify_polyhedral_cut_export.py
       - run: python tools/ai-cad/verify_intersection_export.py
       - run: python tools/ai-cad/verify_rotation_export.py
       - run: python tools/ai-cad/verify_translation_export.py
