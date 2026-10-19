@@ -2,17 +2,28 @@ import { stockProposal } from "./stock-model.mjs";
 const $ = (id) => document.getElementById(id);
 export function installStockEditor({ getState, onOpen, onClose, onPreview }) {
   const dialog = $("stock-dialog"),
-    fields = ["width", "depth", "height", "x", "y", "radius"];
+    fields = [
+      "width",
+      "depth",
+      "height",
+      "x",
+      "y",
+      "radius",
+      "bottom_radius",
+      "top_radius",
+    ];
   let state,
     pending = false;
   function controls() {
-    const round = $("stock-kind").value === "cylinder";
+    const kind = $("stock-kind").value;
     for (const field of fields) {
       const active =
         field === "height" ||
-        (round
-          ? ["x", "y", "radius"].includes(field)
-          : ["width", "depth"].includes(field));
+        (kind === "conical_frustum"
+          ? ["x", "y", "bottom_radius", "top_radius"].includes(field)
+          : kind === "cylinder"
+            ? ["x", "y", "radius"].includes(field)
+            : ["width", "depth"].includes(field));
       $(`stock-${field}-row`).hidden = !active;
       $(`stock-${field}`).disabled = pending || !active;
     }
@@ -62,10 +73,12 @@ export function installStockEditor({ getState, onOpen, onClose, onPreview }) {
         x: "0",
         y: "0",
         radius: "20",
+        bottom_radius: "20",
+        top_radius: "10",
       }))
         $(`stock-${field}`).value = value;
       $("stock-feedback").textContent =
-        "Dimensions are in millimeters. Use integers or fractions. A block starts at the origin; circular stock uses the specified XY center. Both extend upward from z=0.";
+        "Dimensions are in millimeters. Use integers or fractions. A block starts at the origin; circular stock uses the specified XY center. All extend upward from z=0. Tapered stock requires two positive, differing radii.";
       controls();
       onOpen();
       dialog.showModal();

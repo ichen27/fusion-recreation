@@ -22,9 +22,7 @@
         <button id="new-sketch" class="primary" disabled>
           New sketch → solid
         </button>
-        <button id="new-stock" type="button">
-          New block or circular stock
-        </button>
+        <button id="new-stock" type="button">New solid stock</button>
         <button id="new-boolean" type="button" disabled>Combine solids</button>
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
@@ -114,8 +112,10 @@
           <summary>Supported geometry</summary>
           <p>
             Blocks, convex and simple concave XY profile extrusions, and
-            circular stock. Separate round holes can pass through the stock or
-            stop at one shared flat-bottom depth. All supported solids can move,
+            circular or tapered round stock. Tapered stock has two positive,
+            differing radii and supports placement, measurement and export.
+            Separate round holes can pass through the stock or stop at one
+            shared flat-bottom depth. All supported solids can move,
             quarter-turn and form linked copies. Planar solids support chained
             cuts by arbitrary planes. Planar Booleans join, subtract or
             intersect solids, including cavities and separate pieces. Exact
@@ -308,6 +308,7 @@
           >Shape<select id="stock-kind" aria-label="Stock shape">
             <option value="block">Block</option>
             <option value="cylinder">Circular stock</option>
+            <option value="conical_frustum">Tapered round stock</option>
           </select></label
         >
         <label id="stock-width-row"
@@ -338,6 +339,18 @@
           >Radius (mm)<input
             id="stock-radius"
             aria-label="Stock radius"
+            required
+        /></label>
+        <label id="stock-bottom_radius-row"
+          >Bottom radius (mm)<input
+            id="stock-bottom_radius"
+            aria-label="Stock bottom radius"
+            required
+        /></label>
+        <label id="stock-top_radius-row"
+          >Top radius (mm)<input
+            id="stock-top_radius"
+            aria-label="Stock top radius"
             required
         /></label>
         <button type="submit" id="stock-preview" class="primary">
@@ -434,8 +447,8 @@
           >Z offset (mm)<input id="translate-z" aria-label="Z offset" required
         /></label>
         <p class="hint">
-          Planar and circular stock, including round holes, cavities and
-          separate pieces. Offsets are signed integers or fractions, up to
+          Planar, circular and tapered stock, including round holes, cavities
+          and separate pieces. Offsets are signed integers or fractions, up to
           ±1,000,000 mm per axis. Circles and cylinders retain their exact
           analytic shape.
         </p>
@@ -475,9 +488,9 @@
           >Pivot Z (mm)<input id="rotation-z" aria-label="Pivot Z" required
         /></label>
         <p class="hint">
-          Planar and circular stock, including round holes, cavities and
-          separate pieces. Exact 90°, 180° or 270° rotations preserve circles
-          and cylinders. Preview checks downstream features.
+          Planar, circular and tapered stock, including round holes, cavities
+          and separate pieces. Exact 90°, 180° or 270° rotations preserve
+          circles and cylinders. Preview checks downstream features.
         </p>
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation

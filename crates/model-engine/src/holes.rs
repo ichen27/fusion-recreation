@@ -47,6 +47,8 @@ pub struct AnalyticPrism {
     pub outer_circle: Option<CircularBoundary>,
     pub height: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub top_radius: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub hole_depth: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub counterbore: Option<Counterbore>,
@@ -135,6 +137,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
             .collect(),
         outer_circle: None,
         height: height.to_string(),
+        top_radius: None,
         hole_depth: None,
         counterbore: None,
         holes: vec![],
@@ -177,6 +180,7 @@ pub(super) fn round(
             radius: r.to_string(),
         }),
         height: h.to_string(),
+        top_radius: None,
         hole_depth: None,
         counterbore: None,
         holes: vec![],
@@ -186,6 +190,32 @@ pub(super) fn round(
         },
     })
 }
+pub(super) fn frustum(
+    m: &Model,
+    x: &str,
+    y: &str,
+    bottom_radius: &str,
+    top_radius: &str,
+    height: &str,
+) -> Result<AnalyticPrism> {
+    let mut shape = round(m, x, y, bottom_radius, height)?;
+    let r = positive(m, bottom_radius)?;
+    let top = positive(m, top_radius)?;
+    let h = positive(m, height)?;
+    if r == top {
+        return Err(error(
+            "invalid_taper",
+            top_radius,
+            "Frustum radii must differ; use a cylinder for equal radii",
+        ));
+    }
+    shape.kind = "conical_frustum";
+    shape.top_radius = Some(top.to_string());
+    shape.volume.pi_subtract_mm3 =
+        (-h * (&r * &r + &r * &top + &top * &top) / Q::from_integer(3.into())).to_string();
+    Ok(shape)
+}
+
 pub(super) fn resolve_round(
     m: &Model,
     id: &str,

@@ -18,7 +18,7 @@ from OCP.BRep import BRep_Builder
 from OCP.TopoDS import TopoDS, TopoDS_Compound
 from OCP.TopExp import TopExp_Explorer
 from OCP.TopAbs import TopAbs_SHELL
-from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Ax3, gp_Circ, gp_Cylinder, gp_Pln
+from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Ax3, gp_Circ, gp_Cylinder, gp_Cone, gp_Pln
 from step_export import wire
 
 
@@ -94,15 +94,30 @@ def translate(topology):
                 a * (upper - lower) for a, upper, lower in zip(axis, high, low)
             )
             radial = [a - b for a, b in zip(vertices[arcs[0]["vertices"][0]], low)]
-            cylinder = gp_Cylinder(
-                gp_Ax3(point(low), direction(axis), direction(radial)),
-                float(F(surface["radius"])),
-            )
-            builder = BRepBuilderAPI_MakeFace(
-                cylinder, 0.0, math.pi / 2, 0.0, float(height)
-            )
+            if surface["kind"] == "conical_frustum":
+                bottom, top = (
+                    float(F(surface["bottom_radius"])),
+                    float(F(surface["top_radius"])),
+                )
+                alpha = math.atan2(top - bottom, float(F(surface["height"])))
+                cone = gp_Cone(
+                    gp_Ax3(point(low), direction(axis), direction(radial)),
+                    alpha,
+                    float(F(arcs[0]["curve"]["radius"])),
+                )
+                builder = BRepBuilderAPI_MakeFace(
+                    cone, 0.0, math.pi / 2, 0.0, float(height) / math.cos(alpha)
+                )
+            else:
+                cylinder = gp_Cylinder(
+                    gp_Ax3(point(low), direction(axis), direction(radial)),
+                    float(F(surface["radius"])),
+                )
+                builder = BRepBuilderAPI_MakeFace(
+                    cylinder, 0.0, math.pi / 2, 0.0, float(height)
+                )
             native = builder.Face()
-            if surface["inward"]:
+            if surface.get("inward", False):
                 native = TopoDS.Face(native.Reversed())
         if not builder.IsDone() or not BRepCheck_Analyzer(native).IsValid():
             raise RuntimeError("Invalid translated shared face")

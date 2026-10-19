@@ -15,6 +15,7 @@ from OCP.BRepPrimAPI import (
     BRepPrimAPI_MakePrism,
     BRepPrimAPI_MakeHalfSpace,
     BRepPrimAPI_MakeCylinder,
+    BRepPrimAPI_MakeCone,
 )
 from OCP.BRepCheck import BRepCheck_Analyzer
 from OCP.BRepGProp import BRepGProp
@@ -44,6 +45,13 @@ def oracle(model):
         elif f["kind"] == "extrude":
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
+            ).Shape()
+        elif f["kind"] == "conical_frustum":
+            shape = BRepPrimAPI_MakeCone(
+                gp_Ax2(gp_Pnt(values[f["x"]], values[f["y"]], 0), gp_Dir(0, 0, 1)),
+                values[f["bottom_radius"]],
+                values[f["top_radius"]],
+                values[f["height"]],
             ).Shape()
         elif f["kind"] == "cylinder":
             shape = BRepPrimAPI_MakeCylinder(

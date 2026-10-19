@@ -4,9 +4,11 @@ function label(reference) {
   const role = reference.split("/").slice(2);
   if (role[0] === "cap") return `${role[1] === "top" ? "Top" : "Bottom"} cap`;
   if (role[0] === "outer")
-    return role[1] === "cylinder"
-      ? "Outer cylinder"
-      : `Side ${role[2]} / ${role[3]}`;
+    return role[1] === "frustum"
+      ? "Conical wall"
+      : role[1] === "cylinder"
+        ? "Outer cylinder"
+        : `Side ${role[2]} / ${role[3]}`;
   const names = {
     upper: "upper recess wall",
     lower: "lower through wall",
@@ -34,9 +36,11 @@ export function renderTopology(container, info, onSelect) {
       id = document.createElement("p");
     title.textContent = label(reference);
     geometry.textContent =
-      surface.kind === "cylinder"
-        ? `Cylinder · radius ${surface.radius} mm · axis (${surface.axis.join(", ")}) · ${surface.inward ? "inner" : "outer"} wall. Axis origin (${surface.origin.join(", ")}) mm.`
-        : `Plane · normal (${surface.normal.join(", ")}); normal · position = ${surface.offset}.`;
+      surface.kind === "conical_frustum"
+        ? `Conical wall · bottom radius ${surface.bottom_radius} mm · top radius ${surface.top_radius} mm · height ${surface.height} mm · axis (${surface.axis.join(", ")}). Axis origin (${surface.origin.join(", ")}) mm.`
+        : surface.kind === "cylinder"
+          ? `Cylinder · radius ${surface.radius} mm · axis (${surface.axis.join(", ")}) · ${surface.inward ? "inner" : "outer"} wall. Axis origin (${surface.origin.join(", ")}) mm.`
+          : `Plane · normal (${surface.normal.join(", ")}); normal · position = ${surface.offset}.`;
     id.textContent = `Reference: ${reference}`;
     details.append(title, geometry, id);
     if (onSelect) {

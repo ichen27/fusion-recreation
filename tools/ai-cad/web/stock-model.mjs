@@ -5,8 +5,10 @@ export function stockProposal(state, kind, values) {
       ? ["width", "depth", "height"]
       : kind === "cylinder"
         ? ["x", "y", "radius", "height"]
-        : null;
-  if (!fields) throw Error("Choose block or circular stock");
+        : kind === "conical_frustum"
+          ? ["x", "y", "bottom_radius", "top_radius", "height"]
+          : null;
+  if (!fields) throw Error("Choose block, circular or tapered stock");
   let id;
   for (let i = 1; i <= 33; i++) {
     const candidate = `stock${i}`;

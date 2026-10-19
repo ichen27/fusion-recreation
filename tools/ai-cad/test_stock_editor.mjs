@@ -79,3 +79,26 @@ test("invalid dimensions and reused namespaces never silently change prior stock
     [],
   );
 });
+test("tapered stock carries exact radii and rejects equal radii", () => {
+  const state = empty();
+  const values = {
+    x: "0",
+    y: "0",
+    bottom_radius: "10",
+    top_radius: "5",
+    height: "12",
+  };
+  const result = run(
+    state.model,
+    stockProposal(state, "conical_frustum", values),
+  );
+  assert.equal(result.result.bodies[0].volume_mm3, "700*pi");
+  assert.equal(result.result.model.features[0].kind, "conical_frustum");
+  assert.equal(
+    run(
+      state.model,
+      stockProposal(state, "conical_frustum", { ...values, top_radius: "10" }),
+    ).error.code,
+    "invalid_taper",
+  );
+});

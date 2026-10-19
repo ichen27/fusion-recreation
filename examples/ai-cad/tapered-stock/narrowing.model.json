@@ -1,0 +1,21 @@
+{
+  "parameters": {
+    "x": "0",
+    "y": "0",
+    "bottom": "10",
+    "top": "5",
+    "height": "12"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "conical_frustum",
+      "id": "taper",
+      "x": "x",
+      "y": "y",
+      "bottom_radius": "bottom",
+      "top_radius": "top",
+      "height": "height"
+    }
+  ]
+}

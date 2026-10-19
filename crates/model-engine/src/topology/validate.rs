@@ -90,6 +90,57 @@ fn on_surface(surface: &Surface, edge: &Edge, points: &[Point]) -> Result<()> {
                 }
             }
         }
+        Surface::ConicalFrustum {
+            origin,
+            axis: direction,
+            bottom_radius,
+            top_radius,
+            height,
+        } => {
+            let origin = point(origin)?;
+            let direction = axis(*direction)?;
+            let r0 = value(bottom_radius)?;
+            let r1 = value(top_radius)?;
+            let h = value(height)?;
+            if !r0.is_positive() || !r1.is_positive() || !h.is_positive() || r0 == r1 {
+                return Err(fail("Invalid conical frustum dimensions"));
+            }
+            let radial = |p: &Point| {
+                let d = sub(p, &origin);
+                let z = dot(&d, &direction);
+                let radial: Point = std::array::from_fn(|i| &d[i] - &direction[i] * &z);
+                let r = &r0 + (&r1 - &r0) * &z / &h;
+                (radial, z, r)
+            };
+            let (ra, za, a_radius) = radial(a);
+            let (rb, zb, b_radius) = radial(b);
+            for (r, z, radius) in [(&ra, &za, &a_radius), (&rb, &zb, &b_radius)] {
+                if z < &q(0) || z > &h || dot(r, r) != radius * radius {
+                    return Err(fail("Edge endpoint off bounded conical surface"));
+                }
+            }
+            match &edge.curve {
+                Curve::Line => {
+                    if za == zb || (0..3).any(|i| &ra[i] * &b_radius != &rb[i] * &a_radius) {
+                        return Err(fail("Conical edge is not a generator"));
+                    }
+                }
+                Curve::QuarterCircle {
+                    center,
+                    axis: arc_axis,
+                    radius,
+                } => {
+                    if za != zb
+                        || value(radius)? != a_radius
+                        || !is_zero(&radial(&point(center)?).0)
+                        || dot(&sub(&point(center)?, &origin), &direction) != za
+                        || !is_zero(&cross(&direction, &axis(*arc_axis)?))
+                    {
+                        return Err(fail("Arc support off conical surface"));
+                    }
+                }
+            }
+        }
         Surface::Cylinder {
             origin,
             axis: direction,
@@ -177,12 +228,14 @@ fn orientation(
             }
         }
         Surface::Cylinder {
-            axis: direction,
-            inward,
-            ..
+            axis: direction, ..
+        }
+        | Surface::ConicalFrustum {
+            axis: direction, ..
         } => {
+            let inward = matches!(surface, Surface::Cylinder { inward: true, .. });
             if index != 0 || ring.len() != 4 {
-                return Err(fail("Cylinder patches require one four-edge loop"));
+                return Err(fail("Round wall patches require one four-edge loop"));
             }
             let direction = axis(*direction)?;
             let mut arcs = vec![];
@@ -200,13 +253,13 @@ fn orientation(
                 }
             }
             arcs.sort();
-            let expected = q(if *inward { -1 } else { 1 });
+            let expected = q(if inward { -1 } else { 1 });
             if arcs.len() != 2
                 || arcs[0].0 >= arcs[1].0
                 || arcs[0].1 != expected
                 || arcs[1].1 != -expected
             {
-                return Err(fail("Incorrect cylindrical patch orientation"));
+                return Err(fail("Incorrect round wall patch orientation"));
             }
         }
     }
