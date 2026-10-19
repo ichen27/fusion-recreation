@@ -169,3 +169,5 @@ In **Edit sketch** or a new drawing, expand **Edge relationships**. Horizontal m
 The viewer [rebases display coordinates on the CPU](../../examples/ai-cad/gpu-precision/README.md) before float32 GPU upload. Camera motion retains buffers. Native coordinates and export tolerances remain unchanged; mixed-scale assemblies are not addressed by this compact-model fix.
 
 [Blind-hole workflow](../../examples/ai-cad/blind-holes/README.md) supports flat-bottom cylindrical pockets with one exact depth per group. Browser creation/editing and MCP share depth, floor and containment checks. Run `python3 tools/ai-cad/verify_blind_example.py`; optional STEP validation uses `verify_blind_export.py`.
+
+[Plane-cut workflow](../../examples/ai-cad/plane-cuts/README.md) integrates arbitrary exact half-spaces on convex planar solids, including sequential cuts and upstream edits. Run `python3 tools/ai-cad/verify_plane_example.py`; optional STEP checks use `verify_plane_export.py`.

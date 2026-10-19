@@ -1,0 +1,16 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "planes-resize",
+  "preserve": [
+    "size",
+    "side"
+  ],
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "diagonal",
+      "mm": "54"
+    }
+  ]
+}

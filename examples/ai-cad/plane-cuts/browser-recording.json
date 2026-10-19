@@ -1,0 +1,1797 @@
+{
+  "description": "Eight actual browser calls: first oblique cut, chained second cut, upstream offset edit, rejected empty-solid preview, undo. Reload verified saved state. Solid screenshot camera was zoomed out. Disposable display-only fields omitted if present.",
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane1",
+              "input": "stock",
+              "kind": "plane_cut",
+              "normal": [
+                "1",
+                "1",
+                "1"
+              ],
+              "offset": "plane1.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "side",
+          "size"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "60"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "60",
+                    "0"
+                  ],
+                  [
+                    "60",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "60"
+                  ]
+                ]
+              },
+              "feature_id": "plane1",
+              "volume_mm3": "36000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "60",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "preview": true,
+          "revision": 1,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane1",
+              "input": "stock",
+              "kind": "plane_cut",
+              "normal": [
+                "1",
+                "1",
+                "1"
+              ],
+              "offset": "plane1.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "side",
+          "size"
+        ],
+        "transaction_id": "ffedbc42-b8be-4f10-b193-31d639fe78ac"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "60"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "60",
+                    "0"
+                  ],
+                  [
+                    "60",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "60"
+                  ]
+                ]
+              },
+              "feature_id": "plane1",
+              "volume_mm3": "36000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "60",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "plane2.offset",
+            "mm": "-10",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane2",
+              "input": "plane1",
+              "kind": "plane_cut",
+              "normal": [
+                "-1",
+                "0",
+                "0"
+              ],
+              "offset": "plane2.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "plane1.offset",
+          "side",
+          "size"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "60"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "10",
+                    "50",
+                    "0"
+                  ],
+                  [
+                    "60",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "50"
+                  ]
+                ]
+              },
+              "feature_id": "plane2",
+              "volume_mm3": "62500/3"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane2.offset"
+          ],
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              },
+              {
+                "id": "plane2",
+                "input": "plane1",
+                "kind": "plane_cut",
+                "normal": [
+                  "-1",
+                  "0",
+                  "0"
+                ],
+                "offset": "plane2.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "60",
+              "plane2.offset": "-10",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "preview": true,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "plane2.offset",
+            "mm": "-10",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "plane2",
+              "input": "plane1",
+              "kind": "plane_cut",
+              "normal": [
+                "-1",
+                "0",
+                "0"
+              ],
+              "offset": "plane2.offset"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "plane1.offset",
+          "side",
+          "size"
+        ],
+        "transaction_id": "ab3a4f9d-9228-4750-9bcb-9c7df5f8594b"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "60"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "10",
+                    "50",
+                    "0"
+                  ],
+                  [
+                    "60",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "50"
+                  ]
+                ]
+              },
+              "feature_id": "plane2",
+              "volume_mm3": "62500/3"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane2.offset"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              },
+              {
+                "id": "plane2",
+                "input": "plane1",
+                "kind": "plane_cut",
+                "normal": [
+                  "-1",
+                  "0",
+                  "0"
+                ],
+                "offset": "plane2.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "60",
+              "plane2.offset": "-10",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "54",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "plane2.offset",
+          "side",
+          "size"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "54"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "10",
+                    "44",
+                    "0"
+                  ],
+                  [
+                    "54",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "44"
+                  ]
+                ]
+              },
+              "feature_id": "plane2",
+              "volume_mm3": "42592/3"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              },
+              {
+                "id": "plane2",
+                "input": "plane1",
+                "kind": "plane_cut",
+                "normal": [
+                  "-1",
+                  "0",
+                  "0"
+                ],
+                "offset": "plane2.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "54",
+              "plane2.offset": "-10",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "preview": true,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "54",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "plane2.offset",
+          "side",
+          "size"
+        ],
+        "transaction_id": "7a411f18-5d56-4ac5-81be-127b6ee19882"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "54"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "10",
+                    "44",
+                    "0"
+                  ],
+                  [
+                    "54",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "44"
+                  ]
+                ]
+              },
+              "feature_id": "plane2",
+              "volume_mm3": "42592/3"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "plane1.offset"
+          ],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              },
+              {
+                "id": "plane2",
+                "input": "plane1",
+                "kind": "plane_cut",
+                "normal": [
+                  "-1",
+                  "0",
+                  "0"
+                ],
+                "offset": "plane2.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "54",
+              "plane2.offset": "-10",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 4,
+        "operations": [
+          {
+            "id": "plane1.offset",
+            "mm": "10",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "diagonal",
+          "plane2.offset",
+          "side",
+          "size"
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "empty_solid",
+          "entity": "plane2",
+          "message": "Cut removes the entire solid or leaves only a face/edge/point; adjust the plane or remove the feature explicitly"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 4,
+        "transaction_id": "e446f30c-0518-4b9b-bfa7-7719e5c7a2cc"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "1",
+                      "1"
+                    ],
+                    "offset": "60"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-10"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "10",
+                    "50",
+                    "0"
+                  ],
+                  [
+                    "60",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0",
+                    "50"
+                  ]
+                ]
+              },
+              "feature_id": "plane2",
+              "volume_mm3": "62500/3"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 5,
+          "model": {
+            "features": [
+              {
+                "depth": "size",
+                "height": "size",
+                "id": "stock",
+                "kind": "block",
+                "width": "size"
+              },
+              {
+                "id": "plane1",
+                "input": "stock",
+                "kind": "plane_cut",
+                "normal": [
+                  "1",
+                  "1",
+                  "1"
+                ],
+                "offset": "plane1.offset"
+              },
+              {
+                "id": "plane2",
+                "input": "plane1",
+                "kind": "plane_cut",
+                "normal": [
+                  "-1",
+                  "0",
+                  "0"
+                ],
+                "offset": "plane2.offset"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "diagonal": "60",
+              "plane1.offset": "60",
+              "plane2.offset": "-10",
+              "side": "-10",
+              "size": "60"
+            }
+          },
+          "replayed": false,
+          "revision": 5,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

@@ -74,13 +74,13 @@
         <details>
           <summary>Supported geometry</summary>
           <p>
-            Origin-aligned blocks and a 45° vertical cut at the +X/+Y corner.
-            Cut size is its setback along each edge. Simple XY polygon profiles
-            can be extruded in +Z. Profile coordinates and height reference
-            editable parameters. Exact affine parameter relationships are
-            supported. Polygon extrusions support separate round through-holes
-            in +Z. No blind holes, fillets or general sketch constraint solver
-            yet. This is a bounded engine prototype.
+            Blocks, convex and simple concave XY profile extrusions, and
+            circular stock. Separate round holes can pass through the stock or
+            stop at one shared flat-bottom depth. Convex planar solids support
+            chained cuts by arbitrary planes. Exact affine relationships
+            preserve declared dimensions. Curved intersections, fillets and a
+            general sketch constraint solver remain unsupported. Preview
+            validates each edit.
           </p>
         </details>
       </aside>
@@ -208,6 +208,40 @@
             </button>
           </div>
         </div>
+      </form>
+    </dialog>
+    <dialog id="plane-dialog" aria-labelledby="plane-title">
+      <form id="plane-form">
+        <header class="sketch-heading">
+          <h2 id="plane-title">Plane cut</h2>
+          <button type="button" id="plane-close">Cancel</button>
+        </header>
+        <p id="plane-feedback" role="status"></p>
+        <div class="plane-normal">
+          <label
+            >Normal X<input id="plane-nx" aria-label="Normal X" required
+          /></label>
+          <label
+            >Normal Y<input id="plane-ny" aria-label="Normal Y" required
+          /></label>
+          <label
+            >Normal Z<input id="plane-nz" aria-label="Normal Z" required
+          /></label>
+        </div>
+        <label
+          >Plane offset (mm)<input
+            id="plane-offset"
+            aria-label="Plane offset"
+            placeholder="Integer or fraction"
+            required
+        /></label>
+        <p class="hint">
+          For example, normal (1, 0, 1) and offset 40 keeps x + z ≤ 40. A cut
+          cannot remove the entire solid. Preview before saving.
+        </p>
+        <button type="submit" id="plane-preview" class="primary">
+          Preview cut
+        </button>
       </form>
     </dialog>
     <script type="module" src="/app.js"></script>

@@ -1,0 +1,22 @@
+[
+  {
+    "stage": "create",
+    "volume_mm3": 20833.33333333375,
+    "oracle_volume_mm3": 20833.333333333347,
+    "error_mm3": 4.0381564758718014e-10,
+    "planes": 4,
+    "material_and_removed_regions_checked": true,
+    "stl_volume_mm3": 20833.333333333332,
+    "stl_triangles": 4
+  },
+  {
+    "stage": "resize",
+    "volume_mm3": 14197.333333333652,
+    "oracle_volume_mm3": 14197.333333333341,
+    "error_mm3": 3.1104718800634146e-10,
+    "planes": 4,
+    "material_and_removed_regions_checked": true,
+    "stl_volume_mm3": 14197.333333333334,
+    "stl_triangles": 4
+  }
+]

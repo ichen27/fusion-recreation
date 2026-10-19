@@ -1,0 +1,61 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "planes-create",
+  "preserve": [],
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "size",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "diagonal",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "side",
+      "mm": "-10"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "block",
+        "id": "stock",
+        "width": "size",
+        "depth": "size",
+        "height": "size"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "plane_cut",
+        "id": "diagonal_cut",
+        "input": "stock",
+        "normal": [
+          "1",
+          "1",
+          "1"
+        ],
+        "offset": "diagonal"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "plane_cut",
+        "id": "side_cut",
+        "input": "diagonal_cut",
+        "normal": [
+          "-1",
+          "0",
+          "0"
+        ],
+        "offset": "side"
+      }
+    }
+  ]
+}

@@ -335,13 +335,15 @@ summary {
 }
 
 .edit-sketch,
-.edit-holes {
+.edit-holes,
+.edit-plane {
   display: block;
   margin-top: 8px;
   padding: 5px 8px;
 }
 #sketch-dialog,
-#hole-dialog {
+#hole-dialog,
+#plane-dialog {
   width: min(1000px, 95vw);
   max-height: 94vh;
   overflow: auto;
@@ -351,7 +353,8 @@ summary {
   color: #1b343b;
 }
 #sketch-dialog::backdrop,
-#hole-dialog::backdrop {
+#hole-dialog::backdrop,
+#plane-dialog::backdrop {
   background: #132b3780;
 }
 .sketch-heading {
@@ -494,4 +497,17 @@ summary {
 .edge-relationship button {
   padding: 6px 8px;
   text-transform: capitalize;
+}
+
+#plane-dialog {
+  max-width: 560px;
+}
+.plane-normal {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+#plane-feedback {
+  line-height: 1.5;
+  font-size: 14px;
 }

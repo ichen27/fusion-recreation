@@ -1,8 +1,9 @@
+import { installPlaneEditor } from "/plane-editor.mjs";
 import { packVertices, formatMeasurement } from "/display-data.mjs";
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes;
+let sketches, holes, planes;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -217,7 +218,9 @@ canvas.addEventListener(
 new ResizeObserver(draw).observe(canvas);
 function controls() {
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
-  for (const button of document.querySelectorAll(".edit-sketch, .edit-holes"))
+  for (const button of document.querySelectorAll(
+    ".edit-sketch, .edit-holes, .edit-plane",
+  ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
   $("redo").disabled = busy || !!preview || !saved?.can_redo;
@@ -274,6 +277,30 @@ function render(state) {
           ),
         );
         div.append(button);
+      }
+      if (
+        f.kind === "plane_cut" ||
+        state.bodies.some((b) => b.feature_id === f.id && b.boundary)
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-plane";
+        button.textContent =
+          f.kind === "plane_cut" ? "Edit plane" : "Cut with plane";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          planes.open(f.id, f.kind === "plane_cut" ? f.id : null),
+        );
+        div.append(button);
+        if (
+          f.kind === "plane_cut" &&
+          state.bodies.some((b) => b.feature_id === f.id && b.boundary)
+        ) {
+          const next = document.createElement("button");
+          next.className = "edit-plane";
+          next.textContent = "Add next plane cut";
+          next.addEventListener("click", () => planes.open(f.id));
+          div.append(next);
+        }
       }
       return div;
     }),
@@ -472,6 +499,7 @@ const editorCallbacks = (name) => ({
 });
 sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
+planes = installPlaneEditor(editorCallbacks("Plane cut"));
 $("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();
 setInterval(() => refresh(), 2000);
