@@ -19,6 +19,9 @@
         <p class="eyebrow">EDITABLE MODEL</p>
         <h1 id="model-title">Model workspace</h1>
         <p class="subtle">Precise geometry. Shared intent.</p>
+        <button id="new-sketch" class="primary" disabled>
+          New sketch → solid
+        </button>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
         <form id="dimensions">
@@ -82,6 +85,74 @@
         </details>
       </aside>
     </main>
+    <dialog id="sketch-dialog" aria-labelledby="sketch-title">
+      <form id="sketch-form">
+        <header class="sketch-heading">
+          <h2 id="sketch-title">Draw a convex profile</h2>
+          <button type="button" id="sketch-close">Cancel</button>
+        </header>
+        <p id="sketch-feedback" role="status"></p>
+        <div class="sketch-layout">
+          <div>
+            <svg
+              id="sketch-canvas"
+              viewBox="-20 -140 240 160"
+              role="img"
+              aria-label="XY sketch canvas; click to add points and drag points to move them"
+            >
+              <defs>
+                <pattern
+                  id="sketch-grid"
+                  width="10"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 10 0 L 0 0 0 10"
+                    fill="none"
+                    stroke="#dce5e0"
+                    stroke-width="0.3"
+                  />
+                </pattern>
+              </defs>
+              <rect
+                x="-1000000"
+                y="-1000000"
+                width="2000000"
+                height="2000000"
+                fill="url(#sketch-grid)"
+              />
+              <g id="sketch-shapes"></g>
+            </svg>
+            <div class="actions">
+              <button type="button" id="sketch-rectangle">
+                Start rectangle</button
+              ><button type="button" id="sketch-remove">
+                Remove last point</button
+              ><button type="button" id="sketch-fit">Fit view</button>
+            </div>
+            <p id="sketch-count"></p>
+          </div>
+          <div class="sketch-properties">
+            <div id="sketch-coordinates"></div>
+            <label id="sketch-height-row"
+              >Extrusion height (mm)<input
+                id="sketch-height"
+                value="6"
+                aria-label="Extrusion height"
+            /></label>
+            <p class="hint">
+              3–16 points in one convex loop. No crossing, concavity or
+              collinear corners. Preview validates the complete model before
+              anything is saved.
+            </p>
+            <button id="sketch-preview" class="primary" type="submit">
+              Preview solid
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

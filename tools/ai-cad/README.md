@@ -33,7 +33,7 @@ python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/prof
 python3 tools/ai-cad/viewer.py --store work/profile.cad.json
 ```
 
-Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. Feature creation currently uses CLI/MCP commands; the viewer does not have interactive sketch drawing tools. Restart connected MCP clients after upgrading to load the new typed feature schemas.
+Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create convex profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
 
 ## Preserve design relationships
 
@@ -139,3 +139,7 @@ The C++/OCCT foundation and earlier research remain separate and intact. Existin
 The [mounting bracket workflow](../../examples/ai-cad/bracket/README.md) creates and widens a flat plate with three analytic cylindrical holes. Thickness, radius and edge margins remain fixed; hole positions follow the existing affine rules. The exact model uses rational coordinates/radii and symbolic volume involving π. Only the disposable display/STL mesh uses chord approximations.
 
 The browser downloads the saved revision as STL; the export CLI also supports optional STEP translation and independently checks readback. Export refuses stale revisions and existing output paths. STEP/STL omit feature history: retain the native document. See [validation and precision limits](../../docs/analytic-bracket-validation.md). Run `python3 tools/ai-cad/verify_bracket_example.py` in addition to the existing checks; the optional STEP verifier requires `step-requirements.txt`.
+
+## Draw and edit a sketch
+
+Start the viewer against a new document path, click **New sketch → solid**, place points around a convex outline (or start a rectangle), choose height, preview and save. **Edit sketch** supports point dragging and exact coordinate fields on existing profiles. Fixed/derived coordinates stay locked; shared parameter references move together. New drawings support 3..16 points, 1 mm drag snapping and integer/fraction field input. Preview runs the authoritative Rust checks before saving. [Browser recording, native documents and screenshots](../../examples/ai-cad/sketch-editor/README.md).

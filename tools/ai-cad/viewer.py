@@ -73,6 +73,8 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/sketch-editor.mjs": ("sketch-editor.mjs", "text/javascript"),
+                "/sketch-model.mjs": ("sketch-model.mjs", "text/javascript"),
                 "/style.css": ("style.css", "text/css"),
             }
             if self.path not in files:

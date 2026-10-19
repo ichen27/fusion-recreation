@@ -1,3 +1,5 @@
+import { installSketchEditor } from "/sketch-editor.mjs";
+let sketches;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -214,6 +216,9 @@ canvas.addEventListener(
 );
 new ResizeObserver(draw).observe(canvas);
 function controls() {
+  $("new-sketch").disabled = busy || !!preview || editPending || !saved;
+  for (const button of document.querySelectorAll(".edit-sketch"))
+    button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
   $("redo").disabled = busy || !!preview || !saved?.can_redo;
   $("commit").disabled = busy;
@@ -244,6 +249,14 @@ function render(state) {
       const div = document.createElement("div");
       div.className = "feature";
       div.textContent = `${f.kind === "block" ? "◇" : "◩"}  ${f.id} · ${f.kind.replaceAll("_", " ")}`;
+      if (f.kind === "polygon_profile") {
+        const button = document.createElement("button");
+        button.className = "edit-sketch";
+        button.textContent = "Edit sketch";
+        button.setAttribute("aria-label", `Edit sketch ${f.id}`);
+        button.addEventListener("click", () => sketches.open(f.id));
+        div.append(button);
+      }
       return div;
     }),
   );
@@ -423,6 +436,26 @@ for (const action of ["undo", "redo"])
     }),
   );
 $("refresh").addEventListener("click", () => refresh(true));
+sketches = installSketchEditor({
+  getState: () => saved,
+  onOpen: () => {
+    editPending = true;
+    controls();
+  },
+  onClose: () => {
+    editPending = false;
+    controls();
+  },
+  onPreview: async (proposal) => {
+    const result = await call({ action: "preview", ...proposal });
+    proposed = proposal;
+    preview = result;
+    render(preview);
+    $("status").textContent =
+      "Sketch preview valid. Save edit to commit the model.";
+  },
+});
+$("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();
 setInterval(() => refresh(), 2000);
 
