@@ -35,3 +35,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Interactive hole editor](hole-editor/README.md): actual placement/drag/radius edits, native documents and exported STL.
 
 - [Feature structure edits](feature-edits/README.md): add/remove holes in place, remove a group, explicitly clean unused parameters, reopen and undo.
+
+- [Sketch edge relationships](sketch-relationships/README.md): directed horizontal/vertical links, rectangle resize, explicit unlink, cycle rejection and undo.

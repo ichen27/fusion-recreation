@@ -16,13 +16,57 @@ export function draftSketch(model, prefix, featureId = null) {
     vertices: feature ? structuredClone(feature.vertices) : [],
     values: { ...model.parameters },
     height: "6",
+    relationEdits: {},
   };
 }
 export function editable(draft, parameter) {
-  return (
-    !(parameter in draft.model.fixed) &&
-    !(parameter in (draft.model.relations ?? {}))
-  );
+  return !(parameter in draft.model.fixed) && !draftRelation(draft, parameter);
+}
+export function draftRelation(draft, id) {
+  return Object.hasOwn(draft.relationEdits ?? {}, id)
+    ? draft.relationEdits[id]
+    : (draft.model.relations?.[id] ?? null);
+}
+export function alignEdge(draft, index, orientation) {
+  if (
+    !["horizontal", "vertical"].includes(orientation) ||
+    !draft.vertices[index] ||
+    draft.vertices.length < 3
+  )
+    throw Error("Select an edge on a closed profile");
+  const axis = orientation === "horizontal" ? "y" : "x";
+  const source = draft.vertices[index][axis],
+    target = draft.vertices[(index + 1) % draft.vertices.length][axis];
+  if (source === target) return false;
+  const rule = { offset_mm: "0", terms: { [source]: "1" } },
+    current = draftRelation(draft, target);
+  if (
+    current &&
+    current.offset_mm === "0" &&
+    Object.keys(current.terms).length === 1 &&
+    current.terms[source] === "1"
+  )
+    return false;
+  if (target in draft.model.fixed)
+    throw Error(`${target} is fixed; release its constraint before linking it`);
+  if (current)
+    throw Error(
+      `${target} already has a relationship; clear it before assigning another`,
+    );
+  draft.relationEdits[target] = rule;
+  return true;
+}
+export function clearSketchRelation(draft, id) {
+  if (!draft.vertices.some((v) => v.x === id || v.y === id))
+    throw Error("Select a sketch coordinate");
+  if (!draftRelation(draft, id)) throw Error("Coordinate has no relationship");
+  draft.relationEdits[id] = null;
+}
+function relationOperations(draft) {
+  return Object.entries(draft.relationEdits ?? {}).flatMap(([id, rule]) => {
+    if (rule) return [{ op: "set_relation", id, relation: rule }];
+    return draft.model.relations?.[id] ? [{ op: "remove_relation", id }] : [];
+  });
 }
 export function addPoint(draft, x, y) {
   if (draft.featureId)
@@ -40,6 +84,20 @@ export function addPoint(draft, x, y) {
   draft.values[xr] = String(x);
   draft.values[yr] = String(y);
 }
+export function removeLastPoint(draft) {
+  if (draft.featureId)
+    throw Error("Existing sketches retain their vertex topology");
+  if (!draft.vertices.length) throw Error("No point to remove");
+  draft.vertices.pop();
+  const refs = new Set(draft.vertices.flatMap((v) => [v.x, v.y]));
+  for (const [id, rule] of Object.entries(draft.relationEdits)) {
+    if (
+      !refs.has(id) ||
+      (rule && Object.keys(rule.terms).some((source) => !refs.has(source)))
+    )
+      delete draft.relationEdits[id];
+  }
+}
 export function setCoordinate(draft, index, axis, value) {
   if (!["x", "y"].includes(axis) || !draft.vertices[index])
     throw Error("Unknown sketch coordinate");
@@ -53,18 +111,27 @@ export function sketchOperations(draft) {
     throw Error("Add at least three points around a simple outline");
   const refs = [...new Set(draft.vertices.flatMap((v) => [v.x, v.y]))];
   if (draft.featureId) {
+    const rules = relationOperations(draft);
     const changed = refs.filter(
-      (ref) => draft.values[ref] !== draft.model.parameters[ref],
+      (ref) =>
+        draft.values[ref] !== draft.model.parameters[ref] &&
+        !draft.relationEdits[ref],
     );
-    if (!changed.length)
-      throw Error("Move a point or change a coordinate first");
+    if (!changed.length && !rules.length)
+      throw Error(
+        "Move a point, change a coordinate or add an edge relationship first",
+      );
     if (changed.some((ref) => !editable(draft, ref)))
       throw Error("Cannot edit a fixed or derived coordinate");
-    return changed.map((id) => ({
-      op: "set_parameter",
-      id,
-      mm: draft.values[id],
-    }));
+    return [
+      ...rules.filter((o) => o.op === "remove_relation"),
+      ...changed.map((id) => ({
+        op: "set_parameter",
+        id,
+        mm: draft.values[id],
+      })),
+      ...rules.filter((o) => o.op === "set_relation"),
+    ];
   }
   const profile = `${draft.prefix}.profile`,
     solid = `${draft.prefix}.solid`,
@@ -77,6 +144,7 @@ export function sketchOperations(draft) {
   return [
     ...refs.map((id) => ({ op: "define_parameter", id, mm: draft.values[id] })),
     { op: "define_parameter", id: height, mm: draft.height },
+    ...relationOperations(draft),
     {
       op: "add_feature",
       feature: {
@@ -94,7 +162,11 @@ export function sketchOperations(draft) {
 export function sketchProposal(state, draft) {
   const operations = sketchOperations(draft);
   const changed = new Set(
-    operations.filter((o) => o.op === "set_parameter").map((o) => o.id),
+    operations
+      .filter((o) =>
+        ["set_parameter", "set_relation", "remove_relation"].includes(o.op),
+      )
+      .map((o) => o.id),
   );
   return {
     expected_revision: state.revision,

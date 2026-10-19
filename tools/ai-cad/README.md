@@ -157,3 +157,7 @@ Verify with `node --test tools/ai-cad/test_sketch.mjs tools/ai-cad/test_hole_edi
 ## Change feature structure
 
 CLI/MCP support `replace_feature` (same ID/kind and timeline position), `remove_feature` (no implicit cascade), and `remove_parameter` (all references/constraints must be resolved). The browser hole dialog uses those operations to add/remove circles or remove an empty group. Complete-model validation, preview, revision checks, idempotent save and undo apply to structural edits. [Runnable browser recording and explicit cleanup example](../../examples/ai-cad/feature-edits/README.md). Run `python3 tools/ai-cad/verify_feature_edits.py`.
+
+## Preserve horizontal and vertical edges
+
+In **Edit sketch** or a new drawing, expand **Edge relationships**. Horizontal makes the end Y follow the start Y; vertical makes end X follow start X. These are directed exact affine links. Driven coordinates lock and rebuild on preview; edit their controlling coordinates. Existing different relationships must be cleared explicitly before replacement. **Clear X/Y link** retains the current value and restores direct editing unless it is also fixed. Cycles reject with a dependency path. This is not a simultaneous geometric constraint solver or a claim of fully constrained sketches. [Actual browser recording, native stages and cycle rejection](../../examples/ai-cad/sketch-relationships/README.md).
