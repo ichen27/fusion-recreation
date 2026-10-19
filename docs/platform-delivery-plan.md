@@ -93,3 +93,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Viewport framing checkpoint
 
 [Orientation and aspect-aware fit](../examples/ai-cad/viewport-framing/README.md) keeps bounded geometry visible at default zoom across window shapes, adds Fit view and retains GPU buffers on camera/resize operations. View presets, panning and semantic selection remain open.
+
+## Browser stock and multi-body delivery checkpoint
+
+[Creation from an empty document](../examples/ai-cad/browser-stock/README.md) now supports block/circular stock and existing cut/hole editors without CLI model setup. Eleven actual browser calls and a downloaded two-body ZIP verify native editing, atomic rejection, undo/redo and consistent-revision export. Document management, assembly structure and broader geometry remain open.

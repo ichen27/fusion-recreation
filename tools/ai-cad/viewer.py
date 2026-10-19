@@ -6,7 +6,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from pathlib import Path
 from store import CadError, Store, dispatch
-from exports import display, export_stl
+from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from urllib.parse import urlsplit, parse_qs
 
@@ -45,13 +45,24 @@ def handler(store, port):
                         display(dispatch(store, {"action": "inspect"}), meshes)
                     ).encode(),
                 )
-            if urlsplit(self.path).path == "/api/export.stl":
+            if urlsplit(self.path).path in ("/api/export.stl", "/api/export.zip"):
+                bundled = urlsplit(self.path).path.endswith(".zip")
                 try:
                     query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
-                    if set(query) != {"revision", "body", "segments"} or any(
+                    expected = (
+                        {"revision", "segments"}
+                        if bundled
+                        else {"revision", "body", "segments"}
+                    )
+                    if set(query) != expected or any(
                         len(v) != 1 for v in query.values()
                     ):
-                        raise ValueError("Expected revision, body and segments")
+                        raise ValueError("Expected " + ", ".join(sorted(expected)))
+                    if bundled:
+                        data, _ = export_stl_archive(
+                            store, int(query["revision"][0]), int(query["segments"][0])
+                        )
+                        return self.reply(200, data, "application/zip")
                     data, _ = export_stl(
                         store,
                         int(query["revision"][0]),
@@ -73,6 +84,8 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/stock-model.mjs": ("stock-model.mjs", "text/javascript"),
+                "/stock-editor.mjs": ("stock-editor.mjs", "text/javascript"),
                 "/plane-model.mjs": ("plane-model.mjs", "text/javascript"),
                 "/plane-editor.mjs": ("plane-editor.mjs", "text/javascript"),
                 "/display-data.mjs": ("display-data.mjs", "text/javascript"),

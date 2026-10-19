@@ -22,6 +22,9 @@
         <button id="new-sketch" class="primary" disabled>
           New sketch → solid
         </button>
+        <button id="new-stock" type="button">
+          New block or circular stock
+        </button>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
         <form id="dimensions">
@@ -244,6 +247,54 @@
         </p>
         <button type="submit" id="plane-preview" class="primary">
           Preview cut
+        </button>
+      </form>
+    </dialog>
+    <dialog id="stock-dialog" aria-labelledby="stock-title">
+      <form id="stock-form">
+        <header class="sketch-heading">
+          <h2 id="stock-title">Create stock</h2>
+          <button type="button" id="stock-close">Cancel</button>
+        </header>
+        <p id="stock-feedback" role="status"></p>
+        <label
+          >Shape<select id="stock-kind" aria-label="Stock shape">
+            <option value="block">Block</option>
+            <option value="cylinder">Circular stock</option>
+          </select></label
+        >
+        <label id="stock-width-row"
+          >Width (mm)<input id="stock-width" aria-label="Stock width" required
+        /></label>
+        <label id="stock-depth-row"
+          >Depth (mm)<input id="stock-depth" aria-label="Stock depth" required
+        /></label>
+        <label id="stock-height-row"
+          >Height (mm)<input
+            id="stock-height"
+            aria-label="Stock height"
+            required
+        /></label>
+        <label id="stock-x-row"
+          >Center X (mm)<input
+            id="stock-x"
+            aria-label="Stock center x"
+            required
+        /></label>
+        <label id="stock-y-row"
+          >Center Y (mm)<input
+            id="stock-y"
+            aria-label="Stock center y"
+            required
+        /></label>
+        <label id="stock-radius-row"
+          >Radius (mm)<input
+            id="stock-radius"
+            aria-label="Stock radius"
+            required
+        /></label>
+        <button type="submit" id="stock-preview" class="primary">
+          Preview stock
         </button>
       </form>
     </dialog>

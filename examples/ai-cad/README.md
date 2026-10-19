@@ -47,3 +47,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Arbitrary-plane cuts](plane-cuts/README.md): repeated exact 3D cuts, browser authoring and independent STEP/STL oracle.
 
 - [Viewport framing](viewport-framing/README.md): orientation/aspect-aware fit with actual GPU projection evidence and zero buffer uploads on fit/resize.
+
+- [Empty-document browser workflow](browser-stock/README.md): create block/circular stock, cut and pocket them, undo/redo, and download all bodies in one revision-bound STL ZIP.

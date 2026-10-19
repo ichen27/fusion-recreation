@@ -1,6 +1,8 @@
 """Read-only, revision-bound export and disposable display tessellation."""
 
 import argparse
+import io
+import zipfile
 from fractions import Fraction
 import json
 import math
@@ -61,12 +63,17 @@ def display(reply, cache=None):
     return reply
 
 
-def select(store, revision, feature_id):
+def snapshot(store, revision):
     state = store.execute({"action": "inspect"})
     if type(revision) is not int or state["revision"] != revision:
         raise CadError(
             "revision_conflict", "Refresh before exporting the saved revision"
         )
+    return state
+
+
+def select(store, revision, feature_id):
+    state = snapshot(store, revision)
     for body in state["bodies"]:
         if body["feature_id"] == feature_id:
             return state, body
@@ -99,6 +106,57 @@ def export_stl(store, revision, feature_id, segments=128):
     state, _ = select(store, revision, feature_id)
     mesh = tessellate(state["model"], feature_id, segments)
     return stl_bytes(mesh), mesh
+
+
+MAX_ARCHIVE_BYTES = 64 * 1024 * 1024
+
+
+def export_stl_archive(store, revision, segments=128):
+    # Inspect once: every body uses the same immutable validated model snapshot,
+    # even if another client commits while tessellation is running.
+    state = snapshot(store, revision)
+    if not state["bodies"]:
+        raise CadError("missing_body", "The saved document has no solid bodies")
+    stream = io.BytesIO()
+    manifest = {
+        "revision": revision,
+        "units": "mm",
+        "segments_per_circle": segments,
+        "bodies": [],
+    }
+    total = 0
+    with zipfile.ZipFile(stream, "w") as archive:
+
+        def add(name, data):
+            # Stable timestamp; safe names derive from validated IDs.
+            info = zipfile.ZipInfo(name)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o100644 << 16
+            archive.writestr(info, data)
+
+        for index, body in enumerate(state["bodies"]):
+            id = body["feature_id"]
+            mesh = tessellate(state["model"], id, segments)
+            data = stl_bytes(mesh)
+            total += len(data)
+            if total > MAX_ARCHIVE_BYTES:
+                raise CadError(
+                    "export_limit",
+                    "STL archive exceeds 64 MiB before compression; export bodies individually",
+                )
+            filename = f"{index + 1:02d}-{id}.stl"
+            add(filename, data)
+            manifest["bodies"].append(
+                {
+                    "feature_id": id,
+                    "file": filename,
+                    "exact_volume_mm3": body["volume_mm3"],
+                    "triangles": len(mesh["triangles"]),
+                    "max_radial_error_mm": mesh["max_radial_error_mm"],
+                }
+            )
+        add("manifest.json", (json.dumps(manifest, indent=2) + "\n").encode())
+    return stream.getvalue(), manifest
 
 
 def main():
