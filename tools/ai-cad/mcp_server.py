@@ -16,6 +16,11 @@ class Strict(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+class SelectionGuard(Strict):
+    feature_id: str
+    surface_id: str | None
+
+
 class Block(Strict):
     kind: Literal["block"]
     id: str
@@ -277,9 +282,12 @@ def server(path):
 
     @mcp.tool()
     def cad_preview(
-        expected_revision: int, operations: list[Operation], preserve: list[str]
+        expected_revision: int,
+        operations: list[Operation],
+        preserve: list[str],
+        selection_guard: SelectionGuard | None = None,
     ) -> dict:
-        """Validate a proposed edit without saving. Preserve lists existing parameter IDs whose values must remain unchanged, including derived values if explicitly requested. Do not preserve an automatically dependent parameter when the intended edit requires it to move. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
+        """Validate a proposed edit without saving. For an edit based on shared selection, pass selection_guard={feature_id,surface_id}, using null surface_id only for body-only selection. Copy the same guard to commit. Selection conflicts require reading current context and replanning; never silently drop the guard. Preserve lists existing parameter IDs whose values must remain unchanged, including derived values if explicitly requested. Do not preserve an automatically dependent parameter when the intended edit requires it to move. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
         return dispatch(
             store,
             {
@@ -287,6 +295,11 @@ def server(path):
                 "expected_revision": expected_revision,
                 "operations": [op.model_dump() for op in operations],
                 "preserve": preserve,
+                **(
+                    {"selection_guard": selection_guard.model_dump()}
+                    if selection_guard is not None
+                    else {}
+                ),
             },
         )
 
@@ -296,8 +309,9 @@ def server(path):
         transaction_id: str,
         operations: list[Operation],
         preserve: list[str],
+        selection_guard: SelectionGuard | None = None,
     ) -> dict:
-        """Commit an authorized, validated edit atomically with undo. Use a unique transaction ID per edit; retry the identical request with the SAME ID if acknowledgement is uncertain. A repeated ID with a different payload is rejected. Releasing fixed dimensions must reflect user intent. For widening only, adjust the width parameter and preserve other dimensions; do not recreate the part."""
+        """Commit an authorized, validated edit atomically with undo. Retain the preview's selection_guard when the edit depends on shared selection. It requires the same current body/surface and document fingerprint under the writer lock. A selection_conflict must be resolved by inspecting and replanning, never by removing the guard. This checks context identity, not whether operations affect only the selected surface; inspect source impact and preserve intended dimensions. Use a unique transaction ID per edit; retry the identical request with the SAME ID if acknowledgement is uncertain. A repeated ID with a different payload is rejected. Releasing fixed dimensions must reflect user intent. For widening only, adjust the width parameter and preserve other dimensions; do not recreate the part."""
         return dispatch(
             store,
             {
@@ -306,6 +320,11 @@ def server(path):
                 "transaction_id": transaction_id,
                 "operations": [op.model_dump() for op in operations],
                 "preserve": preserve,
+                **(
+                    {"selection_guard": selection_guard.model_dump()}
+                    if selection_guard is not None
+                    else {}
+                ),
             },
         )
 

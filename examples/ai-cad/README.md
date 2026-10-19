@@ -91,3 +91,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Shared surface topology](shared-topology/README.md): exact shared native edges/surfaces, browser/MCP inspection, STEP reconstruction and independent solid comparisons.
 
 - [Shared surface context](surface-context/README.md): explicit surface selection across browser/MCP, linked-copy source impact, revision invalidation and native checkpoints.
+
+- [Selection-bound edits](selection-guard/README.md): preview/save context guards, actual browser/MCP conflict and explicit recovery, native checkpoints.

@@ -976,6 +976,7 @@ $("dimensions").addEventListener("submit", (e) => {
       );
     const changed = new Set(operations.map((o) => o.id));
     proposed = {
+      ...surfaceGuard(),
       expected_revision: saved.revision,
       operations,
       preserve: Object.keys(saved.model.parameters).filter(
@@ -1021,6 +1022,16 @@ for (const action of ["undo", "redo"])
     }),
   );
 $("refresh").addEventListener("click", () => refresh(true));
+function surfaceGuard() {
+  return selectedSurface && selectedBody
+    ? {
+        selection_guard: {
+          feature_id: selectedBody,
+          surface_id: selectedSurface.reference,
+        },
+      }
+    : {};
+}
 const editorCallbacks = (name) => ({
   getState: () => saved,
   onOpen: () => {
@@ -1032,6 +1043,7 @@ const editorCallbacks = (name) => ({
     controls();
   },
   onPreview: async (proposal) => {
+    proposal = { ...proposal, ...surfaceGuard() };
     const result = await call({ action: "preview", ...proposal });
     proposed = proposal;
     commitAction = "commit";

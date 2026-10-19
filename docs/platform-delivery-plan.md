@@ -181,3 +181,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Surface context checkpoint
 
 [Shared surface selection](../examples/ai-cad/surface-context/README.md) connects browser inspection to MCP with exact world support, source feature, body and revision. Linked-copy context exposes shared-driver impact through the existing explanation tool. Actual browser-to-MCP handoff, parameter edits, stale/missing rejection and old body-only compatibility are verified. The viewport still highlights whole bodies; geometric surface picking and selection-bound edit preconditions remain ahead.
+
+## Selection-bound edit checkpoint
+
+[Optional preview/save selection guards](../examples/ai-cad/selection-guard/README.md) prevent a context-dependent edit from silently proceeding after the selected body/surface changes, even without a model revision change. Browser proposals retain surface guards; MCP accepts the same typed precondition. Tests cover snapshot jobs, explicit reselection, same-revision replacement, atomic rejection and idempotent receipts. This proves context identity, not edit locality or user authorization. Geometry picking, broader modeling operations and full engineering workflows remain open.

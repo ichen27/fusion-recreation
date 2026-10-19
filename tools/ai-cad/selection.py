@@ -202,3 +202,41 @@ def dispatch_selection(store, command):
                 "message": str(exc),
             }
         }
+
+
+def require_selection(store, state, expected):
+    """Check a preview/commit precondition while the caller owns the document lock."""
+    if (
+        not isinstance(expected, dict)
+        or set(expected) != {"feature_id", "surface_id"}
+        or not isinstance(expected["feature_id"], str)
+        or not expected["feature_id"]
+        or not isinstance(expected["surface_id"], (str, type(None)))
+        or expected["surface_id"] == ""
+    ):
+        raise CadError(
+            "invalid_command",
+            "selection_guard requires feature_id and surface_id (or null for body-only)",
+        )
+    selection = Selection(store)
+    current = selection._read()
+    if (
+        current is None
+        or current["revision"] != state["revision"]
+        or current["document_hash"] != hashlib.sha256(encode(state)).hexdigest()
+        or current["feature_id"] != expected["feature_id"]
+        or current.get("surface_id") != expected["surface_id"]
+    ):
+        raise CadError(
+            "selection_conflict",
+            "Saved selection changed; inspect the current context and replan the edit",
+        )
+    model = store.inspect_model(state["model"])
+    if not any(b["feature_id"] == expected["feature_id"] for b in model["bodies"]):
+        raise CadError(
+            "selection_conflict", "Selected body is no longer a terminal solid"
+        )
+    if expected["surface_id"] is not None:
+        selection._surface(
+            model["model"], expected["feature_id"], expected["surface_id"]
+        )
