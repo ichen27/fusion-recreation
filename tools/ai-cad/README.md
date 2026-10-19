@@ -271,3 +271,7 @@ python tools/ai-cad/verify_frustum_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_frustum_export.py
 ```
+
+### Startup recovery
+
+If the workspace cannot finish loading, use **Reload workspace** after checking that the local viewer is running. The viewer handles idle browser preconnections with bounded connection parsing while preserving serialized model requests. [Socket regression tests and an actual interrupted-load/recovery demonstration](../../examples/ai-cad/startup-recovery/README.md) document its limits.

@@ -1,0 +1,60 @@
+{
+  "fixture": "tapered-stock/browser-wider.cad.json",
+  "native_sha256": "0eccd89778f4dfb885ab9a5144ff3aeb008184232052ced9d8d96e1d95aa80fd",
+  "fault": "one synthetic HTTP503 for stock-model.mjs",
+  "failure": {
+    "message": "The workspace could not load. Check that the local viewer is running, then reload.",
+    "reloadVisible": true,
+    "revision": "Connecting\u2026",
+    "stockDisabled": true
+  },
+  "recovered": {
+    "panelHidden": true,
+    "revision": "Revision 2 \u00b7 Millimeters",
+    "stockDisabled": false,
+    "volume": "5,969.026 mm\u00b3"
+  },
+  "repeat_loads": [
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    },
+    {
+      "loaded": true,
+      "revision": "Revision 2 \u00b7 Millimeters",
+      "stockReady": true
+    }
+  ],
+  "native_unchanged": true
+}

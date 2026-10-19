@@ -2,7 +2,9 @@
 """Loopback-only CAD viewer. Forward this port over SSH for a remote browser."""
 
 import argparse
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler
+from viewer_server import ViewerServer
+import threading
 import json
 from pathlib import Path
 from store import MAX_BYTES, CadError, Store, dispatch
@@ -19,6 +21,7 @@ from urllib.parse import urlsplit, parse_qs
 def handler(store, port):
     meshes = ResultCache(max_entries=32, max_bytes=16 * 1024 * 1024)
     jobs = PreviewJobs(store)
+    requests = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
         preview_jobs = jobs
@@ -44,6 +47,12 @@ def handler(store, port):
             )
 
         def do_GET(self):
+            # Parsing is concurrent; preserve the existing single-request model,
+            # cache and export semantics after a complete HTTP header arrives.
+            with requests:
+                self.get()
+
+        def get(self):
             if not self.allowed():
                 return self.reply(403, b"{}")
             if urlsplit(self.path).path == "/api/preview-jobs":
@@ -137,6 +146,7 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/startup.js": ("startup.js", "text/javascript"),
                 "/preview-client.mjs": ("preview-client.mjs", "text/javascript"),
                 "/boolean-model.mjs": ("boolean-model.mjs", "text/javascript"),
                 "/boolean-editor.mjs": ("boolean-editor.mjs", "text/javascript"),
@@ -172,6 +182,10 @@ def handler(store, port):
             self.reply(200, (Path(__file__).parent / "web" / name).read_bytes(), kind)
 
         def do_POST(self):
+            with requests:
+                self.post()
+
+        def post(self):
             if (
                 not self.allowed()
                 or self.headers.get("Content-Type") != "application/json"
@@ -240,12 +254,14 @@ if __name__ == "__main__":
     parser.add_argument("--store", required=True)
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
-    server = HTTPServer(("127.0.0.1", args.port), handler(Store(args.store), args.port))
+    server = ViewerServer(
+        ("127.0.0.1", args.port), handler(Store(args.store), args.port)
+    )
     print(f"CAD viewer: http://127.0.0.1:{args.port}", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
-        server.RequestHandlerClass.preview_jobs.close()
         server.server_close()
+        server.RequestHandlerClass.preview_jobs.close()

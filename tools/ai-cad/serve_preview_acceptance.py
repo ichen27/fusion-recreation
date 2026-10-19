@@ -5,7 +5,7 @@ it is not a geometry performance workload. Later jobs use the real worker.
 """
 
 import argparse
-from http.server import HTTPServer
+from viewer_server import ViewerServer
 import json
 from pathlib import Path
 import time
@@ -22,7 +22,9 @@ def main():
     output = Path(args.measurements)
     if output.exists():
         parser.error("Measurement output already exists")
-    server = HTTPServer(("127.0.0.1", args.port), handler(Store(args.store), args.port))
+    server = ViewerServer(
+        ("127.0.0.1", args.port), handler(Store(args.store), args.port)
+    )
     jobs = server.RequestHandlerClass.preview_jobs
     first, rows = True, []
 
@@ -57,8 +59,8 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        jobs.close()
         server.server_close()
+        jobs.close()
         output.write_text(json.dumps(rows, indent=2) + "\n")
 
 

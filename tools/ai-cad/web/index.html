@@ -14,6 +14,10 @@
       </div>
       <span id="revision">Connecting…</span>
     </header>
+    <div id="startup-panel" role="status">
+      <span id="startup-message">Loading modeling workspace…</span>
+      <button id="startup-reload" type="button" hidden>Reload workspace</button>
+    </div>
     <main>
       <aside>
         <p class="eyebrow">EDITABLE MODEL</p>
@@ -22,7 +26,7 @@
         <button id="new-sketch" class="primary" disabled>
           New sketch → solid
         </button>
-        <button id="new-stock" type="button">New solid stock</button>
+        <button id="new-stock" type="button" disabled>New solid stock</button>
         <button id="new-boolean" type="button" disabled>Combine solids</button>
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
@@ -31,10 +35,13 @@
         <h2>Dimensions <span>mm</span></h2>
         <form id="dimensions">
           <div id="parameters"></div>
-          <button type="submit" class="primary">Preview changes</button>
+          <button type="submit" class="primary" disabled>
+            Preview changes
+          </button>
         </form>
         <div class="actions">
-          <button id="undo">Undo</button><button id="redo">Redo</button>
+          <button id="undo" disabled>Undo</button
+          ><button id="redo" disabled>Redo</button>
         </div>
         <p class="hint">
           Fixed dimensions stay locked. Derived dimensions follow their
@@ -505,6 +512,6 @@
         Cancel calculation
       </button>
     </dialog>
-    <script type="module" src="/app.js"></script>
+    <script defer src="/startup.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@
 import http.client
 import io
 import zipfile
-from http.server import HTTPServer
+from viewer_server import ViewerServer
 import json
 from pathlib import Path
 import tempfile
@@ -18,7 +18,7 @@ class Viewer(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.store = Store(Path(self.directory.name) / "model.json")
-        self.server = HTTPServer(("127.0.0.1", 0), handler(self.store, 0))
+        self.server = ViewerServer(("127.0.0.1", 0), handler(self.store, 0))
         self.port = self.server.server_port
         self.server.RequestHandlerClass = handler(self.store, self.port)
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
