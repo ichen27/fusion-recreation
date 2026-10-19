@@ -51,3 +51,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Empty-document browser workflow](browser-stock/README.md): create block/circular stock, cut and pocket them, undo/redo, and download all bodies in one revision-bound STL ZIP.
 
 - [Native project files](native-project/README.md): actual editable download, previewed import, undo/reopen history and damaged-file rejection.
+
+- [Sketch to sloped solid](sketch-plane/README.md): browser-created convex profiles feed exact plane cuts, with upstream edits, concavity rejection and independent STEP validation.

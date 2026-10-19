@@ -103,20 +103,8 @@ fn resolve_mode(
         })
         .sum();
     if convex_only {
-        // Every other vertex must lie strictly on the interior side of every edge.
-        // Checking only adjacent turns would incorrectly accept star polygons.
-        for i in 0..n {
-            let j = (i + 1) % n;
-            let (a, b) = (&points[i], &points[j]);
-            for (k, c) in points.iter().enumerate() {
-                if k == i || k == j {
-                    continue;
-                }
-                let cross = (&b[0] - &a[0]) * (&c[1] - &a[1]) - (&b[1] - &a[1]) * (&c[0] - &a[0]);
-                if cross.is_zero() || cross.is_positive() != twice_area.is_positive() {
-                    return Err(error("invalid_profile", id, "Expected one strictly convex loop: no repeated points, collinear corners, concavity or crossings"));
-                }
-            }
+        if !strictly_convex(&points, &twice_area) {
+            return Err(error("invalid_profile", id, "Expected one strictly convex loop: no repeated points, collinear corners, concavity or crossings"));
         }
     } else {
         validate_simple(&points, &twice_area, id)?;
@@ -128,6 +116,32 @@ fn resolve_mode(
         twice_area,
         convex_only,
     })
+}
+
+// Every other vertex must lie strictly inside every oriented edge. This also
+// rejects star polygons, unlike testing only consecutive turns.
+fn strictly_convex(points: &[[Q; 2]], twice_area: &Q) -> bool {
+    (0..points.len()).all(|i| {
+        let j = (i + 1) % points.len();
+        points.iter().enumerate().all(|(k, c)| {
+            if k == i || k == j {
+                return true;
+            }
+            let turn = cross(&points[i], &points[j], c);
+            !turn.is_zero() && turn.is_positive() == twice_area.is_positive()
+        })
+    })
+}
+
+pub(super) fn convex_boundary(profile: &Profile, height: &Q, input: &str) -> Result<Boundary> {
+    if !strictly_convex(&profile.points, &profile.twice_area) {
+        return Err(error(
+            "unsupported_reference",
+            input,
+            "Plane cuts require convex stock; the input sketch has inward corners",
+        ));
+    }
+    Ok(extrude(profile, height))
 }
 
 pub(super) fn extrude(profile: &Profile, height: &Q) -> Boundary {

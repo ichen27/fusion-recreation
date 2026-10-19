@@ -94,3 +94,47 @@ test("normal replacement, unchanged draft and constrained offset semantics", () 
   };
   assert.equal(offsetEditable(state, d), false);
 });
+
+test("browser-created simple sketches feed plane cuts; concavity rejects in Rust", async () => {
+  const { draftSketch, addPoint, sketchProposal } = await import(
+    "./web/sketch-model.mjs"
+  );
+  const { planeCandidate } = await import("./web/plane-model.mjs");
+  const empty = { parameters: {}, fixed: {}, features: [] };
+  const draft = draftSketch(empty, "sketch1");
+  for (const [x, y] of [
+    [0, 0],
+    [40, 0],
+    [40, 30],
+    [0, 30],
+  ])
+    addPoint(draft, x, y);
+  draft.height = "20";
+  let state = {
+    revision: 1,
+    ...run(empty, sketchProposal({ model: empty, revision: 0 }, draft)).result,
+  };
+  assert.equal(state.model.features[0].kind, "planar_profile");
+  const id = state.bodies[0].feature_id;
+  assert.ok(planeCandidate(state.bodies[0]));
+  const p = planeDraft(state, id);
+  p.normal = ["1", "0", "1"];
+  p.value = "40";
+  const result = run(state.model, planeProposal(state, p));
+  assert.equal(result.result.bodies[0].volume_mm3, "18000");
+  assert.ok(planeCandidate(result.result.bodies[0]));
+  state.model.parameters["sketch1.v3.x"] = "10";
+  state.model.parameters["sketch1.v3.y"] = "5";
+  assert.equal(
+    run(state.model, planeProposal(state, p)).error.code,
+    "unsupported_reference",
+  );
+  assert.equal(
+    planeCandidate({ analytic: { kind: "cylinder", holes: [] } }),
+    false,
+  );
+  assert.equal(
+    planeCandidate({ analytic: { kind: "polygon_prism", holes: [{}] } }),
+    false,
+  );
+});

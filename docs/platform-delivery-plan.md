@@ -101,3 +101,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Native project checkpoint
 
 [Native download and import](../examples/ai-cad/native-project/README.md) retain editable history in downloads and make importing a model an explicit undoable replacement. Actual browser records, downloaded files and corruption/stale/retry tests verify the workflow. Project libraries, document migrations and multi-user synchronization remain open. Next: connect browser-created convex sketches to existing three-dimensional plane cuts without approximating concave or curved solids.
+
+## Convex sketch/cut integration checkpoint
+
+[Browser sketches feed exact plane cuts](../examples/ai-cad/sketch-plane/README.md) through an exact convexity-checked boundary construction. Existing simple-profile output remains stable, and invalid downstream edits are atomic. Eight actual browser calls, native history and independent STEP/STL checks verify the path. Continue into bounded solid/solid Boolean operations before extending to general nonconvex and curved intersections.
