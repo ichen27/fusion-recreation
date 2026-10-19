@@ -1,0 +1,722 @@
+[
+  {
+    "case": "overlap",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "15",
+          "15",
+          "15"
+        ]
+      ],
+      "centroid_mm": [
+        "15/2",
+        "15/2",
+        "15/2"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "115625/2",
+          "-12500",
+          "-12500"
+        ],
+        [
+          "-12500",
+          "115625/2",
+          "-12500"
+        ],
+        [
+          "-12500",
+          "-12500",
+          "115625/2"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "1875"
+    },
+    "reference_centroid_mm": [
+      7.5,
+      7.5,
+      7.5
+    ],
+    "whole_compound_centroid_mm": [
+      7.5,
+      7.5,
+      7.5
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        57812.5,
+        -12500.0,
+        -12500.0
+      ],
+      [
+        -12500.0,
+        57812.5,
+        -12500.0
+      ],
+      [
+        -12500.0,
+        -12500.0,
+        57812.5
+      ]
+    ],
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 0.0,
+    "volume_error_mm3": 0.0
+  },
+  {
+    "case": "cavity",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "5",
+        "5",
+        "5"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "46112/3",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "46112/3",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "46112/3"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "784"
+    },
+    "reference_centroid_mm": [
+      4.999999999999999,
+      5.0,
+      5.0
+    ],
+    "whole_compound_centroid_mm": [
+      4.999999999999999,
+      5.0,
+      5.0
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        15370.666666666686,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        15370.666666666686,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        15370.666666666686
+      ]
+    ],
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 2.000888343900442e-11,
+    "volume_error_mm3": 2.2737367544323206e-13
+  },
+  {
+    "case": "through",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "5",
+        "5",
+        "5"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "37760/3",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "37760/3",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "43520/3"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "640"
+    },
+    "reference_centroid_mm": [
+      4.999999999999998,
+      5.000000000000001,
+      5.0
+    ],
+    "whole_compound_centroid_mm": [
+      4.999999999999998,
+      5.000000000000001,
+      5.0
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        12586.666666666664,
+        0.0,
+        -3.637978807091713e-12
+      ],
+      [
+        0.0,
+        12586.666666666679,
+        0.0
+      ],
+      [
+        -3.637978807091713e-12,
+        0.0,
+        14506.666666666672
+      ]
+    ],
+    "centroid_error_mm": 1.7763568394002505e-15,
+    "inertia_error_mm5": 1.2732925824820995e-11,
+    "volume_error_mm3": 2.2737367544323206e-13
+  },
+  {
+    "case": "split",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "5",
+        "5",
+        "5"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "40000/3",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "44800/3",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "44800/3"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "800"
+    },
+    "reference_centroid_mm": [
+      5.0,
+      5.0,
+      5.0
+    ],
+    "whole_compound_centroid_mm": [
+      5.000000000000001,
+      5.0,
+      5.000000000000001
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        13333.333333333336,
+        4.547473508864641e-13,
+        4.547473508864641e-13
+      ],
+      [
+        4.547473508864641e-13,
+        14933.333333333328,
+        -3.637978807091713e-12
+      ],
+      [
+        4.547473508864641e-13,
+        -3.637978807091713e-12,
+        14933.333333333328
+      ]
+    ],
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 5.4569682106375694e-12,
+    "volume_error_mm3": 2.2737367544323206e-13
+  },
+  {
+    "case": "separate",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "30",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "15",
+        "5",
+        "5"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "100000/3",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "700000/3",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "700000/3"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "2000"
+    },
+    "reference_centroid_mm": [
+      15.0,
+      4.999999999999999,
+      5.0
+    ],
+    "whole_compound_centroid_mm": [
+      15.312500000000004,
+      5.3125,
+      5.000000000000001
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        33333.33333333336,
+        -3.637978807091713e-11,
+        -3.637978807091713e-12
+      ],
+      [
+        -3.637978807091713e-11,
+        233333.33333333326,
+        -7.275957614183426e-12
+      ],
+      [
+        -3.637978807091713e-12,
+        -7.275957614183426e-12,
+        233333.33333333326
+      ]
+    ],
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 8.731149137020111e-11,
+    "volume_error_mm3": 4.547473508864641e-13
+  },
+  {
+    "case": "l_shape",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "2",
+          "2",
+          "1"
+        ]
+      ],
+      "centroid_mm": [
+        "5/6",
+        "5/6",
+        "1/2"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "7/6",
+          "1/3",
+          "0"
+        ],
+        [
+          "1/3",
+          "7/6",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "11/6"
+        ]
+      ],
+      "feature_id": "result",
+      "volume_mm3": "3"
+    },
+    "reference_centroid_mm": [
+      0.8333333333333334,
+      0.8333333333333334,
+      0.5
+    ],
+    "whole_compound_centroid_mm": [
+      0.8333333333333334,
+      0.8333333333333334,
+      0.5
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        1.1666666666666674,
+        0.33333333333333326,
+        -2.220446049250313e-16
+      ],
+      [
+        0.33333333333333326,
+        1.1666666666666665,
+        0.0
+      ],
+      [
+        -2.220446049250313e-16,
+        0.0,
+        1.833333333333334
+      ]
+    ],
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 6.661338147750939e-16,
+    "volume_error_mm3": 1.3322676295501878e-15
+  },
+  {
+    "case": "concave",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "4"
+        ]
+      ],
+      "centroid_mm": [
+        "121/34",
+        "121/34",
+        "2"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "32985/17",
+          "14700/17",
+          "0"
+        ],
+        [
+          "14700/17",
+          "32985/17",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "56722/17"
+        ]
+      ],
+      "feature_id": "l",
+      "volume_mm3": "204"
+    },
+    "reference_centroid_mm": [
+      3.5588235294117645,
+      3.5588235294117654,
+      2.0
+    ],
+    "whole_compound_centroid_mm": [
+      3.5588235294117645,
+      3.5588235294117654,
+      2.0
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        1940.294117647058,
+        864.705882352941,
+        0.0
+      ],
+      [
+        864.705882352941,
+        1940.2941176470595,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        3336.588235294116
+      ]
+    ],
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.3642420526593924e-12,
+    "volume_error_mm3": 0.0
+  },
+  {
+    "case": "oblique",
+    "exact": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "4"
+        ]
+      ],
+      "centroid_mm": [
+        "78107/20884",
+        "101111/41768",
+        "106943/62652"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "8707797475/12029184",
+          "2189963213/6014592",
+          "188898317/9021888"
+        ],
+        [
+          "2189963213/6014592",
+          "1988019083/1503648",
+          "1499288237/18043776"
+        ],
+        [
+          "188898317/9021888",
+          "1499288237/18043776",
+          "6830087233/4009728"
+        ]
+      ],
+      "feature_id": "trimmed",
+      "volume_mm3": "5221/36"
+    },
+    "reference_centroid_mm": [
+      3.7400402221796587,
+      2.4207766711357968,
+      1.7069367298729492
+    ],
+    "whole_compound_centroid_mm": [
+      3.7400402221796587,
+      2.4207766711357968,
+      1.7069367298729492
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        723.8892908280393,
+        364.10835730835845,
+        20.93778120499826
+      ],
+      [
+        364.10835730835845,
+        1322.130633632341,
+        83.0917119011009
+      ],
+      [
+        20.93778120499826,
+        83.0917119011009,
+        1703.3791900597748
+      ]
+    ],
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.3642420526593924e-12,
+    "volume_error_mm3": 2.842170943040401e-14
+  },
+  {
+    "case": "placed",
+    "exact": {
+      "bounds_mm": [
+        [
+          "7/3",
+          "-2",
+          "5"
+        ],
+        [
+          "37/3",
+          "8",
+          "9"
+        ]
+      ],
+      "centroid_mm": [
+        "601/102",
+        "53/34",
+        "7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "32985/17",
+          "14700/17",
+          "0"
+        ],
+        [
+          "14700/17",
+          "32985/17",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "56722/17"
+        ]
+      ],
+      "feature_id": "copy",
+      "volume_mm3": "204"
+    },
+    "reference_centroid_mm": [
+      5.892156862745098,
+      1.5588235294117647,
+      7.0
+    ],
+    "whole_compound_centroid_mm": [
+      5.892156862745098,
+      1.5588235294117647,
+      7.0
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        1940.2941176470576,
+        864.7058823529416,
+        0.0
+      ],
+      [
+        864.7058823529416,
+        1940.2941176470558,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        3336.588235294117
+      ]
+    ],
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 2.9558577807620168e-12,
+    "volume_error_mm3": 0.0
+  },
+  {
+    "case": "turned",
+    "exact": {
+      "bounds_mm": [
+        [
+          "3",
+          "-2",
+          "-15"
+        ],
+        [
+          "7",
+          "8",
+          "-5"
+        ]
+      ],
+      "centroid_mm": [
+        "5",
+        "53/34",
+        "-291/34"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "56722/17",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "32985/17",
+          "-14700/17"
+        ],
+        [
+          "0",
+          "-14700/17",
+          "32985/17"
+        ]
+      ],
+      "feature_id": "turned",
+      "volume_mm3": "204"
+    },
+    "reference_centroid_mm": [
+      5.000000000000001,
+      1.5588235294117647,
+      -8.558823529411766
+    ],
+    "whole_compound_centroid_mm": [
+      5.000000000000001,
+      1.5588235294117647,
+      -8.558823529411766
+    ],
+    "reference_method": "per-solid integration plus parallel-axis aggregation",
+    "reference_centroidal_volume_inertia_mm5": [
+      [
+        3336.588235294117,
+        2.2737367544323206e-13,
+        -1.8189894035458565e-12
+      ],
+      [
+        2.2737367544323206e-13,
+        1940.2941176470558,
+        -864.7058823529419
+      ],
+      [
+        -1.8189894035458565e-12,
+        -864.7058823529419,
+        1940.2941176470604
+      ]
+    ],
+    "centroid_error_mm": 1.7763568394002505e-15,
+    "inertia_error_mm5": 2.9558577807620168e-12,
+    "volume_error_mm3": 0.0
+  }
+]

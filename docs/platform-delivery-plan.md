@@ -153,3 +153,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Linked-instance checkpoint
 
 [Non-consuming planar part instances](../examples/ai-cad/linked-instances/README.md) reuse source dimensions, retain independent placement and participate in subsequent operations and provenance. Browser/MCP, native history, separate STL ZIP and five independent STEP references are verified. Geometry is currently rebuilt per instance; no GPU instancing speedup is claimed. Next add exact engineering measurements of supported planar solids so humans and AI can inspect geometry beyond volume before broadening assembly constraints.
+
+## Planar measurement checkpoint
+
+[Exact bounds, centroids and volume inertia](../examples/ai-cad/measurements/README.md) are available read-only in browser/MCP for terminal planar solids. Closed-form and independent per-solid references cover concavity, cavities, separated material and transform covariance. Native history is unchanged; density/material assignment, curved analytic measurements, surface area and inter-part clearance remain open.

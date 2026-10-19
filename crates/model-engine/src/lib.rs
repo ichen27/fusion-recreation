@@ -8,6 +8,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 mod holes;
 pub mod intent;
+pub mod measure;
 pub mod mesh;
 pub mod polyhedral;
 pub use polyhedral::Operation as BooleanOperation;

@@ -1,0 +1,67 @@
+"""Read-only, revision-bound original-engine planar engineering measurements."""
+
+import json
+import subprocess
+from store import BINARY, CadError, encode
+
+
+def measure_model(model, feature_id):
+    request = encode({"model": model, "feature_id": feature_id})
+    if len(request) > 1_048_576:
+        raise CadError("request_limit", "Measurement request exceeds 1 MiB")
+    try:
+        process = subprocess.run(
+            [str(BINARY), "--measure"], input=request, capture_output=True, timeout=20
+        )
+        reply = json.loads(process.stdout)
+    except FileNotFoundError as exc:
+        raise CadError("engine_unavailable", "Build the model engine first") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise CadError("engine_timeout", "Measurement exceeded 20 seconds") from exc
+    except ValueError as exc:
+        raise CadError("engine_failure", "Invalid measurement reply") from exc
+    if "error" in reply:
+        error = reply["error"]
+        raise CadError(error["code"], error["message"], error["entity"])
+    if process.returncode:
+        raise CadError("engine_failure", "Measurement process failed")
+    return reply["result"]
+
+
+def dispatch_measure(store, command):
+    try:
+        if (
+            not isinstance(command, dict)
+            or set(command) != {"expected_revision", "feature_id"}
+            or not isinstance(command["feature_id"], str)
+        ):
+            raise CadError("invalid_command", "Expected revision and feature_id")
+        with store.locked():
+            state = store.load()
+            if (
+                type(command["expected_revision"]) is not int
+                or command["expected_revision"] != state["revision"]
+            ):
+                raise CadError(
+                    "revision_conflict", "Refresh before measuring this solid"
+                )
+            request = {
+                "measurement_model": state["model"],
+                "feature_id": command["feature_id"],
+            }
+            measurement = store.evaluations.get(
+                BINARY,
+                request,
+                lambda: measure_model(state["model"], command["feature_id"]),
+            )
+            return {"result": {"revision": state["revision"], **measurement}}
+    except CadError as exc:
+        return {"error": exc.detail}
+    except (OSError, ValueError, TypeError) as exc:
+        return {
+            "error": {
+                "code": "host_error",
+                "entity": "measurement",
+                "message": str(exc),
+            }
+        }

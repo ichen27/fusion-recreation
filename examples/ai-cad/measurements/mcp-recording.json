@@ -1,0 +1,128 @@
+{
+  "calls": [
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 4,
+        "feature_id": "instance1"
+      },
+      "reply": {
+        "result": {
+          "revision": 4,
+          "bounds_mm": [
+            [
+              "30",
+              "0",
+              "0"
+            ],
+            [
+              "40",
+              "10",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "1141/34",
+            "121/34",
+            "3"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "116295/34",
+              "22050/17",
+              "0"
+            ],
+            [
+              "22050/17",
+              "116295/34",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "85083/17"
+            ]
+          ],
+          "feature_id": "instance1",
+          "volume_mm3": "306"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 4,
+        "feature_id": "l"
+      },
+      "reply": {
+        "result": {
+          "revision": 4,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "10",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "121/34",
+            "121/34",
+            "3"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "116295/34",
+              "22050/17",
+              "0"
+            ],
+            [
+              "22050/17",
+              "116295/34",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "85083/17"
+            ]
+          ],
+          "feature_id": "l",
+          "volume_mm3": "306"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 3,
+        "feature_id": "instance1"
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Refresh before measuring this solid",
+          "entity": "document"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 4,
+        "feature_id": "absent"
+      },
+      "reply": {
+        "error": {
+          "code": "missing_body",
+          "message": "Select a terminal solid",
+          "entity": "absent"
+        }
+      }
+    }
+  ]
+}

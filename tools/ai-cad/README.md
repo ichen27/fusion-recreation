@@ -213,3 +213,7 @@ Unperforated simple XY profile extrusions now feed Boolean operations, movement,
 ## Linked part placement
 
 Use **Linked copy** on a planar solid and **Edit linked copy** on its placement. The source remains available and its dimensions drive all linked copies; placement offsets are independent. A copy can feed existing cuts, turns and Booleans. [Native history, browser/MCP recordings, parts ZIP and independent STEP comparisons](../../examples/ai-cad/linked-instances/README.md) demonstrate shared source editing and independent placement. Run `verify_instances.py`; optional MCP/STEP checks use `verify_instances_mcp.py` and `verify_instances_export.py`. This is in-document linked placement; assembly joints, external part libraries and GPU instancing remain open.
+
+## Exact planar measurements
+
+Select a saved planar part and choose **Measure solid**, or call MCP `cad_measure` with its saved revision and feature ID. Exact world bounds, volume centroid and centroidal volume inertia are shared by both interfaces. [Measurements, retained native input, actual browser/MCP requests and independent references](../../examples/ai-cad/measurements/README.md) explain units and supported geometry. No material density or physical mass is assigned. Run `verify_measurements.py`, optional `verify_measurements_mcp.py` and optional OCCT `verify_measurements_reference.py`.
