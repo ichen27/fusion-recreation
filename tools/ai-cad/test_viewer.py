@@ -53,6 +53,35 @@ class Viewer(unittest.TestCase):
         self.assertEqual(json.loads(raw)["result"]["bodies"][0]["volume_mm3"], "71400")
         self.assertEqual(self.store.execute({"action": "inspect"})["revision"], 1)
 
+    def test_analytic_display_and_revision_bound_download(self):
+        from test_holes import EXAMPLE, read_stl, audit_triangles
+
+        self.store.execute(json.loads((EXAMPLE / "create.json").read_text()))
+        status, raw = self.request("GET", "/api/model")
+        self.assertEqual(status, 200)
+        self.assertIn("display_mesh", json.loads(raw)["result"]["bodies"][0])
+        status, raw = self.request(
+            "GET", "/api/export.stl?revision=1&body=bracket&segments=128"
+        )
+        self.assertEqual(status, 200)
+        self.assertGreater(audit_triangles(read_stl(raw), 3), 35000)
+        for query in (
+            "revision=0&body=bracket&segments=128",
+            "revision=1&body=bracket&segments=999",
+            "revision=1&body=plate&segments=128",
+            "revision=1&body=bracket&segments=128&body=plate",
+        ):
+            self.assertEqual(self.request("GET", "/api/export.stl?" + query)[0], 400)
+        self.assertEqual(
+            self.request(
+                "GET",
+                "/api/export.stl?revision=1&body=bracket&segments=128",
+                headers={"Origin": "https://example.com"},
+            )[0],
+            403,
+        )
+        self.assertEqual(self.store.execute({"action": "inspect"})["revision"], 1)
+
     def test_reject_cross_origin_wrong_host_and_path(self):
         for headers in [
             {"Origin": "https://example.com", "Content-Type": "application/json"},

@@ -16,7 +16,7 @@ Scope confirmed 2026-10-19: pursue the full long-term platform. A bracket workfl
 | Original planar geometry | Bounded implementation | Exact convex clipping, profile extrusion, orientation/manifold tests and independent comparisons | General nonconvex Boolean operations, multiple shells/cavities and tolerance policy beyond rational planes |
 | Editable model and AI loop | Bounded implementation | Recorded create/edit conversation; typed MCP; atomic save/reopen, preview and undo | Broader intent tests, semantic selections, ambiguity handling and repair benchmarks |
 | Parameter relationships | Bounded implementation | Center follows width; dependent chains rebuild exactly; cycles/conflicts reject atomically; same results through CLI/MCP/browser | General geometric constraint solving and nonlinear expressions |
-| Useful part workflow | Planned next | Create a mounting bracket with round holes; resize while preserving declared relationships; reopen and export; independently inspect exported geometry | Analytic circles/cylinders, profile holes, stable references and export integration |
+| Useful part workflow | Bounded flat-bracket implementation | Three analytic through-holes; margin/center relationships; preview/save/reopen/undo; STL topology and STEP surface/location/volume checks | Bent brackets, arbitrary hole axes/depths, general curved topology and wider intent corpus |
 | Sketch and feature modeling | Planned | Interactive constrained sketches and edit-stable extrude/revolve/sweep/loft/hole/chamfer/fillet/shell/draft/pattern workflows | Solver choice, over/underconstraint diagnostics, selection provenance and robust curved intersections |
 | Geometry breadth and interchange | Planned | Analytic and spline surfaces, repeated nonconvex operations, valid native/STEP/STL round trips with explicit losses | Curved numerical policy, trimming/healing, NURBS and imported-boundary validation |
 | Runtime and hardware | Basic split and initial host-latency baseline implemented | Versioned jobs, cancellation, incremental rebuilds, memory budgets and latency/frame-time measurements on declared workloads/devices | Large-document scheduling, caches, worker concurrency, GPU uploads/device recovery and justified compute acceleration |
@@ -47,3 +47,5 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Latest evidence
 
 [Parameter relationship validation](parameter-relationship-validation.md) records the current dependency behavior, integration checks and measured full-history latency. Broader runtime and GPU measurements remain pending.
+
+[Analytic bracket validation](analytic-bracket-validation.md) records the integrated hole, display and export milestone. Next: measured runtime/frame/upload behavior, then broader sketch interaction and geometry. The full platform remains in progress.

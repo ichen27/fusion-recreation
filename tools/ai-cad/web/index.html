@@ -42,6 +42,7 @@
           id="viewport"
           aria-label="Interactive 3D model viewport"
         ></canvas>
+        <p id="display-status" role="status"></p>
         <div class="measure">
           <span>Solid volume</span><strong id="volume">—</strong>
           <span id="profile-area"></span>
@@ -66,6 +67,7 @@
         <h2>Model feedback</h2>
         <p id="status" role="status">Loading saved document…</p>
         <button id="refresh">Refresh model</button>
+        <button id="export-stl" disabled>Download saved STL</button>
         <details>
           <summary>Supported geometry</summary>
           <p>
@@ -73,7 +75,8 @@
             Cut size is its setback along each edge. Convex XY polygon profiles
             can be extruded in +Z. Profile coordinates and height reference
             editable parameters. Exact affine parameter relationships are
-            supported. No arcs, holes or general sketch constraint solver yet.
+            supported. Convex extrusions support separate round through-holes in
+            +Z. No blind holes, fillets or general sketch constraint solver yet.
             This is a bounded engine prototype.
           </p>
         </details>

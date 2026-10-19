@@ -130,6 +130,12 @@ python3 scripts/check.py
 
 The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Full model/history revalidation and a new Rust process per evaluation favor correctness and isolation over throughput; this is not the final large-document scheduler.
 
-No general geometric sketch solver, nonconvex or curved profiles, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+No general geometric sketch solver, nonconvex or arbitrary curved profiles, general booleans, blind/arbitrarily oriented holes, fillets, transforms, assemblies, collaborative editing protocol or production crash-recovery guarantee is added here. Bounded analytic through-holes and explicit STL/optional STEP export are available as described below. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
 
 The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.
+
+## Round holes and usable exports
+
+The [mounting bracket workflow](../../examples/ai-cad/bracket/README.md) creates and widens a flat plate with three analytic cylindrical holes. Thickness, radius and edge margins remain fixed; hole positions follow the existing affine rules. The exact model uses rational coordinates/radii and symbolic volume involving π. Only the disposable display/STL mesh uses chord approximations.
+
+The browser downloads the saved revision as STL; the export CLI also supports optional STEP translation and independently checks readback. Export refuses stale revisions and existing output paths. STEP/STL omit feature history: retain the native document. See [validation and precision limits](../../docs/analytic-bracket-validation.md). Run `python3 tools/ai-cad/verify_bracket_example.py` in addition to the existing checks; the optional STEP verifier requires `step-requirements.txt`.

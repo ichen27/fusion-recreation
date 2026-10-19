@@ -5,7 +5,9 @@ import argparse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from pathlib import Path
-from store import Store, dispatch
+from store import CadError, Store, dispatch
+from exports import display, export_stl
+from urllib.parse import urlsplit, parse_qs
 
 
 def handler(store, port):
@@ -35,8 +37,36 @@ def handler(store, port):
                 return self.reply(403, b"{}")
             if self.path == "/api/model":
                 return self.reply(
-                    200, json.dumps(dispatch(store, {"action": "inspect"})).encode()
+                    200,
+                    json.dumps(
+                        display(dispatch(store, {"action": "inspect"}))
+                    ).encode(),
                 )
+            if urlsplit(self.path).path == "/api/export.stl":
+                try:
+                    query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
+                    if set(query) != {"revision", "body", "segments"} or any(
+                        len(v) != 1 for v in query.values()
+                    ):
+                        raise ValueError("Expected revision, body and segments")
+                    data, _ = export_stl(
+                        store,
+                        int(query["revision"][0]),
+                        query["body"][0],
+                        int(query["segments"][0]),
+                    )
+                    return self.reply(200, data, "model/stl")
+                except (CadError, ValueError) as exc:
+                    return self.reply(
+                        400,
+                        json.dumps(
+                            {
+                                "error": exc.detail
+                                if isinstance(exc, CadError)
+                                else {"message": str(exc)}
+                            }
+                        ).encode(),
+                    )
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
@@ -61,7 +91,7 @@ def handler(store, port):
                     return self.reply(413, b"{}")
                 self.connection.settimeout(5)
                 command = json.loads(self.rfile.read(length))
-                reply = dispatch(store, command)
+                reply = display(dispatch(store, command))
                 self.reply(400 if "error" in reply else 200, json.dumps(reply).encode())
             except (ValueError, TimeoutError):
                 self.reply(400, b'{"error":{"message":"Invalid JSON request"}}')

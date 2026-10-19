@@ -1,0 +1,213 @@
+{
+  "result": {
+    "revision": 2,
+    "committed_revision": 2,
+    "replayed": false,
+    "can_undo": true,
+    "can_redo": false,
+    "bodies": [
+      {
+        "analytic": {
+          "height": "6",
+          "holes": [
+            {
+              "center": [
+                "12",
+                "12"
+              ],
+              "id": "left_mount",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "108",
+                "12"
+              ],
+              "id": "right_mount",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "60",
+                "48"
+              ],
+              "id": "top_mount",
+              "radius": "3"
+            }
+          ],
+          "kind": "perforated_prism",
+          "outer": [
+            [
+              "0",
+              "0"
+            ],
+            [
+              "120",
+              "0"
+            ],
+            [
+              "120",
+              "60"
+            ],
+            [
+              "0",
+              "60"
+            ]
+          ],
+          "volume": {
+            "constant_mm3": "43200",
+            "pi_subtract_mm3": "162"
+          }
+        },
+        "feature_id": "bracket",
+        "volume_mm3": "43200 - (162)*pi"
+      }
+    ],
+    "changed_parameters": [
+      "center_x",
+      "right_x",
+      "width"
+    ],
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "bottom_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "bottom_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "top_right",
+              "x": "width",
+              "y": "depth"
+            },
+            {
+              "id": "top_left",
+              "x": "zero",
+              "y": "depth"
+            }
+          ]
+        },
+        {
+          "height": "thickness",
+          "id": "plate",
+          "kind": "extrude",
+          "profile": "outline"
+        },
+        {
+          "holes": [
+            {
+              "id": "left_mount",
+              "radius": "radius",
+              "x": "margin",
+              "y": "margin"
+            },
+            {
+              "id": "right_mount",
+              "radius": "radius",
+              "x": "right_x",
+              "y": "margin"
+            },
+            {
+              "id": "top_mount",
+              "radius": "radius",
+              "x": "center_x",
+              "y": "top_y"
+            }
+          ],
+          "id": "bracket",
+          "input": "plate",
+          "kind": "through_holes"
+        }
+      ],
+      "fixed": {
+        "margin": "12",
+        "radius": "3",
+        "thickness": "6"
+      },
+      "parameters": {
+        "center_x": "60",
+        "depth": "60",
+        "margin": "12",
+        "radius": "3",
+        "right_x": "108",
+        "thickness": "6",
+        "top_y": "48",
+        "width": "120",
+        "zero": "0"
+      },
+      "relations": {
+        "center_x": {
+          "offset_mm": "0",
+          "terms": {
+            "width": "1/2"
+          }
+        },
+        "right_x": {
+          "offset_mm": "0",
+          "terms": {
+            "margin": "-1",
+            "width": "1"
+          }
+        },
+        "top_y": {
+          "offset_mm": "0",
+          "terms": {
+            "depth": "1",
+            "margin": "-1"
+          }
+        }
+      }
+    },
+    "profiles": [
+      {
+        "area_mm2": "7200",
+        "feature_id": "outline",
+        "vertices": [
+          {
+            "id": "bottom_left",
+            "position": [
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          {
+            "id": "bottom_right",
+            "position": [
+              "120",
+              "0",
+              "0"
+            ]
+          },
+          {
+            "id": "top_right",
+            "position": [
+              "120",
+              "60",
+              "0"
+            ]
+          },
+          {
+            "id": "top_left",
+            "position": [
+              "0",
+              "60",
+              "0"
+            ]
+          }
+        ]
+      }
+    ],
+    "schema_version": 1,
+    "units": "mm"
+  }
+}

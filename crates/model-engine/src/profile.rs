@@ -29,8 +29,8 @@ pub struct EvaluatedProfile {
 pub(super) struct Profile {
     id: String,
     vertex_ids: Vec<String>,
-    points: Vec<[Q; 2]>,
-    twice_area: Q,
+    pub(super) points: Vec<[Q; 2]>,
+    pub(super) twice_area: Q,
 }
 
 impl Profile {

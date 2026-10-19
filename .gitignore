@@ -17,3 +17,6 @@ build-*/
 # Rust build output and local task scratch (fixtures/reports stay tracked).
 target/
 /work/
+
+.step-env/
+*.cad.json.lock

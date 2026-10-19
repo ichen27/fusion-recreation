@@ -1,0 +1,148 @@
+"""Read-only, revision-bound export and disposable display tessellation."""
+
+import argparse
+from fractions import Fraction
+import json
+import math
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+from store import BINARY, CadError, Store, encode
+
+
+def tessellate(model, feature_id, segments=64):
+    try:
+        process = subprocess.run(
+            [str(BINARY), "--mesh"],
+            input=encode(dict(model=model, feature_id=feature_id, segments=segments)),
+            capture_output=True,
+            timeout=20,
+        )
+        reply = json.loads(process.stdout)
+    except (OSError, subprocess.TimeoutExpired, ValueError) as exc:
+        raise CadError("tessellation_failed", str(exc), feature_id) from exc
+    if "error" in reply:
+        e = reply["error"]
+        raise CadError(e["code"], e["message"], e["entity"])
+    if process.returncode:
+        raise CadError("tessellation_failed", "Mesh process failed", feature_id)
+    return reply["result"]
+
+
+def display(reply):
+    """Rendering failure must not turn a successful commit into an apparent failure."""
+    if "result" in reply:
+        state = reply["result"]
+        for body in state["bodies"]:
+            if "analytic" in body:
+                v = body["analytic"]["volume"]
+                body["volume_approx_mm3"] = float(
+                    Fraction(v["constant_mm3"])
+                ) - math.pi * float(Fraction(v["pi_subtract_mm3"]))
+                try:
+                    body["display_mesh"] = tessellate(
+                        state["model"], body["feature_id"]
+                    )
+                except CadError as exc:
+                    body["display_error"] = exc.detail
+    return reply
+
+
+def select(store, revision, feature_id):
+    state = store.execute({"action": "inspect"})
+    if type(revision) is not int or state["revision"] != revision:
+        raise CadError(
+            "revision_conflict", "Refresh before exporting the saved revision"
+        )
+    for body in state["bodies"]:
+        if body["feature_id"] == feature_id:
+            return state, body
+    raise CadError("missing_body", "Select a terminal solid", feature_id)
+
+
+def stl_bytes(mesh):
+    # ASCII preserves float64 precision; STL has no standard unit metadata.
+    rows = ["solid cad_mm"]
+    for ids in mesh["triangles"]:
+        a, b, c = [mesh["vertices"][i] for i in ids]
+        u, v = ([b[i] - a[i] for i in range(3)], [c[i] - a[i] for i in range(3)])
+        n = [
+            u[1] * v[2] - u[2] * v[1],
+            u[2] * v[0] - u[0] * v[2],
+            u[0] * v[1] - u[1] * v[0],
+        ]
+        length = math.hypot(*n)
+        rows.append("facet normal " + " ".join(format(x / length, ".17g") for x in n))
+        rows.append("outer loop")
+        rows.extend(
+            "vertex " + " ".join(format(x, ".17g") for x in p) for p in (a, b, c)
+        )
+        rows.extend(["endloop", "endfacet"])
+    rows.append("endsolid cad_mm")
+    return ("\n".join(rows) + "\n").encode()
+
+
+def export_stl(store, revision, feature_id, segments=128):
+    state, _ = select(store, revision, feature_id)
+    mesh = tessellate(state["model"], feature_id, segments)
+    return stl_bytes(mesh), mesh
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--store", required=True)
+    parser.add_argument("--revision", required=True, type=int)
+    parser.add_argument("--body", required=True)
+    parser.add_argument("--format", choices=["stl", "step"], required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--segments", type=int, default=128)
+    args = parser.parse_args()
+    try:
+        store = Store(args.store)
+        if args.format == "stl":
+            data, mesh = export_stl(store, args.revision, args.body, args.segments)
+            # Refuse accidental overwrite of any existing document/artifact.
+            output = Path(args.output)
+            with tempfile.TemporaryDirectory(dir=output.parent) as directory:
+                staged = Path(directory) / "export.stl"
+                staged.write_bytes(data)
+                os.link(staged, output)
+            result = {
+                "triangles": len(mesh["triangles"]),
+                "max_radial_error_mm": mesh["max_radial_error_mm"],
+            }
+        else:
+            from step_export import export_step
+
+            _, body = select(store, args.revision, args.body)
+            result = export_step(body, Path(args.output))
+        print(
+            json.dumps(
+                {
+                    "result": {
+                        "revision": args.revision,
+                        "body": args.body,
+                        "units": "mm",
+                        **result,
+                    }
+                }
+            )
+        )
+    except (CadError, OSError, ImportError, RuntimeError) as exc:
+        print(
+            json.dumps(
+                {
+                    "error": exc.detail
+                    if isinstance(exc, CadError)
+                    else {"code": "export_failed", "message": str(exc)}
+                }
+            )
+        )
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

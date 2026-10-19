@@ -305,3 +305,29 @@ summary {
   font-size: 10px;
   overflow-wrap: anywhere;
 }
+
+@media (min-width: 1051px) {
+  main {
+    height: calc(100vh - 72px);
+    min-height: 0;
+  }
+  aside {
+    overflow-y: auto;
+  }
+  .scene {
+    min-height: 0;
+  }
+  canvas {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+#display-status {
+  position: absolute;
+  top: 50px;
+  left: 24px;
+  right: 24px;
+  color: #a34030;
+  font-size: 12px;
+}
