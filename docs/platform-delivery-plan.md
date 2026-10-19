@@ -61,3 +61,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Concave profile checkpoint
 
 [Simple concave extrusion and holes](../examples/ai-cad/concave-profile/README.md) extends the custom engine to L-shaped plates with exact segment-distance clearance checks. Old convex feature behavior is preserved. STEP re-import is compared to an independent union/cut oracle used only in verification. Next: interactive hole authoring, followed by broader intent and geometry workflows.
+
+## Interactive hole checkpoint
+
+[Through-hole placement/editing](../examples/ai-cad/hole-editor/README.md) completes a browser sketch→extrusion→hole group→dimension edit→save/reopen→STL workflow through the same commands as MCP. The editor preserves semantic references and constraints; rejected/stale previews retain the draft. Next modeling work expands feature editing and sketch relationships without claiming a general constraint solver.

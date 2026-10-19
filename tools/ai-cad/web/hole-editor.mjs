@@ -1,0 +1,230 @@
+import {
+  draftHoles,
+  addHole,
+  setHoleValue,
+  holeProposal,
+  editable,
+} from "./hole-model.mjs";
+const $ = (id) => document.getElementById(id);
+const number = (s) => {
+  const p = s.split("/").map(Number);
+  return p.length === 2 ? p[0] / p[1] : p[0];
+};
+const element = (name, attrs) => {
+  const e = document.createElementNS("http://www.w3.org/2000/svg", name);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  return e;
+};
+export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
+  const dialog = $("hole-dialog"),
+    svg = $("hole-canvas");
+  let state,
+    draft,
+    pending = false,
+    dragging = null;
+  const message = (error) => {
+    $("hole-feedback").textContent = error.message ?? error;
+  };
+  function outline() {
+    return draft.profile.vertices.map((v) => [
+      number(draft.values[v.x]),
+      -number(draft.values[v.y]),
+    ]);
+  }
+  function render() {
+    const points = outline();
+    const shapes = [];
+    if (points.every((p) => p.every(Number.isFinite)))
+      shapes.push(
+        element("polygon", {
+          points: points.map((p) => p.join(",")).join(" "),
+          class: "sketch-outline",
+        }),
+      );
+    draft.holes.forEach((hole, index) => {
+      const x = number(draft.values[hole.x]),
+        y = -number(draft.values[hole.y]),
+        r = number(draft.values[hole.radius]);
+      if (![x, y, r].every(Number.isFinite) || r <= 0) return;
+      shapes.push(
+        element("circle", {
+          cx: x,
+          cy: y,
+          r,
+          "data-index": index,
+          class: "hole-circle",
+        }),
+      );
+      shapes.push(
+        element("circle", {
+          cx: x,
+          cy: y,
+          r: 1,
+          "data-index": index,
+          class: "hole-center",
+        }),
+      );
+    });
+    $("hole-shapes").replaceChildren(...shapes);
+    $("hole-coordinates").replaceChildren(
+      ...draft.holes.map((hole, index) => {
+        const row = document.createElement("fieldset");
+        row.className = "hole-coordinate";
+        const legend = document.createElement("legend");
+        legend.textContent = hole.id;
+        row.append(legend);
+        for (const axis of ["x", "y", "radius"]) {
+          const label = document.createElement("label");
+          label.textContent = axis === "radius" ? "Radius" : axis.toUpperCase();
+          const input = document.createElement("input");
+          input.value = draft.values[hole[axis]];
+          input.setAttribute("aria-label", `${hole.id} ${axis}`);
+          input.disabled = pending || !editable(draft, hole[axis]);
+          input.addEventListener("change", () => {
+            try {
+              setHoleValue(draft, index, axis, input.value);
+              render();
+              message(
+                "Draft changed. Preview checks the complete model and updates dependent dimensions.",
+              );
+            } catch (error) {
+              message(error);
+            }
+          });
+          label.append(input);
+          row.append(label);
+        }
+        return row;
+      }),
+    );
+    $("hole-count").textContent =
+      `${draft.holes.length} through-holes · millimeters`;
+    $("hole-remove").disabled =
+      pending || !!draft.featureId || !draft.holes.length;
+    $("hole-add").disabled =
+      pending || !!draft.featureId || draft.holes.length >= 16;
+    $("hole-radius-row").hidden = !!draft.featureId;
+    $("hole-radius").disabled = pending;
+    $("hole-preview").disabled = pending;
+    $("hole-close").disabled = pending;
+  }
+  function fit() {
+    const points = outline();
+    if (!points.every((p) => p.every(Number.isFinite))) return;
+    const min = [0, 1].map((i) => Math.min(...points.map((p) => p[i]))),
+      max = [0, 1].map((i) => Math.max(...points.map((p) => p[i])));
+    const w = Math.max(20, max[0] - min[0]),
+      h = Math.max(20, max[1] - min[1]),
+      pad = Math.max(w, h) * 0.15;
+    svg.setAttribute(
+      "viewBox",
+      `${min[0] - pad} ${min[1] - pad} ${w + 2 * pad} ${h + 2 * pad}`,
+    );
+  }
+  function close() {
+    if (pending) return;
+    dragging = null;
+    dialog.close();
+    onClose();
+  }
+  $("hole-close").addEventListener("click", close);
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    close();
+  });
+  $("hole-fit").addEventListener("click", fit);
+  $("hole-remove").addEventListener("click", () => {
+    draft.holes.pop();
+    render();
+  });
+  $("hole-add").addEventListener("click", () => {
+    try {
+      addHole(draft, 0, 0, $("hole-radius").value);
+      render();
+      message("Set the new hole center inside the outline before previewing.");
+    } catch (error) {
+      message(error);
+    }
+  });
+  const position = (event) => {
+    const p = new DOMPoint(event.clientX, event.clientY).matrixTransform(
+      svg.getScreenCTM().inverse(),
+    );
+    return [Math.round(p.x), Math.round(-p.y)];
+  };
+  svg.addEventListener("pointerdown", (event) => {
+    if (pending || event.button !== 0) return;
+    try {
+      const target = event.target.closest("[data-index]");
+      if (target) dragging = Number(target.dataset.index);
+      else if (!draft.featureId) {
+        addHole(draft, ...position(event), $("hole-radius").value);
+        dragging = draft.holes.length - 1;
+        render();
+      }
+      if (dragging !== null) {
+        svg.setPointerCapture(event.pointerId);
+        event.preventDefault();
+      }
+    } catch (error) {
+      message(error);
+    }
+  });
+  svg.addEventListener("pointermove", (event) => {
+    if (pending || dragging === null) return;
+    const [x, y] = position(event),
+      hole = draft.holes[dragging];
+    for (const [axis, value] of [
+      ["x", x],
+      ["y", y],
+    ])
+      if (editable(draft, hole[axis]))
+        setHoleValue(draft, dragging, axis, value);
+    render();
+    message(
+      "Dragging snaps to 1 mm. Exact coordinate/radius fields accept integers and fractions.",
+    );
+  });
+  for (const event of ["pointerup", "pointercancel"])
+    svg.addEventListener(event, () => {
+      dragging = null;
+    });
+  $("hole-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (pending) return;
+    try {
+      const proposal = holeProposal(state, draft);
+      pending = true;
+      render();
+      message("Checking circle containment, separation and model constraints…");
+      await onPreview(proposal);
+      pending = false;
+      dialog.close();
+      onClose();
+    } catch (error) {
+      pending = false;
+      render();
+      message(error);
+    }
+  });
+  return {
+    open(input = null, featureId = null) {
+      state = structuredClone(getState());
+      draft = draftHoles(state.model, input, featureId);
+      dragging = null;
+      $("hole-title").textContent = featureId
+        ? `Edit ${featureId}`
+        : `Through-holes in ${input}`;
+      $("hole-radius").value = "3";
+      message(
+        featureId
+          ? "Shared parameter references move together. Fixed/derived dimensions stay locked; dependent coordinates update on preview."
+          : "Click inside the outline to place hole centers. Drag to move; use the fields for exact coordinates and radii.",
+      );
+      render();
+      fit();
+      onOpen();
+      dialog.showModal();
+    },
+  };
+}

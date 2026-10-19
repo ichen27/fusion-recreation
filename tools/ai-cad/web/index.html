@@ -153,6 +153,49 @@
         </div>
       </form>
     </dialog>
+    <dialog id="hole-dialog" aria-labelledby="hole-title">
+      <form id="hole-form">
+        <header class="sketch-heading">
+          <h2 id="hole-title">Through-holes</h2>
+          <button type="button" id="hole-close">Cancel</button>
+        </header>
+        <p id="hole-feedback" role="status"></p>
+        <div class="sketch-layout">
+          <div>
+            <svg
+              id="hole-canvas"
+              viewBox="-20 -80 140 100"
+              aria-label="XY hole canvas; click to add centers and drag circles to move them"
+            >
+              <g id="hole-shapes"></g>
+            </svg>
+            <div class="actions">
+              <button type="button" id="hole-add">Add at origin</button
+              ><button type="button" id="hole-remove">Remove last hole</button
+              ><button type="button" id="hole-fit">Fit view</button>
+            </div>
+            <p id="hole-count"></p>
+          </div>
+          <div class="sketch-properties">
+            <label id="hole-radius-row"
+              >Radius for new holes (mm)<input
+                id="hole-radius"
+                value="3"
+                aria-label="Radius for new holes"
+            /></label>
+            <div id="hole-coordinates"></div>
+            <p class="hint">
+              Through the full extrusion height in +Z. Circles must stay inside
+              the outline and apart. Existing groups retain their hole count and
+              IDs. Preview checks before saving.
+            </p>
+            <button id="hole-preview" class="primary" type="submit">
+              Preview holes
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

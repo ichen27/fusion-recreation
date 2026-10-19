@@ -50,7 +50,7 @@ export function setCoordinate(draft, index, axis, value) {
 }
 export function sketchOperations(draft) {
   if (draft.vertices.length < 3)
-    throw Error("Add at least three points around a convex outline");
+    throw Error("Add at least three points around a simple outline");
   const refs = [...new Set(draft.vertices.flatMap((v) => [v.x, v.y]))];
   if (draft.featureId) {
     const changed = refs.filter(

@@ -332,12 +332,14 @@ summary {
   font-size: 12px;
 }
 
-.edit-sketch {
+.edit-sketch,
+.edit-holes {
   display: block;
   margin-top: 8px;
   padding: 5px 8px;
 }
-#sketch-dialog {
+#sketch-dialog,
+#hole-dialog {
   width: min(1000px, 95vw);
   max-height: 94vh;
   overflow: auto;
@@ -346,7 +348,8 @@ summary {
   padding: 20px;
   color: #1b343b;
 }
-#sketch-dialog::backdrop {
+#sketch-dialog::backdrop,
+#hole-dialog::backdrop {
   background: #132b3780;
 }
 .sketch-heading {
@@ -362,12 +365,14 @@ summary {
   grid-template-columns: minmax(0, 1fr) 270px;
   gap: 24px;
 }
-#sketch-feedback {
+#sketch-feedback,
+#hole-feedback {
   min-height: 40px;
   font-size: 13px;
   line-height: 1.5;
 }
-#sketch-canvas {
+#sketch-canvas,
+#hole-canvas {
   width: 100%;
   height: 430px;
   background: #f7faf8;
@@ -411,10 +416,44 @@ summary {
   .sketch-layout {
     grid-template-columns: 1fr;
   }
-  #sketch-canvas {
+  #sketch-canvas,
+  #hole-canvas {
     height: 300px;
   }
 }
 #sketch-height-row[hidden] {
+  display: none;
+}
+
+.hole-circle {
+  fill: white;
+  stroke: #176f61;
+  stroke-width: 0.5;
+  cursor: grab;
+}
+.hole-center {
+  fill: #176f61;
+  cursor: grab;
+}
+.hole-coordinate {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  border: 1px solid #cbd8d1;
+  border-radius: 6px;
+  margin: 12px 0;
+  padding: 8px;
+  font-size: 12px;
+}
+.hole-coordinate input {
+  padding: 6px;
+}
+#hole-radius-row {
+  font-size: 12px;
+}
+#hole-radius {
+  margin: 6px 0 12px;
+}
+#hole-radius-row[hidden] {
   display: none;
 }
