@@ -53,3 +53,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Runtime checkpoint
 
 [Measured bounded reuse and rendering](../examples/ai-cad/runtime/README.md) removes repeated host validation/tessellation and camera-time mesh uploads without changing exact geometry. Content/executable invalidation, memory limits and context recovery are covered. Feature-level incremental evaluation, asynchronous cancellation and large-model scheduling remain pending. Continue directly into interactive sketch creation after this checkpoint; a merged PR is not a stop condition.
+
+## Interactive sketch checkpoint
+
+[Browser sketch creation/editing](../examples/ai-cad/sketch-editor/README.md) adds point placement, dragging and exact coordinate inputs through the same typed preview/save contract. A four-call actual browser recording replays native documents. This is convex polygon editing with existing affine/fixed constraints, not a general geometric sketch solver. Continue with nonconvex planar profiles and broader solids.
