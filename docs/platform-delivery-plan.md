@@ -133,3 +133,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Cancellable preview checkpoint
 
 [Bounded CPU preview jobs](../examples/ai-cad/preview-jobs/README.md) move ordinary browser preview evaluation/display work into a cancellable process group. Snapshot jobs release the document lock, preserve revision preconditions and never save. Actual browser cancellation preserves drafts and native bytes with zero GPU uploads; process tests cover child termination, independent worker deadlines and queue/memory limits. Per-viewer limits do not provide machine-wide scheduling; persistent workers, incremental rebuilds and representative large-model measurements remain open.
+
+## Planar Boolean checkpoint
+
+[Original planar union/difference/intersection](../examples/ai-cad/planar-booleans/README.md) now returns merged concave/holed faces, cavities and multiple components from bounded convex-cell operations. Browser/MCP creation and operation editing preserve history; STEP/STL retain component/shell topology. Nine independent OCCT comparisons check directed residual volumes and surface area as well as volume, and recorded browser rejection/undo stages replay. Curved intersections, general imported B-reps, persistent topology naming and scalable incremental evaluation remain open. Continue with transforms of these new planar results and stronger reusable component semantics.

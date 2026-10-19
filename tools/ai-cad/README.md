@@ -191,3 +191,9 @@ Selecting a saved body now shares its ID and current geometry with `cad_context`
 Use **Explain solid** after selecting a saved body, or call `cad_explain(expected_revision, feature_id)`, to inspect controlling features, fixed/derived dimensions and potential impact across parts. [Model intent evidence](../../examples/ai-cad/model-intent/README.md). Explanations are read-only; dependency reachability does not replace preview validation. Run `verify_intent_recording.py`.
 
 Browser previews now use a bounded background CPU queue with **Cancel calculation**. Cancelling preserves your draft and saved model; Save edit still commits explicitly at the preview revision. [Queue limits, cancellation tests and measured evidence](../../examples/ai-cad/preview-jobs/README.md). Run `verify_preview_recording.py` and `node --test tools/ai-cad/test_preview_client.mjs`. CLI/MCP and native-import previews remain synchronous.
+
+## Planar union, difference and intersection
+
+**Combine solids** consumes two terminal convex planar bodies or previous Boolean results. Choose union, difference (first minus second), or intersection. Results can have concave faces, holes, enclosed cavities and separate solid pieces. **Edit Boolean** changes the operation while retaining its inputs; upstream dimensions remain editable. Empty/nonmanifold results reject without saving. General curved inputs and initial concave-profile operands remain unsupported.
+
+The original Rust implementation retains disjoint convex cells and merges exposed planar patches into a boundary. Float tessellation handles concave faces and face holes; STEP translates the supplied component/shell topology. No OCCT operation computes native model geometry. See the [recorded browser/MCP workflow and independent STEP comparisons](../../examples/ai-cad/planar-booleans/README.md) and [bounded contract](../../docs/ai-cad-contract.md#planar-solid-booleans).

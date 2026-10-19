@@ -171,6 +171,8 @@ class Viewer(unittest.TestCase):
             "/vector-parameters.mjs",
             "/translate-model.mjs",
             "/translate-editor.mjs",
+            "/boolean-model.mjs",
+            "/boolean-editor.mjs",
             "/intersection-model.mjs",
             "/intersection-editor.mjs",
             "/stock-model.mjs",

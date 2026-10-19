@@ -67,3 +67,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Model intent and edit impact](model-intent/README.md): original-engine provenance, shared drivers, fixed dimensions and actual browser/MCP explanations checked against a two-part edit.
 
 - [Cancellable CPU preview jobs](preview-jobs/README.md): bounded snapshot queue, child-process cancellation, retained drafts, responsive model reads and explicit revision-checked commits.
+
+- [Planar solid Booleans](planar-booleans/README.md): original Rust union/difference/intersection, cavities, through-holes, split pieces, browser/MCP edits, native history and independent STEP comparisons.

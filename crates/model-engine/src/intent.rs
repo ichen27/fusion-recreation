@@ -43,7 +43,9 @@ impl Feature {
             Self::PlaneCut { input, offset, .. } => (vec![input], vec![offset]),
             Self::Translate { input, offset, .. } => (vec![input], offset.iter().collect()),
             Self::RotateQuarter { input, pivot, .. } => (vec![input], pivot.iter().collect()),
-            Self::Intersection { left, right, .. } => (vec![left, right], vec![]),
+            Self::Intersection { left, right, .. } | Self::Boolean { left, right, .. } => {
+                (vec![left, right], vec![])
+            }
             Self::ThroughHoles { input, holes, .. } => (
                 vec![input],
                 holes.iter().flat_map(|h| [&h.x, &h.y, &h.radius]).collect(),

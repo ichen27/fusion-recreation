@@ -25,6 +25,7 @@
         <button id="new-stock" type="button">
           New block or circular stock
         </button>
+        <button id="new-boolean" type="button" disabled>Combine solids</button>
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
         </button>
@@ -110,7 +111,8 @@
             Blocks, convex and simple concave XY profile extrusions, and
             circular stock. Separate round holes can pass through the stock or
             stop at one shared flat-bottom depth. Convex planar solids support
-            chained cuts by arbitrary planes and solid intersections. Exact
+            chained cuts by arbitrary planes. Planar Booleans join, subtract or
+            intersect solids, including cavities and separate pieces. Exact
             affine relationships preserve declared dimensions. Curved
             intersections, fillets and a general sketch constraint solver remain
             unsupported. Preview validates each edit.
@@ -323,6 +325,48 @@
         /></label>
         <button type="submit" id="stock-preview" class="primary">
           Preview stock
+        </button>
+      </form>
+    </dialog>
+    <dialog id="boolean-dialog" aria-labelledby="boolean-title">
+      <form id="boolean-form">
+        <header class="sketch-heading">
+          <h2 id="boolean-title">Combine planar solids</h2>
+          <button type="button" id="boolean-close">Cancel</button>
+        </header>
+        <p id="boolean-feedback" role="status"></p>
+        <label
+          >Operation<select
+            id="boolean-operation"
+            aria-label="Boolean operation"
+          >
+            <option value="union">Union · join volumes</option>
+            <option value="difference">Difference · first minus second</option>
+            <option value="intersection">Intersection · shared volume</option>
+          </select></label
+        >
+        <label
+          >First solid<select
+            id="boolean-left"
+            aria-label="Boolean first solid"
+            required
+          ></select
+        ></label>
+        <label
+          >Second solid<select
+            id="boolean-right"
+            aria-label="Boolean second solid"
+            required
+          ></select
+        ></label>
+        <p class="hint">
+          Start with convex planar solids or previous Boolean results. Cavities,
+          through-holes and separate pieces are supported. Curved inputs and
+          initial concave extrusions are unsupported. Edge/point-only joins and
+          empty results reject.
+        </p>
+        <button type="submit" id="boolean-preview" class="primary">
+          Preview Boolean
         </button>
       </form>
     </dialog>

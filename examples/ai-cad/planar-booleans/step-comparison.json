@@ -1,0 +1,110 @@
+[
+  {
+    "case": "overlap",
+    "expected_volume_mm3": 1875,
+    "step_volume_mm3": 1875.0,
+    "solid_count": 1,
+    "volume_difference_mm3": 0.0,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "cavity",
+    "expected_volume_mm3": 784,
+    "step_volume_mm3": 783.9999999999998,
+    "solid_count": 1,
+    "volume_difference_mm3": 0.0,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "through",
+    "expected_volume_mm3": 640,
+    "step_volume_mm3": 639.9999999999998,
+    "solid_count": 1,
+    "volume_difference_mm3": 0.0,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "split",
+    "expected_volume_mm3": 800,
+    "step_volume_mm3": 799.9999999999998,
+    "solid_count": 2,
+    "volume_difference_mm3": 1.1368683772161603e-13,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "separate",
+    "expected_volume_mm3": 2000,
+    "step_volume_mm3": 1999.9999999999995,
+    "solid_count": 2,
+    "volume_difference_mm3": 0.0,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "l_shape",
+    "expected_volume_mm3": 3,
+    "step_volume_mm3": 2.999999999999999,
+    "solid_count": 1,
+    "volume_difference_mm3": 4.440892098500626e-16,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "refilled",
+    "expected_volume_mm3": 1000,
+    "step_volume_mm3": 999.9999999999998,
+    "solid_count": 1,
+    "volume_difference_mm3": 0.0,
+    "surface_difference_mm2": 0.0,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "oblique",
+    "expected_volume_mm3": 320,
+    "step_volume_mm3": 320.0,
+    "solid_count": 1,
+    "volume_difference_mm3": 5.684341886080802e-14,
+    "surface_difference_mm2": 1.7053025658242404e-13,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "repeated_intersection",
+    "expected_volume_mm3": 320,
+    "step_volume_mm3": 319.9999999999999,
+    "solid_count": 1,
+    "volume_difference_mm3": 5.684341886080802e-14,
+    "surface_difference_mm2": 5.684341886080802e-14,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ]
+  }
+]

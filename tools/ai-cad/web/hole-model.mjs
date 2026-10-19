@@ -4,7 +4,11 @@ export { editable };
 export function availableHoleInputs(model) {
   const consumed = new Set(
     model.features.flatMap((f) =>
-      f.kind === "intersection" ? [f.left, f.right] : f.input ? [f.input] : [],
+      ["intersection", "boolean"].includes(f.kind)
+        ? [f.left, f.right]
+        : f.input
+          ? [f.input]
+          : [],
     ),
   );
   return model.features.filter(

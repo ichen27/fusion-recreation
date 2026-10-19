@@ -46,7 +46,7 @@ def read_stl(data):
     return [vertices[i : i + 3] for i in range(0, len(vertices), 3)]
 
 
-def audit_triangles(triangles, holes):
+def audit_triangles(triangles, holes, shells=1):
     edges = defaultdict(list)
     points = set()
     volume = 0.0
@@ -61,7 +61,7 @@ def audit_triangles(triangles, holes):
             + a[2] * (b[0] * c[1] - b[1] * c[0])
         ) / 6
     assert all(sorted(v) == [False, True] for v in edges.values())
-    assert len(points) - len(edges) + len(triangles) == 2 - 2 * holes
+    assert len(points) - len(edges) + len(triangles) == 2 * shells - 2 * holes
     return volume
 
 
