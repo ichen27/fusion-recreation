@@ -1,3 +1,4 @@
+import { installStockEditor } from "/stock-editor.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
 import {
   packVertices,
@@ -8,7 +9,7 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes, planes;
+let sketches, holes, planes, stocks;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -222,6 +223,7 @@ $("fit-view").addEventListener("click", () => {
 new ResizeObserver(draw).observe(canvas);
 function controls() {
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
+  $("new-stock").disabled = busy || !!preview || editPending || !saved;
   for (const button of document.querySelectorAll(
     ".edit-sketch, .edit-holes, .edit-plane",
   ))
@@ -352,6 +354,10 @@ function render(state) {
       return div;
     }),
   );
+  $("export-stl").textContent =
+    state.bodies.length > 1
+      ? "Download saved STLs (ZIP)"
+      : "Download saved STL";
   $("volume").textContent = state.bodies.length
     ? state.bodies
         .map(
@@ -504,6 +510,8 @@ const editorCallbacks = (name) => ({
 sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
+stocks = installStockEditor(editorCallbacks("Stock"));
+$("new-stock").addEventListener("click", () => stocks.open());
 $("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();
 setInterval(() => refresh(), 2000);
@@ -513,23 +521,27 @@ $("export-stl").addEventListener("click", async () => {
   busy = true;
   controls();
   try {
-    for (const body of saved.bodies) {
-      const query = new URLSearchParams({
-        revision: saved.revision,
-        body: body.feature_id,
-        segments: 128,
-      });
-      const response = await fetch(`/api/export.stl?${query}`);
-      if (!response.ok) throw Error((await response.json()).error.message);
-      const url = URL.createObjectURL(await response.blob());
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${body.feature_id}-r${saved.revision}.stl`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
+    const revision = saved.revision;
+    const bundled = saved.bodies.length > 1;
+    const query = new URLSearchParams({
+      revision,
+      segments: 128,
+      ...(bundled ? {} : { body: saved.bodies[0].feature_id }),
+    });
+    const response = await fetch(
+      `/api/export.${bundled ? "zip" : "stl"}?${query}`,
+    );
+    if (!response.ok) throw Error((await response.json()).error.message);
+    const url = URL.createObjectURL(await response.blob());
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = bundled
+      ? `cad-r${revision}.zip`
+      : `${saved.bodies[0].feature_id}-r${revision}.stl`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     $("status").textContent =
-      `Exported saved revision ${saved.revision}. STL uses millimeters and 128 segments per circle.`;
+      `Exported saved revision ${revision}. ${bundled ? "ZIP contains all bodies and a units/precision manifest. " : ""}STL uses millimeters and 128 segments per circle.`;
   } catch (error) {
     $("status").textContent = error.message;
   } finally {

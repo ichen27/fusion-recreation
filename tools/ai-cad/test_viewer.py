@@ -1,6 +1,8 @@
 """The loopback HTTP adapter must preserve the same document contract."""
 
 import http.client
+import io
+import zipfile
 from http.server import HTTPServer
 import json
 from pathlib import Path
@@ -43,6 +45,8 @@ class Viewer(unittest.TestCase):
         self.assertIn(b"viewport", html)
         for asset in (
             "/display-data.mjs",
+            "/stock-model.mjs",
+            "/stock-editor.mjs",
             "/plane-model.mjs",
             "/plane-editor.mjs",
             "/sketch-model.mjs",
@@ -112,6 +116,24 @@ class Viewer(unittest.TestCase):
             400,
         )
         self.assertEqual(self.store.execute({"action": "inspect"})["revision"], 0)
+
+    def test_revision_bound_archive_endpoint(self):
+        self.store.execute(CREATE)
+        status, data = self.request("GET", "/api/export.zip?revision=1&segments=64")
+        self.assertEqual(status, 200)
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            manifest = json.loads(archive.read("manifest.json"))
+            self.assertEqual(manifest["revision"], 1)
+            self.assertEqual(len(manifest["bodies"]), 1)
+            self.assertTrue(
+                archive.read(manifest["bodies"][0]["file"]).startswith(b"solid cad_mm")
+            )
+        for query in [
+            "revision=0&segments=64",
+            "revision=1&segments=64&body=anything",
+            "revision=1&revision=1&segments=64",
+        ]:
+            self.assertEqual(self.request("GET", "/api/export.zip?" + query)[0], 400)
 
 
 if __name__ == "__main__":

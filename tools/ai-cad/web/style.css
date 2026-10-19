@@ -343,7 +343,8 @@ summary {
 }
 #sketch-dialog,
 #hole-dialog,
-#plane-dialog {
+#plane-dialog,
+#stock-dialog {
   width: min(1000px, 95vw);
   max-height: 94vh;
   overflow: auto;
@@ -354,7 +355,8 @@ summary {
 }
 #sketch-dialog::backdrop,
 #hole-dialog::backdrop,
-#plane-dialog::backdrop {
+#plane-dialog::backdrop,
+#stock-dialog::backdrop {
   background: #132b3780;
 }
 .sketch-heading {
@@ -499,7 +501,8 @@ summary {
   text-transform: capitalize;
 }
 
-#plane-dialog {
+#plane-dialog,
+#stock-dialog {
   max-width: 560px;
 }
 .plane-normal {
@@ -507,7 +510,8 @@ summary {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
-#plane-feedback {
+#plane-feedback,
+#stock-feedback {
   line-height: 1.5;
   font-size: 14px;
 }
@@ -515,4 +519,9 @@ summary {
 #fit-view {
   pointer-events: auto;
   margin-left: 12px;
+}
+
+#new-stock {
+  width: 100%;
+  margin-top: 8px;
 }
