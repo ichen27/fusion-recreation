@@ -51,11 +51,11 @@ def main(samples):
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "part.json"
         store = Store(path)
-        state = store.execute(
+        store.execute(
             json.loads((ROOT / "examples/ai-cad/bracket/create.json").read_text())
         )
         for rev in range(1, 65):
-            state = store.execute(
+            store.execute(
                 {
                     "action": "commit",
                     "expected_revision": rev,
