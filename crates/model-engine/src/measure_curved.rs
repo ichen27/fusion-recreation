@@ -228,6 +228,36 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
             ));
         }
     }
+    if let Some(sink) = &shape.countersink {
+        let top = value(&sink.radius)?;
+        let d = value(&sink.depth)?;
+        let floor = &height - &d;
+        for hole in &shape.holes {
+            let x = value(&hole.center[0])?;
+            let y = value(&hole.center[1])?;
+            let r = value(&hole.radius)?;
+            let v = radial_integral(&r, &top, &d, 2, 0);
+            let t = radial_integral(&r, &top, &d, 2, 1);
+            let z = &floor * &v + &t;
+            let zz =
+                &floor * &floor * &v + q(2) * &floor * &t + radial_integral(&r, &top, &d, 2, 2);
+            let radial_second = radial_integral(&r, &top, &d, 4, 0) / q(4);
+            // Through cylinders are already removed. Restore their upper slice,
+            // then subtract the full tapered recess with world-coordinate moments.
+            disks.push((x.clone(), y.clone(), r, floor.clone(), height.clone(), q(1)));
+            volume[1] -= &v;
+            first[0][1] -= &x * &v;
+            first[1][1] -= &y * &v;
+            first[2][1] -= &z;
+            second[0][0][1] -= &x * &x * &v + &radial_second;
+            second[1][1][1] -= &y * &y * &v + radial_second;
+            second[2][2][1] -= zz;
+            for (i, j, term) in [(0, 1, &x * &y * &v), (0, 2, &x * &z), (1, 2, &y * &z)] {
+                second[i][j][1] -= &term;
+                second[j][i][1] -= term;
+            }
+        }
+    }
     for (x, y, r, z0, z1, sign) in disks {
         let v = sign * &r * &r * (&z1 - &z0);
         let center = [x, y, (&z0 + &z1) / q(2)];

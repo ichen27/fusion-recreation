@@ -172,7 +172,7 @@ fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<
     } else if body
         .analytic
         .as_ref()
-        .is_some_and(|s| s.counterbore.is_some())
+        .is_some_and(|s| s.counterbore.is_some() || s.countersink.is_some())
     {
         mesh = crate::mesh_counterbore::build(body, segments, phase, tagged)?;
     } else if let Some(shape) = &body.analytic {

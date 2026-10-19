@@ -176,6 +176,7 @@ fn conical_support_rejects_damaged_radii_height_axis_and_generators() {
             height,
             axis,
             origin,
+            ..
         } = support
         {
             match damage {
@@ -201,5 +202,41 @@ fn conical_support_rejects_damaged_radii_height_axis_and_generators() {
     assert_eq!(generators.len(), 4);
     let end = broken.edges[generators[1]].vertices[1];
     broken.edges[generators[0]].vertices[1] = end;
+    assert!(validate::check(&broken).is_err());
+}
+#[test]
+fn inward_conical_recess_orientation_is_checked() {
+    let mut m = model("counterbores/plate.model.json");
+    let hole = m.features.last_mut().unwrap();
+    if let Feature::CounterboreHoles {
+        id,
+        input,
+        depth,
+        bore_radius,
+        holes,
+    } = hole.clone()
+    {
+        *hole = Feature::CountersinkHoles {
+            id,
+            input,
+            depth,
+            rim_radius: bore_radius,
+            holes,
+        };
+    } else {
+        panic!();
+    }
+    let mut broken = topology(&m);
+    let surface = &mut broken
+        .surfaces
+        .get_mut("feature/part/hole/left/taper")
+        .unwrap()
+        .geometry;
+    if let Surface::ConicalFrustum { inward, .. } = surface {
+        assert!(*inward);
+        *inward = false;
+    } else {
+        panic!();
+    }
     assert!(validate::check(&broken).is_err());
 }

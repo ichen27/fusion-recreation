@@ -707,9 +707,12 @@ function render(state) {
         div.append(button);
       }
       if (
-        ["through_holes", "blind_holes", "counterbore_holes"].includes(
-          f.kind,
-        ) ||
+        [
+          "through_holes",
+          "blind_holes",
+          "counterbore_holes",
+          "countersink_holes",
+        ].includes(f.kind) ||
         availableHoleInputs(state.model).some((e) => e.id === f.id)
       ) {
         const button = document.createElement("button");
@@ -718,20 +721,27 @@ function render(state) {
           "through_holes",
           "blind_holes",
           "counterbore_holes",
+          "countersink_holes",
         ].includes(f.kind)
           ? "Edit holes"
           : "Add holes";
         button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
         button.addEventListener("click", () =>
           holes.open(
-            !["through_holes", "blind_holes", "counterbore_holes"].includes(
-              f.kind,
-            )
+            ![
+              "through_holes",
+              "blind_holes",
+              "counterbore_holes",
+              "countersink_holes",
+            ].includes(f.kind)
               ? f.id
               : null,
-            ["through_holes", "blind_holes", "counterbore_holes"].includes(
-              f.kind,
-            )
+            [
+              "through_holes",
+              "blind_holes",
+              "counterbore_holes",
+              "countersink_holes",
+            ].includes(f.kind)
               ? f.id
               : null,
           ),

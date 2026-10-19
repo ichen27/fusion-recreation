@@ -275,3 +275,14 @@ python tools/ai-cad/verify_frustum_export.py
 ### Startup recovery
 
 If the workspace cannot finish loading, use **Reload workspace** after checking that the local viewer is running. The viewer handles idle browser preconnections with bounded connection parsing while preserving serialized model requests. [Socket regression tests and an actual interrupted-load/recovery demonstration](../../examples/ai-cad/startup-recovery/README.md) document its limits.
+
+### Countersunk holes
+
+Choose **Countersunk through** in the hole editor for a conical recess over each aperture. Set the shared rim radius and depth; the angle follows those dimensions. Positive depth stays below stock height, and the larger rims stay inside stock and apart. Surface context, exact measurements, linked placement and exports remain available. [Native history, browser/MCP recordings and independent STEP evidence](../../examples/ai-cad/countersinks/README.md).
+
+```sh
+python tools/ai-cad/verify_countersinks.py
+python tools/ai-cad/verify_countersinks_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_countersinks_export.py
+```

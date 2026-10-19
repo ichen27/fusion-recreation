@@ -46,6 +46,8 @@ pub enum Surface {
         bottom_radius: String,
         top_radius: String,
         height: String,
+        #[serde(skip_serializing_if = "is_false")]
+        inward: bool,
     },
     Cylinder {
         origin: Coordinates,
@@ -53,6 +55,9 @@ pub enum Surface {
         radius: String,
         inward: bool,
     },
+}
+fn is_false(value: &bool) -> bool {
+    !value
 }
 #[derive(Clone, Serialize)]
 pub struct SurfaceRecord {

@@ -29,7 +29,7 @@ pub struct ExactVolume {
     pub pi_subtract_mm3: String,
 }
 #[derive(Clone, Debug, Serialize)]
-pub struct Counterbore {
+pub struct HoleRecess {
     pub radius: String,
     pub depth: String,
 }
@@ -51,7 +51,9 @@ pub struct AnalyticPrism {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hole_depth: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub counterbore: Option<Counterbore>,
+    pub counterbore: Option<HoleRecess>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub countersink: Option<HoleRecess>,
     pub holes: Vec<Circle>,
     pub volume: ExactVolume,
 }
@@ -140,6 +142,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
         top_radius: None,
         hole_depth: None,
         counterbore: None,
+        countersink: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: (profile.twice_area.abs() * height / Q::from_integer(2.into()))
@@ -183,6 +186,7 @@ pub(super) fn round(
         top_radius: None,
         hole_depth: None,
         counterbore: None,
+        countersink: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: "0".into(),
@@ -273,21 +277,27 @@ pub(super) fn blind(
 }
 
 /// A shared upper recess radius/depth around each strictly separated through hole.
-pub(super) fn counterbore(
+pub(super) fn recess(
     m: &Model,
     id: &str,
     depth: &str,
     radius: &str,
     mut shape: AnalyticPrism,
+    conical: bool,
 ) -> Result<AnalyticPrism> {
     let d = positive(m, depth)?;
     let r = positive(m, radius)?;
+    let name = if conical {
+        "Countersink"
+    } else {
+        "Counterbore"
+    };
     let h = super::rational(&shape.height, id)?;
     if d >= h {
         return Err(error(
             "hole_depth",
             id,
-            "Counterbore depth must be strictly below stock height",
+            &format!("{name} depth must be strictly below stock height"),
         ));
     }
     let points = shape
@@ -312,9 +322,13 @@ pub(super) fn counterbore(
         let small = super::rational(&hole.radius, id)?;
         if r <= small {
             return Err(error(
-                "counterbore_radius",
+                if conical {
+                    "countersink_radius"
+                } else {
+                    "counterbore_radius"
+                },
                 &hole.id,
-                "Counterbore radius must exceed each through-hole radius",
+                &format!("{name} radius must exceed each through-hole radius"),
             ));
         }
         let center = [
@@ -331,7 +345,7 @@ pub(super) fn counterbore(
             return Err(error(
                 "hole_clearance",
                 &hole.id,
-                "Counterbore must have positive clearance inside stock",
+                &format!("{name} must have positive clearance inside stock"),
             ));
         }
         for other in &centers {
@@ -340,20 +354,30 @@ pub(super) fn counterbore(
                 return Err(error(
                     "hole_overlap",
                     &hole.id,
-                    "Counterbores must be strictly separate",
+                    &format!("{name}s must be strictly separate"),
                 ));
             }
         }
-        removal += &small * &small * &h + (&r * &r - &small * &small) * &d;
+        let upper = if conical {
+            (&r * &r + &r * &small + &small * &small) / Q::from_integer(3.into())
+        } else {
+            &r * &r
+        };
+        removal += &small * &small * (&h - &d) + upper * &d;
         centers.push(center);
     }
     if let Some((_, _, outer_r)) = outer {
         removal -= &outer_r * &outer_r * &h;
     }
     shape.volume.pi_subtract_mm3 = removal.to_string();
-    shape.counterbore = Some(Counterbore {
+    let recess = Some(HoleRecess {
         radius: r.to_string(),
         depth: d.to_string(),
     });
+    if conical {
+        shape.countersink = recess;
+    } else {
+        shape.counterbore = recess;
+    }
     Ok(shape)
 }

@@ -293,3 +293,32 @@ test("counterbore editor retains through radii and shares validated recess dimen
     /fixed or derived/,
   );
 });
+test("countersink editor uses a conical rim and preserves its parameter link on edit", () => {
+  const m = model(),
+    d = draftHoles(m, "plate");
+  d.kind = "countersink_holes";
+  addHole(d, 10, 50, "3");
+  addHole(d, 70, 10, "2");
+  setCounterboreRadius(d, "5");
+  setHoleDepth(d, "2");
+  const created = run(m, holeProposal({ model: m, revision: 1 }, d)).result;
+  assert.equal(created.bodies[0].volume_mm3, "12000 - (293/3)*pi");
+  assert.equal(created.model.features.at(-1).rim_radius, d.boreRadius);
+  assert.equal(created.model.features.at(-1).bore_radius, undefined);
+  const edit = draftHoles(created.model, null, "holes1");
+  setCounterboreRadius(edit, "6");
+  const changed = run(
+    created.model,
+    holeProposal({ model: created.model, revision: 2 }, edit),
+  ).result;
+  assert.equal(changed.bodies[0].volume_mm3, "12000 - (347/3)*pi");
+  assert.deepEqual(changed.model.features, created.model.features);
+  setCounterboreRadius(edit, "3");
+  assert.equal(
+    run(
+      created.model,
+      holeProposal({ model: created.model, revision: 2 }, edit),
+    ).error.code,
+    "countersink_radius",
+  );
+});

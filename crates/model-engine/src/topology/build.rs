@@ -188,7 +188,8 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
             Feature::Instance { source, .. } => current = source,
             Feature::ThroughHoles { input, id, .. }
             | Feature::BlindHoles { input, id, .. }
-            | Feature::CounterboreHoles { input, id, .. } => {
+            | Feature::CounterboreHoles { input, id, .. }
+            | Feature::CountersinkHoles { input, id, .. } => {
                 holes = Some(id.as_str());
                 current = input;
             }
@@ -226,6 +227,7 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
                     bottom_radius: r.to_string(),
                     top_radius: top_radius.to_string(),
                     height: h.to_string(),
+                    inward: false,
                 },
             );
             b.wall(&[surface], &bottom, &top, false);
@@ -286,7 +288,37 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
         let role = format!("hole/{}", hole.id);
         let center = [value(&hole.center[0])?, value(&hole.center[1])?];
         let r = value(&hole.radius)?;
-        if let Some(bore) = &shape.counterbore {
+        if let Some(sink) = &shape.countersink {
+            let radius = value(&sink.radius)?;
+            let depth = value(&sink.depth)?;
+            let floor = &h - &depth;
+            let low = b.circle(&center, &r, &q(0));
+            let small = b.circle(&center, &r, &floor);
+            let high = b.circle(&center, &radius, &h);
+            b.cylinder(
+                owner,
+                &format!("{role}/lower"),
+                &center,
+                &r,
+                (&low, &small),
+                true,
+            );
+            let surface = b.surface(
+                owner,
+                &format!("{role}/taper"),
+                Surface::ConicalFrustum {
+                    origin: output(&[center[0].clone(), center[1].clone(), floor]),
+                    axis: [0, 0, 1],
+                    bottom_radius: r.to_string(),
+                    top_radius: radius.to_string(),
+                    height: depth.to_string(),
+                    inward: true,
+                },
+            );
+            b.wall(&[surface], &small, &high, true);
+            bottom_loops.push(low.edges);
+            top_loops.push(reverse(&high.edges));
+        } else if let Some(bore) = &shape.counterbore {
             let radius = value(&bore.radius)?;
             let floor = &h - value(&bore.depth)?;
             let low = b.circle(&center, &r, &q(0));

@@ -1,4 +1,4 @@
-//! Display-only rings for exact stepped cylindrical holes.
+//! Display-only rings for exact stepped cylindrical and conical holes.
 use crate::{
     error,
     mesh::{value, Mesh},
@@ -39,10 +39,14 @@ fn wall(mesh: &mut Mesh, bottom: usize, top: usize, count: usize, role: &str) {
 }
 pub(super) fn build(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<Mesh> {
     let fail = || {
-        error("tessellation_failed",&body.feature_id,"Counterbore cannot be resolved at this display scale or chord count; exact model is unchanged")
+        error("tessellation_failed",&body.feature_id,"Recess cannot be resolved at this display scale or chord count; exact model is unchanged")
     };
     let shape = body.analytic.as_ref().unwrap();
-    let bore = shape.counterbore.as_ref().unwrap();
+    let bore = shape
+        .counterbore
+        .as_ref()
+        .or(shape.countersink.as_ref())
+        .unwrap();
     let h = value(&shape.height)?;
     let depth = value(&bore.depth)?;
     let floor = h - depth;
@@ -147,6 +151,27 @@ pub(super) fn build(body: &Body, segments: usize, phase: f64, tagged: bool) -> R
         },
     );
     for (j, (x, y, r)) in disks.into_iter().enumerate() {
+        if shape.countersink.is_some() {
+            let small = mesh.vertices.len();
+            mesh.vertices
+                .extend(ring([x, y], r, floor, segments, phase, -1.0));
+            let role = format!("hole/{}", shape.holes[j].id);
+            wall(
+                &mut mesh,
+                holes[j],
+                small,
+                segments,
+                &format!("{role}/lower"),
+            );
+            wall(
+                &mut mesh,
+                small,
+                n + holes[j],
+                segments,
+                &format!("{role}/taper"),
+            );
+            continue;
+        }
         let large = mesh.vertices.len();
         mesh.vertices
             .extend(ring([x, y], radius, floor, segments, phase, -1.0));
