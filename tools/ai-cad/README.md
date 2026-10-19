@@ -179,3 +179,5 @@ Use **Download editable project** to keep the native model and history. **Import
 [Browser sketch plane cuts](../../examples/ai-cad/sketch-plane/README.md) now accept convex `planar_profile` extrusions. Changing an upstream sketch rebuilds its cuts; concavity rejects atomically. Run `verify_sketch_plane.py` and optional `verify_sketch_plane_export.py`.
 
 [Convex solid intersection](../../examples/ai-cad/intersection/README.md) keeps common volume through typed MCP commands or **Intersect two solids** in the browser. Inputs remain editable; empty results reject atomically. Run `verify_intersection.py` and optional `verify_intersection_export.py`.
+
+Click a solid or use its feature-list **Select solid** button to highlight it and inspect its stable ID/exact volume. [Viewport selection and measured CPU/GPU behavior](../../examples/ai-cad/body-selection/README.md). Selection/orbit retain GPU buffers and do not save the model.

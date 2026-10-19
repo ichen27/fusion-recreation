@@ -109,3 +109,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Convex solid intersection checkpoint
 
 [Exact solid intersection](../examples/ai-cad/intersection/README.md) keeps the common volume of two convex planar bodies, including browser sketches and previous cuts/intersections. Both inputs remain in editable history. Typed MCP, ten actual browser calls, rational/seeded/contact cases and independent STEP Booleans verify the bounded operation. Union/difference, disconnected/nonconvex results, curved topology and broader semantic selections remain open.
+
+## Viewport body selection checkpoint
+
+[Body selection and highlighting](../examples/ai-cad/body-selection/README.md) identifies stable terminal feature IDs from displayed triangles, supports feature-list keyboard selection and preserves retained GPU buffers. Actual context-loss recovery and CPU picking measurements are recorded. Exact face/edge picking, snapping and persistent generated-topology naming remain open.

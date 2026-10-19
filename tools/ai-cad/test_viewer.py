@@ -45,6 +45,7 @@ class Viewer(unittest.TestCase):
         self.assertIn(b"viewport", html)
         for asset in (
             "/display-data.mjs",
+            "/picking.mjs",
             "/intersection-model.mjs",
             "/intersection-editor.mjs",
             "/stock-model.mjs",
@@ -137,10 +138,6 @@ class Viewer(unittest.TestCase):
         ]:
             self.assertEqual(self.request("GET", "/api/export.zip?" + query)[0], 400)
 
-
-if __name__ == "__main__":
-    unittest.main()
-
     def test_native_download_and_import_over_http(self):
         self.store.execute(CREATE)
         before = self.store.path.read_bytes()
@@ -195,3 +192,7 @@ if __name__ == "__main__":
         self.assertEqual(status, 400)
         self.assertEqual(json.loads(raw)["error"]["code"], "invalid_document")
         self.assertEqual(self.store.load()["revision"], 2)
+
+
+if __name__ == "__main__":
+    unittest.main()
