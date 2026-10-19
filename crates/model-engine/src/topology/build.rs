@@ -351,9 +351,10 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
             bottom_loops.push(low.edges);
             top_loops.push(reverse(&high.edges));
         } else {
-            let floor = shape
-                .hole_depth
+            let floor = hole
+                .depth
                 .as_ref()
+                .or(shape.hole_depth.as_ref())
                 .map(|d| value(d).map(|d| &h - d))
                 .transpose()?
                 .unwrap_or(q(0));

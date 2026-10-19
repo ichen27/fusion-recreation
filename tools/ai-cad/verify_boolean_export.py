@@ -72,6 +72,10 @@ def oracle(model):
             depth = values[f["depth"]] if f["kind"] == "blind_holes" else height
             shape = shapes[f["input"]]
             for hole in f["holes"]:
+                if f["kind"] == "blind_holes":
+                    depth = values[
+                        f.get("depth_overrides", {}).get(hole["id"], f["depth"])
+                    ]
                 tool = BRepPrimAPI_MakeCylinder(
                     gp_Ax2(
                         gp_Pnt(values[hole["x"]], values[hole["y"]], height - depth),

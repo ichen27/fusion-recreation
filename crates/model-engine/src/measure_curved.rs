@@ -198,7 +198,12 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
             value(&c.center[0])?,
             value(&c.center[1])?,
             value(&c.radius)?,
-            &height - &depth,
+            &height
+                - c.depth
+                    .as_ref()
+                    .map(|s| value(s))
+                    .transpose()?
+                    .unwrap_or(depth.clone()),
             height.clone(),
             q(-1),
         ));

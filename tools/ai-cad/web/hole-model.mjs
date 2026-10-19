@@ -71,6 +71,7 @@ export function draftHoles(model, input, featureId = null) {
     kind: feature?.kind ?? "through_holes",
     depth,
     boreRadius,
+    depthOverrides: structuredClone(feature?.depth_overrides ?? {}),
     profile: structuredClone(profile),
     prefix,
     holes: structuredClone(feature?.holes ?? []),
@@ -120,6 +121,7 @@ export function setHoleValue(draft, index, axis, value) {
 export function removeHole(draft, index) {
   if (!Number.isInteger(index) || !draft.holes[index])
     throw Error("Unknown hole");
+  delete draft.depthOverrides[draft.holes[index].id];
   draft.holes.splice(index, 1);
 }
 export function holeProposal(state, draft) {
@@ -140,6 +142,9 @@ export function holeProposal(state, draft) {
     !refs.includes(draft.boreRadius)
   )
     refs.push(draft.boreRadius);
+  if (draft.kind === "blind_holes" && draft.holes.length)
+    for (const ref of Object.values(draft.depthOverrides))
+      if (!refs.includes(ref)) refs.push(ref);
   const changed = refs.filter(
     (id) =>
       id in draft.model.parameters &&
@@ -165,6 +170,9 @@ export function holeProposal(state, draft) {
       : draft.kind === "countersink_holes"
         ? { rim_radius: draft.boreRadius }
         : {}),
+    ...(draft.kind === "blind_holes" && Object.keys(draft.depthOverrides).length
+      ? { depth_overrides: { ...draft.depthOverrides } }
+      : {}),
     id: draft.featureId ?? draft.prefix,
     input: draft.input,
     holes: structuredClone(draft.holes),
@@ -173,7 +181,11 @@ export function holeProposal(state, draft) {
     const original = draft.model.features.find((f) => f.id === draft.featureId);
     if (!draft.holes.length)
       operations.push({ op: "remove_feature", id: draft.featureId });
-    else if (JSON.stringify(original.holes) !== JSON.stringify(draft.holes))
+    else if (
+      JSON.stringify(original.holes) !== JSON.stringify(draft.holes) ||
+      JSON.stringify(original.depth_overrides ?? {}) !==
+        JSON.stringify(feature.depth_overrides ?? {})
+    )
       operations.push({ op: "replace_feature", id: draft.featureId, feature });
   } else operations.push({ op: "add_feature", feature });
   if (!operations.length)
@@ -199,4 +211,25 @@ export function setCounterboreRadius(draft, value) {
       "Recess rim radius is fixed or derived; edit its controlling parameter",
     );
   draft.values[draft.boreRadius] = String(value);
+}
+
+// An empty field reconnects the hole to the group default without deleting parameters.
+export function setIndividualHoleDepth(draft, index, value) {
+  const hole = draft.holes[index];
+  if (draft.kind !== "blind_holes" || !hole) throw Error("Select a blind hole");
+  if (!String(value).trim()) {
+    delete draft.depthOverrides[hole.id];
+    return;
+  }
+  let ref = draft.depthOverrides[hole.id];
+  if (ref && !editable(draft, ref))
+    throw Error("Depth is fixed or derived; edit its controlling parameter");
+  if (!ref) {
+    const base = `${draft.prefix}.${hole.id}.depth`;
+    ref = base;
+    let suffix = 2;
+    while (ref in draft.values) ref = `${base}${suffix++}`;
+    draft.depthOverrides[hole.id] = ref;
+  }
+  draft.values[ref] = String(value);
 }

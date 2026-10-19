@@ -1,0 +1,1744 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "88",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.depth",
+            "mm": "4",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "depth_overrides": {
+                "h2": "holes1.h2.depth"
+              },
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "blind_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "ce983bae-4588-4a51-b574-bdc7e3670c52",
+          "revision": 1,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "ce983bae-4588-4a51-b574-bdc7e3670c52",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "6",
+                    "hole_depth": "2",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "h1",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "depth": "4",
+                        "id": "h2",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "54"
+                    }
+                  },
+                  "feature_id": "holes1",
+                  "volume_mm3": "36000 - (54)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "holes1.depth",
+                "holes1.h1.radius",
+                "holes1.h1.x",
+                "holes1.h1.y",
+                "holes1.h2.depth",
+                "holes1.h2.radius",
+                "holes1.h2.x",
+                "holes1.h2.y"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "depth": "holes1.depth",
+                    "depth_overrides": {
+                      "h2": "holes1.h2.depth"
+                    },
+                    "holes": [
+                      {
+                        "id": "h1",
+                        "radius": "holes1.h1.radius",
+                        "x": "holes1.h1.x",
+                        "y": "holes1.h1.y"
+                      },
+                      {
+                        "id": "h2",
+                        "radius": "holes1.h2.radius",
+                        "x": "holes1.h2.x",
+                        "y": "holes1.h2.y"
+                      }
+                    ],
+                    "id": "holes1",
+                    "input": "solid",
+                    "kind": "blind_holes"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "height": "6",
+                  "holes1.depth": "2",
+                  "holes1.h1.radius": "3",
+                  "holes1.h1.x": "12",
+                  "holes1.h1.y": "12",
+                  "holes1.h2.depth": "4",
+                  "holes1.h2.radius": "3",
+                  "holes1.h2.x": "88",
+                  "holes1.h2.y": "12",
+                  "r": "3",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=ce983bae-4588-4a51-b574-bdc7e3670c52"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "88",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.depth",
+            "mm": "4",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "depth_overrides": {
+                "h2": "holes1.h2.depth"
+              },
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "blind_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "367ccf5f-09a4-45e7-ab31-e5f1b442c3bf"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "depth": "4",
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "54"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (54)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth",
+            "holes1.h1.radius",
+            "holes1.h1.x",
+            "holes1.h1.y",
+            "holes1.h2.depth",
+            "holes1.h2.radius",
+            "holes1.h2.x",
+            "holes1.h2.y"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "holes1.depth",
+                "depth_overrides": {
+                  "h2": "holes1.h2.depth"
+                },
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.depth": "4",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.h2.depth",
+            "mm": "5",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "4ee68972-61cb-4b6b-815a-ea2637c52fdb",
+          "revision": 2,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "4ee68972-61cb-4b6b-815a-ea2637c52fdb",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "6",
+                    "hole_depth": "2",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "h1",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "depth": "5",
+                        "id": "h2",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "63"
+                    }
+                  },
+                  "feature_id": "holes1",
+                  "volume_mm3": "36000 - (63)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "holes1.h2.depth"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "depth": "holes1.depth",
+                    "depth_overrides": {
+                      "h2": "holes1.h2.depth"
+                    },
+                    "holes": [
+                      {
+                        "id": "h1",
+                        "radius": "holes1.h1.radius",
+                        "x": "holes1.h1.x",
+                        "y": "holes1.h1.y"
+                      },
+                      {
+                        "id": "h2",
+                        "radius": "holes1.h2.radius",
+                        "x": "holes1.h2.x",
+                        "y": "holes1.h2.y"
+                      }
+                    ],
+                    "id": "holes1",
+                    "input": "solid",
+                    "kind": "blind_holes"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "height": "6",
+                  "holes1.depth": "2",
+                  "holes1.h1.radius": "3",
+                  "holes1.h1.x": "12",
+                  "holes1.h1.y": "12",
+                  "holes1.h2.depth": "5",
+                  "holes1.h2.radius": "3",
+                  "holes1.h2.x": "88",
+                  "holes1.h2.y": "12",
+                  "r": "3",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 2,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 2,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=4ee68972-61cb-4b6b-815a-ea2637c52fdb"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.h2.depth",
+            "mm": "5",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "ac8ceeee-b072-4b99-8d0e-e432621c72fc"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "depth": "5",
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "63"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (63)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.h2.depth"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "holes1.depth",
+                "depth_overrides": {
+                  "h2": "holes1.h2.depth"
+                },
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.depth": "5",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "holes1.h2.depth",
+            "mm": "6",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "ec63f162-e07d-4f12-98f6-a1dcfd0b65b5",
+          "revision": 3,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "ec63f162-e07d-4f12-98f6-a1dcfd0b65b5",
+          "reply": {
+            "error": {
+              "code": "hole_depth",
+              "entity": "h2",
+              "message": "Individual blind depth must be strictly below stock height"
+            }
+          },
+          "revision": 3,
+          "status": "failed"
+        }
+      },
+      "url": "/api/preview-jobs?id=ec63f162-e07d-4f12-98f6-a1dcfd0b65b5"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "blind_holes"
+            },
+            "id": "holes1",
+            "op": "replace_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.depth",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "07539a50-9617-4663-bdd3-ba930fbec0d9",
+          "revision": 3,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "07539a50-9617-4663-bdd3-ba930fbec0d9",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "6",
+                    "hole_depth": "2",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "h1",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "id": "h2",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "36"
+                    }
+                  },
+                  "feature_id": "holes1",
+                  "volume_mm3": "36000 - (36)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "depth": "holes1.depth",
+                    "holes": [
+                      {
+                        "id": "h1",
+                        "radius": "holes1.h1.radius",
+                        "x": "holes1.h1.x",
+                        "y": "holes1.h1.y"
+                      },
+                      {
+                        "id": "h2",
+                        "radius": "holes1.h2.radius",
+                        "x": "holes1.h2.x",
+                        "y": "holes1.h2.y"
+                      }
+                    ],
+                    "id": "holes1",
+                    "input": "solid",
+                    "kind": "blind_holes"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "height": "6",
+                  "holes1.depth": "2",
+                  "holes1.h1.radius": "3",
+                  "holes1.h1.x": "12",
+                  "holes1.h1.y": "12",
+                  "holes1.h2.depth": "5",
+                  "holes1.h2.radius": "3",
+                  "holes1.h2.x": "88",
+                  "holes1.h2.y": "12",
+                  "r": "3",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 3,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 3,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=07539a50-9617-4663-bdd3-ba930fbec0d9"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "blind_holes"
+            },
+            "id": "holes1",
+            "op": "replace_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.depth",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "7a418c68-75d0-4195-8af5-f60a79edfd13"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "36"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (36)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.depth": "5",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 4,
+        "transaction_id": "ee65264a-3809-43fb-9c40-d8172cc72d16"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "depth": "5",
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "63"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (63)*pi"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 5,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "holes1.depth",
+                "depth_overrides": {
+                  "h2": "holes1.h2.depth"
+                },
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.depth": "5",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 5,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    }
+  ]
+}

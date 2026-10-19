@@ -1,0 +1,54 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "left": "-30",
+    "right": "30",
+    "mount_r": "3",
+    "bore_r": "10",
+    "depth": "2",
+    "individual_depth": "4"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "blind_holes",
+      "id": "flange",
+      "input": "stock",
+      "holes": [
+        {
+          "id": "left",
+          "x": "left",
+          "y": "cy",
+          "radius": "mount_r"
+        },
+        {
+          "id": "right",
+          "x": "right",
+          "y": "cy",
+          "radius": "mount_r"
+        },
+        {
+          "id": "bore",
+          "x": "cx",
+          "y": "cy",
+          "radius": "bore_r"
+        }
+      ],
+      "depth": "depth",
+      "depth_overrides": {
+        "bore": "individual_depth"
+      }
+    }
+  ]
+}

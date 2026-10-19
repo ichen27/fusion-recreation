@@ -132,6 +132,8 @@ pub enum Feature {
         id: String,
         input: String,
         depth: String,
+        #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+        depth_overrides: BTreeMap<String, String>,
         holes: Vec<Hole>,
     },
     CountersinkHoles {
@@ -558,7 +560,11 @@ fn evaluate_geometry_from(
                     }
                 };
                 let shape = match feature {
-                    Feature::BlindHoles { depth, .. } => holes::blind(m, id, depth, shape)?,
+                    Feature::BlindHoles {
+                        depth,
+                        depth_overrides,
+                        ..
+                    } => holes::blind(m, id, depth, depth_overrides, shape)?,
                     Feature::CounterboreHoles {
                         depth, bore_radius, ..
                     } => holes::recess(m, id, depth, bore_radius, shape, false)?,

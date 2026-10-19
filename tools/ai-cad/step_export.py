@@ -193,9 +193,29 @@ def translate(body):
                 [TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(top, h))]
             )
             for index, ring in enumerate(rings):
+                individual_depth = (
+                    number(
+                        shape["holes"][index - 1].get(
+                            "depth", shape.get("hole_depth", shape["height"])
+                        )
+                    )
+                    if index and "hole_depth" in shape
+                    else depth
+                )
+                individual_floor = (
+                    h - individual_depth if index and "hole_depth" in shape else floor
+                )
+                if (
+                    index
+                    and "hole_depth" in shape
+                    and min(individual_depth, individual_floor) <= 1e-6
+                ):
+                    raise RuntimeError(
+                        "STEP adapter requires each blind depth and remaining floor above 1e-6 mm"
+                    )
                 for edge in ring:
-                    start = floor if index and not bore else 0.0
-                    wall_height = (floor if bore else depth) if index else h
+                    start = individual_floor if index and not bore else 0.0
+                    wall_height = (floor if bore else individual_depth) if index else h
                     converted.extend(
                         faces(
                             BRepPrimAPI_MakePrism(
@@ -244,7 +264,7 @@ def translate(body):
                         [TopoDS.Edge(edge.Reversed()) for edge in reversed(ring)]
                     )
                     floor_face = BRepBuilderAPI_MakeFace(floor_wire, True).Face()
-                    converted.append(TopoDS.Face(moved(floor_face, floor)))
+                    converted.append(TopoDS.Face(moved(floor_face, individual_floor)))
         v = shape["volume"]
         expected = number(v["constant_mm3"]) - math.pi * number(v["pi_subtract_mm3"])
     else:
