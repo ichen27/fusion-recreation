@@ -114,3 +114,28 @@ test("limits and collisions reject before ambiguous commands are emitted", () =>
   assert.throws(() => addPoint(edit, 2, 2), /retain their vertex topology/);
   assert.throws(() => sketchOperations(edit), /Move a point/);
 });
+
+test("new concave outlines extrude while existing convex profiles keep their kind", () => {
+  const draft = draftSketch(empty, "ell");
+  for (const [x, y] of [
+    [0, 0],
+    [80, 0],
+    [80, 20],
+    [20, 20],
+    [20, 60],
+    [0, 60],
+  ])
+    addPoint(draft, x, y);
+  draft.height = "5";
+  const result = evaluate(empty, sketchOperations(draft)).result;
+  assert.equal(result.model.features[0].kind, "planar_profile");
+  assert.equal(result.bodies[0].volume_mm3, "12000");
+  const old = rectangle();
+  old.kind = "polygon_profile";
+  const model = evaluate(empty, sketchOperations(old)).result.model;
+  const edit = draftSketch(model, "unused", "test.profile");
+  assert.equal(edit.kind, "polygon_profile");
+  setCoordinate(edit, 2, "x", "40");
+  const changed = evaluate(model, sketchOperations(edit));
+  assert.equal(changed.result.model.features[0].kind, "polygon_profile");
+});

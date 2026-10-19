@@ -1,0 +1,161 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "concave-create-v1",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "zero",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "width",
+      "mm": "80"
+    },
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "leg",
+      "mm": "20"
+    },
+    {
+      "op": "define_parameter",
+      "id": "thickness",
+      "mm": "5"
+    },
+    {
+      "op": "define_parameter",
+      "id": "margin",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "radius",
+      "mm": "3"
+    },
+    {
+      "op": "define_parameter",
+      "id": "right_x",
+      "mm": "70"
+    },
+    {
+      "op": "define_parameter",
+      "id": "top_y",
+      "mm": "50"
+    },
+    {
+      "op": "set_relation",
+      "id": "right_x",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "width": "1",
+          "margin": "-1"
+        }
+      }
+    },
+    {
+      "op": "set_relation",
+      "id": "top_y",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "depth": "1",
+          "margin": "-1"
+        }
+      }
+    },
+    {
+      "op": "fix_parameter",
+      "id": "thickness"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "leg"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "radius"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "margin"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "planar_profile",
+        "id": "outline",
+        "vertices": [
+          {
+            "id": "origin",
+            "x": "zero",
+            "y": "zero"
+          },
+          {
+            "id": "right",
+            "x": "width",
+            "y": "zero"
+          },
+          {
+            "id": "right_top",
+            "x": "width",
+            "y": "leg"
+          },
+          {
+            "id": "inner",
+            "x": "leg",
+            "y": "leg"
+          },
+          {
+            "id": "top_right",
+            "x": "leg",
+            "y": "depth"
+          },
+          {
+            "id": "top_left",
+            "x": "zero",
+            "y": "depth"
+          }
+        ]
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "extrude",
+        "id": "plate",
+        "profile": "outline",
+        "height": "thickness"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "through_holes",
+        "id": "mount",
+        "input": "plate",
+        "holes": [
+          {
+            "id": "right_mount",
+            "x": "right_x",
+            "y": "margin",
+            "radius": "radius"
+          },
+          {
+            "id": "top_mount",
+            "x": "margin",
+            "y": "top_y",
+            "radius": "radius"
+          }
+        ]
+      }
+    }
+  ],
+  "preserve": []
+}

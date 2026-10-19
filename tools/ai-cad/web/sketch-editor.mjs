@@ -213,13 +213,13 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
       );
       $("sketch-title").textContent = featureId
         ? `Edit ${featureId}`
-        : "Draw a convex profile";
+        : "Draw a planar profile";
       $("sketch-height").value = "6";
       svg.setAttribute("viewBox", "-20 -140 240 160");
       message(
         featureId
-          ? "Shared coordinate parameters move together. Fixed and derived coordinates stay locked. Derived coordinates update on preview."
-          : "Click points around the outline, or start with a rectangle. Drag points or type exact coordinates.",
+          ? "Shared parameters move together. Fixed/derived coordinates stay locked. Derived coordinates update on preview. Older polygon_profile features still require convexity."
+          : "Click around a closed outline, including inward corners. Drag points or type exact coordinates.",
       );
       render();
       if (featureId) fit();

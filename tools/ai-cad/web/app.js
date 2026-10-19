@@ -249,7 +249,7 @@ function render(state) {
       const div = document.createElement("div");
       div.className = "feature";
       div.textContent = `${f.kind === "block" ? "◇" : "◩"}  ${f.id} · ${f.kind.replaceAll("_", " ")}`;
-      if (f.kind === "polygon_profile") {
+      if (["polygon_profile", "planar_profile"].includes(f.kind)) {
         const button = document.createElement("button");
         button.className = "edit-sketch";
         button.textContent = "Edit sketch";

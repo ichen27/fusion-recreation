@@ -1,0 +1,221 @@
+{
+  "sha256": "b3f3199ec288f965b203b1ac04a3f33ce3fa0929ac4d3675e4b4e7031e777990",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "planar_profile",
+          "vertices": [
+            {
+              "id": "origin",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "right_top",
+              "x": "width",
+              "y": "leg"
+            },
+            {
+              "id": "inner",
+              "x": "leg",
+              "y": "leg"
+            },
+            {
+              "id": "top_right",
+              "x": "leg",
+              "y": "depth"
+            },
+            {
+              "id": "top_left",
+              "x": "zero",
+              "y": "depth"
+            }
+          ]
+        },
+        {
+          "height": "thickness",
+          "id": "plate",
+          "kind": "extrude",
+          "profile": "outline"
+        },
+        {
+          "holes": [
+            {
+              "id": "right_mount",
+              "radius": "radius",
+              "x": "right_x",
+              "y": "margin"
+            },
+            {
+              "id": "top_mount",
+              "radius": "radius",
+              "x": "margin",
+              "y": "top_y"
+            }
+          ],
+          "id": "mount",
+          "input": "plate",
+          "kind": "through_holes"
+        }
+      ],
+      "fixed": {
+        "leg": "20",
+        "margin": "10",
+        "radius": "3",
+        "thickness": "5"
+      },
+      "parameters": {
+        "depth": "60",
+        "leg": "20",
+        "margin": "10",
+        "radius": "3",
+        "right_x": "90",
+        "thickness": "5",
+        "top_y": "50",
+        "width": "100",
+        "zero": "0"
+      },
+      "relations": {
+        "right_x": {
+          "offset_mm": "0",
+          "terms": {
+            "margin": "-1",
+            "width": "1"
+          }
+        },
+        "top_y": {
+          "offset_mm": "0",
+          "terms": {
+            "depth": "1",
+            "margin": "-1"
+          }
+        }
+      }
+    },
+    "receipts": {
+      "concave-create-v1": {
+        "request": "fee93825951662a65713ec2d9f6b3ebd32f306a03d2e64fdf1ac7de23746accb",
+        "revision": 1
+      },
+      "concave-widen-v1": {
+        "request": "f7709de1de7edc68d5dcc829964853960c525ecf22c87f47db40258dd6f010a0",
+        "revision": 2
+      }
+    },
+    "redo": [],
+    "revision": 2,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      },
+      {
+        "features": [
+          {
+            "id": "outline",
+            "kind": "planar_profile",
+            "vertices": [
+              {
+                "id": "origin",
+                "x": "zero",
+                "y": "zero"
+              },
+              {
+                "id": "right",
+                "x": "width",
+                "y": "zero"
+              },
+              {
+                "id": "right_top",
+                "x": "width",
+                "y": "leg"
+              },
+              {
+                "id": "inner",
+                "x": "leg",
+                "y": "leg"
+              },
+              {
+                "id": "top_right",
+                "x": "leg",
+                "y": "depth"
+              },
+              {
+                "id": "top_left",
+                "x": "zero",
+                "y": "depth"
+              }
+            ]
+          },
+          {
+            "height": "thickness",
+            "id": "plate",
+            "kind": "extrude",
+            "profile": "outline"
+          },
+          {
+            "holes": [
+              {
+                "id": "right_mount",
+                "radius": "radius",
+                "x": "right_x",
+                "y": "margin"
+              },
+              {
+                "id": "top_mount",
+                "radius": "radius",
+                "x": "margin",
+                "y": "top_y"
+              }
+            ],
+            "id": "mount",
+            "input": "plate",
+            "kind": "through_holes"
+          }
+        ],
+        "fixed": {
+          "leg": "20",
+          "margin": "10",
+          "radius": "3",
+          "thickness": "5"
+        },
+        "parameters": {
+          "depth": "60",
+          "leg": "20",
+          "margin": "10",
+          "radius": "3",
+          "right_x": "70",
+          "thickness": "5",
+          "top_y": "50",
+          "width": "80",
+          "zero": "0"
+        },
+        "relations": {
+          "right_x": {
+            "offset_mm": "0",
+            "terms": {
+              "margin": "-1",
+              "width": "1"
+            }
+          },
+          "top_y": {
+            "offset_mm": "0",
+            "terms": {
+              "depth": "1",
+              "margin": "-1"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

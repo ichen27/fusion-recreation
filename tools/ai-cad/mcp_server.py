@@ -39,6 +39,10 @@ class PolygonProfile(Strict):
     vertices: list[ProfileVertex]
 
 
+class PlanarProfile(PolygonProfile):
+    kind: Literal["planar_profile"]
+
+
 class Extrude(Strict):
     kind: Literal["extrude"]
     id: str
@@ -81,7 +85,7 @@ class Adjust(Strict):
 class AddFeature(Strict):
     op: Literal["add_feature"]
     feature: Annotated[
-        Union[Block, CornerCut, PolygonProfile, Extrude, ThroughHoles],
+        Union[Block, CornerCut, PolygonProfile, PlanarProfile, Extrude, ThroughHoles],
         Field(discriminator="kind"),
     ]
 
@@ -127,7 +131,7 @@ def server(path):
 
     @mcp.tool()
     def cad_inspect() -> dict:
-        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Also supported: strictly convex XY polygon_profile with 3..32 named vertices (x/y reference parameter IDs), and positive-Z extrude referencing an earlier profile and a height parameter. Either winding is accepted; repeated points, collinear corners and crossings are rejected. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Relationships use set_relation on an existing parameter: value = offset_mm + sum(terms[parameter] * parameter), with dimensionless rational coefficients; e.g. center = width/2 uses offset_mm="0", terms={"width":"1/2"}. Derived values rebuild automatically and cannot be directly set/adjusted. Cycles and fixed-value conflicts are rejected. Inspect before planning. through_holes references an earlier extrusion via input and 1..16 holes with unique id and parameter references x, y, radius. Holes are cylindrical through +Z, strictly inside the profile and strictly separate. No blind holes, tangency, breakout, generic fillets, sketch constraint solving or general booleans. Analytic bodies return analytic instead of planar boundary; volume_mm3 is symbolic constant minus coefficient*pi."""
+        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Also supported: strictly convex XY polygon_profile with 3..32 named vertices (x/y reference parameter IDs), and positive-Z extrude referencing an earlier profile and a height parameter. planar_profile has the same vertex fields and allows simple concave outlines; no crossings, repeated points or collinear corners. Extrude accepts either profile kind. Either winding is accepted; repeated points, collinear corners and crossings are rejected. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Relationships use set_relation on an existing parameter: value = offset_mm + sum(terms[parameter] * parameter), with dimensionless rational coefficients; e.g. center = width/2 uses offset_mm="0", terms={"width":"1/2"}. Derived values rebuild automatically and cannot be directly set/adjusted. Cycles and fixed-value conflicts are rejected. Inspect before planning. through_holes references an earlier extrusion via input and 1..16 holes with unique id and parameter references x, y, radius. Holes are cylindrical through +Z, strictly inside the profile and strictly separate. No blind holes, tangency, breakout, generic fillets, sketch constraint solving or general booleans. Analytic bodies return analytic instead of planar boundary; volume_mm3 is symbolic constant minus coefficient*pi."""
         return dispatch(store, {"action": "inspect"})
 
     @mcp.tool()

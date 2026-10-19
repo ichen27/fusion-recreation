@@ -45,6 +45,11 @@ pub enum Feature {
         id: String,
         vertices: Vec<ProfileVertex>,
     },
+    /// One simple planar polygon, including concave outlines.
+    PlanarProfile {
+        id: String,
+        vertices: Vec<ProfileVertex>,
+    },
     /// A positive-Z extrusion of an earlier profile; height references a parameter.
     Extrude {
         id: String,
@@ -75,6 +80,7 @@ impl Feature {
             Self::Block { id, .. }
             | Self::CornerCut { id, .. }
             | Self::PolygonProfile { id, .. }
+            | Self::PlanarProfile { id, .. }
             | Self::Extrude { id, .. }
             | Self::ThroughHoles { id, .. } => id,
         }
@@ -286,7 +292,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     return Err(error(
                         "unsupported_reference",
                         input,
-                        "Through holes require an earlier convex profile extrusion",
+                        "Through holes require an earlier profile extrusion",
                     ));
                 };
                 if !consumed.insert(input.as_str()) {
@@ -318,6 +324,10 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 );
                 continue;
             }
+            Feature::PlanarProfile { vertices, .. } => {
+                profiles.insert(id, profile::resolve_planar(m, id, vertices)?);
+                continue;
+            }
             Feature::PolygonProfile { vertices, .. } => {
                 profiles.insert(id, profile::resolve(m, id, vertices)?);
                 continue;
@@ -333,6 +343,20 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     )
                 })?;
                 let h = positive(m, height)?;
+                if !input.convex_only {
+                    let shape = holes::prism(input, &h);
+                    let volume_mm3 = shape.volume.constant_mm3.clone();
+                    evaluated.insert(
+                        id,
+                        Body {
+                            feature_id: id.into(),
+                            boundary: None,
+                            analytic: Some(shape),
+                            volume_mm3,
+                        },
+                    );
+                    continue;
+                }
                 (
                     profile::extrude(input, &h),
                     Plane {

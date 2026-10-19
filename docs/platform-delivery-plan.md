@@ -13,13 +13,13 @@ Scope confirmed 2026-10-19: pursue the full long-term platform. A bracket workfl
 
 | Gate | Status | Acceptance evidence | Major unresolved work |
 |---|---|---|---|
-| Original planar geometry | Bounded implementation | Exact convex clipping, profile extrusion, orientation/manifold tests and independent comparisons | General nonconvex Boolean operations, multiple shells/cavities and tolerance policy beyond rational planes |
+| Original planar geometry | Bounded implementation | Exact convex clipping, convex/simple-concave profile extrusion, orientation/manifold tests and independent comparisons | General nonconvex Boolean operations, multiple shells/cavities and tolerance policy beyond rational planes |
 | Editable model and AI loop | Bounded implementation | Recorded create/edit conversation; typed MCP; atomic save/reopen, preview and undo | Broader intent tests, semantic selections, ambiguity handling and repair benchmarks |
 | Parameter relationships | Bounded implementation | Center follows width; dependent chains rebuild exactly; cycles/conflicts reject atomically; same results through CLI/MCP/browser | General geometric constraint solving and nonlinear expressions |
 | Useful part workflow | Bounded flat-bracket implementation | Three analytic through-holes; margin/center relationships; preview/save/reopen/undo; STL topology and STEP surface/location/volume checks | Bent brackets, arbitrary hole axes/depths, general curved topology and wider intent corpus |
-| Sketch and feature modeling | Planned | Interactive constrained sketches and edit-stable extrude/revolve/sweep/loft/hole/chamfer/fillet/shell/draft/pattern workflows | Solver choice, over/underconstraint diagnostics, selection provenance and robust curved intersections |
+| Sketch and feature modeling | Interactive polygon editing implemented | Interactive constrained sketches and edit-stable extrude/revolve/sweep/loft/hole/chamfer/fillet/shell/draft/pattern workflows | Solver choice, over/underconstraint diagnostics, selection provenance and robust curved intersections |
 | Geometry breadth and interchange | Planned | Analytic and spline surfaces, repeated nonconvex operations, valid native/STEP/STL round trips with explicit losses | Curved numerical policy, trimming/healing, NURBS and imported-boundary validation |
-| Runtime and hardware | Basic split and initial host-latency baseline implemented | Versioned jobs, cancellation, incremental rebuilds, memory budgets and latency/frame-time measurements on declared workloads/devices | Large-document scheduling, caches, worker concurrency, GPU uploads/device recovery and justified compute acceleration |
+| Runtime and hardware | Bounded host/mesh caching and retained GPU buffers implemented | Versioned jobs, cancellation, incremental rebuilds, memory budgets and latency/frame-time measurements on declared workloads/devices | Large-document scheduling, caches, worker concurrency, GPU uploads/device recovery and justified compute acceleration |
 | Assemblies and engineering documentation | Planned | Component transforms, joints/configurations, linked drawings, tolerances and parts lists survive model edits | Assembly references, configuration semantics, materials, sheet metal and associative drawings |
 | Broader design workflows | Planned | Explicitly scoped surfaces/freeform, meshes, rendering and animation examples | Representations, conversion semantics and cross-workflow editability |
 | Manufacturing and analysis | Long-term scope | Separate verified CAM, additive/nesting, CAE and electronics workflows | Domain solvers, toolpaths/posts, machine/process models, numerical accuracy and independent validation |
@@ -57,3 +57,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Interactive sketch checkpoint
 
 [Browser sketch creation/editing](../examples/ai-cad/sketch-editor/README.md) adds point placement, dragging and exact coordinate inputs through the same typed preview/save contract. A four-call actual browser recording replays native documents. This is convex polygon editing with existing affine/fixed constraints, not a general geometric sketch solver. Continue with nonconvex planar profiles and broader solids.
+
+## Concave profile checkpoint
+
+[Simple concave extrusion and holes](../examples/ai-cad/concave-profile/README.md) extends the custom engine to L-shaped plates with exact segment-distance clearance checks. Old convex feature behavior is preserved. STEP re-import is compared to an independent union/cut oracle used only in verification. Next: interactive hole authoring, followed by broader intent and geometry workflows.
