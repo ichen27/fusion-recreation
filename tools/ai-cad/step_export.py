@@ -18,9 +18,10 @@ from OCP.BRepLib import BRepLib
 from OCP.BRepGProp import BRepGProp
 from OCP.GProp import GProp_GProps
 from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Circ, gp_Vec
-from OCP.TopoDS import TopoDS
+from OCP.BRep import BRep_Builder
+from OCP.TopoDS import TopoDS, TopoDS_Compound
 from OCP.TopExp import TopExp_Explorer
-from OCP.TopAbs import TopAbs_FACE, TopAbs_SOLID
+from OCP.TopAbs import TopAbs_FACE, TopAbs_SOLID, TopAbs_SHELL
 from OCP.Interface import Interface_Static
 from OCP.STEPControl import STEPControl_Writer, STEPControl_Reader, STEPControl_AsIs
 from OCP.IFSelect import IFSelect_RetDone
@@ -175,28 +176,67 @@ def translate(body):
         boundary = body["boundary"]
         points = [gp_Pnt(*map(number, p)) for p in boundary["vertices"]]
         for face in boundary["faces"]:
-            ids = [
-                boundary["edges"][u["edge"]]["vertices"][0 if u["forward"] else 1]
-                for u in face["loops"][0]
-            ]
-            edges = [
-                BRepBuilderAPI_MakeEdge(points[a], points[b]).Edge()
-                for a, b in zip(ids, ids[1:] + ids[:1])
-            ]
-            converted.append(BRepBuilderAPI_MakeFace(wire(edges), True).Face())
+            rings = []
+            for loop in face["loops"]:
+                ids = [
+                    boundary["edges"][u["edge"]]["vertices"][0 if u["forward"] else 1]
+                    for u in loop
+                ]
+                rings.append(
+                    wire(
+                        [
+                            BRepBuilderAPI_MakeEdge(points[a], points[b]).Edge()
+                            for a, b in zip(ids, ids[1:] + ids[:1])
+                        ]
+                    )
+                )
+            maker = BRepBuilderAPI_MakeFace(rings[0], True)
+            for ring in rings[1:]:
+                maker.Add(ring)
+            if not maker.IsDone():
+                raise RuntimeError("STEP planar face construction failed")
+            converted.append(maker.Face())
         expected = number(body["volume_mm3"])
-    sew = BRepBuilderAPI_Sewing(1e-7)
-    for face in converted:
-        if not BRepCheck_Analyzer(face).IsValid():
-            raise RuntimeError("STEP face is invalid at adapter tolerance")
-        sew.Add(face)
-    sew.Perform()
-    solid = BRepBuilderAPI_MakeSolid(TopoDS.Shell(sew.SewedShape())).Solid()
-    BRepLib.OrientClosedSolid_s(solid)
+    # The original engine supplies material-component face membership, including
+    # cavity shells. OCCT only sews those faces and translates their topology.
+    groups = body.get("components", [list(range(len(converted)))])
+    solids = []
+    for indices in groups:
+        sew = BRepBuilderAPI_Sewing(1e-7)
+        for index in indices:
+            face = converted[index]
+            if not BRepCheck_Analyzer(face).IsValid():
+                raise RuntimeError("STEP face is invalid at adapter tolerance")
+            sew.Add(face)
+        sew.Perform()
+        builder = BRepBuilderAPI_MakeSolid()
+        explorer = TopExp_Explorer(sew.SewedShape(), TopAbs_SHELL)
+        count = 0
+        while explorer.More():
+            builder.Add(TopoDS.Shell(explorer.Current()))
+            count += 1
+            explorer.Next()
+        if not count or not builder.IsDone():
+            raise RuntimeError("STEP component has no closed shells")
+        part = builder.Solid()
+        if (
+            not BRepLib.OrientClosedSolid_s(part)
+            or not BRepCheck_Analyzer(part).IsValid()
+        ):
+            raise RuntimeError("STEP component is invalid at adapter tolerance")
+        solids.append(part)
+    if len(solids) == 1:
+        solid = solids[0]
+    else:
+        solid = TopoDS_Compound()
+        builder = BRep_Builder()
+        builder.MakeCompound(solid)
+        for part in solids:
+            builder.Add(solid, part)
     if not BRepCheck_Analyzer(solid).IsValid() or abs(measure(solid) - expected) > max(
         1e-7, abs(expected) * 1e-9
     ):
-        raise RuntimeError("STEP translation did not preserve a valid solid and volume")
+        raise RuntimeError("STEP translation did not preserve valid solids and volume")
     return solid, expected
 
 
@@ -225,7 +265,7 @@ def export_step(body, output):
             ex.Next()
         volume = measure(imported)
         if (
-            count != 1
+            count != len(body.get("components", [None]))
             or not BRepCheck_Analyzer(imported).IsValid()
             or abs(volume - expected) > max(1e-7, abs(expected) * 1e-9)
         ):
@@ -235,5 +275,6 @@ def export_step(body, output):
         "volume_mm3": volume,
         "expected_volume_mm3": expected,
         "valid_solid": True,
+        "solid_count": count,
         "adapter_tolerance_mm": 1e-7,
     }

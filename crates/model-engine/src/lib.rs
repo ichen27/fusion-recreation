@@ -9,6 +9,8 @@ use std::collections::{BTreeMap, BTreeSet};
 mod holes;
 pub mod intent;
 pub mod mesh;
+pub mod polyhedral;
+pub use polyhedral::Operation as BooleanOperation;
 mod profile;
 mod solid_ops;
 pub use holes::{AnalyticPrism, Hole};
@@ -93,6 +95,13 @@ pub enum Feature {
         input: String,
         offset: [String; 3],
     },
+    /// Original exact planar Boolean with merged faces, holes and components.
+    Boolean {
+        id: String,
+        left: String,
+        right: String,
+        operation: BooleanOperation,
+    },
     /// Keep the common volume of two earlier convex planar solids.
     Intersection {
         id: String,
@@ -137,7 +146,8 @@ impl Feature {
             | Self::PlaneCut { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
-            | Self::RotateQuarter { id, .. } => id,
+            | Self::RotateQuarter { id, .. }
+            | Self::Boolean { id, .. } => id,
         }
     }
 }
@@ -168,6 +178,10 @@ pub struct Request {
 #[derive(Debug, Serialize)]
 pub struct Body {
     pub feature_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub components: Option<Vec<Vec<usize>>>,
+    #[serde(skip)]
+    pub(crate) polyhedral: Option<polyhedral::Solid>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boundary: Option<Boundary>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -316,6 +330,23 @@ fn convex_input(
         )
     })?;
     if let Some(boundary) = &parent.boundary {
+        if parent.polyhedral.is_some() {
+            // A merged Boolean may still be convex. Validate that property before
+            // passing it to an operation whose established contract is convex-only.
+            let face = &boundary.faces[0];
+            if boundary_clip::clip(ClipRequest {
+                schema_version: 1,
+                boundary: boundary.clone(),
+                plane: Plane {
+                    normal: face.normal.clone(),
+                    offset: face.offset.clone(),
+                },
+            })
+            .is_err()
+            {
+                return Err(error("unsupported_reference",input,"This operation requires a convex planar body; this Boolean result is nonconvex or disconnected"));
+            }
+        }
         return Ok(boundary.clone());
     }
     if let Some(Feature::Extrude {
@@ -430,9 +461,67 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     id,
                     Body {
                         feature_id: id.into(),
+                        components: None,
+                        polyhedral: None,
                         boundary: None,
                         analytic: Some(shape),
                         volume_mm3,
+                    },
+                );
+                continue;
+            }
+            Feature::Boolean {
+                left,
+                right,
+                operation,
+                ..
+            } => {
+                if left == right {
+                    return Err(error(
+                        "invalid_operands",
+                        id,
+                        "Choose two distinct terminal solids",
+                    ));
+                }
+                let resolve = |input: &str| -> Result<polyhedral::Solid> {
+                    if let Some(solid) = evaluated
+                        .get(input)
+                        .and_then(|body: &Body| body.polyhedral.as_ref())
+                    {
+                        return Ok(solid.clone());
+                    }
+                    polyhedral::Solid::from_convex(convex_input(
+                        m,
+                        &profiles,
+                        &evaluated,
+                        input,
+                        "Planar Booleans",
+                    )?)
+                };
+                let a = resolve(left)?;
+                let b = resolve(right)?;
+                for input in [left, right] {
+                    if !consumed.insert(input.as_str()) {
+                        return Err(error(
+                            "unsupported_branch",
+                            input,
+                            "Choose terminal solids; an input can have only one consuming feature",
+                        ));
+                    }
+                }
+                let solid = a.combine(&b, *operation).map_err(|mut e| {
+                    e.entity = id.into();
+                    e
+                })?;
+                evaluated.insert(
+                    id,
+                    Body {
+                        feature_id: id.into(),
+                        boundary: Some(solid.boundary.clone()),
+                        analytic: None,
+                        volume_mm3: solid.volume.to_string(),
+                        components: Some(solid.components.clone()),
+                        polyhedral: Some(solid),
                     },
                 );
                 continue;
@@ -545,6 +634,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     id,
                     Body {
                         feature_id: id.into(),
+                        components: None,
+                        polyhedral: None,
                         boundary: None,
                         analytic: Some(shape),
                         volume_mm3,
@@ -578,6 +669,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         id,
                         Body {
                             feature_id: id.into(),
+                            components: None,
+                            polyhedral: None,
                             boundary: None,
                             analytic: Some(shape),
                             volume_mm3,
@@ -696,6 +789,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             id,
             Body {
                 feature_id: id.into(),
+                components: None,
+                polyhedral: None,
                 boundary: Some(result.boundary),
                 analytic: None,
                 volume_mm3: result.volume,

@@ -24,6 +24,8 @@ pub(super) fn intersection(id: &str, mut left: Boundary, right: &Boundary) -> Re
     }
     Ok(Body {
         feature_id: id.into(),
+        components: None,
+        polyhedral: None,
         boundary: Some(left),
         analytic: None,
         volume_mm3: volume,
@@ -114,6 +116,8 @@ fn rigid(
     }
     Ok(Body {
         feature_id: id.into(),
+        components: None,
+        polyhedral: None,
         boundary: Some(result.boundary),
         analytic: None,
         volume_mm3: result.volume,

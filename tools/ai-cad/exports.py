@@ -43,6 +43,7 @@ def display(reply, cache=None):
                 body["volume_approx_mm3"] = float(
                     Fraction(v["constant_mm3"])
                 ) - math.pi * float(Fraction(v["pi_subtract_mm3"]))
+            if "analytic" in body or "components" in body:
                 try:
                     request = {
                         "model": state["model"],

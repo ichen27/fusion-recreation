@@ -1,5 +1,5 @@
 //! Disposable float64 tessellation. Failure never invalidates an exact saved model.
-use crate::{error, rational, validate, Body, Model, Result};
+use crate::{error, validate, Body, Model, Result, Q};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -18,16 +18,24 @@ pub struct Mesh {
     pub max_radial_error_mm: f64,
 }
 fn value(s: &str) -> Result<f64> {
-    rational(s, "mesh")?
-        .to_f64()
-        .filter(|v| v.is_finite())
-        .ok_or_else(|| {
-            error(
-                "tessellation_failed",
-                "mesh",
-                "Coordinate cannot be represented as float64",
-            )
-        })
+    // These are computed, already validated coordinates, not user literals.
+    let q: Q = s
+        .parse()
+        .map_err(|_| error("tessellation_failed", "mesh", "Invalid computed coordinate"))?;
+    if q.numer().bits() > 1024 || q.denom().bits() > 1024 {
+        return Err(error(
+            "tessellation_failed",
+            "mesh",
+            "Computed coordinate exceeds 1024 bits",
+        ));
+    }
+    q.to_f64().filter(|v| v.is_finite()).ok_or_else(|| {
+        error(
+            "tessellation_failed",
+            "mesh",
+            "Coordinate cannot be represented as float64",
+        )
+    })
 }
 pub fn evaluate(request: Request) -> Result<Mesh> {
     if !(16..=256).contains(&request.segments) {
@@ -81,12 +89,47 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
                 .push([value(&p[0])?, value(&p[1])?, value(&p[2])?]);
         }
         for f in &b.faces {
-            let ids: Vec<_> = f.loops[0]
+            let normal = [
+                value(&f.normal[0])?,
+                value(&f.normal[1])?,
+                value(&f.normal[2])?,
+            ];
+            let axis = (0..3)
+                .max_by(|&a, &b| normal[a].abs().total_cmp(&normal[b].abs()))
+                .ok_or_else(fail)?;
+            // Cyclic coordinates preserve the sign of the omitted normal axis.
+            let u = (axis + 1) % 3;
+            let v = (axis + 2) % 3;
+            let mut ids = vec![];
+            let mut holes = vec![];
+            for (index, ring) in f.loops.iter().enumerate() {
+                if index > 0 {
+                    holes.push(ids.len());
+                }
+                ids.extend(
+                    ring.iter()
+                        .map(|edge| b.edges[edge.edge].vertices[usize::from(!edge.forward)]),
+                );
+            }
+            let origin = mesh.vertices[ids[0]];
+            let flat: Vec<_> = ids
                 .iter()
-                .map(|u| b.edges[u.edge].vertices[usize::from(!u.forward)])
+                .flat_map(|&i| {
+                    [
+                        mesh.vertices[i][u] - origin[u],
+                        mesh.vertices[i][v] - origin[v],
+                    ]
+                })
                 .collect();
-            for i in 1..ids.len() - 1 {
-                mesh.triangles.push([ids[0], ids[i], ids[i + 1]]);
+            let triangles = earcutr::earcut(&flat, &holes, 2).map_err(|_| fail())?;
+            for t in triangles.chunks_exact(3) {
+                let mut triangle = [ids[t[0]], ids[t[1]], ids[t[2]]];
+                let [a, b, c] = triangle.map(|i| mesh.vertices[i]);
+                let area = (b[u] - a[u]) * (c[v] - a[v]) - (b[v] - a[v]) * (c[u] - a[u]);
+                if area * normal[axis] < 0.0 {
+                    triangle.swap(1, 2);
+                }
+                mesh.triangles.push(triangle);
             }
         }
         mesh.edges = b.edges.iter().map(|e| e.vertices).collect();

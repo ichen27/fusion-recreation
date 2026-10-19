@@ -496,6 +496,7 @@ dialog::backdrop {
 #plane-dialog,
 #stock-dialog,
 #intersection-dialog,
+#boolean-dialog,
 #translate-dialog,
 #rotation-dialog {
   max-width: 560px;

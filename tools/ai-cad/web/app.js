@@ -1,3 +1,5 @@
+import { installBooleanEditor } from "/boolean-editor.mjs";
+import { booleanCandidates } from "/boolean-model.mjs";
 import { previewJob } from "/preview-client.mjs";
 import { installRotationEditor } from "/rotation-editor.mjs";
 import { installTranslateEditor } from "/translate-editor.mjs";
@@ -16,7 +18,14 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes, planes, stocks, intersections, translations, rotations;
+let sketches,
+  holes,
+  planes,
+  stocks,
+  intersections,
+  translations,
+  rotations,
+  booleans;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -118,7 +127,7 @@ function geometry(bodies, profiles) {
         lineFirst,
         lineCount: lines.length / 6 - lineFirst,
       });
-    if (body.analytic) {
+    if (body.analytic || body.components) {
       const mesh = body.display_mesh;
       if (!mesh) {
         continue;
@@ -461,6 +470,12 @@ function controls() {
   intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("new-boolean").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    booleanCandidates(saved).length < 2;
   $("new-intersection").disabled =
     busy ||
     !!preview ||
@@ -468,7 +483,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation",
+    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -590,6 +605,14 @@ function render(state) {
         button.addEventListener("click", () =>
           rotations.open(f.id, f.kind === "rotate_quarter" ? f.id : null),
         );
+        div.append(button);
+      }
+      if (f.kind === "boolean") {
+        const button = document.createElement("button");
+        button.className = "edit-boolean";
+        button.textContent = `Edit ${f.operation}`;
+        button.setAttribute("aria-label", `Edit Boolean ${f.id}`);
+        button.addEventListener("click", () => booleans.open(f.id));
         div.append(button);
       }
       return div;
@@ -933,3 +956,6 @@ $("native-file").addEventListener("change", () => {
       `${file.name}: validated import preview. Replace model saves this model as one undoable edit. This workspace keeps its history; source history is not copied.`;
   });
 });
+
+booleans = installBooleanEditor(editorCallbacks("Boolean"));
+$("new-boolean").addEventListener("click", () => booleans.open());

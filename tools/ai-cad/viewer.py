@@ -136,6 +136,8 @@ def handler(store, port):
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
                 "/preview-client.mjs": ("preview-client.mjs", "text/javascript"),
+                "/boolean-model.mjs": ("boolean-model.mjs", "text/javascript"),
+                "/boolean-editor.mjs": ("boolean-editor.mjs", "text/javascript"),
                 "/intersection-model.mjs": (
                     "intersection-model.mjs",
                     "text/javascript",
