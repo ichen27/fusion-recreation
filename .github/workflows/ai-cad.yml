@@ -32,6 +32,7 @@ jobs:
       - run: python tools/ai-cad/verify_analytic_measurements_mcp.py
       - run: python tools/ai-cad/verify_counterbores_mcp.py
       - run: python tools/ai-cad/verify_topology_mcp.py
+      - run: python tools/ai-cad/verify_surface_context_mcp.py
       - run: python tools/ai-cad/verify_codex_recording.py
       - run: python tools/ai-cad/verify_profile_example.py
       - run: python tools/ai-cad/verify_relationship_example.py
@@ -53,6 +54,7 @@ jobs:
       - run: python tools/ai-cad/verify_analytic_measurements.py
       - run: python tools/ai-cad/verify_counterbores.py
       - run: python tools/ai-cad/verify_topology_recording.py
+      - run: python tools/ai-cad/verify_surface_context_recording.py
       - run: python tools/ai-cad/verify_intersection.py
       - run: python tools/ai-cad/verify_preview_recording.py
       - run: python tools/ai-cad/verify_intent_recording.py

@@ -120,6 +120,44 @@ class Viewer(unittest.TestCase):
                 )
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_surface_selection_http_is_shared_with_other_client(self):
+        from test_counterbores import counterbored
+        from test_intersection import operations
+        from selection import Selection
+
+        self.store.execute(
+            dict(
+                action="commit",
+                expected_revision=0,
+                transaction_id="seed",
+                operations=operations(counterbored()),
+                preserve=[],
+            )
+        )
+        before = self.store.path.read_bytes()
+        command = dict(
+            action="select_surface",
+            expected_revision=1,
+            feature_id="part",
+            surface_id="feature/part/hole/left/shoulder",
+        )
+        status, payload = self.request(
+            "POST",
+            "/api/selection",
+            json.dumps(command),
+            {"Content-Type": "application/json"},
+        )
+        self.assertEqual(status, 200)
+        context = json.loads(payload)["result"]
+        self.assertEqual(
+            context, Selection(Store(self.store.path)).execute(dict(action="context"))
+        )
+        self.assertEqual(context["selected_surface"]["support"]["offset"], "4")
+        status, payload = self.request("GET", "/api/context")
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(payload)["result"], context)
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_topology_http_revision_origin_and_limits(self):
         result = self.store.execute(CREATE)
         before = self.store.path.read_bytes()
