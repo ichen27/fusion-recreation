@@ -1,5 +1,7 @@
 import { installSketchEditor } from "/sketch-editor.mjs";
-let sketches;
+import { installHoleEditor } from "/hole-editor.mjs";
+import { availableExtrusions } from "/hole-model.mjs";
+let sketches, holes;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -217,7 +219,7 @@ canvas.addEventListener(
 new ResizeObserver(draw).observe(canvas);
 function controls() {
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
-  for (const button of document.querySelectorAll(".edit-sketch"))
+  for (const button of document.querySelectorAll(".edit-sketch, .edit-holes"))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
   $("redo").disabled = busy || !!preview || !saved?.can_redo;
@@ -255,6 +257,23 @@ function render(state) {
         button.textContent = "Edit sketch";
         button.setAttribute("aria-label", `Edit sketch ${f.id}`);
         button.addEventListener("click", () => sketches.open(f.id));
+        div.append(button);
+      }
+      if (
+        f.kind === "through_holes" ||
+        availableExtrusions(state.model).some((e) => e.id === f.id)
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-holes";
+        button.textContent =
+          f.kind === "through_holes" ? "Edit holes" : "Add through-holes";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          holes.open(
+            f.kind === "extrude" ? f.id : null,
+            f.kind === "through_holes" ? f.id : null,
+          ),
+        );
         div.append(button);
       }
       return div;
@@ -436,7 +455,7 @@ for (const action of ["undo", "redo"])
     }),
   );
 $("refresh").addEventListener("click", () => refresh(true));
-sketches = installSketchEditor({
+const editorCallbacks = (name) => ({
   getState: () => saved,
   onOpen: () => {
     editPending = true;
@@ -452,9 +471,11 @@ sketches = installSketchEditor({
     preview = result;
     render(preview);
     $("status").textContent =
-      "Sketch preview valid. Save edit to commit the model.";
+      `${name} preview valid. Save edit to commit the model.`;
   },
 });
+sketches = installSketchEditor(editorCallbacks("Sketch"));
+holes = installHoleEditor(editorCallbacks("Hole"));
 $("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();
 setInterval(() => refresh(), 2000);

@@ -33,7 +33,7 @@ python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/prof
 python3 tools/ai-cad/viewer.py --store work/profile.cad.json
 ```
 
-Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create simple planar profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
+Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create simple planar profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Through-holes can be placed with **Add through-holes** on an extrusion or adjusted with **Edit holes** on a group. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
 
 ## Preserve design relationships
 
@@ -147,3 +147,9 @@ Start the viewer against a new document path, click **New sketch → solid**, pl
 ## Concave plates
 
 [The L-shaped mounting plate](../../examples/ai-cad/concave-profile/README.md) adds a simple concave outline with two exact circular holes and a width-dependent mount. It includes native snapshots, STL, STEP, and independent re-import validation. Run `python3 tools/ai-cad/verify_concave_example.py`; optional OCCT validation is `python3 tools/ai-cad/verify_concave_export.py` after installing `step-requirements.txt`.
+
+## Place and edit round holes
+
+On a saved profile extrusion, click **Add through-holes**, then place circle centers in the top-view outline. Drag circles or enter exact X/Y/radius values, preview, and save. New groups support up to 16 holes, subject to the document parameter limit. **Edit holes** changes an existing group's dimensions while retaining IDs and count. Shared references move together; fixed and derived fields stay locked. Circles must remain inside the profile and separate. The editor reports the engine's error and keeps the draft if validation or revision checking fails. [Actual browser recording, editable snapshots, screenshots and STL](../../examples/ai-cad/hole-editor/README.md).
+
+Verify with `node --test tools/ai-cad/test_sketch.mjs tools/ai-cad/test_hole_editor.mjs` and `python3 tools/ai-cad/verify_hole_recording.py`. The latter replays exact document outputs and independently checks the recorded display mesh and saved STL geometrically, allowing platform-specific trigonometric rounding.

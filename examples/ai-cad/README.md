@@ -28,3 +28,8 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Symmetric profile](relationships/README.md): `tip_x = width / 2`, automatic rebuild, saved rules and snapshots, browser screenshot, replay verification and a measured host-latency baseline.
 
 [Mounting bracket with analytic round holes and STL/STEP exports](bracket/README.md).
+
+## Integrated modeling examples
+
+- [Concave L-shaped plate](concave-profile/README.md): exact inner-corner hole clearance, editable snapshots, browser recording, STEP/STL and independent export comparison.
+- [Interactive hole editor](hole-editor/README.md): actual placement/drag/radius edits, native documents and exported STL.

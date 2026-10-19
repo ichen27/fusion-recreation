@@ -41,7 +41,12 @@ class Viewer(unittest.TestCase):
         status, html = self.request("GET", "/")
         self.assertEqual(status, 200)
         self.assertIn(b"viewport", html)
-        for asset in ("/sketch-model.mjs", "/sketch-editor.mjs"):
+        for asset in (
+            "/sketch-model.mjs",
+            "/sketch-editor.mjs",
+            "/hole-model.mjs",
+            "/hole-editor.mjs",
+        ):
             status, source = self.request("GET", asset)
             self.assertEqual(status, 200)
             self.assertIn(b"export function", source)
