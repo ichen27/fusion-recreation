@@ -173,3 +173,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Counterbore checkpoint
 
 [Analytic stepped through-holes](../examples/ai-cad/counterbores/README.md) now expose shared upper recess radius/depth in browser/MCP while retaining per-hole through radii. Exact geometry, symbolic measurements, linked placement, twelve browser/eight MCP calls, native history and downloaded STL are verified. Eight independent STEP comparisons include concave stock, unequal through radii, circular stock and placements. Countersinks, threads, arbitrary axes, multiple groups and general curved Booleans remain open.
+
+## Shared surface checkpoint
+
+[Explicit shared native topology](../examples/ai-cad/shared-topology/README.md) now exposes exact planes/cylinders, oriented line/quarter-circle loops, closed shells and source-derived analytic surface names through browser/MCP. Exact support/incidence/orientation checks and independent STEP reconstruction cover holes, cavities and disconnected material. Names are scoped to a body and revision; general Boolean naming and imported B-rep validation remain open. Next connect surface context to precise human/AI inspection and targeted feature reasoning, retaining explicit revision guards before editing.

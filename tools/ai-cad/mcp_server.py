@@ -8,6 +8,7 @@ from mcp.server import MCPServer
 from selection import dispatch_selection
 from intent import dispatch_explain
 from measurements import dispatch_measure
+from topology import dispatch_topology
 from store import Store, dispatch
 
 
@@ -239,6 +240,13 @@ def server(path):
     def cad_measure(expected_revision: int, feature_id: str) -> dict:
         """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
+            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_topology(expected_revision: int, feature_id: str) -> dict:
+        """Inspect exact world-space surfaces and shared vertices/edges/face loops for one terminal solid at the saved revision. Plane supports use normal dot position = offset (normal need not be unit length); cylinders use unit coordinate axis, radius and inward flag. Quarter-circle edges run positive 90 degrees about their axis; edge uses may reverse them. No polygon replaces an analytic arc. Authored analytic surface names include owning feature and hole/profile vertex IDs; names survive supported dimension edits and placements while those IDs/roles remain. Planar evaluated boundaries explicitly report revision_only naming. Vertex/edge indices and patch indices are always revision-scoped; refresh after edits, never guess replacements for a missing surface. Report includes material components, closed shells and Euler characteristics after exact support/orientation/incidence checks. This is read-only inspection of validated internally generated geometry, not arbitrary B-rep import or a general self-intersection certificate. No face selection or surface-based editing operation is added by this tool."""
+        return dispatch_topology(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
         )
 

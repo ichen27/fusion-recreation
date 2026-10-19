@@ -229,3 +229,14 @@ Measure solid and `cad_measure` also support circular stock, through/blind holes
 [Request-local CPU reuse](../../examples/ai-cad/transaction-reuse/README.md) avoids duplicate rebuilding of a validated unchanged feature prefix. Six baseline-equivalent workloads include 32-feature linked models; measured inspection/late-edit gains are about 1.8–1.9× on the recorded host, while root edits remain unchanged. Run `python3 tools/ai-cad/verify_rebuild.py` for exact retained replies, and Rust tests with `--release` for the full differential corpus. This does not add a persistent worker or cross-request geometry cache.
 
 [Exact counterbores](../../examples/ai-cad/counterbores/README.md) combine a through aperture with a wider flat-bottom recess, preserving analytic cylindrical walls, annular shoulders and exact symbolic measurements. Browser/MCP creation, native history, downloaded STL and eight independent STEP comparisons are retained. One group shares recess radius/depth; individual through radii remain editable.
+
+### Inspect shared surfaces
+
+Select a saved solid and choose **Inspect surfaces**, or call `cad_topology(expected_revision, feature_id)` through MCP. Exact planes/cylinders, shared edges and closed shells expose the boundary behind the display mesh. Analytic surface names follow authored feature/hole/profile IDs, scoped to a body and revision; planar evaluated face indices remain revision-only. Refresh after edits. See the [contract](../../docs/ai-cad-contract.md#shared-surface-topology) and [recorded examples](../../examples/ai-cad/shared-topology/README.md).
+
+```sh
+python tools/ai-cad/verify_topology_mcp.py
+python tools/ai-cad/verify_topology_recording.py
+# Optional STEP comparison environment:
+python tools/ai-cad/verify_topology_export.py
+```

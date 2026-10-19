@@ -1,3 +1,4 @@
+import { renderTopology } from "/topology-view.mjs";
 import { installBooleanEditor } from "/boolean-editor.mjs";
 import { booleanCandidates } from "/boolean-model.mjs";
 import { previewJob } from "/preview-client.mjs";
@@ -252,16 +253,20 @@ canvas.addEventListener("webglcontextrestored", () => {
 });
 let intentKey = null,
   intentPending = false,
-  measurementPending = false;
+  measurementPending = false,
+  topologyPending = false;
 function intentControls() {
   $("explain-selection").disabled =
     intentPending || busy || !!preview || editPending || !selectedBody;
   $("measure-selection").disabled =
     measurementPending || busy || !!preview || editPending || !selectedBody;
+  $("topology-selection").disabled =
+    topologyPending || busy || !!preview || editPending || !selectedBody;
   const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
   if (intentKey !== key) {
     $("intent-info").replaceChildren();
     $("measurement-info").replaceChildren();
+    $("topology-info").replaceChildren();
     intentKey = key;
   }
 }
@@ -368,6 +373,32 @@ $("measure-selection").addEventListener("click", async () => {
     if (intentKey === key) $("measurement-info").textContent = error.message;
   } finally {
     measurementPending = false;
+    intentControls();
+  }
+});
+$("topology-selection").addEventListener("click", async () => {
+  const expected_revision = saved.revision,
+    feature_id = selectedBody,
+    key = `${expected_revision}:${feature_id}`;
+  topologyPending = true;
+  intentControls();
+  $("topology-info").textContent =
+    "Checking shared surfaces and closed shells…";
+  try {
+    const reply = await (
+      await fetch("/api/topology", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision, feature_id }),
+      })
+    ).json();
+    if (intentKey !== key) return;
+    if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
+    renderTopology($("topology-info"), reply.result);
+  } catch (error) {
+    if (intentKey === key) $("topology-info").textContent = error.message;
+  } finally {
+    topologyPending = false;
     intentControls();
   }
 });

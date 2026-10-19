@@ -1,0 +1,148 @@
+[
+  {
+    "case": "counterbored",
+    "vertices": 40,
+    "edges": 60,
+    "faces": 24,
+    "surfaces": 12,
+    "shell_euler": [
+      -2
+    ],
+    "components": 1,
+    "volume_error_mm3": 3.637978807091713e-11,
+    "area_error_mm2": 1.6370904631912708e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 16
+  },
+  {
+    "case": "turned_counterbored",
+    "vertices": 40,
+    "edges": 60,
+    "faces": 24,
+    "surfaces": 12,
+    "shell_euler": [
+      -2
+    ],
+    "components": 1,
+    "volume_error_mm3": 3.637978807091713e-11,
+    "area_error_mm2": 1.6370904631912708e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 16
+  },
+  {
+    "case": "concave_counterbored",
+    "vertices": 44,
+    "edges": 66,
+    "faces": 26,
+    "surfaces": 14,
+    "shell_euler": [
+      -2
+    ],
+    "components": 1,
+    "volume_error_mm3": 1.8189894035458565e-11,
+    "area_error_mm2": 1.6370904631912708e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 16
+  },
+  {
+    "case": "round_counterbored",
+    "vertices": 40,
+    "edges": 60,
+    "faces": 24,
+    "surfaces": 9,
+    "shell_euler": [
+      -2
+    ],
+    "components": 1,
+    "volume_error_mm3": 1.0622898116707802e-09,
+    "area_error_mm2": 9.458744898438454e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 20
+  },
+  {
+    "case": "blind_plate",
+    "vertices": 24,
+    "edges": 36,
+    "faces": 16,
+    "surfaces": 10,
+    "shell_euler": [
+      2
+    ],
+    "components": 1,
+    "volume_error_mm3": 7.275957614183426e-12,
+    "area_error_mm2": 5.4569682106375694e-12,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 8
+  },
+  {
+    "case": "cavity",
+    "vertices": 16,
+    "edges": 24,
+    "faces": 12,
+    "surfaces": 12,
+    "shell_euler": [
+      2,
+      2
+    ],
+    "components": 1,
+    "volume_error_mm3": 0.0,
+    "area_error_mm2": 0.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 0
+  },
+  {
+    "case": "separate",
+    "vertices": 16,
+    "edges": 24,
+    "faces": 12,
+    "surfaces": 12,
+    "shell_euler": [
+      2,
+      2
+    ],
+    "components": 2,
+    "volume_error_mm3": 0.0,
+    "area_error_mm2": 0.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 0
+  },
+  {
+    "case": "through",
+    "vertices": 16,
+    "edges": 24,
+    "faces": 10,
+    "surfaces": 10,
+    "shell_euler": [
+      0
+    ],
+    "components": 1,
+    "volume_error_mm3": 0.0,
+    "area_error_mm2": 0.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cylinder_patches": 0
+  }
+]
