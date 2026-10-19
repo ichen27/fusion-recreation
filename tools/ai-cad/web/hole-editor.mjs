@@ -1,6 +1,7 @@
 import {
   draftHoles,
   addHole,
+  removeHole,
   setHoleValue,
   holeProposal,
   editable,
@@ -94,18 +95,33 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
           label.append(input);
           row.append(label);
         }
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "Remove";
+        remove.setAttribute("aria-label", `Remove hole ${hole.id}`);
+        remove.disabled = pending;
+        remove.addEventListener("click", () => {
+          removeHole(draft, index);
+          render();
+          message(
+            "Hole removed from draft. Preview to validate. Unused parameters are retained.",
+          );
+        });
+        row.append(remove);
         return row;
       }),
     );
     $("hole-count").textContent =
       `${draft.holes.length} through-holes · millimeters`;
-    $("hole-remove").disabled =
-      pending || !!draft.featureId || !draft.holes.length;
-    $("hole-add").disabled =
-      pending || !!draft.featureId || draft.holes.length >= 16;
-    $("hole-radius-row").hidden = !!draft.featureId;
+    $("hole-remove").disabled = pending || !draft.holes.length;
+    $("hole-add").disabled = pending || draft.holes.length >= 16;
+    $("hole-radius-row").hidden = false;
     $("hole-radius").disabled = pending;
     $("hole-preview").disabled = pending;
+    $("hole-preview").textContent =
+      draft.featureId && !draft.holes.length
+        ? "Preview group removal"
+        : "Preview holes";
     $("hole-close").disabled = pending;
   }
   function fit() {
@@ -157,7 +173,7 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
     try {
       const target = event.target.closest("[data-index]");
       if (target) dragging = Number(target.dataset.index);
-      else if (!draft.featureId) {
+      else {
         addHole(draft, ...position(event), $("hole-radius").value);
         dragging = draft.holes.length - 1;
         render();
@@ -218,7 +234,7 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
       $("hole-radius").value = "3";
       message(
         featureId
-          ? "Shared parameter references move together. Fixed/derived dimensions stay locked; dependent coordinates update on preview."
+          ? "Click inside to add, drag to move, or remove a hole. Shared references move together; fixed/derived fields stay locked. Emptying the group previews its removal."
           : "Click inside the outline to place hole centers. Drag to move; use the fields for exact coordinates and radii.",
       );
       render();

@@ -65,3 +65,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Interactive hole checkpoint
 
 [Through-hole placement/editing](../examples/ai-cad/hole-editor/README.md) completes a browser sketch→extrusion→hole group→dimension edit→save/reopen→STL workflow through the same commands as MCP. The editor preserves semantic references and constraints; rejected/stale previews retain the draft. Next modeling work expands feature editing and sketch relationships without claiming a general constraint solver.
+
+## Structural edit checkpoint
+
+[Feature replacement/removal and explicit cleanup](../examples/ai-cad/feature-edits/README.md) keeps original feature IDs/kinds and validates dependencies across complete atomic edits. The browser can add/remove circles in an existing group and remove an empty group; unused parameters remain until explicitly removed. General feature reordering, generated topology naming and broader curved operations remain open.

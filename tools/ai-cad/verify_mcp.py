@@ -250,6 +250,45 @@ async def main():
                     b.get("analytic", {}).get("kind") == "polygon_prism"
                     for b in committed["result"]["bodies"]
                 )
+                # Structural edits use the same revision/idempotency contract.
+                replacement = dict(concave)
+                replacement["vertices"] = list(reversed(concave["vertices"]))
+                structural = {
+                    "expected_revision": 12,
+                    "preserve": [],
+                    "operations": [
+                        {
+                            "op": "replace_feature",
+                            "id": "concave",
+                            "feature": replacement,
+                        }
+                    ],
+                }
+                proposed = await call("cad_preview", structural)
+                assert "result" in proposed, proposed
+                updated = await call(
+                    "cad_commit", {**structural, "transaction_id": "mcp-replace"}
+                )
+                assert updated["result"]["bodies"] == proposed["result"]["bodies"]
+                cleaned = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 13,
+                        "transaction_id": "mcp-remove",
+                        "preserve": [],
+                        "operations": [
+                            {"op": "remove_feature", "id": "concave"},
+                            {"op": "remove_feature", "id": "concave_solid"},
+                            {"op": "define_parameter", "id": "temporary", "mm": "1"},
+                            {"op": "remove_parameter", "id": "temporary"},
+                        ],
+                    },
+                )
+                assert "result" in cleaned, cleaned
+                assert "temporary" not in cleaned["result"]["model"]["parameters"]
+                assert not any(
+                    f["id"] == "concave" for f in cleaned["result"]["model"]["features"]
+                )
                 print(
                     "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )

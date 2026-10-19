@@ -1,0 +1,58 @@
+{
+  "action": "commit",
+  "expected_revision": 6,
+  "transaction_id": "cleanup-unused-hole-parameters",
+  "operations": [
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h1.radius"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h1.x"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h1.y"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h2.radius"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h2.x"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h2.y"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h3.radius"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h3.x"
+    },
+    {
+      "op": "remove_parameter",
+      "id": "holes1.h3.y"
+    }
+  ],
+  "preserve": [
+    "sketch1.height",
+    "sketch1.v1.x",
+    "sketch1.v1.y",
+    "sketch1.v2.x",
+    "sketch1.v2.y",
+    "sketch1.v3.x",
+    "sketch1.v3.y",
+    "sketch1.v4.x",
+    "sketch1.v4.y",
+    "sketch1.v5.x",
+    "sketch1.v5.y",
+    "sketch1.v6.x",
+    "sketch1.v6.y"
+  ]
+}
