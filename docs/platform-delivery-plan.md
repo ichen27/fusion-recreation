@@ -73,3 +73,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Directed sketch relationship checkpoint
 
 [Horizontal/vertical edge links](../examples/ai-cad/sketch-relationships/README.md) exposes exact affine dependencies in the browser sketch editor. A rectangle resizes while retaining edge orientation, an explicit unlink restores direct editing, and a cyclic relationship rejects without saving. Degrees-of-freedom analysis, redundant-constraint handling, arbitrary-angle constraints and a simultaneous solver remain open.
+
+## Round-stock checkpoint
+
+[Exact circular stock and flanges](../examples/ai-cad/round-flange/README.md) adds cylindrical outer boundaries, exact circular hole containment, parameter-linked mounting positions, browser editing and independently checked STEP/STL. Native geometry is analytic; display/export resolution limits are explicit. General curved B-rep intersections, arbitrary-axis operations and revolve/sweep/fillet remain open. Next runtime work rebases GPU display coordinates to preserve small geometry far from the origin.

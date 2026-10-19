@@ -1,0 +1,135 @@
+{
+  "result": {
+    "revision": 2,
+    "committed_revision": 2,
+    "replayed": false,
+    "can_undo": true,
+    "can_redo": false,
+    "bodies": [
+      {
+        "analytic": {
+          "height": "5",
+          "holes": [
+            {
+              "center": [
+                "-40",
+                "0"
+              ],
+              "id": "left_mount",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "40",
+                "0"
+              ],
+              "id": "right_mount",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "0",
+                "0"
+              ],
+              "id": "bore",
+              "radius": "10"
+            }
+          ],
+          "kind": "round_prism",
+          "outer_circle": {
+            "center": [
+              "0",
+              "0"
+            ],
+            "radius": "50"
+          },
+          "volume": {
+            "constant_mm3": "0",
+            "pi_subtract_mm3": "-11910"
+          }
+        },
+        "feature_id": "flange",
+        "volume_mm3": "11910*pi"
+      }
+    ],
+    "changed_parameters": [
+      "left_x",
+      "radius",
+      "right_x"
+    ],
+    "model": {
+      "features": [
+        {
+          "height": "thickness",
+          "id": "stock",
+          "kind": "cylinder",
+          "radius": "radius",
+          "x": "cx",
+          "y": "cy"
+        },
+        {
+          "holes": [
+            {
+              "id": "left_mount",
+              "radius": "mount_r",
+              "x": "left_x",
+              "y": "cy"
+            },
+            {
+              "id": "right_mount",
+              "radius": "mount_r",
+              "x": "right_x",
+              "y": "cy"
+            },
+            {
+              "id": "bore",
+              "radius": "bore_r",
+              "x": "cx",
+              "y": "cy"
+            }
+          ],
+          "id": "flange",
+          "input": "stock",
+          "kind": "through_holes"
+        }
+      ],
+      "fixed": {
+        "bore_r": "10",
+        "margin": "10",
+        "mount_r": "3",
+        "thickness": "5"
+      },
+      "parameters": {
+        "bore_r": "10",
+        "cx": "0",
+        "cy": "0",
+        "left_x": "-40",
+        "margin": "10",
+        "mount_r": "3",
+        "radius": "50",
+        "right_x": "40",
+        "thickness": "5"
+      },
+      "relations": {
+        "left_x": {
+          "offset_mm": "0",
+          "terms": {
+            "cx": "1",
+            "margin": "1",
+            "radius": "-1"
+          }
+        },
+        "right_x": {
+          "offset_mm": "0",
+          "terms": {
+            "cx": "1",
+            "margin": "-1",
+            "radius": "1"
+          }
+        }
+      }
+    },
+    "schema_version": 1,
+    "units": "mm"
+  }
+}

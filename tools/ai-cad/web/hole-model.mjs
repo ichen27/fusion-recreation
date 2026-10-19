@@ -1,14 +1,14 @@
 // Draft intent only: Rust owns containment, separation, constraints and topology.
 import { editable } from "./sketch-model.mjs";
 export { editable };
-export function availableExtrusions(model) {
+export function availableHoleInputs(model) {
   const consumed = new Set(
     model.features
       .filter((f) => f.kind === "through_holes")
       .map((f) => f.input),
   );
   return model.features.filter(
-    (f) => f.kind === "extrude" && !consumed.has(f.id),
+    (f) => ["extrude", "cylinder"].includes(f.kind) && !consumed.has(f.id),
   );
 }
 export function nextHolePrefix(model) {
@@ -33,13 +33,19 @@ export function draftHoles(model, input, featureId = null) {
   if (featureId && !feature) throw Error("Select a through-hole group");
   input = feature?.input ?? input;
   const parent = model.features.find(
-    (f) => f.id === input && f.kind === "extrude",
+    (f) => f.id === input && ["extrude", "cylinder"].includes(f.kind),
   );
-  if (!parent) throw Error("Select a profile extrusion");
-  if (!feature && !availableExtrusions(model).some((f) => f.id === input))
-    throw Error("This extrusion already has a hole group; edit that group");
-  const profile = model.features.find((f) => f.id === parent.profile);
-  if (!profile || !["planar_profile", "polygon_profile"].includes(profile.kind))
+  if (!parent) throw Error("Select a profile extrusion or cylinder");
+  if (!feature && !availableHoleInputs(model).some((f) => f.id === input))
+    throw Error("This solid already has a hole group; edit that group");
+  const profile =
+    parent.kind === "cylinder"
+      ? { kind: "circle", x: parent.x, y: parent.y, radius: parent.radius }
+      : model.features.find((f) => f.id === parent.profile);
+  if (
+    !profile ||
+    !["planar_profile", "polygon_profile", "circle"].includes(profile.kind)
+  )
     throw Error("Select a polygon extrusion");
   return {
     model: structuredClone(model),

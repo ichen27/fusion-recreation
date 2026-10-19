@@ -1,5 +1,5 @@
 //! Disposable float64 tessellation. Failure never invalidates an exact saved model.
-use crate::{error, rational, validate, Model, Result};
+use crate::{error, rational, validate, Body, Model, Result};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -30,9 +30,6 @@ fn value(s: &str) -> Result<f64> {
         })
 }
 pub fn evaluate(request: Request) -> Result<Mesh> {
-    let fail = || {
-        error("tessellation_failed", &request.feature_id, "Float tessellation failed; exact model is unchanged. Change scale or spacing before exporting")
-    };
     if !(16..=256).contains(&request.segments) {
         return Err(error(
             "mesh_limit",
@@ -50,18 +47,40 @@ pub fn evaluate(request: Request) -> Result<Mesh> {
                 "Select a terminal solid",
             )
         })?;
+    let first = build_mesh(&body, request.segments, 0.0);
+    if first.is_err()
+        && body
+            .analytic
+            .as_ref()
+            .is_some_and(|s| s.outer_circle.is_some())
+    {
+        // Aligned circular samples can make an earcut bridge triangle collinear.
+        // Retry bounded sample phases of the same circles, never native geometry.
+        // Every candidate still passes containment and complete mesh validation.
+        for phase in [0.5, 0.25] {
+            if let Ok(mesh) = build_mesh(&body, request.segments, phase) {
+                return Ok(mesh);
+            }
+        }
+    }
+    first
+}
+fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
+    let fail = || {
+        error("tessellation_failed",&body.feature_id,"Float tessellation failed; exact model is unchanged. Change scale or spacing before exporting")
+    };
     let mut mesh = Mesh {
         vertices: vec![],
         triangles: vec![],
         edges: vec![],
         max_radial_error_mm: 0.0,
     };
-    if let Some(b) = body.boundary {
-        for p in b.vertices {
+    if let Some(b) = &body.boundary {
+        for p in &b.vertices {
             mesh.vertices
                 .push([value(&p[0])?, value(&p[1])?, value(&p[2])?]);
         }
-        for f in b.faces {
+        for f in &b.faces {
             let ids: Vec<_> = f.loops[0]
                 .iter()
                 .map(|u| b.edges[u.edge].vertices[usize::from(!u.forward)])
@@ -71,14 +90,48 @@ pub fn evaluate(request: Request) -> Result<Mesh> {
             }
         }
         mesh.edges = b.edges.iter().map(|e| e.vertices).collect();
-    } else if let Some(shape) = body.analytic {
+    } else if let Some(shape) = &body.analytic {
         let h = value(&shape.height)?;
         let mut points = Vec::new();
-        for p in shape.outer {
+        for p in &shape.outer {
             points.push([value(&p[0])?, value(&p[1])?]);
         }
+        if let Some(outer) = &shape.outer_circle {
+            let (x, y, r) = (
+                value(&outer.center[0])?,
+                value(&outer.center[1])?,
+                value(&outer.radius)?,
+            );
+            let inset = r * (std::f64::consts::PI / segments as f64).cos();
+            mesh.max_radial_error_mm = r - inset;
+            let epsilon = 64.0 * f64::EPSILON * x.abs().max(y.abs()).max(r).max(1.0);
+            let mut accepted: Vec<(f64, f64, f64)> = vec![];
+            for hole in &shape.holes {
+                let (hx, hy, hr) = (
+                    value(&hole.center[0])?,
+                    value(&hole.center[1])?,
+                    value(&hole.radius)?,
+                );
+                // Keep each complete hole disk inside the polygon's incircle.
+                // A smaller exact gap may be valid natively but not at this chord count.
+                if inset - (hx - x).hypot(hy - y) - hr <= epsilon {
+                    return Err(fail());
+                }
+                if accepted
+                    .iter()
+                    .any(|(ax, ay, ar)| (hx - ax).hypot(hy - ay) - hr - ar <= epsilon)
+                {
+                    return Err(fail());
+                }
+                accepted.push((hx, hy, hr));
+            }
+            for i in 0..segments {
+                let a = std::f64::consts::TAU * (i as f64 + phase) / segments as f64;
+                points.push([x + r * a.cos(), y + r * a.sin()]);
+            }
+        }
         let mut starts = vec![0];
-        for hole in shape.holes {
+        for hole in &shape.holes {
             starts.push(points.len());
             let (x, y, r) = (
                 value(&hole.center[0])?,
@@ -87,9 +140,9 @@ pub fn evaluate(request: Request) -> Result<Mesh> {
             );
             mesh.max_radial_error_mm = mesh
                 .max_radial_error_mm
-                .max(r * (1.0 - (std::f64::consts::PI / request.segments as f64).cos()));
-            for i in 0..request.segments {
-                let a = -std::f64::consts::TAU * i as f64 / request.segments as f64;
+                .max(r * (1.0 - (std::f64::consts::PI / segments as f64).cos()));
+            for i in 0..segments {
+                let a = -std::f64::consts::TAU * (i as f64 + phase) / segments as f64;
                 points.push([x + r * a.cos(), y + r * a.sin()]);
             }
         }

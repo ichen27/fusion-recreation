@@ -57,7 +57,18 @@ def translate(body):
     if "analytic" in body:
         shape = body["analytic"]
         h = number(shape["height"])
-        points = [[number(v) for v in p] + [0.0] for p in shape["outer"]]
+        points = [[number(v) for v in p] + [0.0] for p in shape.get("outer", [])]
+        outer_circle = shape.get("outer_circle")
+        round_outer = (
+            (
+                [number(v) for v in outer_circle["center"]]
+                + [number(outer_circle["radius"])]
+            )
+            if outer_circle
+            else None
+        )
+        if round_outer and round_outer[2] <= 1e-6:
+            raise RuntimeError("STEP adapter requires outer radius above 1e-6 mm")
         disks = [
             (number(c["center"][0]), number(c["center"][1]), number(c["radius"]))
             for c in shape["holes"]
@@ -65,6 +76,16 @@ def translate(body):
         if h <= 1e-6 or any(r <= 1e-6 for _, _, r in disks):
             raise RuntimeError("STEP adapter requires height/radii above 1e-6 mm")
         for i, (x, y, r) in enumerate(disks):
+            if (
+                round_outer
+                and round_outer[2]
+                - math.hypot(x - round_outer[0], y - round_outer[1])
+                - r
+                <= 1e-6
+            ):
+                raise RuntimeError(
+                    "STEP adapter requires outer circle clearance above 1e-6 mm"
+                )
             for a, b in zip(points, points[1:] + points[:1]):
                 dx, dy = b[0] - a[0], b[1] - a[1]
                 length = math.hypot(dx, dy)
@@ -90,6 +111,10 @@ def translate(body):
                 for a, b in zip(points, points[1:] + points[:1])
             ]
         ]
+        if round_outer:
+            x, y, r = round_outer
+            circle = gp_Circ(gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), r)
+            rings = [[BRepBuilderAPI_MakeEdge(circle).Edge()]]
         for hole in shape["holes"]:
             x, y = map(number, hole["center"])
             circle = gp_Circ(

@@ -1,6 +1,6 @@
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
-import { availableExtrusions } from "/hole-model.mjs";
+import { availableHoleInputs } from "/hole-model.mjs";
 let sketches, holes;
 const $ = (id) => document.getElementById(id);
 let saved,
@@ -261,7 +261,7 @@ function render(state) {
       }
       if (
         f.kind === "through_holes" ||
-        availableExtrusions(state.model).some((e) => e.id === f.id)
+        availableHoleInputs(state.model).some((e) => e.id === f.id)
       ) {
         const button = document.createElement("button");
         button.className = "edit-holes";
@@ -270,7 +270,7 @@ function render(state) {
         button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
         button.addEventListener("click", () =>
           holes.open(
-            f.kind === "extrude" ? f.id : null,
+            f.kind !== "through_holes" ? f.id : null,
             f.kind === "through_holes" ? f.id : null,
           ),
         );

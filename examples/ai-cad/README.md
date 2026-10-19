@@ -37,3 +37,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Feature structure edits](feature-edits/README.md): add/remove holes in place, remove a group, explicitly clean unused parameters, reopen and undo.
 
 - [Sketch edge relationships](sketch-relationships/README.md): directed horizontal/vertical links, rectangle resize, explicit unlink, cycle rejection and undo.
+
+- [Round stock/flange](round-flange/README.md): exact circular outer stock, linked holes, browser placement, STEP/STL and independent cylindrical-surface checks.

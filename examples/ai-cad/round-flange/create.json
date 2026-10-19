@@ -1,0 +1,132 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "round-create-v1",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "cx",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "cy",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "radius",
+      "mm": "40"
+    },
+    {
+      "op": "define_parameter",
+      "id": "thickness",
+      "mm": "5"
+    },
+    {
+      "op": "define_parameter",
+      "id": "margin",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "mount_r",
+      "mm": "3"
+    },
+    {
+      "op": "define_parameter",
+      "id": "bore_r",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "left_x",
+      "mm": "-30"
+    },
+    {
+      "op": "define_parameter",
+      "id": "right_x",
+      "mm": "30"
+    },
+    {
+      "op": "set_relation",
+      "id": "left_x",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "cx": "1",
+          "radius": "-1",
+          "margin": "1"
+        }
+      }
+    },
+    {
+      "op": "set_relation",
+      "id": "right_x",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "cx": "1",
+          "radius": "1",
+          "margin": "-1"
+        }
+      }
+    },
+    {
+      "op": "fix_parameter",
+      "id": "thickness"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "margin"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "mount_r"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "bore_r"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "cylinder",
+        "id": "stock",
+        "x": "cx",
+        "y": "cy",
+        "radius": "radius",
+        "height": "thickness"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "through_holes",
+        "id": "flange",
+        "input": "stock",
+        "holes": [
+          {
+            "id": "left_mount",
+            "x": "left_x",
+            "y": "cy",
+            "radius": "mount_r"
+          },
+          {
+            "id": "right_mount",
+            "x": "right_x",
+            "y": "cy",
+            "radius": "mount_r"
+          },
+          {
+            "id": "bore",
+            "x": "cx",
+            "y": "cy",
+            "radius": "bore_r"
+          }
+        ]
+      }
+    }
+  ],
+  "preserve": []
+}
