@@ -472,3 +472,24 @@ summary {
 #hole-radius-row[hidden] {
   display: none;
 }
+
+.sketch-relationships {
+  margin-top: 16px;
+}
+.edge-relationship {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cbd8d1;
+}
+.edge-relationship strong,
+.edge-relationship small {
+  flex-basis: 100%;
+  overflow-wrap: anywhere;
+}
+.edge-relationship button {
+  padding: 6px 8px;
+  text-transform: capitalize;
+}

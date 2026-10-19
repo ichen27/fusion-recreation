@@ -3,8 +3,12 @@ import {
   nextSketchPrefix,
   editable,
   addPoint,
+  removeLastPoint,
   setCoordinate,
   sketchProposal,
+  alignEdge,
+  clearSketchRelation,
+  draftRelation,
 } from "./sketch-model.mjs";
 const $ = (id) => document.getElementById(id);
 const number = (s) => {
@@ -22,7 +26,8 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
   let draft,
     state,
     dragging = null,
-    pending = false;
+    pending = false,
+    relationshipsOpen = false;
   function message(error) {
     $("sketch-feedback").textContent = error.message ?? error;
   }
@@ -88,6 +93,84 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
         return row;
       }),
     );
+    if (draft.vertices.length >= 3) {
+      const details = document.createElement("details");
+      details.className = "sketch-relationships";
+      details.open = relationshipsOpen;
+      details.addEventListener("toggle", () => {
+        relationshipsOpen = details.open;
+      });
+      const summary = document.createElement("summary");
+      summary.textContent = "Edge relationships";
+      details.append(summary);
+      const hint = document.createElement("p");
+      hint.className = "hint";
+      hint.textContent =
+        "Horizontal links the end Y to the start Y; vertical links end X to start X. Linked coordinates update at preview. These are directed relationships, not a general sketch solver.";
+      details.append(hint);
+      draft.vertices.forEach((start, index) => {
+        const end = draft.vertices[(index + 1) % draft.vertices.length];
+        const row = document.createElement("div");
+        row.className = "edge-relationship";
+        const name = document.createElement("strong");
+        name.textContent = `${start.id} → ${end.id}`;
+        row.append(name);
+        for (const orientation of ["horizontal", "vertical"]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = orientation;
+          button.setAttribute(
+            "aria-label",
+            `${orientation} edge ${start.id} to ${end.id}`,
+          );
+          button.disabled = pending;
+          button.addEventListener("click", () => {
+            try {
+              const changed = alignEdge(draft, index, orientation);
+              render();
+              message(
+                changed
+                  ? "Relationship added to draft. Preview to rebuild coordinates and dependent solids."
+                  : "These coordinates already share that relationship.",
+              );
+            } catch (error) {
+              message(error);
+            }
+          });
+          row.append(button);
+        }
+        for (const axis of ["x", "y"]) {
+          const target = end[axis],
+            rule = draftRelation(draft, target);
+          if (!rule) continue;
+          const label = document.createElement("small");
+          label.textContent = `${target} = ${rule.offset_mm} + ${
+            Object.entries(rule.terms)
+              .map(([source, c]) => `(${c} × ${source})`)
+              .join(" + ") || "0"
+          }`;
+          const clear = document.createElement("button");
+          clear.type = "button";
+          clear.textContent = `Clear ${axis.toUpperCase()} link`;
+          clear.setAttribute("aria-label", `Clear relationship ${target}`);
+          clear.disabled = pending;
+          clear.addEventListener("click", () => {
+            try {
+              clearSketchRelation(draft, target);
+              render();
+              message(
+                "Relationship removed from draft. Preview to apply; the current coordinate value is retained.",
+              );
+            } catch (error) {
+              message(error);
+            }
+          });
+          row.append(label, clear);
+        }
+        details.append(row);
+      });
+      $("sketch-coordinates").append(details);
+    }
     $("sketch-remove").disabled =
       !!draft.featureId || !points.length || pending;
     $("sketch-rectangle").disabled = !!draft.featureId || pending;
@@ -125,11 +208,12 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
   });
   $("sketch-fit").addEventListener("click", fit);
   $("sketch-remove").addEventListener("click", () => {
-    draft.vertices.pop();
+    removeLastPoint(draft);
     render();
   });
   $("sketch-rectangle").addEventListener("click", () => {
     draft.vertices = [];
+    draft.relationEdits = {};
     for (const [x, y] of [
       [0, 0],
       [100, 0],

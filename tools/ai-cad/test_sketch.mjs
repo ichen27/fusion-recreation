@@ -6,9 +6,12 @@ import { fileURLToPath } from "node:url";
 import {
   draftSketch,
   addPoint,
+  removeLastPoint,
   setCoordinate,
   sketchProposal,
   sketchOperations,
+  alignEdge,
+  clearSketchRelation,
 } from "./web/sketch-model.mjs";
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const empty = { parameters: {}, features: [], fixed: {} };
@@ -138,4 +141,98 @@ test("new concave outlines extrude while existing convex profiles keep their kin
   setCoordinate(edit, 2, "x", "40");
   const changed = evaluate(model, sketchOperations(edit));
   assert.equal(changed.result.model.features[0].kind, "polygon_profile");
+});
+
+test("axis links make an editable rectangle retain horizontal/vertical edges", () => {
+  const d = rectangle();
+  for (const [i, o] of [
+    [0, "horizontal"],
+    [1, "vertical"],
+    [2, "horizontal"],
+    [3, "vertical"],
+  ])
+    alignEdge(d, i, o);
+  const created = evaluate(empty, sketchOperations(d)).result;
+  const edit = draftSketch(created.model, "unused", "test.profile");
+  assert.throws(() => setCoordinate(edit, 2, "x", "120"), /fixed or derived/);
+  setCoordinate(edit, 1, "x", "120");
+  setCoordinate(edit, 2, "y", "70");
+  const proposal = sketchProposal({ model: created.model, revision: 1 }, edit);
+  const changed = evaluate(
+    created.model,
+    proposal.operations,
+    proposal.preserve,
+  ).result;
+  assert.equal(changed.model.parameters["test.v3.x"], "120");
+  assert.equal(changed.model.parameters["test.v4.y"], "70");
+  assert.equal(changed.bodies[0].volume_mm3, "50400");
+  assert.deepEqual(changed.model.features, created.model.features);
+});
+test("linking existing coordinates removes the driven value from preserve; clearing restores direct editing", () => {
+  const m = evaluate(empty, sketchOperations(rectangle())).result.model;
+  const d = draftSketch(m, "unused", "test.profile");
+  setCoordinate(d, 1, "x", "120");
+  alignEdge(d, 1, "vertical");
+  const p = sketchProposal({ model: m, revision: 1 }, d);
+  assert.ok(!p.preserve.includes("test.v3.x"));
+  const changed = evaluate(m, p.operations, p.preserve).result;
+  assert.equal(changed.bodies[0].volume_mm3, "43200");
+  const clear = draftSketch(changed.model, "unused", "test.profile");
+  clearSketchRelation(clear, "test.v3.x");
+  setCoordinate(clear, 2, "x", "100");
+  const q = sketchProposal({ model: changed.model, revision: 2 }, clear);
+  assert.equal(q.operations[0].op, "remove_relation");
+  const freed = evaluate(changed.model, q.operations, q.preserve).result;
+  assert.equal(freed.model.parameters["test.v3.x"], "100");
+  assert.equal(freed.model.relations, undefined);
+});
+test("axis links reject conflicts and let Rust report cycles without mutating source", () => {
+  const d = rectangle();
+  alignEdge(d, 0, "horizontal");
+  assert.equal(alignEdge(d, 0, "horizontal"), false);
+  for (const i of [1, 2, 3]) alignEdge(d, i, "horizontal");
+  assert.equal(
+    evaluate(empty, sketchOperations(d)).error.code,
+    "relation_cycle",
+  );
+  const m = evaluate(empty, sketchOperations(rectangle())).result.model;
+  m.fixed["test.v2.y"] = "0";
+  assert.throws(
+    () => alignEdge(draftSketch(m, "unused", "test.profile"), 0, "horizontal"),
+    /fixed/,
+  );
+  const linked = evaluate(empty, [
+    ...sketchOperations(rectangle()),
+    {
+      op: "set_relation",
+      id: "test.v2.y",
+      relation: { offset_mm: "0", terms: { "test.v4.x": "1" } },
+    },
+  ]).result.model;
+  assert.throws(
+    () =>
+      alignEdge(draftSketch(linked, "unused", "test.profile"), 0, "horizontal"),
+    /already has/,
+  );
+  assert.equal(m.parameters["test.v2.y"], "0");
+});
+
+test("removing a draft point removes only links involving its vanished coordinates", () => {
+  const d = rectangle();
+  for (const [i, o] of [
+    [0, "horizontal"],
+    [1, "vertical"],
+    [2, "horizontal"],
+    [3, "vertical"],
+  ])
+    alignEdge(d, i, o);
+  removeLastPoint(d);
+  assert.deepEqual(Object.keys(d.relationEdits).sort(), [
+    "test.v2.y",
+    "test.v3.x",
+  ]);
+  assert.equal(
+    evaluate(empty, sketchOperations(d)).result.bodies[0].volume_mm3,
+    "18000",
+  );
 });

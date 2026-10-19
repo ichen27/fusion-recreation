@@ -69,3 +69,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Structural edit checkpoint
 
 [Feature replacement/removal and explicit cleanup](../examples/ai-cad/feature-edits/README.md) keeps original feature IDs/kinds and validates dependencies across complete atomic edits. The browser can add/remove circles in an existing group and remove an empty group; unused parameters remain until explicitly removed. General feature reordering, generated topology naming and broader curved operations remain open.
+
+## Directed sketch relationship checkpoint
+
+[Horizontal/vertical edge links](../examples/ai-cad/sketch-relationships/README.md) exposes exact affine dependencies in the browser sketch editor. A rectangle resizes while retaining edge orientation, an explicit unlink restores direct editing, and a cyclic relationship rejects without saving. Degrees-of-freedom analysis, redundant-constraint handling, arbitrary-angle constraints and a simultaneous solver remain open.
