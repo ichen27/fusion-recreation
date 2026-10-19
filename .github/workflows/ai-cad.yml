@@ -30,6 +30,7 @@ jobs:
       - run: python tools/ai-cad/verify_concave_export.py
       - run: python tools/ai-cad/verify_sketch_recording.py
       - run: python tools/ai-cad/verify_hole_recording.py
+      - run: python tools/ai-cad/verify_feature_edits.py
       - run: node --test tools/ai-cad/test_sketch.mjs tools/ai-cad/test_hole_editor.mjs
       - run: node --check tools/ai-cad/web/app.js
       - run: node --check tools/ai-cad/benchmark_browser.js

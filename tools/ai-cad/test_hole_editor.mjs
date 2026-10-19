@@ -7,6 +7,7 @@ import {
   availableExtrusions,
   draftHoles,
   addHole,
+  removeHole,
   setHoleValue,
   holeProposal,
 } from "./web/hole-model.mjs";
@@ -121,10 +122,46 @@ test("draft limits, unsupported parents, duplicate groups and unchanged edits re
   assert.throws(() => addHole(d, 17, 10, 1), /At most 16/);
   const { result } = create();
   const edit = draftHoles(result.model, null, "holes1");
-  assert.throws(() => addHole(edit, 1, 1, 1), /retain their hole topology/);
   assert.throws(
     () => holeProposal({ model: result.model, revision: 1 }, edit),
     /Move a hole/,
   );
   assert.throws(() => setHoleValue(edit, 0, "diameter", "4"), /Unknown/);
+});
+
+test("topology edits add/remove holes, preserve surviving IDs and remove empty groups", () => {
+  const { result } = create();
+  const d = draftHoles(result.model, null, "holes1");
+  addHole(d, 10, 10, 3);
+  const p = holeProposal({ model: result.model, revision: 1 }, d);
+  assert.equal(p.operations.at(-1).op, "replace_feature");
+  const added = run(result.model, p).result;
+  assert.equal(added.bodies[0].volume_mm3, "12000 - (135)*pi");
+  assert.deepEqual(
+    added.model.features.at(-1).holes.slice(0, 2),
+    result.model.features.at(-1).holes,
+  );
+  const edit = draftHoles(added.model, null, "holes1");
+  removeHole(edit, 0);
+  const removed = run(
+    added.model,
+    holeProposal({ model: added.model, revision: 2 }, edit),
+  ).result;
+  assert.deepEqual(
+    removed.model.features.at(-1).holes.map((h) => h.id),
+    ["h2", "h3"],
+  );
+  const empty = draftHoles(removed.model, null, "holes1");
+  removeHole(empty, 1);
+  removeHole(empty, 0);
+  const cleared = run(
+    removed.model,
+    holeProposal({ model: removed.model, revision: 3 }, empty),
+  ).result;
+  assert.equal(cleared.bodies[0].feature_id, "plate");
+  assert.equal(cleared.bodies[0].volume_mm3, "12000");
+  assert.deepEqual(cleared.model.parameters, removed.model.parameters);
+  const collision = draftHoles(removed.model, null, "holes1");
+  addHole(collision, 10, 50, 3);
+  assert.equal(collision.holes.at(-1).id, "h4");
 });

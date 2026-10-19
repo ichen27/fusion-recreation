@@ -391,8 +391,23 @@ summary {
   cursor: grab;
 }
 .sketch-properties {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   max-height: 520px;
+  overflow: hidden;
+}
+#sketch-coordinates,
+#hole-coordinates {
+  min-height: 0;
   overflow-y: auto;
+  flex: 1 1 auto;
+}
+.sketch-properties > :not(#sketch-coordinates):not(#hole-coordinates) {
+  flex-shrink: 0;
+}
+.hole-coordinate button {
+  grid-column: 1 / -1;
 }
 .sketch-coordinate {
   display: grid;

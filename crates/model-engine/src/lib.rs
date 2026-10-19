@@ -93,6 +93,9 @@ pub enum Operation {
     SetParameter { id: String, mm: String },
     AdjustParameter { id: String, delta_mm: String },
     AddFeature { feature: Feature },
+    ReplaceFeature { id: String, feature: Feature },
+    RemoveFeature { id: String },
+    RemoveParameter { id: String },
     FixParameter { id: String },
     ReleaseParameter { id: String },
     SetRelation { id: String, relation: Relation },
@@ -493,7 +496,52 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
                 rational(&value, &id)?;
                 model.parameters.insert(id, value);
             }
-            Operation::AddFeature { feature } => model.features.push(feature),
+            Operation::AddFeature { feature } => {
+                identifier(feature.id())?;
+                if model.features.iter().any(|f| f.id() == feature.id()) {
+                    return Err(error(
+                        "duplicate_id",
+                        feature.id(),
+                        "Feature ID already exists",
+                    ));
+                }
+                model.features.push(feature);
+            }
+            Operation::ReplaceFeature { id, feature } => {
+                let existing = model
+                    .features
+                    .iter_mut()
+                    .find(|f| f.id() == id)
+                    .ok_or_else(|| error("missing_feature", &id, "Feature does not exist"))?;
+                if feature.id() != id
+                    || std::mem::discriminant(existing) != std::mem::discriminant(&feature)
+                {
+                    return Err(error(
+                        "feature_identity",
+                        &id,
+                        "Replacement must retain the feature ID and kind",
+                    ));
+                }
+                *existing = feature;
+            }
+            Operation::RemoveFeature { id } => {
+                let index = model
+                    .features
+                    .iter()
+                    .position(|f| f.id() == id)
+                    .ok_or_else(|| error("missing_feature", &id, "Feature does not exist"))?;
+                model.features.remove(index);
+                // Dependency validity is checked after the whole atomic batch,
+                // permitting explicit dependent removals in either order.
+            }
+            Operation::RemoveParameter { id } => {
+                parameter(&model, &id)?;
+                if model.fixed.contains_key(&id) || model.relations.contains_key(&id) {
+                    return Err(error("parameter_in_use", &id, "Release fixed constraints and remove the parameter's relation before deleting it"));
+                }
+                model.parameters.remove(&id);
+                // Geometry and remaining relations must still resolve at commit.
+            }
             Operation::FixParameter { id } => {
                 relations::refresh(&mut model)?;
                 let n = parameter(&model, &id)?;
@@ -539,11 +587,14 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
     // A fixed value can only change if explicitly released in the transaction.
     // Re-fixing without releasing must not overwrite an existing invariant.
     let (bodies, profiles) = evaluate_geometry(&model)?;
-    let changed_parameters = model
+    let changed_parameters = before
         .parameters
-        .iter()
-        .filter(|(k, v)| before.parameters.get(*k) != Some(*v))
-        .map(|(k, _)| k.clone())
+        .keys()
+        .chain(model.parameters.keys())
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .filter(|id| before.parameters.get(*id) != model.parameters.get(*id))
+        .cloned()
         .collect();
     Ok(Evaluation {
         schema_version: 1,

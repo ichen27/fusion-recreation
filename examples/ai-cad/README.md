@@ -33,3 +33,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 
 - [Concave L-shaped plate](concave-profile/README.md): exact inner-corner hole clearance, editable snapshots, browser recording, STEP/STL and independent export comparison.
 - [Interactive hole editor](hole-editor/README.md): actual placement/drag/radius edits, native documents and exported STL.
+
+- [Feature structure edits](feature-edits/README.md): add/remove holes in place, remove a group, explicitly clean unused parameters, reopen and undo.
