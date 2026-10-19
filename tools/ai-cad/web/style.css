@@ -559,3 +559,7 @@ dialog p[role="status"] {
 #intent-info summary {
   cursor: pointer;
 }
+
+#compute-dialog {
+  width: min(90vw, 440px);
+}

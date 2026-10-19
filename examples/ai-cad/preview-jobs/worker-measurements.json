@@ -1,0 +1,12 @@
+[
+  {
+    "fixture": "ten-second synthetic hold before engine launch",
+    "outcome": "cancelled",
+    "elapsed_ms": 614.4261669833213
+  },
+  {
+    "fixture": "real geometry and display subprocess",
+    "outcome": "completed",
+    "elapsed_ms": 74.90745896939188
+  }
+]

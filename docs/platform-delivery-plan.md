@@ -129,3 +129,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Model-intent checkpoint
 
 [Original-engine provenance and impact](../examples/ai-cad/model-intent/README.md) explains controlling features, root drivers, fixed/derived values and potentially affected bodies. Actual browser/MCP explanations are checked against a shared-driver edit on two parts. The engine uses exhaustive typed references and validates source models; it does not infer semantic intent or replace preview validation. General sketch constraints, persistent face references and broader intent benchmarks remain open.
+
+## Cancellable preview checkpoint
+
+[Bounded CPU preview jobs](../examples/ai-cad/preview-jobs/README.md) move ordinary browser preview evaluation/display work into a cancellable process group. Snapshot jobs release the document lock, preserve revision preconditions and never save. Actual browser cancellation preserves drafts and native bytes with zero GPU uploads; process tests cover child termination, independent worker deadlines and queue/memory limits. Per-viewer limits do not provide machine-wide scheduling; persistent workers, incremental rebuilds and representative large-model measurements remain open.

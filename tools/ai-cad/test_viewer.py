@@ -25,6 +25,7 @@ class Viewer(unittest.TestCase):
         self.thread.start()
 
     def tearDown(self):
+        self.server.RequestHandlerClass.preview_jobs.close()
         self.server.shutdown()
         self.thread.join()
         self.server.server_close()
@@ -100,12 +101,70 @@ class Viewer(unittest.TestCase):
                 self.assertFalse(info["parameters"]["thickness"]["directly_editable"])
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_preview_job_http_stays_responsive_and_cancel_preserves_model(self):
+        from store import CadError
+        from test_preview_jobs import until
+
+        self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        entered = threading.Event()
+
+        def runner(snapshot, cancel):
+            entered.set()
+            if not cancel.wait(3):
+                raise AssertionError("Expected cancellation")
+            raise CadError("preview_cancelled", "Cancelled")
+
+        jobs = self.server.RequestHandlerClass.preview_jobs
+        jobs.runner = runner
+        command = {
+            "action": "preview",
+            "expected_revision": 1,
+            "operations": [{"op": "set_parameter", "id": "width", "mm": "120"}],
+            "preserve": [],
+        }
+        status, payload = self.request(
+            "POST",
+            "/api/preview-jobs",
+            json.dumps(command),
+            {"Content-Type": "application/json"},
+        )
+        self.assertEqual(status, 200)
+        id = json.loads(payload)["result"]["job_id"]
+        self.assertTrue(entered.wait(2))
+        status, payload = self.request("GET", "/api/model")
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(payload)["result"]["revision"], 1)
+        status, payload = self.request(
+            "POST",
+            "/api/preview-jobs",
+            json.dumps({"action": "cancel", "job_id": id}),
+            {"Content-Type": "application/json"},
+        )
+        self.assertEqual(status, 200)
+
+        def finished():
+            status, payload = self.request("GET", "/api/preview-jobs?id=" + id)
+            self.assertEqual(status, 200)
+            result = json.loads(payload)["result"]
+            return result if result["status"] == "cancelled" else None
+
+        self.assertEqual(until(finished)["reply"]["error"]["code"], "preview_cancelled")
+        self.assertEqual(self.store.path.read_bytes(), before)
+        status, _ = self.request(
+            "GET",
+            "/api/preview-jobs?id=" + id,
+            headers={"Origin": "https://example.com"},
+        )
+        self.assertEqual(status, 403)
+
     def test_render_and_edit_share_store(self):
         status, html = self.request("GET", "/")
         self.assertEqual(status, 200)
         self.assertIn(b"viewport", html)
         for asset in (
             "/display-data.mjs",
+            "/preview-client.mjs",
             "/picking.mjs",
             "/rotation-model.mjs",
             "/rotation-editor.mjs",
@@ -125,7 +184,7 @@ class Viewer(unittest.TestCase):
         ):
             status, source = self.request("GET", asset)
             self.assertEqual(status, 200)
-            self.assertIn(b"export function", source)
+            self.assertRegex(source, rb"export (async )?function")
         status, raw = self.request(
             "POST",
             "/api/command",

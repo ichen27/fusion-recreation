@@ -1,3 +1,4 @@
+import { previewJob } from "/preview-client.mjs";
 import { installRotationEditor } from "/rotation-editor.mjs";
 import { installTranslateEditor } from "/translate-editor.mjs";
 import { pickBody } from "/picking.mjs";
@@ -663,15 +664,72 @@ function render(state) {
   geometry(state.bodies, visibleProfiles);
   controls();
 }
-async function call(command) {
-  const response = await fetch("/api/command", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(command),
-  });
+async function requestJSON(path, command) {
+  const response = await fetch(
+    path,
+    command === undefined
+      ? {}
+      : {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(command),
+        },
+  );
   const data = await response.json();
   if (data.error) throw Error(`${data.error.code}: ${data.error.message}`);
   return data.result;
+}
+let activePreviewJob = null,
+  previewCancellationRequested = false;
+$("cancel-preview-job").addEventListener("click", async () => {
+  const id = activePreviewJob;
+  if (!id) return;
+  previewCancellationRequested = true;
+  $("cancel-preview-job").disabled = true;
+  $("compute-status").textContent = "Cancelling calculation…";
+  try {
+    await requestJSON("/api/preview-jobs", { action: "cancel", job_id: id });
+  } catch (error) {
+    if (activePreviewJob === id) {
+      $("compute-status").textContent = error.message;
+      $("cancel-preview-job").disabled = false;
+    }
+  }
+});
+$("compute-dialog").addEventListener("cancel", (event) => {
+  event.preventDefault();
+  if (!$("cancel-preview-job").disabled) $("cancel-preview-job").click();
+});
+async function call(command) {
+  if (command.action !== "preview") return requestJSON("/api/command", command);
+  const dialog = $("compute-dialog");
+  previewCancellationRequested = false;
+  $("compute-status").textContent = "Preparing the saved model…";
+  $("cancel-preview-job").disabled = true;
+  dialog.showModal();
+  try {
+    const result = await previewJob(command, {
+      request: requestJSON,
+      isCancelled: () => previewCancellationRequested,
+      pause: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+      onStatus: (job) => {
+        activePreviewJob = job.job_id;
+        $("cancel-preview-job").disabled =
+          previewCancellationRequested ||
+          !["queued", "running"].includes(job.status);
+        $("compute-status").textContent =
+          {
+            queued: "Waiting for the current calculation…",
+            running: "Checking geometry and preparing the preview…",
+            cancelling: "Cancelling calculation…",
+          }[job.status] ?? "Calculation finished.";
+      },
+    });
+    return result;
+  } finally {
+    activePreviewJob = null;
+    dialog.close();
+  }
 }
 async function refresh(force = false) {
   if (busy) return;
