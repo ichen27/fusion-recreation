@@ -1,5 +1,10 @@
 import { installPlaneEditor } from "/plane-editor.mjs";
-import { packVertices, formatMeasurement } from "/display-data.mjs";
+import {
+  packVertices,
+  formatMeasurement,
+  displayFrame,
+  fittedZoom,
+} from "/display-data.mjs";
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
@@ -145,12 +150,7 @@ function geometry(bodies, profiles) {
       for (const p of [vertices[i], vertices[(i + 1) % vertices.length]])
         lines.push(...p, 0.85, 0.56, 0.18);
   }
-  if (all.length) {
-    const min = [0, 1, 2].map((i) => Math.min(...all.map((p) => p[i]))),
-      max = [0, 1, 2].map((i) => Math.max(...all.map((p) => p[i])));
-    center = min.map((v, i) => (v + max[i]) / 2);
-    extent = Math.max(...max.map((v, i) => v - min[i])) * 0.85;
-  }
+  ({ center, extent } = displayFrame(all));
   geometryDirty = true;
   draw();
 }
@@ -172,7 +172,7 @@ function draw() {
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.uniform2f(gl.getUniformLocation(program, "angles"), yaw, pitch);
-  gl.uniform1f(gl.getUniformLocation(program, "zoom"), zoom);
+  gl.uniform1f(gl.getUniformLocation(program, "zoom"), fittedZoom(zoom, w / h));
   gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
   gl.enable(gl.POLYGON_OFFSET_FILL);
   gl.polygonOffset(1, 1);
@@ -215,6 +215,10 @@ canvas.addEventListener(
   },
   { passive: false },
 );
+$("fit-view").addEventListener("click", () => {
+  zoom = 1;
+  draw();
+});
 new ResizeObserver(draw).observe(canvas);
 function controls() {
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;

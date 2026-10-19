@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { packVertices, formatMeasurement } from "./web/display-data.mjs";
+import {
+  packVertices,
+  formatMeasurement,
+  displayFrame,
+  fittedZoom,
+} from "./web/display-data.mjs";
 
 test("tiny offset cylinder retains shape before float32 upload", () => {
   const radius = 0.001,
@@ -59,4 +64,46 @@ test("nonzero small measurements never display as rounded zero", () => {
   assert.equal(formatMeasurement(0, "en-US"), "0");
   assert.equal(formatMeasurement(0.001, "en-US"), "0.001");
   assert.equal(formatMeasurement(1234.56789, "en-US"), "1,234.568");
+});
+
+test("fit contains oblique solids at every sampled angle and aspect", () => {
+  const points = [
+    [10, 0, 0],
+    [54, 0, 0],
+    [10, 44, 0],
+    [10, 0, 44],
+  ];
+  const { center, extent } = displayFrame(points);
+  for (const yaw of [-3, -1, -0.65, 0, 1, 3])
+    for (const pitch of [-3, -1, 0, 0.65, 1, 3])
+      for (const aspect of [0.2, 0.5, 1, 2, 5]) {
+        for (const point of points) {
+          const p = point.map((v, i) => (v - center[i]) / extent);
+          const x = Math.cos(yaw) * p[0] - Math.sin(yaw) * p[1];
+          const y = Math.sin(yaw) * p[0] + Math.cos(yaw) * p[1];
+          const screenY = -Math.sin(pitch) * y + Math.cos(pitch) * p[2];
+          const scale = fittedZoom(1, aspect);
+          assert.ok(Math.abs((x * scale) / aspect) <= 1 / 1.15 + 1e-12);
+          assert.ok(Math.abs(screenY * scale) <= 1 / 1.15 + 1e-12);
+        }
+      }
+  assert.equal(fittedZoom(2, 0.5), 1);
+  assert.deepEqual(displayFrame([]), { center: [0, 0, 0], extent: 1 });
+});
+
+test("frame handles large point arrays and preserves tiny offset extents", () => {
+  const points = Array.from({ length: 200000 }, (_, i) => [
+    i % 100,
+    i % 70,
+    i % 30,
+  ]);
+  const frame = displayFrame(points);
+  assert.deepEqual(frame.center, [49.5, 34.5, 14.5]);
+  assert.ok(frame.extent > 0);
+  const tiny = displayFrame([
+    [1e6, 1e6, 0],
+    [1e6 + 0.001, 1e6 + 0.001, 0.001],
+  ]);
+  assert.ok(tiny.extent > 0.0009 && tiny.extent < 0.0011);
+  assert.throws(() => displayFrame([[Infinity, 0, 0]]), /finite/);
 });
