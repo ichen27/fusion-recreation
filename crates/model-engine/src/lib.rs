@@ -71,6 +71,12 @@ pub enum Feature {
         normal: [String; 3],
         offset: String,
     },
+    /// Exact XYZ translation of an earlier convex planar solid.
+    Translate {
+        id: String,
+        input: String,
+        offset: [String; 3],
+    },
     /// Keep the common volume of two earlier convex planar solids.
     Intersection {
         id: String,
@@ -113,7 +119,8 @@ impl Feature {
             | Self::Cylinder { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::PlaneCut { id, .. }
-            | Self::Intersection { id, .. } => id,
+            | Self::Intersection { id, .. }
+            | Self::Translate { id, .. } => id,
         }
     }
 }
@@ -411,6 +418,33 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         volume_mm3,
                     },
                 );
+                continue;
+            }
+            Feature::Translate { input, offset, .. } => {
+                let boundary = convex_input(m, &profiles, &evaluated, input, "Translations")?;
+                if !consumed.insert(input.as_str()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "A solid can have only one consuming feature; select a terminal result",
+                    ));
+                }
+                let delta = [
+                    parameter(m, &offset[0])?,
+                    parameter(m, &offset[1])?,
+                    parameter(m, &offset[2])?,
+                ];
+                if delta
+                    .iter()
+                    .any(|q| q.abs() > Q::from_integer(1_000_000.into()))
+                {
+                    return Err(error(
+                        "translation_range",
+                        id,
+                        "Each translation component must be within +/-1000000 mm",
+                    ));
+                }
+                evaluated.insert(id, solid_ops::translate(id, boundary, &delta)?);
                 continue;
             }
             Feature::Intersection { left, right, .. } => {

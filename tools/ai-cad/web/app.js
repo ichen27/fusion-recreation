@@ -1,3 +1,4 @@
+import { installTranslateEditor } from "/translate-editor.mjs";
 import { pickBody } from "/picking.mjs";
 import { installIntersectionEditor } from "/intersection-editor.mjs";
 import { intersectionCandidates } from "/intersection-model.mjs";
@@ -13,7 +14,7 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes, planes, stocks, intersections;
+let sketches, holes, planes, stocks, intersections, translations;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -321,7 +322,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-sketch, .edit-holes, .edit-plane",
+    ".edit-sketch, .edit-holes, .edit-plane, .edit-move",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -417,6 +418,19 @@ function render(state) {
           next.addEventListener("click", () => planes.open(f.id));
           div.append(next);
         }
+      }
+      if (
+        f.kind === "translate" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const move = document.createElement("button");
+        move.className = "edit-move";
+        move.textContent = f.kind === "translate" ? "Edit move" : "Move solid";
+        move.setAttribute("aria-label", `${move.textContent} ${f.id}`);
+        move.addEventListener("click", () =>
+          translations.open(f.id, f.kind === "translate" ? f.id : null),
+        );
+        div.append(move);
       }
       return div;
     }),
@@ -623,6 +637,7 @@ sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
 stocks = installStockEditor(editorCallbacks("Stock"));
+translations = installTranslateEditor(editorCallbacks("Move"));
 intersections = installIntersectionEditor(editorCallbacks("Intersection"));
 $("new-intersection").addEventListener("click", () => intersections.open());
 $("new-stock").addEventListener("click", () => stocks.open());

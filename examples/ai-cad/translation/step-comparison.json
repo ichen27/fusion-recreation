@@ -1,0 +1,59 @@
+[
+  {
+    "stage": "moved",
+    "exact_volume_mm3": 24000,
+    "step_volume_mm3": 24000.0,
+    "oracle_volume_mm3": 24000.0,
+    "difference_mm3": 0.0,
+    "bounds_mm": [
+      [
+        20.0,
+        5.0,
+        5.0
+      ],
+      [
+        60.0,
+        35.0,
+        25.0
+      ]
+    ]
+  },
+  {
+    "stage": "common",
+    "exact_volume_mm3": 7500,
+    "step_volume_mm3": 7500.0,
+    "oracle_volume_mm3": 7500.0,
+    "difference_mm3": 0.0,
+    "bounds_mm": [
+      [
+        20.0,
+        5.0,
+        5.0
+      ],
+      [
+        40.0,
+        30.0,
+        20.0
+      ]
+    ]
+  },
+  {
+    "stage": "edited",
+    "exact_volume_mm3": 5625,
+    "step_volume_mm3": 5625.0,
+    "oracle_volume_mm3": 5625.0,
+    "difference_mm3": 0.0,
+    "bounds_mm": [
+      [
+        25.0,
+        5.0,
+        5.0
+      ],
+      [
+        40.0,
+        30.0,
+        20.0
+      ]
+    ]
+  }
+]

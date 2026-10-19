@@ -46,6 +46,8 @@ class Viewer(unittest.TestCase):
         for asset in (
             "/display-data.mjs",
             "/picking.mjs",
+            "/translate-model.mjs",
+            "/translate-editor.mjs",
             "/intersection-model.mjs",
             "/intersection-editor.mjs",
             "/stock-model.mjs",

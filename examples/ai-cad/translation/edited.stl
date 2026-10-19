@@ -1,0 +1,86 @@
+solid cad_mm
+facet normal 0 0 -1
+outer loop
+vertex 25 5 5
+vertex 25 30 5
+vertex 40 30 5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 25 5 5
+vertex 40 30 5
+vertex 40 5 5
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 25 5 5
+vertex 40 5 5
+vertex 40 5 20
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 25 5 5
+vertex 40 5 20
+vertex 25 5 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 25 5 5
+vertex 25 5 20
+vertex 25 30 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 25 5 5
+vertex 25 30 20
+vertex 25 30 5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 25 5 20
+vertex 40 5 20
+vertex 40 30 20
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 25 5 20
+vertex 40 30 20
+vertex 25 30 20
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 25 30 5
+vertex 25 30 20
+vertex 40 30 20
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 25 30 5
+vertex 40 30 20
+vertex 40 30 5
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 40 5 5
+vertex 40 30 5
+vertex 40 30 20
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 40 5 5
+vertex 40 30 20
+vertex 40 5 20
+endloop
+endfacet
+endsolid cad_mm

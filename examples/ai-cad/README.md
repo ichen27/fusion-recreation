@@ -57,3 +57,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Convex solid intersection](intersection/README.md): browser/MCP common-volume authoring, upstream edits, native history, contact rejection and independent STEP Boolean comparison.
 
 - [Viewport body selection](body-selection/README.md): CPU picking, exact selected-body metadata, uniform-only highlighting, context recovery and measured retained-buffer behavior.
+
+- [Exact XYZ movement](translation/README.md): position convex solids, rebuild their intersections, preserve dimensions, reject touching-only results and verify world-space STEP/STL coordinates.

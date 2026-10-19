@@ -113,3 +113,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Viewport body selection checkpoint
 
 [Body selection and highlighting](../examples/ai-cad/body-selection/README.md) identifies stable terminal feature IDs from displayed triangles, supports feature-list keyboard selection and preserves retained GPU buffers. Actual context-loss recovery and CPU picking measurements are recorded. Exact face/edge picking, snapping and persistent generated-topology naming remain open.
+
+## Exact planar movement checkpoint
+
+[XYZ movement](../examples/ai-cad/translation/README.md) positions convex planar parts through parameter-backed offsets and rebuilds downstream cuts/intersections. Twelve actual browser calls, typed MCP, rational boundary tests and independent positioned-box export checks verify the workflow. Rotation, curved/nonconvex movement, component instances and assembly joints remain open.

@@ -477,8 +477,53 @@ async def main():
                     for b in committed["result"]["bodies"]
                 )
 
+                move_operations = [
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "translate",
+                            "id": "moved_common",
+                            "input": "common",
+                            "offset": ["cut_side", "cut_extent", "cut_diagonal"],
+                        },
+                    }
+                ]
+                moved = await call(
+                    "cad_preview",
+                    {
+                        "expected_revision": 18,
+                        "operations": move_operations,
+                        "preserve": [],
+                    },
+                )
+                assert "result" in moved, moved
+                body = next(
+                    b
+                    for b in moved["result"]["bodies"]
+                    if b["feature_id"] == "moved_common"
+                )
+                assert body["volume_mm3"] == "62500/3"
+                from fractions import Fraction
+
+                before_points = {
+                    tuple(Fraction(v) + d for v, d in zip(p, [-10, 60, 60]))
+                    for p in common["boundary"]["vertices"]
+                }
+                assert {
+                    tuple(map(Fraction, p)) for p in body["boundary"]["vertices"]
+                } == before_points
+                moved_commit = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 18,
+                        "transaction_id": "mcp-move",
+                        "operations": move_operations,
+                        "preserve": [],
+                    },
+                )
+                assert moved_commit["result"]["revision"] == 19
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes, convex intersection and diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes, convex intersection, exact movement and diagnostics"
                 )
 
 
