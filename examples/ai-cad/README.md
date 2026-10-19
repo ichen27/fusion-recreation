@@ -59,3 +59,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Viewport body selection](body-selection/README.md): CPU picking, exact selected-body metadata, uniform-only highlighting, context recovery and measured retained-buffer behavior.
 
 - [Exact XYZ movement](translation/README.md): position convex solids, rebuild their intersections, preserve dimensions, reject touching-only results and verify world-space STEP/STL coordinates.
+
+- [Exact quarter-turns](quarter-turn/README.md): pivoted orientation, downstream intersection edits, invalid placement rejection and independently verified exports.

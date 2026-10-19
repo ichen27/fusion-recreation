@@ -1,5 +1,5 @@
-//! Bounded exact convex Boolean operations; no approximate or external fallback.
-use super::{error, Body, Result, Q};
+//! Bounded exact convex Boolean and rigid operations; no approximate or external fallback.
+use super::{error, Axis, Body, Result, Q};
 use boundary_clip::{Boundary, Plane, Request};
 
 pub(super) fn intersection(id: &str, mut left: Boundary, right: &Boundary) -> Result<Body> {
@@ -30,7 +30,39 @@ pub(super) fn intersection(id: &str, mut left: Boundary, right: &Boundary) -> Re
     })
 }
 
-pub(super) fn translate(id: &str, mut boundary: Boundary, delta: &[Q; 3]) -> Result<Body> {
+pub(super) fn translate(id: &str, boundary: Boundary, delta: &[Q; 3]) -> Result<Body> {
+    rigid(id, boundary, delta, |point| point)
+}
+
+pub(super) fn rotate_quarter(
+    id: &str,
+    boundary: Boundary,
+    axis: Axis,
+    turns: i32,
+    pivot: &[Q; 3],
+) -> Result<Body> {
+    let rotate = |mut p: [Q; 3]| {
+        for _ in 0..turns {
+            let [x, y, z] = p;
+            p = match axis {
+                Axis::X => [x, -z, y],
+                Axis::Y => [z, y, -x],
+                Axis::Z => [-y, x, z],
+            };
+        }
+        p
+    };
+    let rotated = rotate(pivot.clone());
+    let delta = std::array::from_fn(|i| &pivot[i] - &rotated[i]);
+    rigid(id, boundary, &delta, rotate)
+}
+
+fn rigid(
+    id: &str,
+    mut boundary: Boundary,
+    delta: &[Q; 3],
+    rotate: impl Fn([Q; 3]) -> [Q; 3],
+) -> Result<Body> {
     // These are computed boundary values, already validated upstream, not new
     // 128-bit user literals. The boundary validator checks the resulting budget.
     let value = |s: &str| {
@@ -43,17 +75,20 @@ pub(super) fn translate(id: &str, mut boundary: Boundary, delta: &[Q; 3]) -> Res
         })
     };
     for point in &mut boundary.vertices {
+        let transformed = rotate([value(&point[0])?, value(&point[1])?, value(&point[2])?]);
         for axis in 0..3 {
-            point[axis] = (value(&point[axis])? + &delta[axis]).to_string();
+            point[axis] = (&transformed[axis] + &delta[axis]).to_string();
         }
     }
     for face in &mut boundary.faces {
-        let shift = (0..3)
-            .map(|axis| value(&face.normal[axis]).map(|n| n * &delta[axis]))
-            .collect::<Result<Vec<_>>>()?
-            .into_iter()
-            .sum::<Q>();
+        let normal = rotate([
+            value(&face.normal[0])?,
+            value(&face.normal[1])?,
+            value(&face.normal[2])?,
+        ]);
+        let shift = (0..3).map(|axis| &normal[axis] * &delta[axis]).sum::<Q>();
         face.offset = (value(&face.offset)? + shift).to_string();
+        face.normal = normal.map(|n| n.to_string());
     }
     let face = boundary
         .faces
@@ -74,7 +109,7 @@ pub(super) fn translate(id: &str, mut boundary: Boundary, delta: &[Q; 3]) -> Res
         return Err(error(
             "invalid_geometry",
             id,
-            "Translation unexpectedly produced no solid",
+            "Rigid operation unexpectedly produced no solid",
         ));
     }
     Ok(Body {

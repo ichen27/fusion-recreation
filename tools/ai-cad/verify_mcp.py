@@ -522,8 +522,55 @@ async def main():
                     },
                 )
                 assert moved_commit["result"]["revision"] == 19
+                turn_ops = [
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "rotate_quarter",
+                            "id": "turned_common",
+                            "input": "moved_common",
+                            "axis": "z",
+                            "turns": 1,
+                            "pivot": ["cut_side", "cut_extent", "cut_diagonal"],
+                        },
+                    }
+                ]
+                turned = await call(
+                    "cad_preview",
+                    {"expected_revision": 19, "operations": turn_ops, "preserve": []},
+                )
+                assert "result" in turned, turned
+                rotated_body = next(
+                    b
+                    for b in turned["result"]["bodies"]
+                    if b["feature_id"] == "turned_common"
+                )
+                assert rotated_body["volume_mm3"] == "62500/3"
+                expected = {
+                    (
+                        Fraction(-10) - (Fraction(p[1]) - 60),
+                        Fraction(60) + (Fraction(p[0]) + 10),
+                        Fraction(p[2]),
+                    )
+                    for p in body["boundary"]["vertices"]
+                }
+                assert {
+                    tuple(map(Fraction, p))
+                    for p in rotated_body["boundary"]["vertices"]
+                } == expected
+                turn_commit = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 19,
+                        "transaction_id": "mcp-turn",
+                        "operations": turn_ops,
+                        "preserve": [],
+                    },
+                )
+                assert turn_commit["result"]["revision"] == 20
+
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes, convex intersection, exact movement and diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes, convex intersection, exact movement, quarter turns and diagnostics"
                 )
 
 

@@ -116,4 +116,8 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 
 ## Exact planar movement checkpoint
 
-[XYZ movement](../examples/ai-cad/translation/README.md) positions convex planar parts through parameter-backed offsets and rebuilds downstream cuts/intersections. Twelve actual browser calls, typed MCP, rational boundary tests and independent positioned-box export checks verify the workflow. Rotation, curved/nonconvex movement, component instances and assembly joints remain open.
+[XYZ movement](../examples/ai-cad/translation/README.md) positions convex planar parts through parameter-backed offsets and rebuilds downstream cuts/intersections. Twelve actual browser calls, typed MCP, rational boundary tests and independent positioned-box export checks verify the workflow. Arbitrary rotation, curved/nonconvex movement, component instances and assembly joints remain open.
+
+## Exact orientation checkpoint
+
+[Quarter-turn rotation](../examples/ai-cad/quarter-turn/README.md) orients convex planar parts about exact pivots without changing dimensions or volume. Twelve actual browser calls, all axes/angles with fractional pivots, inverse rotations, downstream rebuild/rejection, typed MCP and independent STEP/STL checks cover the bounded workflow. Arbitrary-angle precision, curved/nonconvex transforms and assembly instances remain open. Next: share explicit body-selection context between human interaction and AI tools, with revision checks so stale picks cannot silently refer to changed geometry.

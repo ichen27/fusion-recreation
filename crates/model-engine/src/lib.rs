@@ -38,6 +38,13 @@ pub struct Model {
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub relations: BTreeMap<String, Relation>,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Axis {
+    X,
+    Y,
+    Z,
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Feature {
@@ -70,6 +77,14 @@ pub enum Feature {
         input: String,
         normal: [String; 3],
         offset: String,
+    },
+    /// Exact right-handed quarter turns about a parameter-backed pivot.
+    RotateQuarter {
+        id: String,
+        input: String,
+        axis: Axis,
+        turns: i32,
+        pivot: [String; 3],
     },
     /// Exact XYZ translation of an earlier convex planar solid.
     Translate {
@@ -120,7 +135,8 @@ impl Feature {
             | Self::BlindHoles { id, .. }
             | Self::PlaneCut { id, .. }
             | Self::Intersection { id, .. }
-            | Self::Translate { id, .. } => id,
+            | Self::Translate { id, .. }
+            | Self::RotateQuarter { id, .. } => id,
         }
     }
 }
@@ -417,6 +433,49 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         analytic: Some(shape),
                         volume_mm3,
                     },
+                );
+                continue;
+            }
+            Feature::RotateQuarter {
+                input,
+                axis,
+                turns,
+                pivot,
+                ..
+            } => {
+                if !(1..=3).contains(turns) {
+                    return Err(error(
+                        "rotation_range",
+                        id,
+                        "Quarter turns must be 1, 2 or 3 (90, 180 or 270 degrees)",
+                    ));
+                }
+                let boundary = convex_input(m, &profiles, &evaluated, input, "Rotations")?;
+                if !consumed.insert(input.as_str()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "A solid can have only one consuming feature; select a terminal result",
+                    ));
+                }
+                let origin = [
+                    parameter(m, &pivot[0])?,
+                    parameter(m, &pivot[1])?,
+                    parameter(m, &pivot[2])?,
+                ];
+                if origin
+                    .iter()
+                    .any(|q| q.abs() > Q::from_integer(1_000_000.into()))
+                {
+                    return Err(error(
+                        "rotation_range",
+                        id,
+                        "Pivot coordinates must be within +/-1000000 mm",
+                    ));
+                }
+                evaluated.insert(
+                    id,
+                    solid_ops::rotate_quarter(id, boundary, *axis, *turns, &origin)?,
                 );
                 continue;
             }
