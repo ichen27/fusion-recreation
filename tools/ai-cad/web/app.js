@@ -74,6 +74,37 @@ function geometry(bodies, profiles) {
   lines = [];
   const all = [];
   for (const body of bodies) {
+    if (body.analytic) {
+      const mesh = body.display_mesh;
+      if (!mesh) {
+        continue;
+      }
+      const vertices = mesh.vertices;
+      all.push(...vertices);
+      for (const ids of mesh.triangles) {
+        const [a, b, c] = ids.map((i) => vertices[i]);
+        const u = b.map((v, i) => v - a[i]),
+          v = c.map((x, i) => x - a[i]);
+        const n = [
+          u[1] * v[2] - u[2] * v[1],
+          u[2] * v[0] - u[0] * v[2],
+          u[0] * v[1] - u[1] * v[0],
+        ];
+        const shade =
+          0.72 +
+          (0.25 * (n[0] * 0.3 - n[1] * 0.4 + n[2] * 0.86)) / Math.hypot(...n);
+        for (const id of ids)
+          triangles.push(
+            ...vertices[id],
+            0.36 * shade,
+            0.65 * shade,
+            0.58 * shade,
+          );
+      }
+      for (const edge of mesh.edges)
+        for (const id of edge) lines.push(...vertices[id], 0.15, 0.31, 0.27);
+      continue;
+    }
     const b = body.boundary,
       vertices = b.vertices.map((p) => p.map(number));
     all.push(...vertices);
@@ -161,9 +192,15 @@ function controls() {
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
   $("redo").disabled = busy || !!preview || !saved?.can_redo;
   $("commit").disabled = busy;
+  $("export-stl").disabled =
+    busy || !!preview || editPending || !saved?.bodies.length;
   $("dimensions").querySelector("button").disabled = busy || !!preview;
 }
 function render(state) {
+  $("display-status").textContent = state.bodies
+    .filter((b) => b.display_error)
+    .map((b) => `${b.feature_id}: ${b.display_error.message}`)
+    .join(" · ");
   const profiles = state.profiles ?? [];
   const extruded = new Set(
     state.model.features
@@ -210,7 +247,10 @@ function render(state) {
       input.value = value;
       input.disabled = fixed || !!relation || !!preview;
       input.autocomplete = "off";
-      input.addEventListener("input", () => (editPending = true));
+      input.addEventListener("input", () => {
+        editPending = true;
+        controls();
+      });
       div.append(label, input);
       if (relation) {
         const formula = document.createElement("small");
@@ -229,7 +269,7 @@ function render(state) {
     ? state.bodies
         .map(
           (b) =>
-            `${number(b.volume_mm3).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm³`,
+            `${(b.volume_approx_mm3 ?? number(b.volume_mm3)).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm³`,
         )
         .join(" + ")
     : profiles.length
@@ -360,3 +400,33 @@ for (const action of ["undo", "redo"])
 $("refresh").addEventListener("click", () => refresh(true));
 await refresh();
 setInterval(() => refresh(), 2000);
+
+$("export-stl").addEventListener("click", async () => {
+  if (busy || preview || editPending || !saved?.bodies.length) return;
+  busy = true;
+  controls();
+  try {
+    for (const body of saved.bodies) {
+      const query = new URLSearchParams({
+        revision: saved.revision,
+        body: body.feature_id,
+        segments: 128,
+      });
+      const response = await fetch(`/api/export.stl?${query}`);
+      if (!response.ok) throw Error((await response.json()).error.message);
+      const url = URL.createObjectURL(await response.blob());
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${body.feature_id}-r${saved.revision}.stl`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    $("status").textContent =
+      `Exported saved revision ${saved.revision}. STL uses millimeters and 128 segments per circle.`;
+  } catch (error) {
+    $("status").textContent = error.message;
+  } finally {
+    busy = false;
+    controls();
+  }
+});

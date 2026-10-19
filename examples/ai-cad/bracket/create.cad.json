@@ -1,0 +1,120 @@
+{
+  "sha256": "2155411ff11ecaa6eac1bc7d6b3d08066e9f3d314493b63bae73aac171284cb2",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "bottom_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "bottom_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "top_right",
+              "x": "width",
+              "y": "depth"
+            },
+            {
+              "id": "top_left",
+              "x": "zero",
+              "y": "depth"
+            }
+          ]
+        },
+        {
+          "height": "thickness",
+          "id": "plate",
+          "kind": "extrude",
+          "profile": "outline"
+        },
+        {
+          "holes": [
+            {
+              "id": "left_mount",
+              "radius": "radius",
+              "x": "margin",
+              "y": "margin"
+            },
+            {
+              "id": "right_mount",
+              "radius": "radius",
+              "x": "right_x",
+              "y": "margin"
+            },
+            {
+              "id": "top_mount",
+              "radius": "radius",
+              "x": "center_x",
+              "y": "top_y"
+            }
+          ],
+          "id": "bracket",
+          "input": "plate",
+          "kind": "through_holes"
+        }
+      ],
+      "fixed": {
+        "margin": "12",
+        "radius": "3",
+        "thickness": "6"
+      },
+      "parameters": {
+        "center_x": "50",
+        "depth": "60",
+        "margin": "12",
+        "radius": "3",
+        "right_x": "88",
+        "thickness": "6",
+        "top_y": "48",
+        "width": "100",
+        "zero": "0"
+      },
+      "relations": {
+        "center_x": {
+          "offset_mm": "0",
+          "terms": {
+            "width": "1/2"
+          }
+        },
+        "right_x": {
+          "offset_mm": "0",
+          "terms": {
+            "margin": "-1",
+            "width": "1"
+          }
+        },
+        "top_y": {
+          "offset_mm": "0",
+          "terms": {
+            "depth": "1",
+            "margin": "-1"
+          }
+        }
+      }
+    },
+    "receipts": {
+      "bracket-create-v1": {
+        "request": "19b23b621a48fbeb24e6acc9958603ae02fb97713f13ccf0ef3bd94bda671304",
+        "revision": 1
+      }
+    },
+    "redo": [],
+    "revision": 1,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      }
+    ]
+  }
+}

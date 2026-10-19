@@ -1,0 +1,19 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "bracket-widen-v1",
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "width",
+      "mm": "120"
+    }
+  ],
+  "preserve": [
+    "depth",
+    "thickness",
+    "radius",
+    "margin",
+    "zero"
+  ]
+}

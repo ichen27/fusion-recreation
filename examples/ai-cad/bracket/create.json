@@ -1,0 +1,163 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "bracket-create-v1",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "zero",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "width",
+      "mm": "100"
+    },
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "thickness",
+      "mm": "6"
+    },
+    {
+      "op": "define_parameter",
+      "id": "margin",
+      "mm": "12"
+    },
+    {
+      "op": "define_parameter",
+      "id": "radius",
+      "mm": "3"
+    },
+    {
+      "op": "define_parameter",
+      "id": "right_x",
+      "mm": "88"
+    },
+    {
+      "op": "define_parameter",
+      "id": "center_x",
+      "mm": "50"
+    },
+    {
+      "op": "define_parameter",
+      "id": "top_y",
+      "mm": "48"
+    },
+    {
+      "op": "set_relation",
+      "id": "right_x",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "width": "1",
+          "margin": "-1"
+        }
+      }
+    },
+    {
+      "op": "set_relation",
+      "id": "center_x",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "width": "1/2"
+        }
+      }
+    },
+    {
+      "op": "set_relation",
+      "id": "top_y",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "depth": "1",
+          "margin": "-1"
+        }
+      }
+    },
+    {
+      "op": "fix_parameter",
+      "id": "thickness"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "radius"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "margin"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "polygon_profile",
+        "id": "outline",
+        "vertices": [
+          {
+            "id": "bottom_left",
+            "x": "zero",
+            "y": "zero"
+          },
+          {
+            "id": "bottom_right",
+            "x": "width",
+            "y": "zero"
+          },
+          {
+            "id": "top_right",
+            "x": "width",
+            "y": "depth"
+          },
+          {
+            "id": "top_left",
+            "x": "zero",
+            "y": "depth"
+          }
+        ]
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "extrude",
+        "id": "plate",
+        "profile": "outline",
+        "height": "thickness"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "through_holes",
+        "id": "bracket",
+        "input": "plate",
+        "holes": [
+          {
+            "id": "left_mount",
+            "x": "margin",
+            "y": "margin",
+            "radius": "radius"
+          },
+          {
+            "id": "right_mount",
+            "x": "right_x",
+            "y": "margin",
+            "radius": "radius"
+          },
+          {
+            "id": "top_mount",
+            "x": "center_x",
+            "y": "top_y",
+            "radius": "radius"
+          }
+        ]
+      }
+    }
+  ],
+  "preserve": []
+}

@@ -73,3 +73,7 @@ Start the local process service: build/cad-runner --store /SSD/path/to/document 
 See [protocol](docs/native-protocol.md), [results](docs/research/foundation-results.md),
 and [reference status](docs/research/freecad-comparison.md).
 Native CTest and independent Python research checks run in GitHub Actions.
+
+### Editable mounting bracket
+
+[Create, resize, reopen and export a flat bracket with analytic round holes](examples/ai-cad/bracket/README.md). Includes native documents, STEP, STL, browser evidence and independent export validation. This is a bounded milestone within the [full platform plan](docs/platform-delivery-plan.md).

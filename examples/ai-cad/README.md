@@ -26,3 +26,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 ## Parameter relationships
 
 [Symmetric profile](relationships/README.md): `tip_x = width / 2`, automatic rebuild, saved rules and snapshots, browser screenshot, replay verification and a measured host-latency baseline.
+
+[Mounting bracket with analytic round holes and STL/STEP exports](bracket/README.md).

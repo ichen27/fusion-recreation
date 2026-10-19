@@ -160,8 +160,58 @@ async def main():
                     },
                 )
                 assert result["result"]["model"]["parameters"]["tip_x"] == "60"
+                holes = [
+                    {"op": "define_parameter", "id": "hole_x", "mm": "20"},
+                    {"op": "define_parameter", "id": "hole_y", "mm": "15"},
+                    {"op": "define_parameter", "id": "hole_radius", "mm": "3"},
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "through_holes",
+                            "id": "drilled",
+                            "input": "plate",
+                            "holes": [
+                                {
+                                    "id": "mount",
+                                    "x": "hole_x",
+                                    "y": "hole_y",
+                                    "radius": "hole_radius",
+                                }
+                            ],
+                        },
+                    },
+                ]
+                # The profile fixture's extrusion ID is verified from inspection.
+                extrusion = next(
+                    f["id"]
+                    for f in result["result"]["model"]["features"]
+                    if f["kind"] == "extrude"
+                )
+                holes[-1]["feature"]["input"] = extrusion
+                args = {
+                    "expected_revision": 10,
+                    "operations": holes,
+                    "preserve": ["width", "thickness"],
+                }
+                proposed = await call("cad_preview", args)
+                assert "analytic" in proposed["result"]["bodies"][0], proposed
+                committed = await call(
+                    "cad_commit", {**args, "transaction_id": "mcp-hole"}
+                )
+                assert committed["result"]["bodies"] == proposed["result"]["bodies"]
+                invalid = await call(
+                    "cad_preview",
+                    {
+                        "expected_revision": 11,
+                        "operations": [
+                            {"op": "set_parameter", "id": "hole_x", "mm": "3"}
+                        ],
+                        "preserve": [],
+                    },
+                )
+                assert invalid["error"]["code"] == "hole_clearance"
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships and diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )
 
 

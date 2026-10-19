@@ -6,7 +6,10 @@ use num_rational::BigRational as Q;
 use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
+mod holes;
+pub mod mesh;
 mod profile;
+pub use holes::{Hole, PerforatedPrism};
 mod relations;
 pub use profile::{EvaluatedProfile, ProfileVertex};
 pub use relations::Relation;
@@ -48,6 +51,11 @@ pub enum Feature {
         profile: String,
         height: String,
     },
+    ThroughHoles {
+        id: String,
+        input: String,
+        holes: Vec<Hole>,
+    },
     Block {
         id: String,
         width: String,
@@ -67,7 +75,8 @@ impl Feature {
             Self::Block { id, .. }
             | Self::CornerCut { id, .. }
             | Self::PolygonProfile { id, .. }
-            | Self::Extrude { id, .. } => id,
+            | Self::Extrude { id, .. }
+            | Self::ThroughHoles { id, .. } => id,
         }
     }
 }
@@ -95,7 +104,10 @@ pub struct Request {
 #[derive(Debug, Serialize)]
 pub struct Body {
     pub feature_id: String,
-    pub boundary: Boundary,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub boundary: Option<Boundary>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub analytic: Option<PerforatedPrism>,
     pub volume_mm3: String,
 }
 #[derive(Debug, Serialize)]
@@ -261,6 +273,51 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             return Err(error("duplicate_id", id, "Feature ID already exists"));
         }
         let (boundary, plane) = match feature {
+            Feature::ThroughHoles { input, holes, .. } => {
+                let parent = m
+                    .features
+                    .iter()
+                    .take_while(|f| f.id() != id)
+                    .find(|f| f.id() == input);
+                let Some(Feature::Extrude {
+                    profile, height, ..
+                }) = parent
+                else {
+                    return Err(error(
+                        "unsupported_reference",
+                        input,
+                        "Through holes require an earlier convex profile extrusion",
+                    ));
+                };
+                if !consumed.insert(input.as_str()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "Only one hole group per extrusion is supported",
+                    ));
+                }
+                let shape = holes::resolve(
+                    m,
+                    id,
+                    &profiles[profile.as_str()],
+                    &positive(m, height)?,
+                    holes,
+                )?;
+                let volume_mm3 = format!(
+                    "{} - ({})*pi",
+                    shape.volume.constant_mm3, shape.volume.pi_subtract_mm3
+                );
+                evaluated.insert(
+                    id,
+                    Body {
+                        feature_id: id.into(),
+                        boundary: None,
+                        analytic: Some(shape),
+                        volume_mm3,
+                    },
+                );
+                continue;
+            }
             Feature::PolygonProfile { vertices, .. } => {
                 profiles.insert(id, profile::resolve(m, id, vertices)?);
                 continue;
@@ -335,7 +392,10 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     error("missing_feature", input, "Input has not been evaluated")
                 })?;
                 (
-                    parent.boundary.clone(),
+                    parent
+                        .boundary
+                        .clone()
+                        .expect("earlier block has planar boundary"),
                     Plane {
                         normal: ["1".into(), "1".into(), "0".into()],
                         offset: (w + d - s).to_string(),
@@ -343,7 +403,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 )
             }
         };
-        // Every solid passes the kernel's full closed-boundary validator.
+        // Planar solids pass the convex closed-boundary validator.
+        // Perforated prisms use exact containment/separation in holes::resolve.
         let result = boundary_clip::clip(ClipRequest {
             schema_version: 1,
             boundary,
@@ -354,7 +415,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             id,
             Body {
                 feature_id: id.into(),
-                boundary: result.boundary,
+                boundary: Some(result.boundary),
+                analytic: None,
                 volume_mm3: result.volume,
             },
         );

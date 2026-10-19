@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "volume_mm3": 35491.06199011844,
+      "oracle_volume_mm3": 35491.06199011846,
+      "volume_error_mm3": 2.1827872842550278e-11,
+      "cylinders": [
+        [
+          12.0,
+          12.0,
+          3.0
+        ],
+        [
+          88.0,
+          12.0,
+          3.0
+        ],
+        [
+          50.0,
+          48.0,
+          3.0
+        ]
+      ],
+      "hole_centers_outside_solid": true,
+      "material_point_inside": true,
+      "stage": "create",
+      "stl_volume_mm3": 35491.266352573395,
+      "stl_triangles": 1560,
+      "max_radial_error_mm": 0.0009035439113872501
+    },
+    {
+      "volume_mm3": 42691.06199011844,
+      "oracle_volume_mm3": 42691.06199011846,
+      "volume_error_mm3": 2.1827872842550278e-11,
+      "cylinders": [
+        [
+          12.0,
+          12.0,
+          3.0
+        ],
+        [
+          108.0,
+          12.0,
+          3.0
+        ],
+        [
+          60.0,
+          48.0,
+          3.0
+        ]
+      ],
+      "hole_centers_outside_solid": true,
+      "material_point_inside": true,
+      "stage": "widen",
+      "stl_volume_mm3": 42691.26635257332,
+      "stl_triangles": 1560,
+      "max_radial_error_mm": 0.0009035439113872501
+    }
+  ],
+  "step_adapter": "cadquery-ocp 8.0.1.1.0; analytic boundary translation only",
+  "stl": "128 inscribed chords per circle; mm; float64 ASCII",
+  "limits": "This corpus covers the published flat bracket. It is not proof of all geometric inputs or a fabrication certification."
+}

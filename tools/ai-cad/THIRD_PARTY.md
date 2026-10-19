@@ -36,3 +36,28 @@ Optional MCP dependencies below are installed, not vendored. This metadata inven
 | typing-inspection 0.4.4 | MIT | Homepage, https://github.com/pydantic/typing-inspection |
 | typing_extensions 4.16.0 | PSF-2.0 | Bug Tracker, https://github.com/python/typing_extensions/issues |
 | uvicorn 0.54.0 | BSD-3-Clause | Changelog, https://uvicorn.dev/release-notes |
+
+## Display/export additions
+
+`earcutr` 0.4.3 (ISC, Mapbox and Tree Cricket) triangulates disposable float cap rings; it does not decide exact model geometry. Its installed transitive dependencies are `itertools` 0.11.0 and `either` 1.19.0 (MIT OR Apache-2.0); resolved versions are in Cargo.lock. [Upstream source](https://github.com/frewsxcv/earcutr). Preserve distribution licenses when shipping binaries.
+
+Optional STEP uses the existing pinned `cadquery-ocp`/OCCT comparison stack, installed separately through `step-requirements.txt`. See [native dependency notices](../../deps/NOTICES.md) and each installed distribution's license. No third-party geometry source or binaries are vendored here.
+
+### earcutr ISC notice
+
+ISC License
+
+Copyright (c) 2016, Mapbox
+Copyright (c) 2018, Tree Cricket
+
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright notice
+and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
