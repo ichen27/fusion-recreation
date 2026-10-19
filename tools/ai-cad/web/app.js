@@ -1,3 +1,4 @@
+import { packVertices, formatMeasurement } from "/display-data.mjs";
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
@@ -37,8 +38,8 @@ function initializeGL() {
       gl.VERTEX_SHADER,
       `#version 300 es
     in vec3 position; in vec3 color; out vec3 tint;
-    uniform vec3 center; uniform vec2 angles; uniform float extent; uniform float aspect;
-    void main(){ vec3 p=(position-center)/extent;
+    uniform vec2 angles; uniform float zoom; uniform float aspect;
+    void main(){ vec3 p=position*zoom;
       float c=cos(angles.x),s=sin(angles.x);p=vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);
       c=cos(angles.y);s=sin(angles.y);p=vec3(p.x,-s*p.y+c*p.z,c*p.y+s*p.z);
       gl_Position=vec4(p.x/aspect,p.y,-p.z*0.2,1.0);tint=color; }`,
@@ -155,9 +156,7 @@ function geometry(bodies, profiles) {
 function draw() {
   if (!gl || contextLost) return;
   if (geometryDirty) {
-    const vertices = new Float32Array(triangles.length + lines.length);
-    vertices.set(triangles);
-    vertices.set(lines, triangles.length);
+    const vertices = packVertices(triangles, lines, center, extent);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
     geometryDirty = false;
   }
@@ -171,9 +170,8 @@ function draw() {
   gl.viewport(0, 0, w, h);
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  gl.uniform3fv(gl.getUniformLocation(program, "center"), center);
   gl.uniform2f(gl.getUniformLocation(program, "angles"), yaw, pitch);
-  gl.uniform1f(gl.getUniformLocation(program, "extent"), extent / zoom);
+  gl.uniform1f(gl.getUniformLocation(program, "zoom"), zoom);
   gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
   gl.enable(gl.POLYGON_OFFSET_FILL);
   gl.polygonOffset(1, 1);
@@ -326,7 +324,7 @@ function render(state) {
     ? state.bodies
         .map(
           (b) =>
-            `${(b.volume_approx_mm3 ?? number(b.volume_mm3)).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm³`,
+            `${formatMeasurement(b.volume_approx_mm3 ?? number(b.volume_mm3))} mm³`,
         )
         .join(" + ")
     : profiles.length
@@ -336,10 +334,7 @@ function render(state) {
     .map((b) => `${b.feature_id}: ${b.volume_mm3} mm³ (exact)`)
     .join("\n");
   $("profile-area").textContent = profiles
-    .map(
-      (p) =>
-        `${p.feature_id}: ${number(p.area_mm2).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm²`,
-    )
+    .map((p) => `${p.feature_id}: ${formatMeasurement(number(p.area_mm2))} mm²`)
     .join(" · ");
   $("profile-area").title = profiles
     .map((p) => `${p.feature_id}: ${p.area_mm2} mm² (exact)`)

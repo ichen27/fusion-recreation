@@ -1,0 +1,39 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "small-offset-stock",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "cx",
+      "mm": "1000000"
+    },
+    {
+      "op": "define_parameter",
+      "id": "cy",
+      "mm": "1000000"
+    },
+    {
+      "op": "define_parameter",
+      "id": "radius",
+      "mm": "1/1000"
+    },
+    {
+      "op": "define_parameter",
+      "id": "height",
+      "mm": "1/1000"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "cylinder",
+        "id": "stock",
+        "x": "cx",
+        "y": "cy",
+        "radius": "radius",
+        "height": "height"
+      }
+    }
+  ],
+  "preserve": []
+}

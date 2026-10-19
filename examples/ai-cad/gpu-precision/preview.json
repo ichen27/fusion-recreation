@@ -1,0 +1,12 @@
+{
+  "action": "preview",
+  "expected_revision": 1,
+  "preserve": [],
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "height",
+      "mm": "11/10000"
+    }
+  ]
+}

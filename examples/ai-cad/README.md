@@ -39,3 +39,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Sketch edge relationships](sketch-relationships/README.md): directed horizontal/vertical links, rectangle resize, explicit unlink, cycle rejection and undo.
 
 - [Round stock/flange](round-flange/README.md): exact circular outer stock, linked holes, browser placement, STEP/STL and independent cylindrical-surface checks.
+
+- [GPU precision](gpu-precision/README.md): tiny offset part, actual before/after uploads, camera reuse and context recovery.

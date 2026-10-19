@@ -165,3 +165,5 @@ In **Edit sketch** or a new drawing, expand **Edge relationships**. Horizontal m
 ## Circular stock and flanges
 
 `cylinder` creates exact circular stock; `through_holes` also accepts that stock. [The round flange example](../../examples/ai-cad/round-flange/README.md) grows radius40→50 while mounting holes retain a10 mm center-to-edge margin. Exact volume changes7410π→11910π mm³. CLI/MCP creates stock; the browser edits dimensions and places/edits holes on a circular top view. Native geometry stays analytic; STL/display declare chord error and can refuse clearances below their resolution. STEP keeps circular/cylindrical surfaces through an explicit boundary adapter. Run `verify_round_example.py` and optional `verify_round_export.py`.
+
+The viewer [rebases display coordinates on the CPU](../../examples/ai-cad/gpu-precision/README.md) before float32 GPU upload. Camera motion retains buffers. Native coordinates and export tolerances remain unchanged; mixed-scale assemblies are not addressed by this compact-model fix.
