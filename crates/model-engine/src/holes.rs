@@ -12,18 +12,18 @@ pub struct Hole {
     pub y: String,
     pub radius: String,
 }
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct Circle {
     pub id: String,
     pub center: [String; 2],
     pub radius: String,
 }
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct CircularBoundary {
     pub center: [String; 2],
     pub radius: String,
 }
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct ExactVolume {
     pub constant_mm3: String,
     pub pi_subtract_mm3: String,
@@ -31,8 +31,10 @@ pub struct ExactVolume {
 /// This is an analytic constructive representation, not the planar B-rep schema.
 /// Exactly one constructed outer boundary: CCW polygon or circle. Circular inner
 /// loops; caps at 0 and height; inward cylinder walls. Never deserialized from input.
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct AnalyticPrism {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub placement: Option<crate::placement::Placement>,
     pub kind: &'static str,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub outer: Vec<[String; 2]>,
@@ -118,6 +120,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
         points.reverse();
     }
     AnalyticPrism {
+        placement: None,
         kind: "polygon_prism",
         outer: points
             .into_iter()
@@ -158,6 +161,7 @@ pub(super) fn round(
         }
     }
     Ok(AnalyticPrism {
+        placement: None,
         kind: "round_prism",
         outer: vec![],
         outer_circle: Some(CircularBoundary {

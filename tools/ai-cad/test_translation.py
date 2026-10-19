@@ -96,9 +96,8 @@ class Translation(unittest.TestCase):
         self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
         from test_round_stock import cylinder
 
-        with self.assertRaises(CadError) as caught:
-            evaluate(moved(cylinder(), [1, 2, 3]))
-        self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
+        placed = evaluate(moved(cylinder(), [1, 2, 3]))["bodies"][0]
+        self.assertEqual(placed["analytic"]["placement"]["origin"], ["1", "2", "3"])
         m = moved(base, [1, 2, 3])
         m = moved(m, [1, 2, 3], "fork", input="stock")
         with self.assertRaises(CadError) as caught:

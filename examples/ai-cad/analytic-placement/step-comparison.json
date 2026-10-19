@@ -1,0 +1,104 @@
+[
+  {
+    "case": "moved_cylinder",
+    "expected_volume_mm3": 25132.741228718343,
+    "step_volume_mm3": 25132.741228718343,
+    "material_components": 1,
+    "analytic_cylinder_count": 1,
+    "cylinder_axis": [
+      0,
+      0,
+      1
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 8.36735125631094e-11
+  },
+  {
+    "case": "turned_flange",
+    "expected_volume_mm3": 23279.201563100367,
+    "step_volume_mm3": 23279.201563101156,
+    "material_components": 1,
+    "analytic_cylinder_count": 4,
+    "cylinder_axis": [
+      0,
+      -1,
+      0
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 1.1459633242338896e-10
+  },
+  {
+    "case": "turned_blind_flange",
+    "expected_volume_mm3": 24391.325362471147,
+    "step_volume_mm3": 24391.3253624719,
+    "material_components": 1,
+    "analytic_cylinder_count": 4,
+    "cylinder_axis": [
+      1,
+      0,
+      0
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 9.276845958083868e-11
+  },
+  {
+    "case": "turned_plate",
+    "expected_volume_mm3": 35660.7079934123,
+    "step_volume_mm3": 35660.70799341229,
+    "material_components": 1,
+    "analytic_cylinder_count": 2,
+    "cylinder_axis": [
+      0,
+      0,
+      1
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 1.8189894035458565e-11
+  },
+  {
+    "case": "turned_blind_plate",
+    "expected_volume_mm3": 35886.90266447078,
+    "step_volume_mm3": 35886.90266447077,
+    "material_components": 1,
+    "analytic_cylinder_count": 2,
+    "cylinder_axis": [
+      0,
+      -1,
+      0
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 3.637978807091713e-12
+  },
+  {
+    "case": "linked_flange",
+    "expected_volume_mm3": 23279.201563100367,
+    "step_volume_mm3": 23279.201563101156,
+    "material_components": 1,
+    "analytic_cylinder_count": 4,
+    "cylinder_axis": [
+      0,
+      0,
+      1
+    ],
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 1.1459633242338896e-10
+  }
+]

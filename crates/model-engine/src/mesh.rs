@@ -247,6 +247,21 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
             }
         }
     }
+    if let Some(placement) = body.analytic.as_ref().and_then(|s| s.placement.as_ref()) {
+        let origin = [
+            value(&placement.origin[0])?,
+            value(&placement.origin[1])?,
+            value(&placement.origin[2])?,
+        ];
+        for point in &mut mesh.vertices {
+            *point = std::array::from_fn(|row| {
+                origin[row]
+                    + (0..3)
+                        .map(|col| f64::from(placement.axes[row][col]) * point[col])
+                        .sum::<f64>()
+            });
+        }
+    }
     // Refuse collapsed triangles or missing/misoriented edge incidence, including
     // earcut's possible removal of numerically indistinguishable ring vertices.
     let mut incidence: BTreeMap<[usize; 2], Vec<bool>> = BTreeMap::new();

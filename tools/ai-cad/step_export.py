@@ -11,13 +11,14 @@ from OCP.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_Sewing,
     BRepBuilderAPI_MakeSolid,
+    BRepBuilderAPI_Transform,
 )
 from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
 from OCP.BRepCheck import BRepCheck_Analyzer
 from OCP.BRepLib import BRepLib
 from OCP.BRepGProp import BRepGProp
 from OCP.GProp import GProp_GProps
-from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Circ, gp_Vec
+from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Circ, gp_Vec, gp_Trsf
 from OCP.BRep import BRep_Builder
 from OCP.TopoDS import TopoDS, TopoDS_Compound
 from OCP.TopExp import TopExp_Explorer
@@ -137,8 +138,6 @@ def translate(body):
             raise RuntimeError("STEP cap construction failed")
         # Translation only: sweep each boundary edge into its corresponding wall;
         # move the existing cap, then sew this supplied boundary. No solid cutting.
-        from OCP.BRepBuilderAPI import BRepBuilderAPI_Transform
-        from OCP.gp import gp_Trsf
 
         def moved(value, z):
             transform = gp_Trsf()
@@ -233,6 +232,17 @@ def translate(body):
         builder.MakeCompound(solid)
         for part in solids:
             builder.Add(solid, part)
+    placement = body.get("analytic", {}).get("placement")
+    if placement:
+        transform = gp_Trsf()
+        transform.SetValues(
+            *[
+                value
+                for row in range(3)
+                for value in [*placement["axes"][row], number(placement["origin"][row])]
+            ]
+        )
+        solid = BRepBuilderAPI_Transform(solid, transform, True).Shape()
     if not BRepCheck_Analyzer(solid).IsValid() or abs(measure(solid) - expected) > max(
         1e-7, abs(expected) * 1e-9
     ):

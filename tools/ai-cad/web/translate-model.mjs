@@ -1,6 +1,8 @@
 import { vectorOperations } from "./vector-parameters.mjs";
 export { parameterEditable as translationEditable } from "./vector-parameters.mjs";
-import { planeCandidate } from "./plane-model.mjs";
+export function rigidCandidate(body) {
+  return !!body.boundary || !!body.analytic;
+}
 export function translationDraft(
   state,
   input,
@@ -15,11 +17,9 @@ export function translationDraft(
   if (featureId && !feature) throw Error("Select a matching placement feature");
   if (
     !feature &&
-    !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
+    !state.bodies.some((b) => b.feature_id === input && rigidCandidate(b))
   )
-    throw Error(
-      "Select terminal unperforated planar stock or a previous planar Boolean result",
-    );
+    throw Error("Select a terminal solid");
   let id = featureId;
   if (!id)
     for (let i = 1; i <= 33; i++) {

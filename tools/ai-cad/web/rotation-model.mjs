@@ -1,4 +1,4 @@
-import { planeCandidate } from "./plane-model.mjs";
+import { rigidCandidate } from "./translate-model.mjs";
 import { vectorOperations } from "./vector-parameters.mjs";
 export { parameterEditable as pivotEditable } from "./vector-parameters.mjs";
 export function rotationDraft(state, input, featureId = null) {
@@ -10,11 +10,9 @@ export function rotationDraft(state, input, featureId = null) {
   if (featureId && !feature) throw Error("Select a quarter-turn feature");
   if (
     !feature &&
-    !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
+    !state.bodies.some((b) => b.feature_id === input && rigidCandidate(b))
   )
-    throw Error(
-      "Select terminal unperforated planar stock or a previous planar Boolean result",
-    );
+    throw Error("Select a terminal solid");
   let id = featureId;
   if (!id)
     for (let i = 1; i <= 33; i++) {

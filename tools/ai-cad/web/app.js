@@ -2,6 +2,7 @@ import { installBooleanEditor } from "/boolean-editor.mjs";
 import { booleanCandidates } from "/boolean-model.mjs";
 import { previewJob } from "/preview-client.mjs";
 import { installRotationEditor } from "/rotation-editor.mjs";
+import { rigidCandidate } from "/translate-model.mjs";
 import { installTranslateEditor } from "/translate-editor.mjs";
 import { pickBody } from "/picking.mjs";
 import { installIntersectionEditor } from "/intersection-editor.mjs";
@@ -634,7 +635,7 @@ function render(state) {
       }
       if (
         f.kind === "translate" ||
-        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+        state.bodies.some((b) => b.feature_id === f.id && rigidCandidate(b))
       ) {
         const move = document.createElement("button");
         move.className = "edit-move";
@@ -647,7 +648,7 @@ function render(state) {
       }
       if (
         f.kind === "instance" ||
-        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+        state.bodies.some((b) => b.feature_id === f.id && rigidCandidate(b))
       ) {
         const copy = document.createElement("button");
         copy.className = "edit-instance";
@@ -664,7 +665,7 @@ function render(state) {
         div.append(copy);
         if (
           f.kind === "instance" &&
-          state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+          state.bodies.some((b) => b.feature_id === f.id && rigidCandidate(b))
         ) {
           const next = document.createElement("button");
           next.className = "edit-instance";
@@ -678,7 +679,7 @@ function render(state) {
       }
       if (
         f.kind === "rotate_quarter" ||
-        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+        state.bodies.some((b) => b.feature_id === f.id && rigidCandidate(b))
       ) {
         const button = document.createElement("button");
         button.className = "edit-rotation";
