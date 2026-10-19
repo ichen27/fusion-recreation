@@ -1,6 +1,7 @@
 """Replay actual viewport-selected native references and audit retained mesh provenance."""
 
 import json
+import math
 from pathlib import Path
 import tempfile
 from store import ROOT, Store
@@ -30,7 +31,19 @@ def main():
         ]
         model = store.load()["model"]
         mesh = tessellate(model, "part", include_surfaces=True)
-        assert mesh == json.loads((EXAMPLE / "tagged-mesh.json").read_text())
+        recorded = json.loads((EXAMPLE / "tagged-mesh.json").read_text())
+        # Native references and connectivity are exact; libm display coordinates
+        # can differ across operating systems without changing the boundary.
+        actual_vertices = mesh["vertices"]
+        recorded_vertices = recorded.pop("vertices")
+        assert {k: v for k, v in mesh.items() if k != "vertices"} == recorded
+        assert len(actual_vertices) == len(recorded_vertices)
+        for actual, expected in zip(actual_vertices, recorded_vertices):
+            assert len(actual) == len(expected) == 3
+            assert all(
+                math.isclose(a, b, rel_tol=1e-13, abs_tol=1e-12)
+                for a, b in zip(actual, expected)
+            )
         topology = topology_model(model, "part")
         assert set(mesh["triangle_surfaces"]) == set(topology["surfaces"])
         assert len(mesh["triangle_surfaces"]) == len(mesh["triangles"])

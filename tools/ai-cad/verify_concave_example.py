@@ -46,7 +46,12 @@ def main(write=False):
         commits = 0
         for row in recording["calls"]:
             before = path.read_bytes() if path.exists() else None
-            assert display({"result": store.execute(row["command"])}) == row["reply"]
+            actual = display({"result": store.execute(row["command"])})
+            # This historical recording predates optional triangle provenance.
+            # Keep every recorded geometry/state field in the comparison.
+            for body in actual["result"]["bodies"]:
+                body.get("display_mesh", {}).pop("triangle_surfaces", None)
+            assert actual == row["reply"]
             if row["command"]["action"] == "preview":
                 assert (path.read_bytes() if path.exists() else None) == before
             else:
