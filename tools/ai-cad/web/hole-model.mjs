@@ -3,9 +3,9 @@ import { editable } from "./sketch-model.mjs";
 export { editable };
 export function availableHoleInputs(model) {
   const consumed = new Set(
-    model.features
-      .filter((f) => ["through_holes", "blind_holes"].includes(f.kind))
-      .map((f) => f.input),
+    model.features.flatMap((f) =>
+      f.kind === "intersection" ? [f.left, f.right] : f.input ? [f.input] : [],
+    ),
   );
   return model.features.filter(
     (f) => ["extrude", "cylinder"].includes(f.kind) && !consumed.has(f.id),
@@ -39,7 +39,9 @@ export function draftHoles(model, input, featureId = null) {
   );
   if (!parent) throw Error("Select a profile extrusion or cylinder");
   if (!feature && !availableHoleInputs(model).some((f) => f.id === input))
-    throw Error("This solid already has a hole group; edit that group");
+    throw Error(
+      "This solid is consumed by another feature; select a terminal stock",
+    );
   const profile =
     parent.kind === "cylinder"
       ? { kind: "circle", x: parent.x, y: parent.y, radius: parent.radius }

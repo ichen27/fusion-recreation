@@ -426,8 +426,59 @@ async def main():
                     if b["feature_id"] == "plane_two"
                 )
                 assert plane["volume_mm3"] == "62500/3"
+                intersection_ops = [
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "block",
+                            "id": "intersection_stock",
+                            "width": "cut_extent",
+                            "depth": "cut_extent",
+                            "height": "cut_extent",
+                        },
+                    },
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "intersection",
+                            "id": "common",
+                            "left": "plane_two",
+                            "right": "intersection_stock",
+                        },
+                    },
+                ]
+                intersection = await call(
+                    "cad_preview",
+                    {
+                        "expected_revision": 17,
+                        "operations": intersection_ops,
+                        "preserve": [],
+                    },
+                )
+                assert "result" in intersection, intersection
+                common = next(
+                    b
+                    for b in intersection["result"]["bodies"]
+                    if b["feature_id"] == "common"
+                )
+                assert common["volume_mm3"] == "62500/3"
+                committed = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 17,
+                        "transaction_id": "mcp-intersection",
+                        "operations": intersection_ops,
+                        "preserve": [],
+                    },
+                )
+                assert committed["result"]["revision"] == 18
+                assert not any(
+                    b["feature_id"] in ["plane_two", "intersection_stock"]
+                    for b in committed["result"]["bodies"]
+                )
+
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes, convex intersection and diagnostics"
                 )
 
 

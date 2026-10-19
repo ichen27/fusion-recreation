@@ -25,6 +25,9 @@
         <button id="new-stock" type="button">
           New block or circular stock
         </button>
+        <button id="new-intersection" type="button" disabled>
+          Intersect two solids
+        </button>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
         <form id="dimensions">
@@ -97,10 +100,10 @@
             Blocks, convex and simple concave XY profile extrusions, and
             circular stock. Separate round holes can pass through the stock or
             stop at one shared flat-bottom depth. Convex planar solids support
-            chained cuts by arbitrary planes. Exact affine relationships
-            preserve declared dimensions. Curved intersections, fillets and a
-            general sketch constraint solver remain unsupported. Preview
-            validates each edit.
+            chained cuts by arbitrary planes and solid intersections. Exact
+            affine relationships preserve declared dimensions. Curved
+            intersections, fillets and a general sketch constraint solver remain
+            unsupported. Preview validates each edit.
           </p>
         </details>
       </aside>
@@ -310,6 +313,36 @@
         /></label>
         <button type="submit" id="stock-preview" class="primary">
           Preview stock
+        </button>
+      </form>
+    </dialog>
+    <dialog id="intersection-dialog" aria-labelledby="intersection-title">
+      <form id="intersection-form">
+        <header class="sketch-heading">
+          <h2 id="intersection-title">Keep common volume</h2>
+          <button type="button" id="intersection-close">Cancel</button>
+        </header>
+        <p id="intersection-feedback" role="status"></p>
+        <label
+          >First solid<select
+            id="intersection-left"
+            aria-label="First solid"
+            required
+          ></select
+        ></label>
+        <label
+          >Second solid<select
+            id="intersection-right"
+            aria-label="Second solid"
+            required
+          ></select
+        ></label>
+        <p class="hint">
+          Convex planar solids only. Circular, perforated and concave shapes are
+          unsupported. Touching faces without shared volume cannot form a solid.
+        </p>
+        <button type="submit" id="intersection-preview" class="primary">
+          Preview intersection
         </button>
       </form>
     </dialog>

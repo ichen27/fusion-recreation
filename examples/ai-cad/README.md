@@ -53,3 +53,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Native project files](native-project/README.md): actual editable download, previewed import, undo/reopen history and damaged-file rejection.
 
 - [Sketch to sloped solid](sketch-plane/README.md): browser-created convex profiles feed exact plane cuts, with upstream edits, concavity rejection and independent STEP validation.
+
+- [Convex solid intersection](intersection/README.md): browser/MCP common-volume authoring, upstream edits, native history, contact rejection and independent STEP Boolean comparison.

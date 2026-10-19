@@ -133,12 +133,17 @@ fn strictly_convex(points: &[[Q; 2]], twice_area: &Q) -> bool {
     })
 }
 
-pub(super) fn convex_boundary(profile: &Profile, height: &Q, input: &str) -> Result<Boundary> {
+pub(super) fn convex_boundary(
+    profile: &Profile,
+    height: &Q,
+    input: &str,
+    operation: &str,
+) -> Result<Boundary> {
     if !strictly_convex(&profile.points, &profile.twice_area) {
         return Err(error(
             "unsupported_reference",
             input,
-            "Plane cuts require convex stock; the input sketch has inward corners",
+            &format!("{operation} require convex stock; the input sketch has inward corners"),
         ));
     }
     Ok(extrude(profile, height))
