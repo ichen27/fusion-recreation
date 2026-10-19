@@ -69,3 +69,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Cancellable CPU preview jobs](preview-jobs/README.md): bounded snapshot queue, child-process cancellation, retained drafts, responsive model reads and explicit revision-checked commits.
 
 - [Planar solid Booleans](planar-booleans/README.md): original Rust union/difference/intersection, cavities, through-holes, split pieces, browser/MCP edits, native history and independent STEP comparisons.
+
+- [Move and rotate planar Boolean results](planar-transforms/README.md): cavities, holes and separate pieces retain exact geometry and downstream Boolean support through browser/MCP placement edits.

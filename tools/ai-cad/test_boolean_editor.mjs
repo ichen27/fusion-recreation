@@ -1,4 +1,10 @@
 import test from "node:test";
+import { readFileSync } from "node:fs";
+import {
+  translationDraft,
+  translationProposal,
+} from "./web/translate-model.mjs";
+import { rotationDraft, rotationProposal } from "./web/rotation-model.mjs";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -84,4 +90,34 @@ test("Boolean controls reject missing/consumed inputs and invalid operations", (
     }),
     [],
   );
+});
+
+test("browser moves and rotates a holed Boolean while retaining further Boolean capability", () => {
+  const source = JSON.parse(
+    readFileSync(
+      `${root}/examples/ai-cad/planar-booleans/through.model.json`,
+      "utf8",
+    ),
+  );
+  let state = { revision: 2, ...run(source).result };
+  const move = translationDraft(state, "result");
+  move.values = ["10", "-5", "3"];
+  state = {
+    revision: 3,
+    ...run(state.model, translationProposal(state, move)).result,
+  };
+  assert.equal(state.bodies[0].feature_id, "move1");
+  const turn = rotationDraft(state, "move1");
+  turn.axis = "x";
+  state = {
+    revision: 4,
+    ...run(state.model, rotationProposal(state, turn)).result,
+  };
+  assert.equal(state.bodies[0].volume_mm3, "640");
+  assert.equal(state.bodies[0].components.length, 1);
+  assert.equal(
+    state.bodies[0].boundary.faces.filter((f) => f.loops.length === 2).length,
+    2,
+  );
+  assert.equal(booleanCandidates(state)[0].feature_id, "turn1");
 });

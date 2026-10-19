@@ -137,3 +137,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Planar Boolean checkpoint
 
 [Original planar union/difference/intersection](../examples/ai-cad/planar-booleans/README.md) now returns merged concave/holed faces, cavities and multiple components from bounded convex-cell operations. Browser/MCP creation and operation editing preserve history; STEP/STL retain component/shell topology. Nine independent OCCT comparisons check directed residual volumes and surface area as well as volume, and recorded browser rejection/undo stages replay. Curved intersections, general imported B-reps, persistent topology naming and scalable incremental evaluation remain open. Continue with transforms of these new planar results and stronger reusable component semantics.
+
+## Nonconvex rigid-operation checkpoint
+
+[Moved/turned planar results](../examples/ai-cad/planar-transforms/README.md) preserve cavity shells, face holes and disconnected pieces through exact whole-result placement. Backing cells survive for later Booleans. All quarter-turn axes/angles and fractional pivots, browser/MCP upstream edits and independent transformed STEP references are verified. Arbitrary angles, curved stock, per-component instances and assembly relationships remain open.

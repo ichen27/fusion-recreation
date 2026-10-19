@@ -75,6 +75,27 @@ impl Solid {
             volume,
         })
     }
+    /// Transform each backing cell exactly, then regenerate the merged boundary.
+    /// The supplied convex operation validates each transformed cell.
+    pub(crate) fn transform(
+        &self,
+        mut transform: impl FnMut(Boundary) -> Result<Boundary>,
+    ) -> Result<Self> {
+        let cells = self
+            .cells
+            .iter()
+            .cloned()
+            .map(&mut transform)
+            .collect::<Result<Vec<_>>>()?;
+        let result = Self::from_cells(cells)?;
+        if result.volume != self.volume || result.components.len() != self.components.len() {
+            return Err(fail(
+                "Rigid transformation changed volume or component count",
+            ));
+        }
+        Ok(result)
+    }
+
     pub fn combine(&self, other: &Self, operation: Operation) -> Result<Self> {
         let cells = match operation {
             Operation::Difference => cells::difference(self.cells.clone(), &other.cells)?,

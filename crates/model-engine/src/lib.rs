@@ -315,6 +315,55 @@ fn block(w: &Q, d: &Q, h: &Q) -> Boundary {
         faces,
     }
 }
+fn polyhedral_body(id: &str, solid: polyhedral::Solid) -> Body {
+    Body {
+        feature_id: id.into(),
+        boundary: Some(solid.boundary.clone()),
+        analytic: None,
+        volume_mm3: solid.volume.to_string(),
+        components: Some(solid.components.clone()),
+        polyhedral: Some(solid),
+    }
+}
+
+// Resolve a bounded planar rigid transform without losing nonconvex backing cells.
+fn transformed_body(
+    m: &Model,
+    profiles: &BTreeMap<&str, profile::Profile>,
+    evaluated: &BTreeMap<&str, Body>,
+    id: &str,
+    input: &str,
+    mut transform: impl FnMut(Boundary) -> Result<Body>,
+) -> Result<Body> {
+    if let Some(solid) = evaluated
+        .get(input)
+        .and_then(|body| body.polyhedral.as_ref())
+    {
+        let transformed = solid
+            .transform(|cell| {
+                transform(cell)?.boundary.ok_or_else(|| {
+                    error(
+                        "invalid_geometry",
+                        id,
+                        "Planar transform did not return a boundary",
+                    )
+                })
+            })
+            .map_err(|mut e| {
+                e.entity = id.into();
+                e
+            })?;
+        return Ok(polyhedral_body(id, transformed));
+    }
+    transform(convex_input(
+        m,
+        profiles,
+        evaluated,
+        input,
+        "Rigid transforms",
+    )?)
+}
+
 fn convex_input(
     m: &Model,
     profiles: &BTreeMap<&str, profile::Profile>,
@@ -513,17 +562,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     e.entity = id.into();
                     e
                 })?;
-                evaluated.insert(
-                    id,
-                    Body {
-                        feature_id: id.into(),
-                        boundary: Some(solid.boundary.clone()),
-                        analytic: None,
-                        volume_mm3: solid.volume.to_string(),
-                        components: Some(solid.components.clone()),
-                        polyhedral: Some(solid),
-                    },
-                );
+                evaluated.insert(id, polyhedral_body(id, solid));
                 continue;
             }
             Feature::RotateQuarter {
@@ -540,7 +579,6 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Quarter turns must be 1, 2 or 3 (90, 180 or 270 degrees)",
                     ));
                 }
-                let boundary = convex_input(m, &profiles, &evaluated, input, "Rotations")?;
                 if !consumed.insert(input.as_str()) {
                     return Err(error(
                         "unsupported_branch",
@@ -565,12 +603,13 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 }
                 evaluated.insert(
                     id,
-                    solid_ops::rotate_quarter(id, boundary, *axis, *turns, &origin)?,
+                    transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
+                        solid_ops::rotate_quarter(id, boundary, *axis, *turns, &origin)
+                    })?,
                 );
                 continue;
             }
             Feature::Translate { input, offset, .. } => {
-                let boundary = convex_input(m, &profiles, &evaluated, input, "Translations")?;
                 if !consumed.insert(input.as_str()) {
                     return Err(error(
                         "unsupported_branch",
@@ -593,7 +632,10 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Each translation component must be within +/-1000000 mm",
                     ));
                 }
-                evaluated.insert(id, solid_ops::translate(id, boundary, &delta)?);
+                let body = transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
+                    solid_ops::translate(id, boundary, &delta)
+                })?;
+                evaluated.insert(id, body);
                 continue;
             }
             Feature::Intersection { left, right, .. } => {
