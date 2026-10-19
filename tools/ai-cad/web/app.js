@@ -483,7 +483,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean",
+    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -521,6 +521,8 @@ function render(state) {
       const div = document.createElement("div");
       div.className = "feature";
       div.textContent = `${f.kind === "block" ? "◇" : "◩"}  ${f.id} · ${f.kind.replaceAll("_", " ")}`;
+      if (f.kind === "instance")
+        div.append(document.createTextNode(` · linked to ${f.source}`));
       if (state.bodies.some((b) => b.feature_id === f.id)) {
         const select = document.createElement("button");
         select.className = "select-body";
@@ -592,6 +594,37 @@ function render(state) {
           translations.open(f.id, f.kind === "translate" ? f.id : null),
         );
         div.append(move);
+      }
+      if (
+        f.kind === "instance" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const copy = document.createElement("button");
+        copy.className = "edit-instance";
+        copy.textContent =
+          f.kind === "instance" ? "Edit linked copy" : "Linked copy";
+        copy.setAttribute("aria-label", `${copy.textContent} ${f.id}`);
+        copy.addEventListener("click", () =>
+          translations.open(
+            f.id,
+            f.kind === "instance" ? f.id : null,
+            "instance",
+          ),
+        );
+        div.append(copy);
+        if (
+          f.kind === "instance" &&
+          state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+        ) {
+          const next = document.createElement("button");
+          next.className = "edit-instance";
+          next.textContent = "Linked copy";
+          next.setAttribute("aria-label", `Linked copy ${f.id}`);
+          next.addEventListener("click", () =>
+            translations.open(f.id, null, "instance"),
+          );
+          div.append(next);
+        }
       }
       if (
         f.kind === "rotate_quarter" ||

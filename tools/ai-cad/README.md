@@ -209,3 +209,7 @@ The original Rust implementation retains disjoint convex cells and merges expose
 ## Operations on simple concave stock
 
 Unperforated simple XY profile extrusions now feed Boolean operations, movement, quarter turns and plane cuts. Exact rational ear clipping builds disjoint triangular prisms without changing source history or using display triangles. [Native/browser/MCP and independent STEP evidence](../../examples/ai-cad/concave-operations/README.md) includes both windings, tiny rational coordinates and a split U-profile. Run `verify_concave_operations.py`; optional transport/export checks use `verify_concave_operations_mcp.py` and `verify_concave_operations_export.py`. Legacy `intersection` remains convex-only.
+
+## Linked part placement
+
+Use **Linked copy** on a planar solid and **Edit linked copy** on its placement. The source remains available and its dimensions drive all linked copies; placement offsets are independent. A copy can feed existing cuts, turns and Booleans. [Native history, browser/MCP recordings, parts ZIP and independent STEP comparisons](../../examples/ai-cad/linked-instances/README.md) demonstrate shared source editing and independent placement. Run `verify_instances.py`; optional MCP/STEP checks use `verify_instances_mcp.py` and `verify_instances_export.py`. This is in-document linked placement; assembly joints, external part libraries and GPU instancing remain open.

@@ -64,17 +64,21 @@ export function installTranslateEditor({
     }
   });
   return {
-    open(input, featureId = null) {
+    open(input, featureId = null, kind = "translate") {
       state = structuredClone(getState());
-      draft = translationDraft(state, input, featureId);
+      draft = translationDraft(state, input, featureId, kind);
       $("translate-title").textContent = featureId
         ? `Edit ${featureId}`
-        : `Move ${input}`;
+        : kind === "instance"
+          ? `Linked copy of ${input}`
+          : `Move ${input}`;
       axes.forEach(
         (axis, i) => ($("translate-" + axis).value = draft.values[i]),
       );
       $("translate-feedback").textContent =
-        "Offsets use global X, Y and Z in millimeters. Dimensions and volume stay unchanged. Preview checks downstream cuts/intersections before saving.";
+        kind === "instance"
+          ? "This copy stays linked to the source dimensions. Global offsets place it independently; the source remains available. Preview validates all dependent parts."
+          : "Offsets use global X, Y and Z in millimeters. Dimensions and volume stay unchanged. Preview checks downstream cuts/intersections before saving.";
       controls();
       onOpen();
       dialog.showModal();

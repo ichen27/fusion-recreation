@@ -1,13 +1,18 @@
 import { vectorOperations } from "./vector-parameters.mjs";
 export { parameterEditable as translationEditable } from "./vector-parameters.mjs";
 import { planeCandidate } from "./plane-model.mjs";
-export function translationDraft(state, input, featureId = null) {
+export function translationDraft(
+  state,
+  input,
+  featureId = null,
+  kind = "translate",
+) {
+  if (!["translate", "instance"].includes(kind))
+    throw Error("Invalid placement kind");
   const feature = featureId
-    ? state.model.features.find(
-        (f) => f.id === featureId && f.kind === "translate",
-      )
+    ? state.model.features.find((f) => f.id === featureId && f.kind === kind)
     : null;
-  if (featureId && !feature) throw Error("Select a translation feature");
+  if (featureId && !feature) throw Error("Select a matching placement feature");
   if (
     !feature &&
     !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
@@ -18,7 +23,7 @@ export function translationDraft(state, input, featureId = null) {
   let id = featureId;
   if (!id)
     for (let i = 1; i <= 33; i++) {
-      const name = `move${i}`;
+      const name = `${kind === "instance" ? "instance" : "move"}${i}`;
       if (
         !state.model.features.some((f) => f.id === name) &&
         !Object.keys(state.model.parameters).some(
@@ -34,8 +39,9 @@ export function translationDraft(state, input, featureId = null) {
     feature?.offset.slice() ?? ["x", "y", "z"].map((a) => `${id}.${a}`);
   return {
     id,
+    kind,
     featureId,
-    input: feature?.input ?? input,
+    input: feature?.source ?? feature?.input ?? input,
     offset,
     values: feature
       ? offset.map((p) => state.model.parameters[p])
@@ -53,9 +59,9 @@ export function translationProposal(state, draft) {
     operations.push({
       op: "add_feature",
       feature: {
-        kind: "translate",
+        kind: draft.kind,
         id: draft.id,
-        input: draft.input,
+        [draft.kind === "instance" ? "source" : "input"]: draft.input,
         offset: draft.offset.slice(),
       },
     });

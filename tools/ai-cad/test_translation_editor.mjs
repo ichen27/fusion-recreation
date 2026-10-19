@@ -96,3 +96,41 @@ test("fixed/derived/shared offsets remain explicit and collide safely", () => {
     { op: "set_parameter", id: "move1.x", mm: "2" },
   ]);
 });
+
+test("linked copies retain source, propagate dimensions and edit placement independently", () => {
+  let state = initial();
+  const draft = translationDraft(state, "stock", null, "instance");
+  draft.values = ["20", "0", "0"];
+  let proposal = translationProposal(state, draft);
+  assert.equal(proposal.operations.at(-1).feature.source, "stock");
+  assert.equal(proposal.operations.at(-1).feature.kind, "instance");
+  state = { revision: 2, ...run(state.model, proposal).result };
+  assert.deepEqual(
+    state.bodies.map((b) => b.feature_id),
+    ["instance1", "stock"],
+  );
+  assert.equal(
+    translationDraft(state, "stock", null, "instance").id,
+    "instance2",
+  );
+  const edit = translationDraft(state, null, "instance1", "instance");
+  edit.values[0] = "30";
+  proposal = translationProposal(state, edit);
+  assert.deepEqual(proposal.operations, [
+    { op: "set_parameter", id: "instance1.x", mm: "30" },
+  ]);
+  const moved = run(state.model, proposal).result;
+  assert.deepEqual(
+    moved.bodies.find((b) => b.feature_id === "stock"),
+    state.bodies.find((b) => b.feature_id === "stock"),
+  );
+  const changed = run(state.model, {
+    operations: [{ op: "set_parameter", id: "size", mm: "12" }],
+    preserve: [],
+  }).result;
+  assert.deepEqual(
+    changed.bodies.map((b) => b.volume_mm3),
+    ["1728", "1728"],
+  );
+  assert.throws(() => translationDraft(state, null, "instance1"), /matching/);
+});

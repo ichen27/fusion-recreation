@@ -41,11 +41,13 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
-        elif f["kind"] == "translate":
+        elif f["kind"] in ("translate", "instance"):
             transform = gp_Trsf()
             transform.SetTranslation(gp_Vec(*[values[v] for v in f["offset"]]))
             shape = BRepBuilderAPI_Transform(
-                shapes[f["input"]], transform, True
+                shapes[f["source"] if f["kind"] == "instance" else f["input"]],
+                transform,
+                True,
             ).Shape()
         elif f["kind"] == "plane_cut":
             normal = list(map(number, f["normal"]))
