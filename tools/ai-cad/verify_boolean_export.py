@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import math
 from pathlib import Path
 import tempfile
 from OCP.BRepAlgoAPI import BRepAlgoAPI_Fuse, BRepAlgoAPI_Cut, BRepAlgoAPI_Common
@@ -16,7 +17,7 @@ from OCP.BRepGProp import BRepGProp
 from OCP.GProp import GProp_GProps
 from OCP.IFSelect import IFSelect_RetDone
 from OCP.STEPControl import STEPControl_Reader
-from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf
+from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Dir
 from store import ROOT, evaluate
 from step_export import export_step, measure, number
 from test_booleans import cases, boolean, box
@@ -43,6 +44,16 @@ def oracle(model):
         elif f["kind"] == "translate":
             transform = gp_Trsf()
             transform.SetTranslation(gp_Vec(*[values[v] for v in f["offset"]]))
+            shape = BRepBuilderAPI_Transform(
+                shapes[f["input"]], transform, True
+            ).Shape()
+        elif f["kind"] == "rotate_quarter":
+            transform = gp_Trsf()
+            axis = [int(f["axis"] == a) for a in "xyz"]
+            pivot = [values[v] for v in f["pivot"]]
+            transform.SetRotation(
+                gp_Ax1(gp_Pnt(*pivot), gp_Dir(*axis)), f["turns"] * math.pi / 2
+            )
             shape = BRepBuilderAPI_Transform(
                 shapes[f["input"]], transform, True
             ).Shape()

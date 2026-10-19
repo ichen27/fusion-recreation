@@ -1,0 +1,226 @@
+solid cad_mm
+facet normal 0 0 -1
+outer loop
+vertex 10 -5 3
+vertex 20 -15 3
+vertex 10 -15 3
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 20 -15 3
+vertex 10 -5 3
+vertex 20 -5 3
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 18 -5 5
+vertex 12 -5 5
+vertex 12 -15 5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 12 -15 5
+vertex 18 -15 5
+vertex 18 -5 5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 12 -5 11
+vertex 18 -15 11
+vertex 12 -15 11
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 18 -15 11
+vertex 12 -5 11
+vertex 18 -5 11
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 20 -5 13
+vertex 10 -5 13
+vertex 10 -15 13
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 10 -15 13
+vertex 20 -15 13
+vertex 20 -5 13
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 20 -15 3
+vertex 18 -15 5
+vertex 10 -15 3
+endloop
+endfacet
+facet normal 0 -1 -0
+outer loop
+vertex 12 -15 5
+vertex 10 -15 3
+vertex 18 -15 5
+endloop
+endfacet
+facet normal 0 -1 -0
+outer loop
+vertex 20 -15 13
+vertex 18 -15 5
+vertex 20 -15 3
+endloop
+endfacet
+facet normal 0 -1 -0
+outer loop
+vertex 12 -15 11
+vertex 10 -15 3
+vertex 12 -15 5
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 20 -15 13
+vertex 18 -15 11
+vertex 18 -15 5
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex 12 -15 11
+vertex 10 -15 13
+vertex 10 -15 3
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 10 -15 13
+vertex 18 -15 11
+vertex 20 -15 13
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 18 -15 11
+vertex 10 -15 13
+vertex 12 -15 11
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 20 -5 3
+vertex 10 -5 3
+vertex 12 -5 5
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 12 -5 11
+vertex 12 -5 5
+vertex 10 -5 3
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 20 -5 3
+vertex 12 -5 5
+vertex 18 -5 5
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 12 -5 11
+vertex 10 -5 3
+vertex 10 -5 13
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 20 -5 13
+vertex 20 -5 3
+vertex 18 -5 5
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 18 -5 11
+vertex 12 -5 11
+vertex 10 -5 13
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 20 -5 13
+vertex 18 -5 5
+vertex 18 -5 11
+endloop
+endfacet
+facet normal 0 1 -0
+outer loop
+vertex 18 -5 11
+vertex 10 -5 13
+vertex 20 -5 13
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 10 -15 13
+vertex 10 -5 3
+vertex 10 -15 3
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 10 -5 3
+vertex 10 -15 13
+vertex 10 -5 13
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 12 -5 11
+vertex 12 -15 11
+vertex 12 -15 5
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 12 -15 5
+vertex 12 -5 5
+vertex 12 -5 11
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 18 -15 11
+vertex 18 -5 5
+vertex 18 -15 5
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 18 -5 5
+vertex 18 -15 11
+vertex 18 -5 11
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 20 -5 13
+vertex 20 -15 13
+vertex 20 -15 3
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 20 -15 3
+vertex 20 -5 3
+vertex 20 -5 13
+endloop
+endfacet
+endsolid cad_mm

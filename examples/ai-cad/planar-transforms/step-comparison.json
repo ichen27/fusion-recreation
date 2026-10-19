@@ -1,0 +1,35 @@
+[
+  {
+    "case": "through",
+    "expected_volume_mm3": 640,
+    "step_volume_mm3": 639.9999999999998,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_difference_mm2": 0.0
+  },
+  {
+    "case": "cavity",
+    "expected_volume_mm3": 784,
+    "step_volume_mm3": 783.9999999999998,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_difference_mm2": 0.0
+  },
+  {
+    "case": "split",
+    "expected_volume_mm3": 800,
+    "step_volume_mm3": 799.9999999999998,
+    "material_components": 2,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_difference_mm2": 0.0
+  }
+]

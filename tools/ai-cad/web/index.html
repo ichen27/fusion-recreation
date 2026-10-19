@@ -417,9 +417,10 @@
           >Z offset (mm)<input id="translate-z" aria-label="Z offset" required
         /></label>
         <p class="hint">
-          Convex planar solids only. Offsets are signed integers or fractions,
-          up to ±1,000,000 mm per axis. No rotation. Circular, perforated and
-          concave bodies are unsupported.
+          Convex planar stock and previous Boolean results, including cavities
+          and separate pieces. Offsets are signed integers or fractions, up to
+          ±1,000,000 mm per axis. Analytic curved stock and initial concave
+          extrusions are unsupported.
         </p>
         <button type="submit" id="translate-preview" class="primary">
           Preview move
@@ -457,8 +458,9 @@
           >Pivot Z (mm)<input id="rotation-z" aria-label="Pivot Z" required
         /></label>
         <p class="hint">
-          Convex planar solids only. Exact 90°, 180° or 270° rotations; no
-          arbitrary-angle approximation. Preview checks downstream features.
+          Convex planar stock and previous Boolean results, including cavities
+          and separate pieces. Exact 90°, 180° or 270° rotations. Preview checks
+          downstream features.
         </p>
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation

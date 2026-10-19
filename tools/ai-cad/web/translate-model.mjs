@@ -12,7 +12,9 @@ export function translationDraft(state, input, featureId = null) {
     !feature &&
     !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
   )
-    throw Error("Select terminal convex planar stock");
+    throw Error(
+      "Select terminal convex planar stock or a previous planar Boolean result",
+    );
   let id = featureId;
   if (!id)
     for (let i = 1; i <= 33; i++) {
