@@ -1,0 +1,68 @@
+{
+  "sha256": "556c2b8e3c41cc1806a39815245a1d7bc83d18b923d268634240c88dff627e40",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "lower_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "lower_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "shoulder_right",
+              "x": "width",
+              "y": "shoulder"
+            },
+            {
+              "id": "tip",
+              "x": "tip_x",
+              "y": "depth"
+            },
+            {
+              "id": "shoulder_left",
+              "x": "zero",
+              "y": "shoulder"
+            }
+          ]
+        }
+      ],
+      "fixed": {
+        "thickness": "12",
+        "zero": "0"
+      },
+      "parameters": {
+        "depth": "60",
+        "shoulder": "35",
+        "thickness": "12",
+        "tip_x": "50",
+        "width": "100",
+        "zero": "0"
+      }
+    },
+    "receipts": {
+      "profile-create-v1": {
+        "request": "3c62e11f2edcf94a8af3d5eb5c7b6fc94a9da44e76787e27b0c6c5e80d21775c",
+        "revision": 1
+      }
+    },
+    "redo": [],
+    "revision": 1,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      }
+    ]
+  }
+}

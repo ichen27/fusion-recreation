@@ -22,6 +22,19 @@ The viewer can change unlocked dimensions, preview/save, discard, undo, redo, or
 
 To view a mini-hosted service on another computer, forward the loopback port with SSH and open the forwarded URL. Use the same local/remote port (8765) because the host checks its Host/Origin headers. The HTTP server is a local development viewer, not an internet service. It binds only to 127.0.0.1 and has no account system.
 
+## Editable profile → solid
+
+The [profile extrusion example](../../examples/ai-cad/profile-extrusion/README.md) creates a five-sided XY outline, extrudes it 12 mm, then increases width from 100 to 120 mm. Exact volume changes from **57000 to 68400 mm³**. Named coordinates and fixed thickness remain editable in the same document workflow.
+
+```sh
+python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/profile-extrusion/profile.json
+python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/profile-extrusion/extrude.json
+python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/profile-extrusion/widen.json
+python3 tools/ai-cad/viewer.py --store work/profile.cad.json
+```
+
+Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. Feature creation currently uses CLI/MCP commands; the viewer does not have interactive sketch drawing tools. Restart connected MCP clients after upgrading to load the new typed feature schemas.
+
 ## Connect your subscription client
 
 Install the optional MCP adapter into an isolated environment on the computation host:
@@ -74,7 +87,7 @@ Tools: `cad_inspect`, `cad_preview`, `cad_commit`, `cad_history`. The adapter gi
 See [the full command contract](../../docs/ai-cad-contract.md). CLI requests are JSON on stdin; one JSON reply is written to stdout. Errors use `{ "error": { "code", "entity", "message" } }`. Successful replies have a `result` with revision, editable model, exact boundary, volume and changed parameter IDs.
 
 - Model: named exact rational parameters in mm, ordered features, explicit fixed-value constraints.
-- Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Only terminal features are displayed. Independent bodies are supported but all start at the origin and can overlap; their volumes are per-body, not a union volume.
+- Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Terminal solids and unextruded profiles are displayed. Also: strictly convex XY polygon profiles with named parameter-backed vertices and positive-Z extrusion. Independent bodies can overlap; their volumes are per-body, not a union volume.
 - Operations: define/set/adjust parameter, add feature, fix/release parameter. Constraints must be explicitly released to change them.
 - Preview and commit take an expected revision and a list of parameter IDs to preserve. The whole proposed model must pass Rust validation.
 - Atomic snapshots retain 64 undo/redo steps and up to 1024 transaction receipts. Revision increases for undo/redo. Receipt exhaustion fails explicitly; there is no silent idempotency expiry.
@@ -88,10 +101,13 @@ cargo +1.85.1 clippy --manifest-path crates/model-engine/Cargo.toml --locked --a
 python3 -m unittest discover -s tools/ai-cad -p 'test_*.py' -v
 .venv/bin/python tools/ai-cad/verify_mcp.py
 python3 tools/ai-cad/verify_codex_recording.py
+python3 tools/ai-cad/verify_profile_example.py
 python3 scripts/check.py
 ```
 
 [Example artifacts](../../examples/ai-cad/README.md) contain both commands, actual JSON results, a reopenable document and a screenshot. The integration tests exercise the compiled Rust engine, constraints, undo/reopen, exact retry receipts, failed saves and competing processes. The stdio test uses the official MCP client; it does not consume model inference. The separate live Codex recording documents one authenticated natural-language run; its replay check validates those accepted commands without repeating inference. CI repeats the contract tests on Linux.
+
+[Profile extrusion validation and limits](../../docs/profile-extrusion-validation.md) records the new geometry and browser checks.
 
 ## Architecture and limits
 
@@ -99,6 +115,6 @@ python3 scripts/check.py
 
 The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Full model/history revalidation and a new Rust process per evaluation favor correctness and isolation over throughput; this is not the final large-document scheduler.
 
-No sketches, constraint solver beyond fixed values, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+No general sketch solver beyond fixed values, nonconvex or curved profiles, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
 
 The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.

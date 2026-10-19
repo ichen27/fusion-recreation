@@ -71,8 +71,49 @@ async def main():
                     },
                 )
                 assert invalid["error"]["code"] == "constraint_conflict"
+                # Return to an empty model, then exercise the new discriminated
+                # feature schemas through a real client/server transport.
+                await call(
+                    "cad_history",
+                    {
+                        "action": "undo",
+                        "expected_revision": 3,
+                        "transaction_id": "mcp-empty",
+                    },
+                )
+                fixture = ROOT / "examples/ai-cad/profile-extrusion"
+                for index, name in enumerate(("profile", "extrude", "widen")):
+                    command = json.loads((fixture / f"{name}.json").read_text())
+                    command.pop("action")
+                    command["expected_revision"] = 4 + index
+                    preview_args = {
+                        k: v for k, v in command.items() if k != "transaction_id"
+                    }
+                    proposed = await call("cad_preview", preview_args)
+                    assert "result" in proposed, proposed
+                    result = (await call("cad_commit", command))["result"]
+                    assert result["profiles"][0]["area_mm2"] == (
+                        "5700" if name == "widen" else "4750"
+                    )
+                    if name == "profile":
+                        assert result["bodies"] == []
+                    else:
+                        assert result["bodies"][0]["volume_mm3"] == (
+                            "68400" if name == "widen" else "57000"
+                        )
+                invalid = await call(
+                    "cad_preview",
+                    {
+                        "expected_revision": 7,
+                        "preserve": [],
+                        "operations": [
+                            {"op": "set_parameter", "id": "tip_x", "mm": "200"}
+                        ],
+                    },
+                )
+                assert invalid["error"]["code"] == "invalid_profile"
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas and diagnostics"
                 )
 
 

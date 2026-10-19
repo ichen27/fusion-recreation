@@ -1,0 +1,115 @@
+{
+  "result": {
+    "revision": 1,
+    "committed_revision": 1,
+    "replayed": false,
+    "can_undo": true,
+    "can_redo": false,
+    "bodies": [],
+    "changed_parameters": [
+      "depth",
+      "shoulder",
+      "thickness",
+      "tip_x",
+      "width",
+      "zero"
+    ],
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "lower_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "lower_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "shoulder_right",
+              "x": "width",
+              "y": "shoulder"
+            },
+            {
+              "id": "tip",
+              "x": "tip_x",
+              "y": "depth"
+            },
+            {
+              "id": "shoulder_left",
+              "x": "zero",
+              "y": "shoulder"
+            }
+          ]
+        }
+      ],
+      "fixed": {
+        "thickness": "12",
+        "zero": "0"
+      },
+      "parameters": {
+        "depth": "60",
+        "shoulder": "35",
+        "thickness": "12",
+        "tip_x": "50",
+        "width": "100",
+        "zero": "0"
+      }
+    },
+    "profiles": [
+      {
+        "area_mm2": "4750",
+        "feature_id": "outline",
+        "vertices": [
+          {
+            "id": "lower_left",
+            "position": [
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          {
+            "id": "lower_right",
+            "position": [
+              "100",
+              "0",
+              "0"
+            ]
+          },
+          {
+            "id": "shoulder_right",
+            "position": [
+              "100",
+              "35",
+              "0"
+            ]
+          },
+          {
+            "id": "tip",
+            "position": [
+              "50",
+              "60",
+              "0"
+            ]
+          },
+          {
+            "id": "shoulder_left",
+            "position": [
+              "0",
+              "35",
+              "0"
+            ]
+          }
+        ]
+      }
+    ],
+    "schema_version": 1,
+    "units": "mm"
+  }
+}

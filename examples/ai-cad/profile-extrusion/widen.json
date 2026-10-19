@@ -1,0 +1,19 @@
+{
+  "action": "commit",
+  "expected_revision": 2,
+  "transaction_id": "profile-widen-v1",
+  "operations": [
+    {
+      "op": "adjust_parameter",
+      "id": "width",
+      "delta_mm": "20"
+    }
+  ],
+  "preserve": [
+    "zero",
+    "shoulder",
+    "tip_x",
+    "depth",
+    "thickness"
+  ]
+}

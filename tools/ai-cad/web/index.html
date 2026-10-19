@@ -17,7 +17,7 @@
     <main>
       <aside>
         <p class="eyebrow">EDITABLE MODEL</p>
-        <h1>Corner block</h1>
+        <h1 id="model-title">Model workspace</h1>
         <p class="subtle">Precise geometry. Shared intent.</p>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
@@ -42,7 +42,8 @@
           aria-label="Interactive 3D model viewport"
         ></canvas>
         <div class="measure">
-          <span>Exact solid volume</span><strong id="volume">—</strong>
+          <span>Solid volume</span><strong id="volume">—</strong>
+          <span id="profile-area"></span>
         </div>
         <div id="preview-actions" hidden>
           <span>Unsaved preview</span
@@ -58,7 +59,7 @@
           automatically.
         </p>
         <blockquote>
-          “Make it 20 mm wider. Keep the thickness and corner cut.”
+          “Make it 20 mm wider. Keep the thickness and other dimensions.”
         </blockquote>
         <div class="status-dot">Exact Rust geometry · mm</div>
         <h2>Model feedback</h2>
@@ -68,8 +69,10 @@
           <summary>Supported geometry</summary>
           <p>
             Origin-aligned blocks and a 45° vertical cut at the +X/+Y corner.
-            Cut size is its setback along each edge. This is a bounded engine
-            prototype.
+            Cut size is its setback along each edge. Convex XY polygon profiles
+            can be extruded in +Z. Profile coordinates and height reference
+            editable parameters. No arcs, holes or sketch constraint solver yet.
+            This is a bounded engine prototype.
           </p>
         </details>
       </aside>

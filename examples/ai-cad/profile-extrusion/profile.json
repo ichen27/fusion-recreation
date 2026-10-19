@@ -1,0 +1,80 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "profile-create-v1",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "zero",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "width",
+      "mm": "100"
+    },
+    {
+      "op": "define_parameter",
+      "id": "shoulder",
+      "mm": "35"
+    },
+    {
+      "op": "define_parameter",
+      "id": "tip_x",
+      "mm": "50"
+    },
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "thickness",
+      "mm": "12"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "polygon_profile",
+        "id": "outline",
+        "vertices": [
+          {
+            "id": "lower_left",
+            "x": "zero",
+            "y": "zero"
+          },
+          {
+            "id": "lower_right",
+            "x": "width",
+            "y": "zero"
+          },
+          {
+            "id": "shoulder_right",
+            "x": "width",
+            "y": "shoulder"
+          },
+          {
+            "id": "tip",
+            "x": "tip_x",
+            "y": "depth"
+          },
+          {
+            "id": "shoulder_left",
+            "x": "zero",
+            "y": "shoulder"
+          }
+        ]
+      }
+    },
+    {
+      "op": "fix_parameter",
+      "id": "zero"
+    },
+    {
+      "op": "fix_parameter",
+      "id": "thickness"
+    }
+  ],
+  "preserve": []
+}
