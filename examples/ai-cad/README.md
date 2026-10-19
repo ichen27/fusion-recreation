@@ -77,3 +77,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Operations on concave stock](concave-operations/README.md): exact profile decomposition, movement, turns, plane cuts and Booleans with editable native history and independent STEP comparisons.
 
 - [Linked part instances](linked-instances/README.md): shared source dimensions, independent placement, native history, browser/MCP edits and separate world-coordinate exports.
+
+- [Exact planar measurements](measurements/README.md): world bounds, volume centroid and centroidal volume inertia with read-only browser/MCP recordings, closed forms and independent references.

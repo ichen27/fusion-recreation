@@ -8,6 +8,7 @@ from pathlib import Path
 from store import MAX_BYTES, CadError, Store, dispatch
 from selection import dispatch_selection
 from intent import dispatch_explain
+from measurements import dispatch_measure
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from preview_jobs import PreviewJobs
@@ -178,6 +179,7 @@ def handler(store, port):
                 "/api/command",
                 "/api/selection",
                 "/api/explain",
+                "/api/measure",
                 "/api/preview-jobs",
             ):
                 return self.reply(404, b"{}")
@@ -213,7 +215,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_explain(store, command)
+                    dispatch_measure(store, command)
+                    if self.path == "/api/measure"
+                    else dispatch_explain(store, command)
                     if self.path == "/api/explain"
                     else dispatch_selection(store, command)
                     if self.path == "/api/selection"

@@ -14,6 +14,16 @@ fn main() {
                 serde_json::json!({"error":{"code":"invalid_request","entity":"intent","message":e.to_string()}})
             }
         }
+    } else if std::env::args().nth(1).as_deref() == Some("--measure") {
+        match serde_json::from_str::<model_engine::measure::Request>(&input) {
+            Ok(request) => match model_engine::measure::measure(request) {
+                Ok(value) => serde_json::json!({"result":value}),
+                Err(error) => serde_json::json!({"error":error}),
+            },
+            Err(e) => {
+                serde_json::json!({"error":{"code":"invalid_request","entity":"measurement","message":e.to_string()}})
+            }
+        }
     } else if std::env::args().nth(1).as_deref() == Some("--mesh") {
         match serde_json::from_str::<model_engine::mesh::Request>(&input) {
             Ok(request) => match model_engine::mesh::evaluate(request) {

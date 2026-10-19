@@ -101,6 +101,25 @@ class Viewer(unittest.TestCase):
                 self.assertFalse(info["parameters"]["thickness"]["directly_editable"])
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_measurement_http_is_read_only_and_revision_bound(self):
+        result = self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        feature = result["bodies"][0]["feature_id"]
+        for revision, expected_status in [(1, 200), (0, 400)]:
+            status, payload = self.request(
+                "POST",
+                "/api/measure",
+                json.dumps({"expected_revision": revision, "feature_id": feature}),
+                {"Content-Type": "application/json"},
+            )
+            self.assertEqual(status, expected_status)
+            if status == 200:
+                self.assertEqual(
+                    json.loads(payload)["result"]["volume_mm3"],
+                    result["bodies"][0]["volume_mm3"],
+                )
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_preview_job_http_stays_responsive_and_cancel_preserves_model(self):
         from store import CadError
         from test_preview_jobs import until

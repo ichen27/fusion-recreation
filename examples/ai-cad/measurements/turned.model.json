@@ -1,0 +1,81 @@
+{
+  "parameters": {
+    "l.height": "4",
+    "l.c0": "0",
+    "l.c1": "10",
+    "l.c2": "3",
+    "move.x": "5",
+    "move.y": "-2",
+    "move.z": "3",
+    "turn.x": "0",
+    "turn.y": "0",
+    "turn.z": "0"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "l.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "l.c0",
+          "y": "l.c0"
+        },
+        {
+          "id": "v1",
+          "x": "l.c1",
+          "y": "l.c0"
+        },
+        {
+          "id": "v2",
+          "x": "l.c1",
+          "y": "l.c2"
+        },
+        {
+          "id": "v3",
+          "x": "l.c2",
+          "y": "l.c2"
+        },
+        {
+          "id": "v4",
+          "x": "l.c2",
+          "y": "l.c1"
+        },
+        {
+          "id": "v5",
+          "x": "l.c0",
+          "y": "l.c1"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "l",
+      "profile": "l.profile",
+      "height": "l.height"
+    },
+    {
+      "kind": "translate",
+      "id": "moved",
+      "input": "l",
+      "offset": [
+        "move.x",
+        "move.y",
+        "move.z"
+      ]
+    },
+    {
+      "kind": "rotate_quarter",
+      "id": "turned",
+      "input": "moved",
+      "axis": "y",
+      "turns": 1,
+      "pivot": [
+        "turn.x",
+        "turn.y",
+        "turn.z"
+      ]
+    }
+  ]
+}

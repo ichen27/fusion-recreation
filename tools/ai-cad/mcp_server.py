@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from mcp.server import MCPServer
 from selection import dispatch_selection
 from intent import dispatch_explain
+from measurements import dispatch_measure
 from store import Store, dispatch
 
 
@@ -225,6 +226,13 @@ def server(path):
     def cad_explain(expected_revision: int, feature_id: str) -> dict:
         """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
         return dispatch_explain(
+            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_measure(expected_revision: int, feature_id: str) -> dict:
+        """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal planar solid. Values are rational strings; units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Analytic circular/perforated stock is unsupported. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
+        return dispatch_measure(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
         )
 

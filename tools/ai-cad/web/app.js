@@ -250,13 +250,17 @@ canvas.addEventListener("webglcontextrestored", () => {
   $("display-status").textContent = "";
 });
 let intentKey = null,
-  intentPending = false;
+  intentPending = false,
+  measurementPending = false;
 function intentControls() {
   $("explain-selection").disabled =
     intentPending || busy || !!preview || editPending || !selectedBody;
+  $("measure-selection").disabled =
+    measurementPending || busy || !!preview || editPending || !selectedBody;
   const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
   if (intentKey !== key) {
     $("intent-info").replaceChildren();
+    $("measurement-info").replaceChildren();
     intentKey = key;
   }
 }
@@ -317,6 +321,52 @@ $("explain-selection").addEventListener("click", async () => {
     if (intentKey === key) $("intent-info").textContent = error.message;
   } finally {
     intentPending = false;
+    intentControls();
+  }
+});
+$("measure-selection").addEventListener("click", async () => {
+  const revision = saved.revision,
+    feature_id = selectedBody,
+    key = `${revision}:${feature_id}`;
+  measurementPending = true;
+  intentControls();
+  $("measurement-info").textContent = "Integrating exact planar geometry…";
+  try {
+    const reply = await (
+      await fetch("/api/measure", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision: revision, feature_id }),
+      })
+    ).json();
+    if (intentKey !== key) return;
+    if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
+    const info = reply.result,
+      container = $("measurement-info");
+    container.replaceChildren();
+    for (const text of [
+      `Bounds mm: (${info.bounds_mm[0].join(", ")}) to (${info.bounds_mm[1].join(", ")}).`,
+      `Volume centroid mm: (${info.centroid_mm.join(", ")}).`,
+      `Volume: ${info.volume_mm3} mm³.`,
+      "Exact geometry; center of mass assumes uniform density. No material mass assigned.",
+    ]) {
+      const p = document.createElement("p");
+      p.textContent = text;
+      container.append(p);
+    }
+    const details = document.createElement("details"),
+      title = document.createElement("summary"),
+      tensor = document.createElement("pre");
+    title.textContent = "Centroidal volume inertia · mm⁵ · global XYZ";
+    tensor.textContent = info.centroidal_volume_inertia_mm5
+      .map((row) => row.join("  "))
+      .join("\n");
+    details.append(title, tensor);
+    container.append(details);
+  } catch (error) {
+    if (intentKey === key) $("measurement-info").textContent = error.message;
+  } finally {
+    measurementPending = false;
     intentControls();
   }
 });

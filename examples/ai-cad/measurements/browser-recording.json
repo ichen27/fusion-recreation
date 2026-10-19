@@ -1,0 +1,98 @@
+{
+  "calls": [
+    {
+      "command": {
+        "expected_revision": 4,
+        "feature_id": "instance1"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "30",
+              "0",
+              "0"
+            ],
+            [
+              "40",
+              "10",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "1141/34",
+            "121/34",
+            "3"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "116295/34",
+              "22050/17",
+              "0"
+            ],
+            [
+              "22050/17",
+              "116295/34",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "85083/17"
+            ]
+          ],
+          "feature_id": "instance1",
+          "revision": 4,
+          "volume_mm3": "306"
+        }
+      }
+    },
+    {
+      "command": {
+        "expected_revision": 4,
+        "feature_id": "l"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "10",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "121/34",
+            "121/34",
+            "3"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "116295/34",
+              "22050/17",
+              "0"
+            ],
+            [
+              "22050/17",
+              "116295/34",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "85083/17"
+            ]
+          ],
+          "feature_id": "l",
+          "revision": 4,
+          "volume_mm3": "306"
+        }
+      }
+    }
+  ]
+}
