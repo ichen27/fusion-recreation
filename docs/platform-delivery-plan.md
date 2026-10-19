@@ -121,3 +121,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Exact orientation checkpoint
 
 [Quarter-turn rotation](../examples/ai-cad/quarter-turn/README.md) orients convex planar parts about exact pivots without changing dimensions or volume. Twelve actual browser calls, all axes/angles with fractional pivots, inverse rotations, downstream rebuild/rejection, typed MCP and independent STEP/STL checks cover the bounded workflow. Arbitrary-angle precision, curved/nonconvex transforms and assembly instances remain open. Next: share explicit body-selection context between human interaction and AI tools, with revision checks so stale picks cannot silently refer to changed geometry.
+
+## Shared selection checkpoint
+
+[Browser-to-MCP context](../examples/ai-cad/shared-selection/README.md) binds a selected terminal body to saved content and revision. Actual browser selection and MCP edits demonstrate invalidation, reselect and clear; native history remains unchanged. This closes the ambiguity between a visible pick and an AI reference for one body. Persistent face/edge naming, selection-specific commit guards, intent ambiguity benchmarks and multi-user context remain open.

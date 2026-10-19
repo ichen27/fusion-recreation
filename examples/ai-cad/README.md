@@ -61,3 +61,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Exact XYZ movement](translation/README.md): position convex solids, rebuild their intersections, preserve dimensions, reject touching-only results and verify world-space STEP/STL coordinates.
 
 - [Exact quarter-turns](quarter-turn/README.md): pivoted orientation, downstream intersection edits, invalid placement rejection and independently verified exports.
+
+- [Shared saved-body selection](shared-selection/README.md): actual browser pick → MCP context/edit → stale rejection → reselect → clear, without changing model history.

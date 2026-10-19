@@ -244,17 +244,88 @@ function updateSelection() {
   $("selection-info").textContent = body
     ? `${body.feature_id} · ${body.volume_mm3} mm³ (exact)`
     : "Click a solid or select it in the feature list.";
-  $("clear-selection").disabled = !body;
+  $("clear-selection").disabled = !saved;
   for (const button of document.querySelectorAll(".select-body")) {
     const active = button.dataset.body === selectedBody;
     button.setAttribute("aria-pressed", String(active));
     button.closest(".feature").classList.toggle("selected-feature", active);
   }
 }
+let selectionQueue = Promise.resolve(),
+  selectionRequest = 0,
+  selectionPending = false;
+async function readSelectionContext() {
+  if (!saved || preview || editPending || selectionPending || busy) return;
+  const requested = selectionRequest;
+  const reply = await (await fetch("/api/context")).json();
+  if (
+    requested !== selectionRequest ||
+    selectionPending ||
+    preview ||
+    editPending ||
+    busy
+  )
+    return;
+  if (reply.error) {
+    $("selection-context").textContent = reply.error.message;
+    return;
+  }
+  const context = reply.result;
+  if (context.revision !== saved.revision) return;
+  const id = context.selected_body?.feature_id ?? null;
+  const changed = selectedBody !== id;
+  selectedBody = id;
+  $("selection-context").textContent =
+    context.selection_status === "current"
+      ? `Shared with AI tools at revision ${context.revision}.`
+      : context.selection_status === "stale"
+        ? "The model changed. Reselect a saved solid to share its current geometry."
+        : "No saved solid shared with AI tools.";
+  updateSelection();
+  if (changed) draw();
+}
+function shareSelection(id) {
+  const request = ++selectionRequest,
+    revision = saved.revision;
+  selectionPending = true;
+  $("selection-context").textContent = "Sharing saved selection…";
+  selectionQueue = selectionQueue
+    .catch(() => {})
+    .then(async () => {
+      try {
+        const reply = await (
+          await fetch("/api/selection", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "select",
+              expected_revision: revision,
+              feature_id: id,
+            }),
+          })
+        ).json();
+        if (reply.error) throw Error(reply.error.message);
+        if (request === selectionRequest)
+          $("selection-context").textContent = id
+            ? `Shared with AI tools at revision ${revision}.`
+            : "No saved solid shared with AI tools.";
+      } catch (error) {
+        if (request === selectionRequest)
+          $("selection-context").textContent =
+            `Selection was not shared: ${error.message}`;
+      } finally {
+        if (request === selectionRequest) selectionPending = false;
+      }
+    });
+}
 function selectBody(id) {
   selectedBody = id;
   updateSelection();
   draw();
+  if (saved && !preview && !editPending && !busy) shareSelection(id);
+  else
+    $("selection-context").textContent =
+      "Preview selection is local. Select the saved result after committing.";
 }
 $("clear-selection").addEventListener("click", () => selectBody(null));
 let pointer;
@@ -549,6 +620,7 @@ async function refresh(force = false) {
       $("status").textContent =
         "Saved model loaded. All geometric checks passed.";
     }
+    await readSelectionContext();
   } catch (e) {
     $("status").textContent = e.message;
   }

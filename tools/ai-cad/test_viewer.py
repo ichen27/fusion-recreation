@@ -39,6 +39,47 @@ class Viewer(unittest.TestCase):
         finally:
             connection.close()
 
+    def test_revision_bound_selection_shared_with_separate_client(self):
+        from selection import Selection
+
+        result = self.store.execute(CREATE)
+        feature = result["bodies"][0]["feature_id"]
+        before = self.store.path.read_bytes()
+        status, payload = self.request(
+            "POST",
+            "/api/selection",
+            json.dumps(
+                {"action": "select", "expected_revision": 1, "feature_id": feature}
+            ),
+            {"Content-Type": "application/json"},
+        )
+        self.assertEqual(status, 200)
+        selected = json.loads(payload)["result"]
+        self.assertEqual(
+            selected, Selection(Store(self.store.path)).execute({"action": "context"})
+        )
+        status, payload = self.request("GET", "/api/context")
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(payload)["result"], selected)
+        status, _ = self.request(
+            "POST", "/api/selection", "x" * 4097, {"Content-Type": "application/json"}
+        )
+        self.assertEqual(status, 413)
+        status, _ = self.request(
+            "GET", "/api/context", headers={"Origin": "https://example.com"}
+        )
+        self.assertEqual(status, 403)
+        status, _ = self.request(
+            "POST",
+            "/api/selection",
+            json.dumps(
+                {"action": "select", "expected_revision": 0, "feature_id": feature}
+            ),
+            {"Content-Type": "application/json"},
+        )
+        self.assertEqual(status, 400)
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_render_and_edit_share_store(self):
         status, html = self.request("GET", "/")
         self.assertEqual(status, 200)
