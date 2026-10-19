@@ -31,7 +31,7 @@ def tessellate(model, feature_id, segments=64):
     return reply["result"]
 
 
-def display(reply):
+def display(reply, cache=None):
     """Rendering failure must not turn a successful commit into an apparent failure."""
     if "result" in reply:
         state = reply["result"]
@@ -42,8 +42,19 @@ def display(reply):
                     Fraction(v["constant_mm3"])
                 ) - math.pi * float(Fraction(v["pi_subtract_mm3"]))
                 try:
-                    body["display_mesh"] = tessellate(
-                        state["model"], body["feature_id"]
+                    request = {
+                        "model": state["model"],
+                        "feature_id": body["feature_id"],
+                        "segments": 64,
+                    }
+
+                    def compute():
+                        return tessellate(**request)
+
+                    body["display_mesh"] = (
+                        cache.get(BINARY, request, compute)
+                        if cache is not None
+                        else compute()
                     )
                 except CadError as exc:
                     body["display_error"] = exc.detail
