@@ -210,6 +210,46 @@ async def main():
                     },
                 )
                 assert invalid["error"]["code"] == "hole_clearance"
+                # A separate profile uses existing dimension references, exercising
+                # the additive planar_profile discriminator over actual stdio.
+                concave = {
+                    "kind": "planar_profile",
+                    "id": "concave",
+                    "vertices": [
+                        {"id": "a", "x": "zero", "y": "zero"},
+                        {"id": "b", "x": "width", "y": "zero"},
+                        {"id": "c", "x": "width", "y": "thickness"},
+                        {"id": "d", "x": "thickness", "y": "thickness"},
+                        {"id": "e", "x": "thickness", "y": "depth"},
+                        {"id": "f", "x": "zero", "y": "depth"},
+                    ],
+                }
+                args = {
+                    "expected_revision": 11,
+                    "preserve": [],
+                    "operations": [
+                        {"op": "add_feature", "feature": concave},
+                        {
+                            "op": "add_feature",
+                            "feature": {
+                                "kind": "extrude",
+                                "id": "concave_solid",
+                                "profile": "concave",
+                                "height": "thickness",
+                            },
+                        },
+                    ],
+                }
+                proposed = await call("cad_preview", args)
+                assert "result" in proposed, proposed
+                committed = await call(
+                    "cad_commit", {**args, "transaction_id": "mcp-concave"}
+                )
+                assert committed["result"]["bodies"] == proposed["result"]["bodies"]
+                assert any(
+                    b.get("analytic", {}).get("kind") == "polygon_prism"
+                    for b in committed["result"]["bodies"]
+                )
                 print(
                     "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )

@@ -30,7 +30,7 @@ Replies include `profiles` when at least one profile exists, containing `feature
 
 [Runnable example and saved stages](../examples/ai-cad/profile-extrusion/README.md).
 
-Every block, extrusion and cut passes the custom kernel's closed-boundary, orientation, manifold and convexity checks. Fixed values are checked against exact rational values, independently of AI interpretation. A language model can still misunderstand intent; the tool descriptions, preview, preserved parameters and explicit constraints make that inspectable, not infallible.
+Every block, convex polygon extrusion and corner cut passes the custom kernel's closed-boundary, orientation, manifold and convexity checks. Fixed values are checked against exact rational values, independently of AI interpretation. A language model can still misunderstand intent; the tool descriptions, preview, preserved parameters and explicit constraints make that inspectable, not infallible.
 
 ## Exact parameter relationships
 
@@ -91,9 +91,9 @@ Errors carry `code`, `entity`, `message`. Typical codes: `missing_parameter`, `d
 ]}
 ```
 
-`input` must reference an earlier convex polygon extrusion. One group of 1..16 uniquely named holes per extrusion is supported; the consumed extrusion is hidden. Centers and radii reference exact mm parameters. All holes run along +Z through the full height. Circles must be strictly inside every outer edge and mutually separate; touching, intersecting, breakout and blind holes reject. Radius is positive and at most 1000000 mm. The original profile IDs and hole IDs remain stable through coordinate edits.
+`input` must reference an earlier polygon extrusion (convex or simple concave). One group of 1..16 uniquely named holes per extrusion is supported; the consumed extrusion is hidden. Centers and radii reference exact mm parameters. All holes run along +Z through the full height. Circles must be strictly inside the outer loop with positive distance from every boundary segment and mutually separate; touching, intersecting, breakout and blind holes reject. Radius is positive and at most 1000000 mm. The original profile IDs and hole IDs remain stable through coordinate edits.
 
-The exact predicate checks positive interior side and `cross(edge, center-start)^2 > radius^2 * squared_edge_length`; circle pairs require `squared_center_distance > (r1+r2)^2`. No square roots, π approximations or tolerance decisions enter these predicates. The bounded constructive representation guarantees a single perforated-prism family; it does **not** pass through or claim the convex planar B-rep validator. A general curved B-rep/incidence model remains future work.
+The exact predicate uses ray-crossing containment and squared distance to each finite boundary segment (including endpoint distance when the projection is outside the segment); circle pairs require `squared_center_distance > (r1+r2)^2`. No square roots, π approximations or tolerance decisions enter these predicates. The bounded constructive representation guarantees a single perforated-prism family; it does **not** pass through or claim the convex planar B-rep validator. A general curved B-rep/incidence model remains future work.
 
 Analytic bodies omit `boundary` and include `analytic: {kind:"perforated_prism", outer, height, holes, volume}`. The outer loop is counterclockwise rational XY coordinates; caps lie at z=0 and z=height, inner cap loops are circles, and cylinder walls point into the holes. `volume` is `{constant_mm3, pi_subtract_mm3}` with exact rational strings, meaning `constant − pi_subtract * π`. `volume_mm3` is a human-readable symbolic string for these bodies, not parseable as a rational. Old planar body replies remain unchanged. Consumers must branch on representation. Upgrade engine, viewer and MCP adapter together; old binaries cannot load the new feature.
 
@@ -104,3 +104,11 @@ Only HTTP display replies add `display_mesh`, `volume_approx_mm3` or `display_er
 ## Process-local reuse
 
 The host may reuse successful no-operation evaluation of identical model content under the same engine file identity. It still reads and verifies every document envelope and validates all current/history contents, using a bounded 128-entry/8 MiB encoded-result cache per Store. A changed or missing engine bypasses previous results. Every edit and preserve precondition still passes through Rust. HTTP mesh reuse has a separate 32-entry/16 MiB bound; neither cache is persisted. JSON decoding prevents caller mutation of cached data. [Measurements and exact limits](../examples/ai-cad/runtime/README.md).
+
+## Simple concave planar profiles
+
+`planar_profile` uses the same named-vertex schema as `polygon_profile` but accepts one simple straight-edge XY loop, including inward corners. It retains the 3..32 vertex and coordinate bounds. Exact predicates reject repeated or touching vertices, zero edges, collinear corners, crossings and overlapping nonadjacent edges; both windings are accepted. The original `polygon_profile` remains strictly convex so existing documents and failure semantics are preserved. No automatic topology repair or migration is performed.
+
+A positive-Z extrusion of `planar_profile` produces an analytic `polygon_prism` with a counterclockwise rational outer loop, height, empty holes and exact volume coefficients (`pi_subtract_mm3 = "0"`). Its `volume_mm3` is rational. Adding a through-hole group produces the existing `perforated_prism` representation. These constructive shapes do not claim to pass the convex B-rep validator. Render/export consumers must accept both analytic kinds; meshes remain derived approximations. This does not implement general nonconvex Boolean operations, arbitrary profile planes, multiple outline loops, spline edges or persistent generated-face names.
+
+New browser sketches use `planar_profile`. Editing an existing convex profile preserves its original kind and restrictions. [Commands, editable snapshots, STEP/STL and independent validation](../examples/ai-cad/concave-profile/README.md).

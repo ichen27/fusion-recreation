@@ -68,10 +68,13 @@ def translate(body):
             for a, b in zip(points, points[1:] + points[:1]):
                 dx, dy = b[0] - a[0], b[1] - a[1]
                 length = math.hypot(dx, dy)
-                if (
-                    length <= 1e-6
-                    or (dx * (y - a[1]) - dy * (x - a[0])) / length - r <= 1e-6
-                ):
+                if length <= 1e-6:
+                    raise RuntimeError("STEP adapter requires edges above 1e-6 mm")
+                t = max(
+                    0.0,
+                    min(1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (length * length)),
+                )
+                if math.hypot(x - a[0] - t * dx, y - a[1] - t * dy) - r <= 1e-6:
                     raise RuntimeError(
                         "STEP adapter requires edge length and hole clearance above 1e-6 mm"
                     )

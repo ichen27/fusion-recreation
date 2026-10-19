@@ -65,13 +65,8 @@ pub(super) fn resolve(
             parameter(m, &hole.y)?,
             positive(m, &hole.radius)?,
         );
-        for i in 0..points.len() {
-            let (a, b) = (&points[i], &points[(i + 1) % points.len()]);
-            let (dx, dy) = (&b[0] - &a[0], &b[1] - &a[1]);
-            let cross = &dx * (&y - &a[1]) - &dy * (&x - &a[0]);
-            if !cross.is_positive() || &cross * &cross <= &r * &r * (&dx * &dx + &dy * &dy) {
-                return Err(error("hole_clearance", &hole.id, "Hole must lie strictly inside every profile edge; tangency and breakout are unsupported"));
-            }
+        if !super::profile::contains_disk(&points, &x, &y, &r) {
+            return Err(error("hole_clearance", &hole.id, "Hole must lie strictly inside the profile with positive clearance from every boundary segment; tangency and breakout are unsupported"));
         }
         for (cx, cy, cr) in &disks {
             let (dx, dy, rr) = (&x - cx, &y - cy, &r + cr);
@@ -91,18 +86,29 @@ pub(super) fn resolve(
         });
         disks.push((x, y, r));
     }
-    Ok(PerforatedPrism {
-        kind: "perforated_prism",
+    let mut shape = prism(profile, height);
+    shape.kind = "perforated_prism";
+    shape.holes = circles;
+    shape.volume.pi_subtract_mm3 = (sum_r2 * height).to_string();
+    Ok(shape)
+}
+pub(super) fn prism(profile: &Profile, height: &Q) -> PerforatedPrism {
+    let mut points = profile.points.clone();
+    if profile.twice_area.is_negative() {
+        points.reverse();
+    }
+    PerforatedPrism {
+        kind: "polygon_prism",
         outer: points
-            .iter()
-            .map(|p| p.clone().map(|q| q.to_string()))
+            .into_iter()
+            .map(|p| p.map(|q| q.to_string()))
             .collect(),
         height: height.to_string(),
-        holes: circles,
+        holes: vec![],
         volume: ExactVolume {
             constant_mm3: (profile.twice_area.abs() * height / Q::from_integer(2.into()))
                 .to_string(),
-            pi_subtract_mm3: (sum_r2 * height).to_string(),
+            pi_subtract_mm3: "0".into(),
         },
-    })
+    }
 }

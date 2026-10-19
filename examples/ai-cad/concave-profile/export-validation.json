@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "volume_mm3": 11717.256661176887,
+      "oracle_volume_mm3": 11717.256661176918,
+      "error_mm3": 3.092281986027956e-11,
+      "cylinders": [
+        [
+          70.0,
+          10.0,
+          3.0
+        ],
+        [
+          10.0,
+          50.0,
+          3.0
+        ]
+      ],
+      "notch_and_holes_outside": true,
+      "material_point_inside": true,
+      "stage": "create",
+      "stl_volume_mm3": 11717.370195874066,
+      "triangles": 1052,
+      "max_radial_error_mm": 0.0009035439113872501
+    },
+    {
+      "volume_mm3": 13717.256661176878,
+      "oracle_volume_mm3": 13717.256661176914,
+      "error_mm3": 3.637978807091713e-11,
+      "cylinders": [
+        [
+          90.0,
+          10.0,
+          3.0
+        ],
+        [
+          10.0,
+          50.0,
+          3.0
+        ]
+      ],
+      "notch_and_holes_outside": true,
+      "material_point_inside": true,
+      "stage": "widen",
+      "stl_volume_mm3": 13717.37019587407,
+      "triangles": 1052,
+      "max_radial_error_mm": 0.0009035439113872501
+    }
+  ],
+  "step_adapter": "cadquery-ocp 8.0.1.1.0; boundary translation",
+  "oracle": "Union of two boxes minus two cylinders; verification only",
+  "limits": "Bounded L-shaped plate corpus, not general Boolean or manufacturing certification"
+}

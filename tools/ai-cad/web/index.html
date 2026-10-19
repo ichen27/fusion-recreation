@@ -75,12 +75,12 @@
           <summary>Supported geometry</summary>
           <p>
             Origin-aligned blocks and a 45° vertical cut at the +X/+Y corner.
-            Cut size is its setback along each edge. Convex XY polygon profiles
+            Cut size is its setback along each edge. Simple XY polygon profiles
             can be extruded in +Z. Profile coordinates and height reference
             editable parameters. Exact affine parameter relationships are
-            supported. Convex extrusions support separate round through-holes in
-            +Z. No blind holes, fillets or general sketch constraint solver yet.
-            This is a bounded engine prototype.
+            supported. Polygon extrusions support separate round through-holes
+            in +Z. No blind holes, fillets or general sketch constraint solver
+            yet. This is a bounded engine prototype.
           </p>
         </details>
       </aside>
@@ -88,7 +88,7 @@
     <dialog id="sketch-dialog" aria-labelledby="sketch-title">
       <form id="sketch-form">
         <header class="sketch-heading">
-          <h2 id="sketch-title">Draw a convex profile</h2>
+          <h2 id="sketch-title">Draw a planar profile</h2>
           <button type="button" id="sketch-close">Cancel</button>
         </header>
         <p id="sketch-feedback" role="status"></p>
@@ -142,9 +142,9 @@
                 aria-label="Extrusion height"
             /></label>
             <p class="hint">
-              3–16 points in one convex loop. No crossing, concavity or
-              collinear corners. Preview validates the complete model before
-              anything is saved.
+              3–16 points in one simple loop. Inward corners are allowed; no
+              crossing or collinear corners. Preview validates the complete
+              model before anything is saved.
             </p>
             <button id="sketch-preview" class="primary" type="submit">
               Preview solid

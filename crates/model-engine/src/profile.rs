@@ -31,6 +31,7 @@ pub(super) struct Profile {
     vertex_ids: Vec<String>,
     pub(super) points: Vec<[Q; 2]>,
     pub(super) twice_area: Q,
+    pub(super) convex_only: bool,
 }
 
 impl Profile {
@@ -52,6 +53,17 @@ impl Profile {
 }
 
 pub(super) fn resolve(m: &Model, id: &str, vertices: &[ProfileVertex]) -> Result<Profile> {
+    resolve_mode(m, id, vertices, true)
+}
+pub(super) fn resolve_planar(m: &Model, id: &str, vertices: &[ProfileVertex]) -> Result<Profile> {
+    resolve_mode(m, id, vertices, false)
+}
+fn resolve_mode(
+    m: &Model,
+    id: &str,
+    vertices: &[ProfileVertex],
+    convex_only: bool,
+) -> Result<Profile> {
     if !(3..=32).contains(&vertices.len()) {
         return Err(error(
             "profile_limit",
@@ -90,26 +102,31 @@ pub(super) fn resolve(m: &Model, id: &str, vertices: &[ProfileVertex]) -> Result
             &a[0] * &b[1] - &b[0] * &a[1]
         })
         .sum();
-    // Every other vertex must lie strictly on the interior side of every edge.
-    // Checking only adjacent turns would incorrectly accept star polygons.
-    for i in 0..n {
-        let j = (i + 1) % n;
-        let (a, b) = (&points[i], &points[j]);
-        for (k, c) in points.iter().enumerate() {
-            if k == i || k == j {
-                continue;
-            }
-            let cross = (&b[0] - &a[0]) * (&c[1] - &a[1]) - (&b[1] - &a[1]) * (&c[0] - &a[0]);
-            if cross.is_zero() || cross.is_positive() != twice_area.is_positive() {
-                return Err(error("invalid_profile", id, "Expected one strictly convex loop: no repeated points, collinear corners, concavity or crossings"));
+    if convex_only {
+        // Every other vertex must lie strictly on the interior side of every edge.
+        // Checking only adjacent turns would incorrectly accept star polygons.
+        for i in 0..n {
+            let j = (i + 1) % n;
+            let (a, b) = (&points[i], &points[j]);
+            for (k, c) in points.iter().enumerate() {
+                if k == i || k == j {
+                    continue;
+                }
+                let cross = (&b[0] - &a[0]) * (&c[1] - &a[1]) - (&b[1] - &a[1]) * (&c[0] - &a[0]);
+                if cross.is_zero() || cross.is_positive() != twice_area.is_positive() {
+                    return Err(error("invalid_profile", id, "Expected one strictly convex loop: no repeated points, collinear corners, concavity or crossings"));
+                }
             }
         }
+    } else {
+        validate_simple(&points, &twice_area, id)?;
     }
     Ok(Profile {
         id: id.into(),
         vertex_ids: vertices.iter().map(|v| v.id.clone()).collect(),
         points,
         twice_area,
+        convex_only,
     })
 }
 
@@ -179,4 +196,90 @@ pub(super) fn extrude(profile: &Profile, height: &Q) -> Boundary {
         edges,
         faces,
     }
+}
+
+fn cross(a: &[Q; 2], b: &[Q; 2], c: &[Q; 2]) -> Q {
+    (&b[0] - &a[0]) * (&c[1] - &a[1]) - (&b[1] - &a[1]) * (&c[0] - &a[0])
+}
+fn on_segment(a: &[Q; 2], b: &[Q; 2], p: &[Q; 2]) -> bool {
+    cross(a, b, p).is_zero()
+        && (0..2).all(|i| {
+            p[i] >= a[i].clone().min(b[i].clone()) && p[i] <= a[i].clone().max(b[i].clone())
+        })
+}
+fn intersects(a: &[Q; 2], b: &[Q; 2], c: &[Q; 2], d: &[Q; 2]) -> bool {
+    let (ab_c, ab_d, cd_a, cd_b) = (
+        cross(a, b, c),
+        cross(a, b, d),
+        cross(c, d, a),
+        cross(c, d, b),
+    );
+    if on_segment(a, b, c) || on_segment(a, b, d) || on_segment(c, d, a) || on_segment(c, d, b) {
+        return true;
+    }
+    !ab_c.is_zero()
+        && !ab_d.is_zero()
+        && !cd_a.is_zero()
+        && !cd_b.is_zero()
+        && ab_c.is_positive() != ab_d.is_positive()
+        && cd_a.is_positive() != cd_b.is_positive()
+}
+fn validate_simple(points: &[[Q; 2]], twice_area: &Q, id: &str) -> Result<()> {
+    let fail = || {
+        error("invalid_profile",id,"Expected one simple polygon: no crossings, repeated points, overlapping edges or collinear corners")
+    };
+    let n = points.len();
+    if twice_area.is_zero() {
+        return Err(fail());
+    }
+    for i in 0..n {
+        if cross(&points[i], &points[(i + 1) % n], &points[(i + 2) % n]).is_zero() {
+            return Err(fail());
+        }
+        for j in i + 1..n {
+            if j == i + 1 || (j + 1) % n == i {
+                continue;
+            }
+            if intersects(
+                &points[i],
+                &points[(i + 1) % n],
+                &points[j],
+                &points[(j + 1) % n],
+            ) {
+                return Err(fail());
+            }
+        }
+    }
+    Ok(())
+}
+/// A disk is contained iff its center is inside and it has strict clearance
+/// from every boundary segment. Exact rational ray crossing and squared distances.
+pub(super) fn contains_disk(points: &[[Q; 2]], x: &Q, y: &Q, r: &Q) -> bool {
+    let mut inside = false;
+    for i in 0..points.len() {
+        let (a, b) = (&points[i], &points[(i + 1) % points.len()]);
+        if (&a[1] > y) != (&b[1] > y) {
+            let at_x = &a[0] + (y - &a[1]) * (&b[0] - &a[0]) / (&b[1] - &a[1]);
+            if x < &at_x {
+                inside = !inside;
+            }
+        }
+        let (dx, dy) = (&b[0] - &a[0], &b[1] - &a[1]);
+        let (wx, wy) = (x - &a[0], y - &a[1]);
+        let length2 = &dx * &dx + &dy * &dy;
+        let dot = &wx * &dx + &wy * &dy;
+        let distance2 = if dot <= Q::zero() {
+            &wx * &wx + &wy * &wy
+        } else if dot >= length2 {
+            let (vx, vy) = (x - &b[0], y - &b[1]);
+            &vx * &vx + &vy * &vy
+        } else {
+            let c = &dx * &wy - &dy * &wx;
+            &c * &c / length2
+        };
+        if distance2 <= r * r {
+            return false;
+        }
+    }
+    inside
 }

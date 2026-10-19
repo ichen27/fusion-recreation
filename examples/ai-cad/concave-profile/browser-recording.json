@@ -1,0 +1,1901 @@
+{
+  "description": "Actual browser clicks place six L-profile points; exact coordinate fields move the two inner-leg X values from 20 to 30; each preview is committed. No AI inference in this run.",
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 0,
+        "operations": [
+          {
+            "id": "sketch1.v1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v2.x",
+            "mm": "80",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v2.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v3.x",
+            "mm": "80",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v3.y",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v4.x",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v4.y",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v5.x",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v5.y",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v6.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v6.y",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.height",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "sketch1.profile",
+              "kind": "planar_profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "x": "sketch1.v1.x",
+                  "y": "sketch1.v1.y"
+                },
+                {
+                  "id": "v2",
+                  "x": "sketch1.v2.x",
+                  "y": "sketch1.v2.y"
+                },
+                {
+                  "id": "v3",
+                  "x": "sketch1.v3.x",
+                  "y": "sketch1.v3.y"
+                },
+                {
+                  "id": "v4",
+                  "x": "sketch1.v4.x",
+                  "y": "sketch1.v4.y"
+                },
+                {
+                  "id": "v5",
+                  "x": "sketch1.v5.x",
+                  "y": "sketch1.v5.y"
+                },
+                {
+                  "id": "v6",
+                  "x": "sketch1.v6.x",
+                  "y": "sketch1.v6.y"
+                }
+              ]
+            },
+            "op": "add_feature"
+          },
+          {
+            "feature": {
+              "height": "sketch1.height",
+              "id": "sketch1.solid",
+              "kind": "extrude",
+              "profile": "sketch1.profile"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "20"
+                  ],
+                  [
+                    "20",
+                    "20"
+                  ],
+                  [
+                    "20",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "12000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    8,
+                    9
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    9,
+                    10
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    10,
+                    11
+                  ],
+                  [
+                    5,
+                    0
+                  ],
+                  [
+                    11,
+                    6
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangles": [
+                  [
+                    0,
+                    5,
+                    4
+                  ],
+                  [
+                    10,
+                    11,
+                    6
+                  ],
+                  [
+                    2,
+                    1,
+                    0
+                  ],
+                  [
+                    6,
+                    7,
+                    8
+                  ],
+                  [
+                    0,
+                    4,
+                    3
+                  ],
+                  [
+                    9,
+                    10,
+                    6
+                  ],
+                  [
+                    3,
+                    2,
+                    0
+                  ],
+                  [
+                    6,
+                    8,
+                    9
+                  ],
+                  [
+                    0,
+                    1,
+                    7
+                  ],
+                  [
+                    0,
+                    7,
+                    6
+                  ],
+                  [
+                    1,
+                    2,
+                    8
+                  ],
+                  [
+                    1,
+                    8,
+                    7
+                  ],
+                  [
+                    2,
+                    3,
+                    9
+                  ],
+                  [
+                    2,
+                    9,
+                    8
+                  ],
+                  [
+                    3,
+                    4,
+                    10
+                  ],
+                  [
+                    3,
+                    10,
+                    9
+                  ],
+                  [
+                    4,
+                    5,
+                    11
+                  ],
+                  [
+                    4,
+                    11,
+                    10
+                  ],
+                  [
+                    5,
+                    0,
+                    6
+                  ],
+                  [
+                    5,
+                    6,
+                    11
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    20,
+                    0
+                  ],
+                  [
+                    20,
+                    20,
+                    0
+                  ],
+                  [
+                    20,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    20,
+                    5
+                  ],
+                  [
+                    20,
+                    20,
+                    5
+                  ],
+                  [
+                    20,
+                    60,
+                    5
+                  ],
+                  [
+                    0,
+                    60,
+                    5
+                  ]
+                ]
+              },
+              "feature_id": "sketch1.solid",
+              "volume_approx_mm3": 12000,
+              "volume_mm3": "12000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": false,
+          "changed_parameters": [
+            "sketch1.height",
+            "sketch1.v1.x",
+            "sketch1.v1.y",
+            "sketch1.v2.x",
+            "sketch1.v2.y",
+            "sketch1.v3.x",
+            "sketch1.v3.y",
+            "sketch1.v4.x",
+            "sketch1.v4.y",
+            "sketch1.v5.x",
+            "sketch1.v5.y",
+            "sketch1.v6.x",
+            "sketch1.v6.y"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "sketch1.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch1.v1.x",
+                    "y": "sketch1.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch1.v2.x",
+                    "y": "sketch1.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch1.v3.x",
+                    "y": "sketch1.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch1.v4.x",
+                    "y": "sketch1.v4.y"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "sketch1.v5.x",
+                    "y": "sketch1.v5.y"
+                  },
+                  {
+                    "id": "v6",
+                    "x": "sketch1.v6.x",
+                    "y": "sketch1.v6.y"
+                  }
+                ]
+              },
+              {
+                "height": "sketch1.height",
+                "id": "sketch1.solid",
+                "kind": "extrude",
+                "profile": "sketch1.profile"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "sketch1.height": "5",
+              "sketch1.v1.x": "0",
+              "sketch1.v1.y": "0",
+              "sketch1.v2.x": "80",
+              "sketch1.v2.y": "0",
+              "sketch1.v3.x": "80",
+              "sketch1.v3.y": "20",
+              "sketch1.v4.x": "20",
+              "sketch1.v4.y": "20",
+              "sketch1.v5.x": "20",
+              "sketch1.v5.y": "60",
+              "sketch1.v6.x": "0",
+              "sketch1.v6.y": "60"
+            }
+          },
+          "preview": true,
+          "profiles": [
+            {
+              "area_mm2": "2400",
+              "feature_id": "sketch1.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "80",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "80",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "20",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "20",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v6",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": 0,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 0,
+        "operations": [
+          {
+            "id": "sketch1.v1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v2.x",
+            "mm": "80",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v2.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v3.x",
+            "mm": "80",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v3.y",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v4.x",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v4.y",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v5.x",
+            "mm": "20",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v5.y",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v6.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.v6.y",
+            "mm": "60",
+            "op": "define_parameter"
+          },
+          {
+            "id": "sketch1.height",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "sketch1.profile",
+              "kind": "planar_profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "x": "sketch1.v1.x",
+                  "y": "sketch1.v1.y"
+                },
+                {
+                  "id": "v2",
+                  "x": "sketch1.v2.x",
+                  "y": "sketch1.v2.y"
+                },
+                {
+                  "id": "v3",
+                  "x": "sketch1.v3.x",
+                  "y": "sketch1.v3.y"
+                },
+                {
+                  "id": "v4",
+                  "x": "sketch1.v4.x",
+                  "y": "sketch1.v4.y"
+                },
+                {
+                  "id": "v5",
+                  "x": "sketch1.v5.x",
+                  "y": "sketch1.v5.y"
+                },
+                {
+                  "id": "v6",
+                  "x": "sketch1.v6.x",
+                  "y": "sketch1.v6.y"
+                }
+              ]
+            },
+            "op": "add_feature"
+          },
+          {
+            "feature": {
+              "height": "sketch1.height",
+              "id": "sketch1.solid",
+              "kind": "extrude",
+              "profile": "sketch1.profile"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "11bb3b93-b4f2-486e-a2f5-bb83a3a4681d"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "20"
+                  ],
+                  [
+                    "20",
+                    "20"
+                  ],
+                  [
+                    "20",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "12000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    8,
+                    9
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    9,
+                    10
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    10,
+                    11
+                  ],
+                  [
+                    5,
+                    0
+                  ],
+                  [
+                    11,
+                    6
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangles": [
+                  [
+                    0,
+                    5,
+                    4
+                  ],
+                  [
+                    10,
+                    11,
+                    6
+                  ],
+                  [
+                    2,
+                    1,
+                    0
+                  ],
+                  [
+                    6,
+                    7,
+                    8
+                  ],
+                  [
+                    0,
+                    4,
+                    3
+                  ],
+                  [
+                    9,
+                    10,
+                    6
+                  ],
+                  [
+                    3,
+                    2,
+                    0
+                  ],
+                  [
+                    6,
+                    8,
+                    9
+                  ],
+                  [
+                    0,
+                    1,
+                    7
+                  ],
+                  [
+                    0,
+                    7,
+                    6
+                  ],
+                  [
+                    1,
+                    2,
+                    8
+                  ],
+                  [
+                    1,
+                    8,
+                    7
+                  ],
+                  [
+                    2,
+                    3,
+                    9
+                  ],
+                  [
+                    2,
+                    9,
+                    8
+                  ],
+                  [
+                    3,
+                    4,
+                    10
+                  ],
+                  [
+                    3,
+                    10,
+                    9
+                  ],
+                  [
+                    4,
+                    5,
+                    11
+                  ],
+                  [
+                    4,
+                    11,
+                    10
+                  ],
+                  [
+                    5,
+                    0,
+                    6
+                  ],
+                  [
+                    5,
+                    6,
+                    11
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    20,
+                    0
+                  ],
+                  [
+                    20,
+                    20,
+                    0
+                  ],
+                  [
+                    20,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    20,
+                    5
+                  ],
+                  [
+                    20,
+                    20,
+                    5
+                  ],
+                  [
+                    20,
+                    60,
+                    5
+                  ],
+                  [
+                    0,
+                    60,
+                    5
+                  ]
+                ]
+              },
+              "feature_id": "sketch1.solid",
+              "volume_approx_mm3": 12000,
+              "volume_mm3": "12000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "sketch1.height",
+            "sketch1.v1.x",
+            "sketch1.v1.y",
+            "sketch1.v2.x",
+            "sketch1.v2.y",
+            "sketch1.v3.x",
+            "sketch1.v3.y",
+            "sketch1.v4.x",
+            "sketch1.v4.y",
+            "sketch1.v5.x",
+            "sketch1.v5.y",
+            "sketch1.v6.x",
+            "sketch1.v6.y"
+          ],
+          "committed_revision": 1,
+          "model": {
+            "features": [
+              {
+                "id": "sketch1.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch1.v1.x",
+                    "y": "sketch1.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch1.v2.x",
+                    "y": "sketch1.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch1.v3.x",
+                    "y": "sketch1.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch1.v4.x",
+                    "y": "sketch1.v4.y"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "sketch1.v5.x",
+                    "y": "sketch1.v5.y"
+                  },
+                  {
+                    "id": "v6",
+                    "x": "sketch1.v6.x",
+                    "y": "sketch1.v6.y"
+                  }
+                ]
+              },
+              {
+                "height": "sketch1.height",
+                "id": "sketch1.solid",
+                "kind": "extrude",
+                "profile": "sketch1.profile"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "sketch1.height": "5",
+              "sketch1.v1.x": "0",
+              "sketch1.v1.y": "0",
+              "sketch1.v2.x": "80",
+              "sketch1.v2.y": "0",
+              "sketch1.v3.x": "80",
+              "sketch1.v3.y": "20",
+              "sketch1.v4.x": "20",
+              "sketch1.v4.y": "20",
+              "sketch1.v5.x": "20",
+              "sketch1.v5.y": "60",
+              "sketch1.v6.x": "0",
+              "sketch1.v6.y": "60"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "2400",
+              "feature_id": "sketch1.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "80",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "80",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "20",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "20",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v6",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 1,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "sketch1.v4.x",
+            "mm": "30",
+            "op": "set_parameter"
+          },
+          {
+            "id": "sketch1.v5.x",
+            "mm": "30",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "sketch1.height",
+          "sketch1.v1.x",
+          "sketch1.v1.y",
+          "sketch1.v2.x",
+          "sketch1.v2.y",
+          "sketch1.v3.x",
+          "sketch1.v3.y",
+          "sketch1.v4.y",
+          "sketch1.v5.y",
+          "sketch1.v6.x",
+          "sketch1.v6.y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "20"
+                  ],
+                  [
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "30",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "14000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    8,
+                    9
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    9,
+                    10
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    10,
+                    11
+                  ],
+                  [
+                    5,
+                    0
+                  ],
+                  [
+                    11,
+                    6
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangles": [
+                  [
+                    0,
+                    5,
+                    4
+                  ],
+                  [
+                    10,
+                    11,
+                    6
+                  ],
+                  [
+                    2,
+                    1,
+                    0
+                  ],
+                  [
+                    6,
+                    7,
+                    8
+                  ],
+                  [
+                    0,
+                    4,
+                    3
+                  ],
+                  [
+                    9,
+                    10,
+                    6
+                  ],
+                  [
+                    3,
+                    2,
+                    0
+                  ],
+                  [
+                    6,
+                    8,
+                    9
+                  ],
+                  [
+                    0,
+                    1,
+                    7
+                  ],
+                  [
+                    0,
+                    7,
+                    6
+                  ],
+                  [
+                    1,
+                    2,
+                    8
+                  ],
+                  [
+                    1,
+                    8,
+                    7
+                  ],
+                  [
+                    2,
+                    3,
+                    9
+                  ],
+                  [
+                    2,
+                    9,
+                    8
+                  ],
+                  [
+                    3,
+                    4,
+                    10
+                  ],
+                  [
+                    3,
+                    10,
+                    9
+                  ],
+                  [
+                    4,
+                    5,
+                    11
+                  ],
+                  [
+                    4,
+                    11,
+                    10
+                  ],
+                  [
+                    5,
+                    0,
+                    6
+                  ],
+                  [
+                    5,
+                    6,
+                    11
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    20,
+                    0
+                  ],
+                  [
+                    30,
+                    20,
+                    0
+                  ],
+                  [
+                    30,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    20,
+                    5
+                  ],
+                  [
+                    30,
+                    20,
+                    5
+                  ],
+                  [
+                    30,
+                    60,
+                    5
+                  ],
+                  [
+                    0,
+                    60,
+                    5
+                  ]
+                ]
+              },
+              "feature_id": "sketch1.solid",
+              "volume_approx_mm3": 14000,
+              "volume_mm3": "14000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "sketch1.v4.x",
+            "sketch1.v5.x"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "sketch1.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch1.v1.x",
+                    "y": "sketch1.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch1.v2.x",
+                    "y": "sketch1.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch1.v3.x",
+                    "y": "sketch1.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch1.v4.x",
+                    "y": "sketch1.v4.y"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "sketch1.v5.x",
+                    "y": "sketch1.v5.y"
+                  },
+                  {
+                    "id": "v6",
+                    "x": "sketch1.v6.x",
+                    "y": "sketch1.v6.y"
+                  }
+                ]
+              },
+              {
+                "height": "sketch1.height",
+                "id": "sketch1.solid",
+                "kind": "extrude",
+                "profile": "sketch1.profile"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "sketch1.height": "5",
+              "sketch1.v1.x": "0",
+              "sketch1.v1.y": "0",
+              "sketch1.v2.x": "80",
+              "sketch1.v2.y": "0",
+              "sketch1.v3.x": "80",
+              "sketch1.v3.y": "20",
+              "sketch1.v4.x": "30",
+              "sketch1.v4.y": "20",
+              "sketch1.v5.x": "30",
+              "sketch1.v5.y": "60",
+              "sketch1.v6.x": "0",
+              "sketch1.v6.y": "60"
+            }
+          },
+          "preview": true,
+          "profiles": [
+            {
+              "area_mm2": "2800",
+              "feature_id": "sketch1.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "80",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "80",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "30",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "30",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v6",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": 1,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "sketch1.v4.x",
+            "mm": "30",
+            "op": "set_parameter"
+          },
+          {
+            "id": "sketch1.v5.x",
+            "mm": "30",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "sketch1.height",
+          "sketch1.v1.x",
+          "sketch1.v1.y",
+          "sketch1.v2.x",
+          "sketch1.v2.y",
+          "sketch1.v3.x",
+          "sketch1.v3.y",
+          "sketch1.v4.y",
+          "sketch1.v5.y",
+          "sketch1.v6.x",
+          "sketch1.v6.y"
+        ],
+        "transaction_id": "82d199aa-bbff-4db0-ac05-d0b33f17fa87"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "0"
+                  ],
+                  [
+                    "80",
+                    "20"
+                  ],
+                  [
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "30",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "14000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    8,
+                    9
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    9,
+                    10
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    10,
+                    11
+                  ],
+                  [
+                    5,
+                    0
+                  ],
+                  [
+                    11,
+                    6
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangles": [
+                  [
+                    0,
+                    5,
+                    4
+                  ],
+                  [
+                    10,
+                    11,
+                    6
+                  ],
+                  [
+                    2,
+                    1,
+                    0
+                  ],
+                  [
+                    6,
+                    7,
+                    8
+                  ],
+                  [
+                    0,
+                    4,
+                    3
+                  ],
+                  [
+                    9,
+                    10,
+                    6
+                  ],
+                  [
+                    3,
+                    2,
+                    0
+                  ],
+                  [
+                    6,
+                    8,
+                    9
+                  ],
+                  [
+                    0,
+                    1,
+                    7
+                  ],
+                  [
+                    0,
+                    7,
+                    6
+                  ],
+                  [
+                    1,
+                    2,
+                    8
+                  ],
+                  [
+                    1,
+                    8,
+                    7
+                  ],
+                  [
+                    2,
+                    3,
+                    9
+                  ],
+                  [
+                    2,
+                    9,
+                    8
+                  ],
+                  [
+                    3,
+                    4,
+                    10
+                  ],
+                  [
+                    3,
+                    10,
+                    9
+                  ],
+                  [
+                    4,
+                    5,
+                    11
+                  ],
+                  [
+                    4,
+                    11,
+                    10
+                  ],
+                  [
+                    5,
+                    0,
+                    6
+                  ],
+                  [
+                    5,
+                    6,
+                    11
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    0,
+                    0
+                  ],
+                  [
+                    80,
+                    20,
+                    0
+                  ],
+                  [
+                    30,
+                    20,
+                    0
+                  ],
+                  [
+                    30,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    60,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    0,
+                    5
+                  ],
+                  [
+                    80,
+                    20,
+                    5
+                  ],
+                  [
+                    30,
+                    20,
+                    5
+                  ],
+                  [
+                    30,
+                    60,
+                    5
+                  ],
+                  [
+                    0,
+                    60,
+                    5
+                  ]
+                ]
+              },
+              "feature_id": "sketch1.solid",
+              "volume_approx_mm3": 14000,
+              "volume_mm3": "14000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "sketch1.v4.x",
+            "sketch1.v5.x"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "sketch1.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch1.v1.x",
+                    "y": "sketch1.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch1.v2.x",
+                    "y": "sketch1.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch1.v3.x",
+                    "y": "sketch1.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch1.v4.x",
+                    "y": "sketch1.v4.y"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "sketch1.v5.x",
+                    "y": "sketch1.v5.y"
+                  },
+                  {
+                    "id": "v6",
+                    "x": "sketch1.v6.x",
+                    "y": "sketch1.v6.y"
+                  }
+                ]
+              },
+              {
+                "height": "sketch1.height",
+                "id": "sketch1.solid",
+                "kind": "extrude",
+                "profile": "sketch1.profile"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "sketch1.height": "5",
+              "sketch1.v1.x": "0",
+              "sketch1.v1.y": "0",
+              "sketch1.v2.x": "80",
+              "sketch1.v2.y": "0",
+              "sketch1.v3.x": "80",
+              "sketch1.v3.y": "20",
+              "sketch1.v4.x": "30",
+              "sketch1.v4.y": "20",
+              "sketch1.v5.x": "30",
+              "sketch1.v5.y": "60",
+              "sketch1.v6.x": "0",
+              "sketch1.v6.y": "60"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "2800",
+              "feature_id": "sketch1.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "80",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "80",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "30",
+                    "20",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "30",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v6",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

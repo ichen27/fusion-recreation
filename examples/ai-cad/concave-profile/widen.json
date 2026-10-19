@@ -1,0 +1,19 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "concave-widen-v1",
+  "operations": [
+    {
+      "op": "adjust_parameter",
+      "id": "width",
+      "delta_mm": "20"
+    }
+  ],
+  "preserve": [
+    "depth",
+    "leg",
+    "thickness",
+    "margin",
+    "radius"
+  ]
+}

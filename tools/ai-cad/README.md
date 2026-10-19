@@ -33,7 +33,7 @@ python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/prof
 python3 tools/ai-cad/viewer.py --store work/profile.cad.json
 ```
 
-Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create convex profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
+Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create simple planar profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
 
 ## Preserve design relationships
 
@@ -99,7 +99,7 @@ Tools: `cad_inspect`, `cad_preview`, `cad_commit`, `cad_history`. The adapter gi
 See [the full command contract](../../docs/ai-cad-contract.md). CLI requests are JSON on stdin; one JSON reply is written to stdout. Errors use `{ "error": { "code", "entity", "message" } }`. Successful replies have a `result` with revision, editable model, exact boundary, volume and changed parameter IDs.
 
 - Model: named exact rational parameters in mm, optional affine relationships, ordered features, explicit fixed-value constraints.
-- Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Terminal solids and unextruded profiles are displayed. Also: strictly convex XY polygon profiles with named parameter-backed vertices and positive-Z extrusion. Independent bodies can overlap; their volumes are per-body, not a union volume.
+- Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Terminal solids and unextruded profiles are displayed. Also: simple concave or strictly convex XY polygon profiles with named parameter-backed vertices and positive-Z extrusion. Independent bodies can overlap; their volumes are per-body, not a union volume.
 - Operations: define/set/adjust parameter, set/remove relationship, add feature, fix/release parameter. Constraints must be explicitly released to change them.
 - Preview and commit take an expected revision and a list of parameter IDs to preserve. The whole proposed model must pass Rust validation.
 - Atomic snapshots retain 64 undo/redo steps and up to 1024 transaction receipts. Revision increases for undo/redo. Receipt exhaustion fails explicitly; there is no silent idempotency expiry.
@@ -130,7 +130,7 @@ python3 scripts/check.py
 
 The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Every history snapshot is checked against bounded content/executable-keyed validated results or evaluated through Rust. New edits still launch Rust and rebuild the whole model; this is not the final large-document scheduler. See [runtime measurements](../../examples/ai-cad/runtime/README.md).
 
-No general geometric sketch solver, nonconvex or arbitrary curved profiles, general booleans, blind/arbitrarily oriented holes, fillets, transforms, assemblies, collaborative editing protocol or production crash-recovery guarantee is added here. Bounded analytic through-holes and explicit STL/optional STEP export are available as described below. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+No general geometric sketch solver, arbitrary curved profiles, general booleans, blind/arbitrarily oriented holes, fillets, transforms, assemblies, collaborative editing protocol or production crash-recovery guarantee is added here. Bounded analytic through-holes and explicit STL/optional STEP export are available as described below. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
 
 The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.
 
@@ -142,4 +142,8 @@ The browser downloads the saved revision as STL; the export CLI also supports op
 
 ## Draw and edit a sketch
 
-Start the viewer against a new document path, click **New sketch → solid**, place points around a convex outline (or start a rectangle), choose height, preview and save. **Edit sketch** supports point dragging and exact coordinate fields on existing profiles. Fixed/derived coordinates stay locked; shared parameter references move together. New drawings support 3..16 points, 1 mm drag snapping and integer/fraction field input. Preview runs the authoritative Rust checks before saving. [Browser recording, native documents and screenshots](../../examples/ai-cad/sketch-editor/README.md).
+Start the viewer against a new document path, click **New sketch → solid**, place points around a simple outline (inward corners are allowed) (or start a rectangle), choose height, preview and save. **Edit sketch** supports point dragging and exact coordinate fields on existing profiles. Fixed/derived coordinates stay locked; shared parameter references move together. New drawings support 3..16 points, 1 mm drag snapping and integer/fraction field input. Preview runs the authoritative Rust checks before saving. [Browser recording, native documents and screenshots](../../examples/ai-cad/sketch-editor/README.md).
+
+## Concave plates
+
+[The L-shaped mounting plate](../../examples/ai-cad/concave-profile/README.md) adds a simple concave outline with two exact circular holes and a width-dependent mount. It includes native snapshots, STL, STEP, and independent re-import validation. Run `python3 tools/ai-cad/verify_concave_example.py`; optional OCCT validation is `python3 tools/ai-cad/verify_concave_export.py` after installing `step-requirements.txt`.

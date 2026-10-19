@@ -2,7 +2,9 @@
 export function draftSketch(model, prefix, featureId = null) {
   const feature = featureId
     ? model.features.find(
-        (f) => f.id === featureId && f.kind === "polygon_profile",
+        (f) =>
+          f.id === featureId &&
+          ["polygon_profile", "planar_profile"].includes(f.kind),
       )
     : null;
   if (featureId && !feature) throw Error("Select a polygon profile");
@@ -10,6 +12,7 @@ export function draftSketch(model, prefix, featureId = null) {
     model: structuredClone(model),
     prefix,
     featureId,
+    kind: feature?.kind ?? "planar_profile",
     vertices: feature ? structuredClone(feature.vertices) : [],
     values: { ...model.parameters },
     height: "6",
@@ -77,7 +80,7 @@ export function sketchOperations(draft) {
     {
       op: "add_feature",
       feature: {
-        kind: "polygon_profile",
+        kind: draft.kind,
         id: profile,
         vertices: structuredClone(draft.vertices),
       },
