@@ -185,3 +185,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Selection-bound edit checkpoint
 
 [Optional preview/save selection guards](../examples/ai-cad/selection-guard/README.md) prevent a context-dependent edit from silently proceeding after the selected body/surface changes, even without a model revision change. Browser proposals retain surface guards; MCP accepts the same typed precondition. Tests cover snapshot jobs, explicit reselection, same-revision replacement, atomic rejection and idempotent receipts. This proves context identity, not edit locality or user authorization. Geometry picking, broader modeling operations and full engineering workflows remain open.
+
+## Direct surface picking checkpoint
+
+[Native triangle provenance and viewport picking](../examples/ai-cad/surface-picking/README.md) connect a visible cap/wall/shoulder directly to exact shared surface context. The original mesh builder retains source references, and CPU picking uses the same rebased display coordinates as the GPU. Only the chosen surface is highlighted; actual picking/orbit records show zero geometry uploads. Native geometry and untagged STL meshes remain unchanged. Exact curved ray intersections, edge picking, broader feature geometry and scalable rendering remain open.

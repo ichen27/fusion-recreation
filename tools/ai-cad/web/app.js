@@ -5,7 +5,7 @@ import { previewJob } from "/preview-client.mjs";
 import { installRotationEditor } from "/rotation-editor.mjs";
 import { rigidCandidate } from "/translate-model.mjs";
 import { installTranslateEditor } from "/translate-editor.mjs";
-import { pickBody } from "/picking.mjs";
+import { pickSurface } from "/picking.mjs";
 import { installIntersectionEditor } from "/intersection-editor.mjs";
 import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
@@ -121,7 +121,17 @@ function geometry(bodies, profiles) {
   if (!bodies.some((b) => b.feature_id === selectedBody)) selectedBody = null;
   for (const body of bodies) {
     const first = triangles.length / 6,
-      lineFirst = lines.length / 6;
+      lineFirst = lines.length / 6,
+      triangleSurfaces = [],
+      surfaceGroups = [];
+    const recordSurface = (reference) => {
+      triangleSurfaces.push(reference);
+      const start = triangles.length / 6;
+      const last = surfaceGroups.at(-1);
+      if (last && last.surface_id === reference) last.count += 3;
+      else
+        surfaceGroups.push({ surface_id: reference, first: start, count: 3 });
+    };
     const record = () =>
       bodyGroups.push({
         feature_id: body.feature_id,
@@ -129,6 +139,8 @@ function geometry(bodies, profiles) {
         count: triangles.length / 6 - first,
         lineFirst,
         lineCount: lines.length / 6 - lineFirst,
+        triangle_surfaces: triangleSurfaces,
+        surfaceGroups,
       });
     if (body.analytic || body.components) {
       const mesh = body.display_mesh;
@@ -137,26 +149,35 @@ function geometry(bodies, profiles) {
       }
       const vertices = mesh.vertices;
       all.push(...vertices);
-      for (const ids of mesh.triangles) {
-        const [a, b, c] = ids.map((i) => vertices[i]);
-        const u = b.map((v, i) => v - a[i]),
-          v = c.map((x, i) => x - a[i]);
-        const n = [
-          u[1] * v[2] - u[2] * v[1],
-          u[2] * v[0] - u[0] * v[2],
-          u[0] * v[1] - u[1] * v[0],
-        ];
-        const shade =
-          0.72 +
-          (0.25 * (n[0] * 0.3 - n[1] * 0.4 + n[2] * 0.86)) / Math.hypot(...n);
-        for (const id of ids)
-          triangles.push(
-            ...vertices[id],
-            0.36 * shade,
-            0.65 * shade,
-            0.58 * shade,
-          );
-      }
+      // Group disposable triangles by native provenance to bound highlight draw calls.
+      const surfaces = new Map();
+      mesh.triangles.forEach((ids, index) => {
+        const reference = mesh.triangle_surfaces?.[index] ?? null;
+        if (!surfaces.has(reference)) surfaces.set(reference, []);
+        surfaces.get(reference).push(ids);
+      });
+      for (const [reference, surfaceTriangles] of surfaces)
+        for (const ids of surfaceTriangles) {
+          recordSurface(reference);
+          const [a, b, c] = ids.map((i) => vertices[i]);
+          const u = b.map((v, i) => v - a[i]),
+            v = c.map((x, i) => x - a[i]);
+          const n = [
+            u[1] * v[2] - u[2] * v[1],
+            u[2] * v[0] - u[0] * v[2],
+            u[0] * v[1] - u[1] * v[0],
+          ];
+          const shade =
+            0.72 +
+            (0.25 * (n[0] * 0.3 - n[1] * 0.4 + n[2] * 0.86)) / Math.hypot(...n);
+          for (const id of ids)
+            triangles.push(
+              ...vertices[id],
+              0.36 * shade,
+              0.65 * shade,
+              0.58 * shade,
+            );
+        }
       for (const edge of mesh.edges)
         for (const id of edge) lines.push(...vertices[id], 0.15, 0.31, 0.27);
       record();
@@ -165,7 +186,7 @@ function geometry(bodies, profiles) {
     const b = body.boundary,
       vertices = b.vertices.map((p) => p.map(number));
     all.push(...vertices);
-    for (const face of b.faces) {
+    for (const [faceIndex, face] of b.faces.entries()) {
       const ids = face.loops[0].map(
         (u) => b.edges[u.edge].vertices[u.forward ? 0 : 1],
       );
@@ -174,9 +195,11 @@ function geometry(bodies, profiles) {
       const shade =
         0.72 + (0.25 * (n[0] * 0.3 + n[1] * -0.4 + n[2] * 0.86)) / length;
       const color = [0.36 * shade, 0.65 * shade, 0.58 * shade];
-      for (let i = 1; i < ids.length - 1; i++)
+      for (let i = 1; i < ids.length - 1; i++) {
+        recordSurface(`evaluated/face/${faceIndex}`);
         for (const id of [ids[0], ids[i], ids[i + 1]])
           triangles.push(...vertices[id], ...color);
+      }
     }
     for (const edge of b.edges)
       for (const id of edge.vertices)
@@ -219,13 +242,26 @@ function draw() {
   gl.polygonOffset(1, 1);
   const highlight = gl.getUniformLocation(program, "selected");
   for (const group of bodyGroups) {
-    gl.uniform1f(highlight, group.feature_id === selectedBody ? 1 : 0);
-    gl.drawArrays(gl.TRIANGLES, group.first, group.count);
+    if (selectedSurface && group.feature_id === selectedBody) {
+      for (const surface of group.surfaceGroups) {
+        gl.uniform1f(
+          highlight,
+          surface.surface_id === selectedSurface.reference ? 1 : 0,
+        );
+        gl.drawArrays(gl.TRIANGLES, surface.first, surface.count);
+      }
+    } else {
+      gl.uniform1f(highlight, group.feature_id === selectedBody ? 1 : 0);
+      gl.drawArrays(gl.TRIANGLES, group.first, group.count);
+    }
   }
   gl.disable(gl.POLYGON_OFFSET_FILL);
   let bodyLineCount = 0;
   for (const group of bodyGroups) {
-    gl.uniform1f(highlight, group.feature_id === selectedBody ? 1 : 0);
+    gl.uniform1f(
+      highlight,
+      !selectedSurface && group.feature_id === selectedBody ? 1 : 0,
+    );
     gl.drawArrays(
       gl.LINES,
       triangles.length / 6 + group.lineFirst,
@@ -452,7 +488,9 @@ async function readSelectionContext() {
   const context = reply.result;
   if (context.revision !== saved.revision) return;
   const id = context.selected_body?.feature_id ?? null;
-  const changed = selectedBody !== id;
+  const changed =
+    selectedBody !== id ||
+    selectedSurface?.reference !== context.selected_surface?.reference;
   selectedBody = id;
   updateSelection();
   selectedSurface = context.selected_surface ?? null;
@@ -505,6 +543,7 @@ function shareSelection(id, surface = null) {
         ) {
           selectedSurface = reply.result.selected_surface ?? null;
           renderSurfaceContext();
+          draw();
           $("selection-context").textContent = id
             ? `Shared with AI tools at revision ${revision}.`
             : "No saved solid shared with AI tools.";
@@ -558,15 +597,21 @@ canvas.addEventListener("pointerup", (e) => {
   if (!pointer.dragged && gl && !contextLost) {
     const rect = canvas.getBoundingClientRect(),
       aspect = canvas.width / canvas.height;
-    selectBody(
-      pickBody(
-        packedDisplay,
-        bodyGroups,
-        { yaw, pitch, zoom: fittedZoom(zoom, aspect), aspect },
-        (2 * (e.clientX - rect.left)) / rect.width - 1,
-        1 - (2 * (e.clientY - rect.top)) / rect.height,
-      ),
+    const hit = pickSurface(
+      packedDisplay,
+      bodyGroups,
+      { yaw, pitch, zoom: fittedZoom(zoom, aspect), aspect },
+      (2 * (e.clientX - rect.left)) / rect.width - 1,
+      1 - (2 * (e.clientY - rect.top)) / rect.height,
     );
+    if (hit?.surface_id && saved && !preview && !editPending && !busy) {
+      selectedBody = hit.feature_id;
+      selectedSurface = null;
+      updateSelection();
+      renderSurfaceContext();
+      draw();
+      shareSelection(hit.feature_id, hit.surface_id);
+    } else selectBody(hit?.feature_id ?? null);
   }
   pointer = null;
 });

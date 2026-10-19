@@ -14,11 +14,18 @@ import tempfile
 from store import BINARY, CadError, Store, encode
 
 
-def tessellate(model, feature_id, segments=64):
+def tessellate(model, feature_id, segments=64, include_surfaces=False):
     try:
         process = subprocess.run(
             [str(BINARY), "--mesh"],
-            input=encode(dict(model=model, feature_id=feature_id, segments=segments)),
+            input=encode(
+                dict(
+                    model=model,
+                    feature_id=feature_id,
+                    segments=segments,
+                    include_surfaces=include_surfaces,
+                )
+            ),
             capture_output=True,
             timeout=20,
         )
@@ -49,6 +56,7 @@ def display(reply, cache=None):
                         "model": state["model"],
                         "feature_id": body["feature_id"],
                         "segments": 64,
+                        "include_surfaces": True,
                     }
 
                     def compute():

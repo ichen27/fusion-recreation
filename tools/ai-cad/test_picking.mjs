@@ -108,3 +108,29 @@ test("missing triangles, collapsed faces, clipping and a hole stay unselected", 
   assert.equal(pickBody(data, groups, camera, 0, 0), null);
   assert.equal(pickBody(data, groups, camera, 0.6, 0), "ring");
 });
+
+test("surface picking returns exact provenance of the visible triangle and retains body fallback", async () => {
+  const { pickSurface } = await import("./web/picking.mjs");
+  const data = packed([...triangle(0), ...triangle(1)]);
+  const groups = [
+    { ...group("copy", 0), triangle_surfaces: ["feature/part/cap/top"] },
+    {
+      ...group("part", 3),
+      triangle_surfaces: ["feature/part/hole/left/upper"],
+    },
+  ];
+  assert.deepEqual(pickSurface(data, groups, camera, 0, 0), {
+    feature_id: "part",
+    surface_id: "feature/part/hole/left/upper",
+  });
+  assert.deepEqual(pickSurface(data, [groups[0]], camera, 0, 0), {
+    feature_id: "copy",
+    surface_id: "feature/part/cap/top",
+  });
+  assert.deepEqual(pickSurface(data, [group("legacy")], camera, 0, 0), {
+    feature_id: "legacy",
+    surface_id: null,
+  });
+  assert.equal(pickSurface(data, groups, camera, 0.99, 0.99), null);
+  assert.equal(pickBody(data, groups, camera, 0, 0), "part");
+});

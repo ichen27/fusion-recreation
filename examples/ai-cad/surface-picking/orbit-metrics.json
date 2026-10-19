@@ -1,0 +1,91 @@
+{
+  "draws": [
+    {
+      "count": 402,
+      "first": 0,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 402,
+      "first": 402,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 6,
+      "first": 804,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 6,
+      "first": 810,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 6,
+      "first": 816,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 6,
+      "first": 822,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 384,
+      "first": 828,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 384,
+      "first": 1212,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 384,
+      "first": 1596,
+      "mode": 4,
+      "selected": 1
+    },
+    {
+      "count": 384,
+      "first": 1980,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 384,
+      "first": 2364,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 384,
+      "first": 2748,
+      "mode": 4,
+      "selected": 0
+    },
+    {
+      "count": 1040,
+      "first": 3132,
+      "mode": 1,
+      "selected": 0
+    },
+    {
+      "count": 0,
+      "first": 4172,
+      "mode": 1,
+      "selected": 0
+    }
+  ],
+  "selection": "Selected surface: feature/part/hole/left/shoulder. Source feature: part. Shared dimensions may also affect other parts.",
+  "uploads": 0,
+  "description": "Actual browser orbit after selecting the left counterbore shoulder; uploads counted from before three viewport picks, draw calls reset before orbit."
+}

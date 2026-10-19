@@ -254,3 +254,9 @@ For an AI edit based on shared context, supply the same `selection_guard:{featur
 python tools/ai-cad/verify_selection_guard_mcp.py
 python tools/ai-cad/verify_selection_guard_recording.py
 ```
+
+You can also click a visible surface directly in the viewport. The chosen native cap, wall or shoulder is validated and shared with AI tools, then highlighted separately; choose **Select solid** in the feature list for whole-body context. Surface picking uses the displayed mesh and saved revision. [Recorded picks and zero-upload highlighting](../../examples/ai-cad/surface-picking/README.md).
+
+```sh
+python tools/ai-cad/verify_surface_picking.py
+```

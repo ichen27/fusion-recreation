@@ -9,6 +9,8 @@ pub struct Request {
     pub model: Model,
     pub feature_id: String,
     pub segments: usize,
+    #[serde(default)]
+    pub include_surfaces: bool,
 }
 #[derive(Serialize)]
 pub struct Mesh {
@@ -16,6 +18,16 @@ pub struct Mesh {
     pub triangles: Vec<[usize; 3]>,
     pub edges: Vec<[usize; 2]>,
     pub max_radial_error_mm: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub triangle_surfaces: Option<Vec<String>>,
+}
+impl Mesh {
+    pub(super) fn triangle(&mut self, triangle: [usize; 3], surface: &str) {
+        self.triangles.push(triangle);
+        if let Some(surfaces) = &mut self.triangle_surfaces {
+            surfaces.push(surface.into());
+        }
+    }
 }
 pub(super) fn value(s: &str) -> Result<f64> {
     // These are computed, already validated coordinates, not user literals.
@@ -55,7 +67,30 @@ pub fn evaluate(request: Request) -> Result<Mesh> {
                 "Select a terminal solid",
             )
         })?;
-    let first = build_mesh(&body, request.segments, 0.0);
+    let names = if request.include_surfaces {
+        Some(crate::topology::mesh_surfaces(&request.model, &body)?)
+    } else {
+        None
+    };
+    let build = |phase| -> Result<Mesh> {
+        let mut mesh = build_mesh(&body, request.segments, phase, request.include_surfaces)?;
+        if let (Some(surfaces), Some(names)) = (&mut mesh.triangle_surfaces, &names) {
+            for role in surfaces {
+                *role = names
+                    .get(role)
+                    .ok_or_else(|| {
+                        error(
+                            "tessellation_failed",
+                            "mesh",
+                            "Missing native surface provenance",
+                        )
+                    })?
+                    .clone();
+            }
+        }
+        Ok(mesh)
+    };
+    let first = build(0.0);
     if first.is_err()
         && body
             .analytic
@@ -66,14 +101,14 @@ pub fn evaluate(request: Request) -> Result<Mesh> {
         // Retry bounded sample phases of the same circles, never native geometry.
         // Every candidate still passes containment and complete mesh validation.
         for phase in [0.5, 0.25] {
-            if let Ok(mesh) = build_mesh(&body, request.segments, phase) {
+            if let Ok(mesh) = build(phase) {
                 return Ok(mesh);
             }
         }
     }
     first
 }
-fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
+fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<Mesh> {
     let fail = || {
         error("tessellation_failed",&body.feature_id,"Float tessellation failed; exact model is unchanged. Change scale or spacing before exporting")
     };
@@ -82,13 +117,14 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
         triangles: vec![],
         edges: vec![],
         max_radial_error_mm: 0.0,
+        triangle_surfaces: tagged.then(Vec::new),
     };
     if let Some(b) = &body.boundary {
         for p in &b.vertices {
             mesh.vertices
                 .push([value(&p[0])?, value(&p[1])?, value(&p[2])?]);
         }
-        for f in &b.faces {
+        for (face_index, f) in b.faces.iter().enumerate() {
             let normal = [
                 value(&f.normal[0])?,
                 value(&f.normal[1])?,
@@ -129,7 +165,7 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
                 if area * normal[axis] < 0.0 {
                     triangle.swap(1, 2);
                 }
-                mesh.triangles.push(triangle);
+                mesh.triangle(triangle, &format!("evaluated/face/{face_index}"));
             }
         }
         mesh.edges = b.edges.iter().map(|e| e.vertices).collect();
@@ -138,7 +174,7 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
         .as_ref()
         .is_some_and(|s| s.counterbore.is_some())
     {
-        mesh = crate::mesh_counterbore::build(body, segments, phase)?;
+        mesh = crate::mesh_counterbore::build(body, segments, phase, tagged)?;
     } else if let Some(shape) = &body.analytic {
         let h = value(&shape.height)?;
         let mut points = Vec::new();
@@ -226,29 +262,40 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
         for t in cap.chunks_exact(3) {
             let ids = orient(t);
             if shape.hole_depth.is_none() {
-                mesh.triangles.push([ids[2], ids[1], ids[0]]);
+                mesh.triangle([ids[2], ids[1], ids[0]], "cap/bottom");
             }
-            mesh.triangles.push(ids.map(|i| i + n));
+            mesh.triangle(ids.map(|i| i + n), "cap/top");
         }
         if shape.hole_depth.is_some() {
             let bottom = earcutr::earcut(&flat[..outer_n * 2], &[], 2).map_err(|_| fail())?;
             for t in bottom.chunks_exact(3) {
                 let ids = orient(t);
-                mesh.triangles.push([ids[2], ids[1], ids[0]]);
+                mesh.triangle([ids[2], ids[1], ids[0]], "cap/bottom");
             }
             // Each clockwise hole ring closes with an upward-facing flat floor.
             for (j, &start) in starts.iter().enumerate().skip(1) {
                 let end = starts.get(j + 1).copied().unwrap_or(n);
                 for i in start + 1..end - 1 {
-                    mesh.triangles.push([start, i + 1, i]);
+                    mesh.triangle(
+                        [start, i + 1, i],
+                        &format!("hole/{}/floor", shape.holes[j - 1].id),
+                    );
                 }
             }
         }
         starts.push(n);
-        for ring in starts.windows(2) {
+        for (ring_index, ring) in starts.windows(2).enumerate() {
             for a in ring[0]..ring[1] {
                 let b = if a + 1 == ring[1] { ring[0] } else { a + 1 };
-                mesh.triangles.extend([[a, b, b + n], [a, b + n, a + n]]);
+                let role = if ring_index > 0 {
+                    format!("hole/{}/wall", shape.holes[ring_index - 1].id)
+                } else if shape.outer_circle.is_some() {
+                    "outer/cylinder".into()
+                } else {
+                    format!("outer/side/{a}")
+                };
+                mesh.triangle([a, b, b + n], &role);
+                mesh.triangle([a, b + n, a + n], &role);
                 mesh.edges.extend([[a, b], [a + n, b + n]]);
             }
         }
