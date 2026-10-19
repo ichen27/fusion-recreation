@@ -41,7 +41,12 @@ impl Feature {
             } => (vec![profile], vec![height]),
             Self::CornerCut { input, size, .. } => (vec![input], vec![size]),
             Self::PlaneCut { input, offset, .. } => (vec![input], vec![offset]),
-            Self::Translate { input, offset, .. } => (vec![input], offset.iter().collect()),
+            Self::Translate { input, offset, .. }
+            | Self::Instance {
+                source: input,
+                offset,
+                ..
+            } => (vec![input], offset.iter().collect()),
             Self::RotateQuarter { input, pivot, .. } => (vec![input], pivot.iter().collect()),
             Self::Intersection { left, right, .. } | Self::Boolean { left, right, .. } => {
                 (vec![left, right], vec![])

@@ -95,6 +95,12 @@ pub enum Feature {
         input: String,
         offset: [String; 3],
     },
+    /// A linked, non-consuming translated placement of an earlier planar solid.
+    Instance {
+        id: String,
+        source: String,
+        offset: [String; 3],
+    },
     /// Original exact planar Boolean with merged faces, holes and components.
     Boolean {
         id: String,
@@ -146,6 +152,7 @@ impl Feature {
             | Self::PlaneCut { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
+            | Self::Instance { id, .. }
             | Self::RotateQuarter { id, .. }
             | Self::Boolean { id, .. } => id,
         }
@@ -629,8 +636,14 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 );
                 continue;
             }
-            Feature::Translate { input, offset, .. } => {
-                if !consumed.insert(input.as_str()) {
+            Feature::Translate { input, offset, .. }
+            | Feature::Instance {
+                source: input,
+                offset,
+                ..
+            } => {
+                if matches!(feature, Feature::Translate { .. }) && !consumed.insert(input.as_str())
+                {
                     return Err(error(
                         "unsupported_branch",
                         input,

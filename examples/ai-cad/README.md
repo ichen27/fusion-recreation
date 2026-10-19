@@ -75,3 +75,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Plane cuts on nonconvex results](nonconvex-plane-cuts/README.md): open cavities, trim holes and remove components, with recorded browser/MCP edits, native history, pocket STL and eight independent STEP comparisons.
 
 - [Operations on concave stock](concave-operations/README.md): exact profile decomposition, movement, turns, plane cuts and Booleans with editable native history and independent STEP comparisons.
+
+- [Linked part instances](linked-instances/README.md): shared source dimensions, independent placement, native history, browser/MCP edits and separate world-coordinate exports.

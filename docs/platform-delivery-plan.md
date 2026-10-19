@@ -13,14 +13,14 @@ Scope confirmed 2026-10-19: pursue the full long-term platform. A bracket workfl
 
 | Gate | Status | Acceptance evidence | Major unresolved work |
 |---|---|---|---|
-| Original planar geometry | Bounded implementation | Exact convex clipping, convex/simple-concave profile extrusion, orientation/manifold tests and independent comparisons | General nonconvex Boolean operations, multiple shells/cavities and tolerance policy beyond rational planes |
+| Original planar geometry | Bounded implementation | Exact profile decomposition, nonconvex planar Booleans/cuts, cavities/components and independent shape comparisons | Curved Boolean operations, imported-boundary validation and tolerance policy beyond rational planes |
 | Editable model and AI loop | Bounded implementation | Recorded create/edit conversation; typed MCP; atomic save/reopen, preview and undo | Broader intent tests, semantic selections, ambiguity handling and repair benchmarks |
 | Parameter relationships | Bounded implementation | Center follows width; dependent chains rebuild exactly; cycles/conflicts reject atomically; same results through CLI/MCP/browser | General geometric constraint solving and nonlinear expressions |
 | Useful part workflow | Bounded flat-bracket implementation | Three analytic through-holes; margin/center relationships; preview/save/reopen/undo; STL topology and STEP surface/location/volume checks | Bent brackets, arbitrary hole axes/depths, general curved topology and wider intent corpus |
 | Sketch and feature modeling | Interactive polygon editing implemented | Interactive constrained sketches and edit-stable extrude/revolve/sweep/loft/hole/chamfer/fillet/shell/draft/pattern workflows | Solver choice, over/underconstraint diagnostics, selection provenance and robust curved intersections |
 | Geometry breadth and interchange | Planned | Analytic and spline surfaces, repeated nonconvex operations, valid native/STEP/STL round trips with explicit losses | Curved numerical policy, trimming/healing, NURBS and imported-boundary validation |
 | Runtime and hardware | Bounded host/mesh caching and retained GPU buffers implemented | Versioned jobs, cancellation, incremental rebuilds, memory budgets and latency/frame-time measurements on declared workloads/devices | Large-document scheduling, caches, worker concurrency, GPU uploads/device recovery and justified compute acceleration |
-| Assemblies and engineering documentation | Planned | Component transforms, joints/configurations, linked drawings, tolerances and parts lists survive model edits | Assembly references, configuration semantics, materials, sheet metal and associative drawings |
+| Assemblies and engineering documentation | Linked planar placement implemented | Linked source dimensions and independent placement survive edits, native reopen and world-coordinate export | Assembly joints/configurations, external part references, materials, parts lists, sheet metal and associative drawings |
 | Broader design workflows | Planned | Explicitly scoped surfaces/freeform, meshes, rendering and animation examples | Representations, conversion semantics and cross-workflow editability |
 | Manufacturing and analysis | Long-term scope | Separate verified CAM, additive/nesting, CAE and electronics workflows | Domain solvers, toolpaths/posts, machine/process models, numerical accuracy and independent validation |
 | Product delivery and collaboration | Planned | Reproducible installation/update, stable document migrations, recoverability, API/add-ins, versioning and collaboration tests | Packaging/deployment, licensing/business model, access controls and concurrent editing semantics |
@@ -149,3 +149,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Concave-stock checkpoint
 
 [Exact simple-profile decomposition](../examples/ai-cad/concave-operations/README.md) now admits initial concave extrusions to Boolean, move/turn and cut operations. Both windings, 32-vertex profiles, tiny rational inputs and topology splitting are verified, alongside actual browser/MCP edits and seven independent STEP references. The next foundational gap is reusable part instances: current consuming transforms duplicate feature work and cannot express an assembly. Add explicit non-consuming linked instances before joints, with provenance, rebuild, selection and export semantics.
+
+## Linked-instance checkpoint
+
+[Non-consuming planar part instances](../examples/ai-cad/linked-instances/README.md) reuse source dimensions, retain independent placement and participate in subsequent operations and provenance. Browser/MCP, native history, separate STL ZIP and five independent STEP references are verified. Geometry is currently rebuilt per instance; no GPU instancing speedup is claimed. Next add exact engineering measurements of supported planar solids so humans and AI can inspect geometry beyond volume before broadening assembly constraints.
