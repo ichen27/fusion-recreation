@@ -7,10 +7,13 @@ import json
 from pathlib import Path
 from store import CadError, Store, dispatch
 from exports import display, export_stl
+from result_cache import ResultCache
 from urllib.parse import urlsplit, parse_qs
 
 
 def handler(store, port):
+    meshes = ResultCache(max_entries=32, max_bytes=16 * 1024 * 1024)
+
     class Handler(BaseHTTPRequestHandler):
         def reply(self, status, data, content_type="application/json"):
             self.send_response(status)
@@ -39,7 +42,7 @@ def handler(store, port):
                 return self.reply(
                     200,
                     json.dumps(
-                        display(dispatch(store, {"action": "inspect"}))
+                        display(dispatch(store, {"action": "inspect"}), meshes)
                     ).encode(),
                 )
             if urlsplit(self.path).path == "/api/export.stl":
@@ -91,7 +94,7 @@ def handler(store, port):
                     return self.reply(413, b"{}")
                 self.connection.settimeout(5)
                 command = json.loads(self.rfile.read(length))
-                reply = display(dispatch(store, command))
+                reply = display(dispatch(store, command), meshes)
                 self.reply(400 if "error" in reply else 200, json.dumps(reply).encode())
             except (ValueError, TimeoutError):
                 self.reply(400, b'{"error":{"message":"Invalid JSON request"}}')

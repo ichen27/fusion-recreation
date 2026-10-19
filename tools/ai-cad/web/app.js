@@ -21,8 +21,11 @@ function shader(type, source) {
     throw Error(gl.getShaderInfoLog(s));
   return s;
 }
-let program, buffer;
-if (gl) {
+let program,
+  buffer,
+  geometryDirty = true,
+  contextLost = false;
+function initializeGL() {
   program = gl.createProgram();
   gl.attachShader(
     program,
@@ -61,6 +64,10 @@ if (gl) {
     gl.vertexAttribPointer(location, 3, gl.FLOAT, false, 24, offset);
   }
   gl.enable(gl.DEPTH_TEST);
+  geometryDirty = true;
+}
+if (gl) {
+  initializeGL();
 } else {
   $("status").textContent =
     "WebGL 2 is unavailable. Model editing remains available.";
@@ -138,10 +145,18 @@ function geometry(bodies, profiles) {
     center = min.map((v, i) => (v + max[i]) / 2);
     extent = Math.max(...max.map((v, i) => v - min[i])) * 0.85;
   }
+  geometryDirty = true;
   draw();
 }
 function draw() {
-  if (!gl) return;
+  if (!gl || contextLost) return;
+  if (geometryDirty) {
+    const vertices = new Float32Array(triangles.length + lines.length);
+    vertices.set(triangles);
+    vertices.set(lines, triangles.length);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+    geometryDirty = false;
+  }
   const ratio = Math.min(devicePixelRatio, 2),
     w = Math.round(canvas.clientWidth * ratio),
     h = Math.round(canvas.clientHeight * ratio);
@@ -158,12 +173,22 @@ function draw() {
   gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
   gl.enable(gl.POLYGON_OFFSET_FILL);
   gl.polygonOffset(1, 1);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangles), gl.DYNAMIC_DRAW);
   gl.drawArrays(gl.TRIANGLES, 0, triangles.length / 6);
   gl.disable(gl.POLYGON_OFFSET_FILL);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lines), gl.DYNAMIC_DRAW);
-  gl.drawArrays(gl.LINES, 0, lines.length / 6);
+  gl.drawArrays(gl.LINES, triangles.length / 6, lines.length / 6);
 }
+canvas.addEventListener("webglcontextlost", (event) => {
+  event.preventDefault();
+  contextLost = true;
+  $("display-status").textContent =
+    "Graphics context lost. Your saved model is intact; waiting for recovery.";
+});
+canvas.addEventListener("webglcontextrestored", () => {
+  contextLost = false;
+  initializeGL();
+  draw();
+  $("display-status").textContent = "";
+});
 let pointer;
 canvas.addEventListener("pointerdown", (e) => {
   pointer = [e.clientX, e.clientY];

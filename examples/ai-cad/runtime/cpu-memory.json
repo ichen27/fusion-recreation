@@ -1,0 +1,133 @@
+{
+  "recorded_at": "2026-10-19T18:40:57.483916+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.3",
+  "base_commit": "917dd4d54e1089c87f496c7fa08d7c7966213427",
+  "rows": [
+    {
+      "name": "uncached_inspect_64_history",
+      "wall_samples_ms": [
+        236.0253749648109,
+        240.39395805448294,
+        237.30116698425263,
+        234.133500023745,
+        232.8195000300184
+      ],
+      "cpu_samples_ms": [
+        218.61000000000007,
+        222.55399999999992,
+        219.61800000000008,
+        217.522,
+        215.77499999999984
+      ],
+      "wall_median_ms": 236.0253749648109,
+      "cpu_median_ms": 218.61000000000007
+    },
+    {
+      "name": "fresh_host_inspect_64_history",
+      "wall_samples_ms": [
+        230.67908396478742,
+        231.655832962133,
+        230.52350000943989,
+        229.54770806245506,
+        230.70979095064104
+      ],
+      "cpu_samples_ms": [
+        213.21800000000013,
+        214.50299999999967,
+        213.89200000000042,
+        213.1529999999997,
+        213.3440000000002
+      ],
+      "wall_median_ms": 230.67908396478742,
+      "cpu_median_ms": 213.3440000000002
+    },
+    {
+      "name": "warm_host_inspect_64_history",
+      "wall_samples_ms": [
+        2.047250047326088,
+        2.0003330428153276,
+        2.000457956455648,
+        1.9612079486250877,
+        1.993624959141016
+      ],
+      "cpu_samples_ms": [
+        2.0519999999999428,
+        2.0010000000003636,
+        2.0009999999999195,
+        1.9619999999997972,
+        1.9939999999998292
+      ],
+      "wall_median_ms": 2.0003330428153276,
+      "cpu_median_ms": 2.0009999999999195
+    },
+    {
+      "name": "warm_host_preview_64_history",
+      "wall_samples_ms": [
+        5.6600000243633986,
+        5.679790978319943,
+        5.695334053598344,
+        5.646750098094344,
+        5.610833992250264
+      ],
+      "cpu_samples_ms": [
+        5.3399999999999,
+        5.433999999999717,
+        5.363000000000007,
+        5.359000000000336,
+        5.371999999999932
+      ],
+      "wall_median_ms": 5.6600000243633986,
+      "cpu_median_ms": 5.363000000000007
+    },
+    {
+      "name": "uncached_display_bracket",
+      "wall_samples_ms": [
+        5.667040939442813,
+        5.48437493853271,
+        5.55008405353874,
+        5.61954197473824,
+        5.624667042866349
+      ],
+      "cpu_samples_ms": [
+        5.460999999999494,
+        5.327999999999999,
+        5.398000000000014,
+        5.385999999999669,
+        5.4059999999998
+      ],
+      "wall_median_ms": 5.61954197473824,
+      "cpu_median_ms": 5.398000000000014
+    },
+    {
+      "name": "warm_display_bracket",
+      "wall_samples_ms": [
+        2.3608329938724637,
+        2.21345794852823,
+        2.205791068263352,
+        2.245499985292554,
+        2.2786250337958336
+      ],
+      "cpu_samples_ms": [
+        2.3680000000001478,
+        2.215000000000522,
+        2.2079999999999878,
+        2.24700000000011,
+        2.279000000000142
+      ],
+      "wall_median_ms": 2.245499985292554,
+      "cpu_median_ms": 2.24700000000011
+    }
+  ],
+  "caches": {
+    "evaluation_bytes": 112185,
+    "evaluation_entries": 66,
+    "evaluation_hits": 3525,
+    "evaluation_misses": 66,
+    "mesh_bytes": 29981,
+    "mesh_entries": 1
+  },
+  "host_peak_rss_bytes": 27770880,
+  "largest_child_peak_rss_bytes": 7569408,
+  "limits": "Sequential measurements on one machine with shared OS caches. Fresh host means a new Store/cache, not cold OS or a new Python process. CPU time sums host and reaped child user/system CPU; RSS values are whole-run high-water marks, not simultaneous aggregate memory or per-operation allocations. No geometry algorithm speedup, feature-level incremental evaluation, GPU compute or generalized throughput guarantee is claimed."
+}

@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+from result_cache import ResultCache
 
 ROOT = Path(__file__).resolve().parents[2]
 BINARY = ROOT / "crates/model-engine/target/release/model-engine"
@@ -82,6 +83,10 @@ class Store:
     def __init__(self, path):
         self.path = Path(path).resolve()
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.evaluations = ResultCache()
+
+    def inspect_model(self, model):
+        return self.evaluations.get(BINARY, model, lambda: evaluate(model))
 
     def load(self):
         if not self.path.exists():
@@ -129,7 +134,7 @@ class Store:
                     raise ValueError("invalid receipt fields")
             # History is executable data: check every snapshot before trusting it.
             for model in [state["model"], *state["undo"], *state["redo"]]:
-                evaluate(model)
+                self.inspect_model(model)
             return state
         except (ValueError, KeyError, TypeError, CadError) as exc:
             raise CadError("invalid_document", str(exc)) from exc
@@ -224,7 +229,7 @@ class Store:
                     **result,
                     "replayed": True,
                     "committed_revision": receipt["revision"],
-                    **evaluate(state["model"]),
+                    **self.inspect_model(state["model"]),
                 }
             if len(state["receipts"]) >= 1024:
                 raise CadError(
@@ -248,8 +253,12 @@ class Store:
                 raise CadError(
                     "invalid_command", "operations and preserve must be arrays"
                 )
-            evaluated = evaluate(
-                state["model"], command.get("operations"), command.get("preserve")
+            evaluated = (
+                self.inspect_model(state["model"])
+                if action == "inspect"
+                else evaluate(
+                    state["model"], command.get("operations"), command.get("preserve")
+                )
             )
             if not mutation:
                 return {**result, "preview": action == "preview", **evaluated}
@@ -264,7 +273,7 @@ class Store:
                 raise CadError("empty_history", f"Nothing to {action}")
             state[target] = (state[target] + [state["model"]])[-64:]
             state["model"] = state[source].pop()
-            evaluated = evaluate(state["model"])
+            evaluated = self.inspect_model(state["model"])
         state["revision"] += 1
         if state["revision"] > 9007199254740991:
             raise CadError("revision_limit", "Revision limit reached")

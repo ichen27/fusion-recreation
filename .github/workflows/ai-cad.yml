@@ -27,4 +27,5 @@ jobs:
       - run: python -m pip install -r tools/ai-cad/step-requirements.txt
       - run: python tools/ai-cad/verify_step_export.py
       - run: node --check tools/ai-cad/web/app.js
+      - run: node --check tools/ai-cad/benchmark_browser.js
       - run: npx --yes prettier@3.6.2 --check tools/ai-cad/web/app.js tools/ai-cad/web/index.html tools/ai-cad/web/style.css
