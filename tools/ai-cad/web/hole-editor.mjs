@@ -27,6 +27,17 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
     $("hole-feedback").textContent = error.message ?? error;
   };
   function outline() {
+    if (draft.profile.kind === "circle") {
+      const x = number(draft.values[draft.profile.x]),
+        y = -number(draft.values[draft.profile.y]),
+        r = number(draft.values[draft.profile.radius]);
+      return [
+        [x - r, y - r],
+        [x + r, y - r],
+        [x + r, y + r],
+        [x - r, y + r],
+      ];
+    }
     return draft.profile.vertices.map((v) => [
       number(draft.values[v.x]),
       -number(draft.values[v.y]),
@@ -37,10 +48,17 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
     const shapes = [];
     if (points.every((p) => p.every(Number.isFinite)))
       shapes.push(
-        element("polygon", {
-          points: points.map((p) => p.join(",")).join(" "),
-          class: "sketch-outline",
-        }),
+        draft.profile.kind === "circle"
+          ? element("circle", {
+              cx: number(draft.values[draft.profile.x]),
+              cy: -number(draft.values[draft.profile.y]),
+              r: number(draft.values[draft.profile.radius]),
+              class: "sketch-outline",
+            })
+          : element("polygon", {
+              points: points.map((p) => p.join(",")).join(" "),
+              class: "sketch-outline",
+            }),
       );
     draft.holes.forEach((hole, index) => {
       const x = number(draft.values[hole.x]),

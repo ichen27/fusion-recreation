@@ -289,6 +289,53 @@ async def main():
                 assert not any(
                     f["id"] == "concave" for f in cleaned["result"]["model"]["features"]
                 )
+                round_ops = [
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "cylinder",
+                            "id": "round_stock",
+                            "x": "zero",
+                            "y": "zero",
+                            "radius": "width",
+                            "height": "thickness",
+                        },
+                    },
+                    {
+                        "op": "add_feature",
+                        "feature": {
+                            "kind": "through_holes",
+                            "id": "round_ring",
+                            "input": "round_stock",
+                            "holes": [
+                                {
+                                    "id": "center",
+                                    "x": "zero",
+                                    "y": "zero",
+                                    "radius": "hole_radius",
+                                }
+                            ],
+                        },
+                    },
+                ]
+                round_result = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 14,
+                        "transaction_id": "mcp-round",
+                        "preserve": [],
+                        "operations": round_ops,
+                    },
+                )
+                assert "result" in round_result, round_result
+                ring = next(
+                    b
+                    for b in round_result["result"]["bodies"]
+                    if b["feature_id"] == "round_ring"
+                )
+                assert ring["analytic"]["kind"] == "round_prism"
+                assert len(ring["analytic"]["holes"]) == 1
+                assert "outer_circle" in ring["analytic"]
                 print(
                     "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )

@@ -9,7 +9,7 @@ use std::collections::{BTreeMap, BTreeSet};
 mod holes;
 pub mod mesh;
 mod profile;
-pub use holes::{Hole, PerforatedPrism};
+pub use holes::{AnalyticPrism, Hole};
 mod relations;
 pub use profile::{EvaluatedProfile, ProfileVertex};
 pub use relations::Relation;
@@ -56,6 +56,13 @@ pub enum Feature {
         profile: String,
         height: String,
     },
+    Cylinder {
+        id: String,
+        x: String,
+        y: String,
+        radius: String,
+        height: String,
+    },
     ThroughHoles {
         id: String,
         input: String,
@@ -82,7 +89,8 @@ impl Feature {
             | Self::PolygonProfile { id, .. }
             | Self::PlanarProfile { id, .. }
             | Self::Extrude { id, .. }
-            | Self::ThroughHoles { id, .. } => id,
+            | Self::ThroughHoles { id, .. }
+            | Self::Cylinder { id, .. } => id,
         }
     }
 }
@@ -116,7 +124,7 @@ pub struct Body {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boundary: Option<Boundary>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub analytic: Option<PerforatedPrism>,
+    pub analytic: Option<AnalyticPrism>,
     pub volume_mm3: String,
 }
 #[derive(Debug, Serialize)]
@@ -288,34 +296,68 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     .iter()
                     .take_while(|f| f.id() != id)
                     .find(|f| f.id() == input);
-                let Some(Feature::Extrude {
-                    profile, height, ..
-                }) = parent
-                else {
-                    return Err(error(
-                        "unsupported_reference",
-                        input,
-                        "Through holes require an earlier profile extrusion",
-                    ));
+                let shape = match parent {
+                    Some(Feature::Extrude {
+                        profile, height, ..
+                    }) => holes::resolve(
+                        m,
+                        id,
+                        &profiles[profile.as_str()],
+                        &positive(m, height)?,
+                        holes,
+                    )?,
+                    Some(Feature::Cylinder {
+                        x,
+                        y,
+                        radius,
+                        height,
+                        ..
+                    }) => {
+                        holes::resolve_round(m, id, holes::round(m, x, y, radius, height)?, holes)?
+                    }
+                    _ => {
+                        return Err(error(
+                            "unsupported_reference",
+                            input,
+                            "Through holes require an earlier profile extrusion or cylinder",
+                        ))
+                    }
                 };
                 if !consumed.insert(input.as_str()) {
                     return Err(error(
                         "unsupported_branch",
                         input,
-                        "Only one hole group per extrusion is supported",
+                        "Only one hole group per stock feature is supported",
                     ));
                 }
-                let shape = holes::resolve(
-                    m,
+                let volume_mm3 = if shape.outer_circle.is_some() {
+                    format!("{}*pi", -rational(&shape.volume.pi_subtract_mm3, id)?)
+                } else {
+                    format!(
+                        "{} - ({})*pi",
+                        shape.volume.constant_mm3, shape.volume.pi_subtract_mm3
+                    )
+                };
+                evaluated.insert(
                     id,
-                    &profiles[profile.as_str()],
-                    &positive(m, height)?,
-                    holes,
-                )?;
-                let volume_mm3 = format!(
-                    "{} - ({})*pi",
-                    shape.volume.constant_mm3, shape.volume.pi_subtract_mm3
+                    Body {
+                        feature_id: id.into(),
+                        boundary: None,
+                        analytic: Some(shape),
+                        volume_mm3,
+                    },
                 );
+                continue;
+            }
+            Feature::Cylinder {
+                x,
+                y,
+                radius,
+                height,
+                ..
+            } => {
+                let shape = holes::round(m, x, y, radius, height)?;
+                let volume_mm3 = format!("{}*pi", -rational(&shape.volume.pi_subtract_mm3, id)?);
                 evaluated.insert(
                     id,
                     Body {

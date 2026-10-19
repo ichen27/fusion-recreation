@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "volume_mm3": 23279.201563101156,
+      "oracle_volume_mm3": 23279.201563100367,
+      "error_mm3": 7.894414011389017e-10,
+      "cylinders": [
+        [
+          0.0,
+          0.0,
+          40.0
+        ],
+        [
+          -30.0,
+          0.0,
+          3.0
+        ],
+        [
+          30.0,
+          0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "holes_outside": true,
+      "material_inside": true,
+      "outside_stock_empty": true,
+      "stage": "create",
+      "stl_volume_mm3": 23269.853873034346,
+      "triangles": 2056,
+      "max_radial_error_mm": 0.01204725215183089
+    },
+    {
+      "volume_mm3": 37416.3685042557,
+      "oracle_volume_mm3": 37416.368504254446,
+      "error_mm3": 1.2514647096395493e-09,
+      "cylinders": [
+        [
+          0.0,
+          0.0,
+          50.0
+        ],
+        [
+          -40.0,
+          0.0,
+          3.0
+        ],
+        [
+          40.0,
+          0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "holes_outside": true,
+      "material_inside": true,
+      "outside_stock_empty": true,
+      "stage": "grow",
+      "stl_volume_mm3": 37401.344079330505,
+      "triangles": 2056,
+      "max_radial_error_mm": 0.015059065189788612
+    }
+  ],
+  "step_adapter": "cadquery-ocp 8.0.1.1.0; boundary translation only",
+  "oracle": "Independent solid cylinder minus hole cylinders; verification only",
+  "limits": "Bounded axial round-prism corpus, not general curved Boolean operations or fabrication certification"
+}

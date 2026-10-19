@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
-  availableExtrusions,
+  availableHoleInputs,
   draftHoles,
   addHole,
   removeHole,
@@ -52,7 +52,7 @@ test("place two holes in a concave plate, then edit with persistent feature and 
     holeProposal({ model: m, revision: 5 }, draft).expected_revision,
     5,
   );
-  assert.equal(availableExtrusions(result.model).length, 0);
+  assert.equal(availableHoleInputs(result.model).length, 0);
   assert.throws(() => draftHoles(result.model, "plate"), /already has/);
   const edit = draftHoles(result.model, null, "holes1");
   setHoleValue(edit, 1, "x", "65");
@@ -164,4 +164,36 @@ test("topology edits add/remove holes, preserve surviving IDs and remove empty g
   const collision = draftHoles(removed.model, null, "holes1");
   addHole(collision, 10, 50, 3);
   assert.equal(collision.holes.at(-1).id, "h4");
+});
+
+test("round stock exposes an exact circular outline and accepts typed hole editing", () => {
+  const m = {
+    parameters: { cx: "0", cy: "0", r: "40", h: "5" },
+    fixed: {},
+    features: [
+      {
+        kind: "cylinder",
+        id: "round",
+        x: "cx",
+        y: "cy",
+        radius: "r",
+        height: "h",
+      },
+    ],
+  };
+  assert.equal(availableHoleInputs(m)[0].id, "round");
+  const d = draftHoles(m, "round");
+  assert.equal(d.profile.kind, "circle");
+  addHole(d, 0, 0, 10);
+  addHole(d, 30, 0, 3);
+  const result = run(m, holeProposal({ model: m, revision: 0 }, d)).result;
+  assert.equal(result.bodies[0].volume_mm3, "7455*pi");
+  assert.equal(result.bodies[0].analytic.outer_circle.radius, "40");
+  const edit = draftHoles(result.model, null, "holes1");
+  setHoleValue(edit, 1, "x", "37");
+  assert.equal(
+    run(result.model, holeProposal({ model: result.model, revision: 1 }, edit))
+      .error.code,
+    "hole_clearance",
+  );
 });

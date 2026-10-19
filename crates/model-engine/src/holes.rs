@@ -19,16 +19,25 @@ pub struct Circle {
     pub radius: String,
 }
 #[derive(Debug, Serialize)]
+pub struct CircularBoundary {
+    pub center: [String; 2],
+    pub radius: String,
+}
+#[derive(Debug, Serialize)]
 pub struct ExactVolume {
     pub constant_mm3: String,
     pub pi_subtract_mm3: String,
 }
 /// This is an analytic constructive representation, not the planar B-rep schema.
-/// CCW outer loop; circular inner loops; caps at 0 and height; inward cylinder walls.
+/// Exactly one constructed outer boundary: CCW polygon or circle. Circular inner
+/// loops; caps at 0 and height; inward cylinder walls. Never deserialized from input.
 #[derive(Debug, Serialize)]
-pub struct PerforatedPrism {
+pub struct AnalyticPrism {
     pub kind: &'static str,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub outer: Vec<[String; 2]>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub outer_circle: Option<CircularBoundary>,
     pub height: String,
     pub holes: Vec<Circle>,
     pub volume: ExactVolume,
@@ -39,13 +48,25 @@ pub(super) fn resolve(
     profile: &Profile,
     height: &Q,
     holes: &[Hole],
-) -> Result<PerforatedPrism> {
+) -> Result<AnalyticPrism> {
+    let (circles,sum_r2)=disks(m,id,holes,
+        |x,y,r| super::profile::contains_disk(&profile.points,x,y,r),
+        "Hole must lie strictly inside the profile with positive clearance from every boundary segment; tangency and breakout are unsupported")?;
+    let mut shape = prism(profile, height);
+    shape.kind = "perforated_prism";
+    shape.holes = circles;
+    shape.volume.pi_subtract_mm3 = (sum_r2 * height).to_string();
+    Ok(shape)
+}
+fn disks(
+    m: &Model,
+    id: &str,
+    holes: &[Hole],
+    contained: impl Fn(&Q, &Q, &Q) -> bool,
+    message: &str,
+) -> Result<(Vec<Circle>, Q)> {
     if !(1..=16).contains(&holes.len()) {
         return Err(error("hole_limit", id, "Expected 1..16 through holes"));
-    }
-    let mut points = profile.points.clone();
-    if profile.twice_area.is_negative() {
-        points.reverse();
     }
     let mut ids = BTreeSet::new();
     let mut disks: Vec<(Q, Q, Q)> = Vec::new();
@@ -65,8 +86,8 @@ pub(super) fn resolve(
             parameter(m, &hole.y)?,
             positive(m, &hole.radius)?,
         );
-        if !super::profile::contains_disk(&points, &x, &y, &r) {
-            return Err(error("hole_clearance", &hole.id, "Hole must lie strictly inside the profile with positive clearance from every boundary segment; tangency and breakout are unsupported"));
+        if !contained(&x, &y, &r) {
+            return Err(error("hole_clearance", &hole.id, message));
         }
         for (cx, cy, cr) in &disks {
             let (dx, dy, rr) = (&x - cx, &y - cy, &r + cr);
@@ -86,23 +107,21 @@ pub(super) fn resolve(
         });
         disks.push((x, y, r));
     }
-    let mut shape = prism(profile, height);
-    shape.kind = "perforated_prism";
-    shape.holes = circles;
-    shape.volume.pi_subtract_mm3 = (sum_r2 * height).to_string();
-    Ok(shape)
+    Ok((circles, sum_r2))
 }
-pub(super) fn prism(profile: &Profile, height: &Q) -> PerforatedPrism {
+
+pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
     let mut points = profile.points.clone();
     if profile.twice_area.is_negative() {
         points.reverse();
     }
-    PerforatedPrism {
+    AnalyticPrism {
         kind: "polygon_prism",
         outer: points
             .into_iter()
             .map(|p| p.map(|q| q.to_string()))
             .collect(),
+        outer_circle: None,
         height: height.to_string(),
         holes: vec![],
         volume: ExactVolume {
@@ -111,4 +130,66 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> PerforatedPrism {
             pi_subtract_mm3: "0".into(),
         },
     }
+}
+
+pub(super) fn round(
+    m: &Model,
+    x: &str,
+    y: &str,
+    radius: &str,
+    height: &str,
+) -> Result<AnalyticPrism> {
+    let (cx, cy, r, h) = (
+        parameter(m, x)?,
+        parameter(m, y)?,
+        positive(m, radius)?,
+        positive(m, height)?,
+    );
+    for (id, v) in [(x, &cx), (y, &cy)] {
+        if v.abs() > Q::from_integer(1_000_000.into()) {
+            return Err(error(
+                "coordinate_range",
+                id,
+                "Cylinder center coordinates must be within +/-1000000 mm",
+            ));
+        }
+    }
+    Ok(AnalyticPrism {
+        kind: "round_prism",
+        outer: vec![],
+        outer_circle: Some(CircularBoundary {
+            center: [cx.to_string(), cy.to_string()],
+            radius: r.to_string(),
+        }),
+        height: h.to_string(),
+        holes: vec![],
+        volume: ExactVolume {
+            constant_mm3: "0".into(),
+            pi_subtract_mm3: (-&r * &r * &h).to_string(),
+        },
+    })
+}
+pub(super) fn resolve_round(
+    m: &Model,
+    id: &str,
+    mut shape: AnalyticPrism,
+    holes: &[Hole],
+) -> Result<AnalyticPrism> {
+    let outer = shape
+        .outer_circle
+        .as_ref()
+        .ok_or_else(|| error("unsupported_reference", id, "Expected circular stock"))?;
+    let (cx, cy, r, h) = (
+        super::rational(&outer.center[0], id)?,
+        super::rational(&outer.center[1], id)?,
+        super::rational(&outer.radius, id)?,
+        super::rational(&shape.height, id)?,
+    );
+    let (circles,sum_r2)=disks(m,id,holes,|x,y,hr| {
+        let (dx,dy,gap)=(x-&cx,y-&cy,&r-hr);
+        gap.is_positive() && &dx*&dx+&dy*&dy < &gap*&gap
+    },"Hole must have positive clearance inside the outer circle; tangency and breakout are unsupported")?;
+    shape.holes = circles;
+    shape.volume.pi_subtract_mm3 = ((sum_r2 - &r * &r) * h).to_string();
+    Ok(shape)
 }

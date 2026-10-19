@@ -1,0 +1,20 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "round-grow-v1",
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "radius",
+      "mm": "50"
+    }
+  ],
+  "preserve": [
+    "cx",
+    "cy",
+    "thickness",
+    "margin",
+    "mount_r",
+    "bore_r"
+  ]
+}

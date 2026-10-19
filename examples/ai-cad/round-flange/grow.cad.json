@@ -1,0 +1,169 @@
+{
+  "sha256": "55a8f32e1984d020fb237687841599627bd8af7c25f2178b407bdac719c33965",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "height": "thickness",
+          "id": "stock",
+          "kind": "cylinder",
+          "radius": "radius",
+          "x": "cx",
+          "y": "cy"
+        },
+        {
+          "holes": [
+            {
+              "id": "left_mount",
+              "radius": "mount_r",
+              "x": "left_x",
+              "y": "cy"
+            },
+            {
+              "id": "right_mount",
+              "radius": "mount_r",
+              "x": "right_x",
+              "y": "cy"
+            },
+            {
+              "id": "bore",
+              "radius": "bore_r",
+              "x": "cx",
+              "y": "cy"
+            }
+          ],
+          "id": "flange",
+          "input": "stock",
+          "kind": "through_holes"
+        }
+      ],
+      "fixed": {
+        "bore_r": "10",
+        "margin": "10",
+        "mount_r": "3",
+        "thickness": "5"
+      },
+      "parameters": {
+        "bore_r": "10",
+        "cx": "0",
+        "cy": "0",
+        "left_x": "-40",
+        "margin": "10",
+        "mount_r": "3",
+        "radius": "50",
+        "right_x": "40",
+        "thickness": "5"
+      },
+      "relations": {
+        "left_x": {
+          "offset_mm": "0",
+          "terms": {
+            "cx": "1",
+            "margin": "1",
+            "radius": "-1"
+          }
+        },
+        "right_x": {
+          "offset_mm": "0",
+          "terms": {
+            "cx": "1",
+            "margin": "-1",
+            "radius": "1"
+          }
+        }
+      }
+    },
+    "receipts": {
+      "round-create-v1": {
+        "request": "fb38e88042fd2a98dd70ef26d4aec82ae6ec79bdb8517effb95085acfc916f2e",
+        "revision": 1
+      },
+      "round-grow-v1": {
+        "request": "5426cec7fe9c8386854c7fcbc03fef77f768188183baa1083c0733d7ca645422",
+        "revision": 2
+      }
+    },
+    "redo": [],
+    "revision": 2,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      },
+      {
+        "features": [
+          {
+            "height": "thickness",
+            "id": "stock",
+            "kind": "cylinder",
+            "radius": "radius",
+            "x": "cx",
+            "y": "cy"
+          },
+          {
+            "holes": [
+              {
+                "id": "left_mount",
+                "radius": "mount_r",
+                "x": "left_x",
+                "y": "cy"
+              },
+              {
+                "id": "right_mount",
+                "radius": "mount_r",
+                "x": "right_x",
+                "y": "cy"
+              },
+              {
+                "id": "bore",
+                "radius": "bore_r",
+                "x": "cx",
+                "y": "cy"
+              }
+            ],
+            "id": "flange",
+            "input": "stock",
+            "kind": "through_holes"
+          }
+        ],
+        "fixed": {
+          "bore_r": "10",
+          "margin": "10",
+          "mount_r": "3",
+          "thickness": "5"
+        },
+        "parameters": {
+          "bore_r": "10",
+          "cx": "0",
+          "cy": "0",
+          "left_x": "-30",
+          "margin": "10",
+          "mount_r": "3",
+          "radius": "40",
+          "right_x": "30",
+          "thickness": "5"
+        },
+        "relations": {
+          "left_x": {
+            "offset_mm": "0",
+            "terms": {
+              "cx": "1",
+              "margin": "1",
+              "radius": "-1"
+            }
+          },
+          "right_x": {
+            "offset_mm": "0",
+            "terms": {
+              "cx": "1",
+              "margin": "-1",
+              "radius": "1"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
