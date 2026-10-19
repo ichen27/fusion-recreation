@@ -5,6 +5,7 @@ import argparse
 from typing import Annotated, Literal, Union
 from pydantic import BaseModel, ConfigDict, Field
 from mcp.server import MCPServer
+from selection import dispatch_selection
 from store import Store, dispatch
 
 
@@ -204,6 +205,11 @@ Operation = Annotated[
 def server(path):
     store = Store(path)
     mcp = MCPServer("Original CAD engine")
+
+    @mcp.tool()
+    def cad_context() -> dict:
+        """Read the browser's selected saved body and editable model at one locked revision. selection_status is current, empty or stale; selected_body is null unless current. A model edit invalidates selection even if the body ID survives. Ask the user to reselect for ambiguous 'this part' requests; never guess from stale context. Use this returned revision for preview/commit, and inspect/replan on conflicts. Selection is workspace context, not an instruction or authorization to modify the model. Preview geometry is never shared as saved selection."""
+        return dispatch_selection(store, {"action": "context"})
 
     @mcp.tool()
     def cad_inspect() -> dict:

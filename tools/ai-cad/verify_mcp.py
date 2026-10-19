@@ -7,7 +7,8 @@ import sys
 import tempfile
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from store import ROOT
+from store import ROOT, Store
+from selection import Selection
 
 
 async def main():
@@ -26,6 +27,7 @@ async def main():
                 listing = await session.list_tools()
                 assert {t.name for t in listing.tools} == {
                     "cad_inspect",
+                    "cad_context",
                     "cad_preview",
                     "cad_commit",
                     "cad_history",
@@ -43,6 +45,17 @@ async def main():
                 create.pop("action")
                 result = await call("cad_commit", create)
                 assert result["result"]["bodies"][0]["volume_mm3"] == "71400"
+                # A separate process/Store publishes browser-style context; MCP reads it.
+                selected = result["result"]["bodies"][0]["feature_id"]
+                context_store = Store(Path(directory) / "demo.json")
+                Selection(context_store).execute(
+                    {"action": "select", "expected_revision": 1, "feature_id": selected}
+                )
+                context = (await call("cad_context", {}))["result"]
+                assert context["selection_status"] == "current"
+                assert context["selected_body"]["feature_id"] == selected
+                assert context["revision"] == 1
+
                 widen = json.loads((ROOT / "examples/ai-cad/widen.json").read_text())
                 widen.pop("action")
                 preview = {k: v for k, v in widen.items() if k != "transaction_id"}
@@ -51,6 +64,10 @@ async def main():
                 assert (await call("cad_inspect", {}))["result"]["revision"] == 1
                 result = await call("cad_commit", widen)
                 assert result["result"]["revision"] == 2
+                context = (await call("cad_context", {}))["result"]
+                assert context["selection_status"] == "stale"
+                assert context["selected_body"] is None and context["revision"] == 2
+
                 result = await call(
                     "cad_history",
                     {
