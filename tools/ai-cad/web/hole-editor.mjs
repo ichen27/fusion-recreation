@@ -4,6 +4,7 @@ import {
   removeHole,
   setHoleValue,
   setHoleDepth,
+  setCounterboreRadius,
   holeProposal,
   editable,
 } from "./hole-model.mjs";
@@ -75,6 +76,19 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
           class: "hole-circle",
         }),
       );
+      if (draft.kind === "counterbore_holes") {
+        const bore = number(draft.values[draft.boreRadius]);
+        if (Number.isFinite(bore) && bore > 0)
+          shapes.push(
+            element("circle", {
+              cx: x,
+              cy: y,
+              r: bore,
+              "data-index": index,
+              class: "hole-circle hole-recess",
+            }),
+          );
+      }
       shapes.push(
         element("circle", {
           cx: x,
@@ -131,12 +145,18 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
       }),
     );
     $("hole-count").textContent =
-      `${draft.holes.length} ${draft.kind === "blind_holes" ? "blind" : "through"} holes · millimeters`;
+      `${draft.holes.length} ${draft.kind === "blind_holes" ? "blind" : draft.kind === "counterbore_holes" ? "counterbored" : "through"} holes · millimeters`;
     $("hole-remove").disabled = pending || !draft.holes.length;
     $("hole-add").disabled = pending || draft.holes.length >= 16;
     $("hole-kind").value = draft.kind;
     $("hole-kind").disabled = pending || !!draft.featureId;
-    $("hole-depth-row").hidden = draft.kind !== "blind_holes";
+    $("hole-depth-row").hidden = !["blind_holes", "counterbore_holes"].includes(
+      draft.kind,
+    );
+    $("hole-bore-radius-row").hidden = draft.kind !== "counterbore_holes";
+    $("hole-bore-radius").value = draft.values[draft.boreRadius];
+    $("hole-bore-radius").disabled =
+      pending || !editable(draft, draft.boreRadius);
     $("hole-depth").value = draft.values[draft.depth];
     $("hole-depth").disabled = pending || !editable(draft, draft.depth);
     $("hole-radius-row").hidden = false;
@@ -180,6 +200,14 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
   $("hole-depth").addEventListener("change", () => {
     try {
       setHoleDepth(draft, $("hole-depth").value);
+      render();
+    } catch (error) {
+      message(error);
+    }
+  });
+  $("hole-bore-radius").addEventListener("change", () => {
+    try {
+      setCounterboreRadius(draft, $("hole-bore-radius").value);
       render();
     } catch (error) {
       message(error);

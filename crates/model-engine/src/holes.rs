@@ -28,6 +28,11 @@ pub struct ExactVolume {
     pub constant_mm3: String,
     pub pi_subtract_mm3: String,
 }
+#[derive(Clone, Debug, Serialize)]
+pub struct Counterbore {
+    pub radius: String,
+    pub depth: String,
+}
 /// This is an analytic constructive representation, not the planar B-rep schema.
 /// Exactly one constructed outer boundary: CCW polygon or circle. Circular inner
 /// loops; caps at 0 and height; inward cylinder walls. Never deserialized from input.
@@ -43,6 +48,8 @@ pub struct AnalyticPrism {
     pub height: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hole_depth: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub counterbore: Option<Counterbore>,
     pub holes: Vec<Circle>,
     pub volume: ExactVolume,
 }
@@ -129,6 +136,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
         outer_circle: None,
         height: height.to_string(),
         hole_depth: None,
+        counterbore: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: (profile.twice_area.abs() * height / Q::from_integer(2.into()))
@@ -170,6 +178,7 @@ pub(super) fn round(
         }),
         height: h.to_string(),
         hole_depth: None,
+        counterbore: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: "0".into(),
@@ -230,5 +239,91 @@ pub(super) fn blind(
     };
     shape.volume.pi_subtract_mm3 = (sum_r2 * &d - outer_r2 * h).to_string();
     shape.hole_depth = Some(d.to_string());
+    Ok(shape)
+}
+
+/// A shared upper recess radius/depth around each strictly separated through hole.
+pub(super) fn counterbore(
+    m: &Model,
+    id: &str,
+    depth: &str,
+    radius: &str,
+    mut shape: AnalyticPrism,
+) -> Result<AnalyticPrism> {
+    let d = positive(m, depth)?;
+    let r = positive(m, radius)?;
+    let h = super::rational(&shape.height, id)?;
+    if d >= h {
+        return Err(error(
+            "hole_depth",
+            id,
+            "Counterbore depth must be strictly below stock height",
+        ));
+    }
+    let points = shape
+        .outer
+        .iter()
+        .map(|p| Ok([super::rational(&p[0], id)?, super::rational(&p[1], id)?]))
+        .collect::<Result<Vec<_>>>()?;
+    let outer = shape
+        .outer_circle
+        .as_ref()
+        .map(|c| {
+            Ok((
+                super::rational(&c.center[0], id)?,
+                super::rational(&c.center[1], id)?,
+                super::rational(&c.radius, id)?,
+            ))
+        })
+        .transpose()?;
+    let mut centers: Vec<[Q; 2]> = vec![];
+    let mut removal = Q::zero();
+    for hole in &shape.holes {
+        let small = super::rational(&hole.radius, id)?;
+        if r <= small {
+            return Err(error(
+                "counterbore_radius",
+                &hole.id,
+                "Counterbore radius must exceed each through-hole radius",
+            ));
+        }
+        let center = [
+            super::rational(&hole.center[0], id)?,
+            super::rational(&hole.center[1], id)?,
+        ];
+        let inside = if let Some((x, y, outer_r)) = &outer {
+            let (dx, dy, gap) = (&center[0] - x, &center[1] - y, outer_r - &r);
+            gap.is_positive() && &dx * &dx + &dy * &dy < &gap * &gap
+        } else {
+            super::profile::contains_disk(&points, &center[0], &center[1], &r)
+        };
+        if !inside {
+            return Err(error(
+                "hole_clearance",
+                &hole.id,
+                "Counterbore must have positive clearance inside stock",
+            ));
+        }
+        for other in &centers {
+            let (dx, dy) = (&center[0] - &other[0], &center[1] - &other[1]);
+            if &dx * &dx + &dy * &dy <= Q::from_integer(4.into()) * &r * &r {
+                return Err(error(
+                    "hole_overlap",
+                    &hole.id,
+                    "Counterbores must be strictly separate",
+                ));
+            }
+        }
+        removal += &small * &small * &h + (&r * &r - &small * &small) * &d;
+        centers.push(center);
+    }
+    if let Some((_, _, outer_r)) = outer {
+        removal -= &outer_r * &outer_r * &h;
+    }
+    shape.volume.pi_subtract_mm3 = removal.to_string();
+    shape.counterbore = Some(Counterbore {
+        radius: r.to_string(),
+        depth: d.to_string(),
+    });
     Ok(shape)
 }

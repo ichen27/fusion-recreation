@@ -219,6 +219,7 @@
               >Hole type<select id="hole-kind" aria-label="Hole type">
                 <option value="through_holes">Through all</option>
                 <option value="blind_holes">Blind · flat bottom</option>
+                <option value="counterbore_holes">Counterbored through</option>
               </select></label
             >
             <label id="hole-depth-row" hidden
@@ -226,6 +227,12 @@
                 id="hole-depth"
                 value="2"
                 aria-label="Hole depth"
+            /></label>
+            <label id="hole-bore-radius-row" hidden
+              >Counterbore radius (mm)<input
+                id="hole-bore-radius"
+                value="5"
+                aria-label="Counterbore radius"
             /></label>
             <label id="hole-radius-row"
               >Radius for new holes (mm)<input
@@ -236,10 +243,12 @@
             <div id="hole-coordinates"></div>
             <p class="hint">
               Through holes span the stock. Blind holes start at the top and
-              leave a positive flat floor. All holes in a group share one depth.
-              Circles must stay inside the outline and apart. Existing hole IDs
-              survive edits. Remove all holes to remove the group. Unused
-              parameters are retained. Preview checks before saving.
+              leave a positive flat floor. Counterbores widen the upper section
+              of a through-hole for a fastener head. A group shares recess depth
+              and counterbore radius. Circles must stay inside the outline and
+              apart. Existing hole IDs survive edits. Remove all holes to remove
+              the group. Unused parameters are retained. Preview checks before
+              saving.
             </p>
             <button id="hole-preview" class="primary" type="submit">
               Preview holes

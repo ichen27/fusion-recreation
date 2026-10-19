@@ -1,0 +1,1420 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "88",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.bore_radius",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "bore_radius": "holes1.bore_radius",
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "counterbore_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "27763d4a-375a-4737-b6b0-15410423933b",
+          "revision": 1,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "27763d4a-375a-4737-b6b0-15410423933b",
+          "reply": {
+            "error": {
+              "code": "hole_clearance",
+              "entity": "h1",
+              "message": "Hole must lie strictly inside the profile with positive clearance from every boundary segment; tangency and breakout are unsupported"
+            }
+          },
+          "revision": 1,
+          "status": "failed"
+        }
+      },
+      "url": "/api/preview-jobs?id=27763d4a-375a-4737-b6b0-15410423933b"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "88",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.bore_radius",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "bore_radius": "holes1.bore_radius",
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "counterbore_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "3a576f85-250f-4ffd-91e3-c428386f9e1a",
+          "revision": 1,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "3a576f85-250f-4ffd-91e3-c428386f9e1a",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "counterbore": {
+                      "depth": "2",
+                      "radius": "5"
+                    },
+                    "height": "6",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "h1",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "id": "h2",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "172"
+                    }
+                  },
+                  "feature_id": "holes1",
+                  "volume_mm3": "36000 - (172)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "holes1.bore_radius",
+                "holes1.depth",
+                "holes1.h1.radius",
+                "holes1.h1.x",
+                "holes1.h1.y",
+                "holes1.h2.radius",
+                "holes1.h2.x",
+                "holes1.h2.y"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "bore_radius": "holes1.bore_radius",
+                    "depth": "holes1.depth",
+                    "holes": [
+                      {
+                        "id": "h1",
+                        "radius": "holes1.h1.radius",
+                        "x": "holes1.h1.x",
+                        "y": "holes1.h1.y"
+                      },
+                      {
+                        "id": "h2",
+                        "radius": "holes1.h2.radius",
+                        "x": "holes1.h2.x",
+                        "y": "holes1.h2.y"
+                      }
+                    ],
+                    "id": "holes1",
+                    "input": "solid",
+                    "kind": "counterbore_holes"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "height": "6",
+                  "holes1.bore_radius": "5",
+                  "holes1.depth": "2",
+                  "holes1.h1.radius": "3",
+                  "holes1.h1.x": "12",
+                  "holes1.h1.y": "12",
+                  "holes1.h2.radius": "3",
+                  "holes1.h2.x": "88",
+                  "holes1.h2.y": "12",
+                  "r": "3",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=3a576f85-250f-4ffd-91e3-c428386f9e1a"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "88",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "12",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.bore_radius",
+            "mm": "5",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "bore_radius": "holes1.bore_radius",
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "solid",
+              "kind": "counterbore_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "7dda1351-c2ff-45d3-8fc6-e84665bd6015"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "172"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (172)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.bore_radius",
+            "holes1.depth",
+            "holes1.h1.radius",
+            "holes1.h1.x",
+            "holes1.h1.y",
+            "holes1.h2.radius",
+            "holes1.h2.x",
+            "holes1.h2.y"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "holes1.bore_radius",
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.bore_radius": "5",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.bore_radius",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "b62ecd99-57b8-4bbc-ba8c-9c2536782c80",
+          "revision": 2,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "b62ecd99-57b8-4bbc-ba8c-9c2536782c80",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "counterbore": {
+                      "depth": "3",
+                      "radius": "5"
+                    },
+                    "height": "6",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "h1",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "id": "h2",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "204"
+                    }
+                  },
+                  "feature_id": "holes1",
+                  "volume_mm3": "36000 - (204)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "holes1.depth"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "bore_radius": "holes1.bore_radius",
+                    "depth": "holes1.depth",
+                    "holes": [
+                      {
+                        "id": "h1",
+                        "radius": "holes1.h1.radius",
+                        "x": "holes1.h1.x",
+                        "y": "holes1.h1.y"
+                      },
+                      {
+                        "id": "h2",
+                        "radius": "holes1.h2.radius",
+                        "x": "holes1.h2.x",
+                        "y": "holes1.h2.y"
+                      }
+                    ],
+                    "id": "holes1",
+                    "input": "solid",
+                    "kind": "counterbore_holes"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "height": "6",
+                  "holes1.bore_radius": "5",
+                  "holes1.depth": "3",
+                  "holes1.h1.radius": "3",
+                  "holes1.h1.x": "12",
+                  "holes1.h1.y": "12",
+                  "holes1.h2.radius": "3",
+                  "holes1.h2.x": "88",
+                  "holes1.h2.y": "12",
+                  "r": "3",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 2,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 2,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=b62ecd99-57b8-4bbc-ba8c-9c2536782c80"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.bore_radius",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "593d9d37-5e3d-4da4-a068-ce2d88e58ba1"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "3",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "204"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (204)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "holes1.bore_radius",
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.bore_radius": "5",
+              "holes1.depth": "3",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "expected_revision": 3,
+        "feature_id": "holes1"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-2448)*pi)/(36000 + (-204)*pi)",
+            "(108000 + (-756)*pi)/(36000 + (-204)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-4664844000)*pi + (320148)*pi*pi)/(36000 + (-204)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-16806924000)*pi + (60413652)*pi*pi)/(36000 + (-204)*pi)",
+              "((-93312000)*pi)/(36000 + (-204)*pi)"
+            ],
+            [
+              "0",
+              "((-93312000)*pi)/(36000 + (-204)*pi)",
+              "(1468800000000 + (-21383640000)*pi + (60525576)*pi*pi)/(36000 + (-204)*pi)"
+            ]
+          ],
+          "feature_id": "holes1",
+          "revision": 3,
+          "volume_mm3": "36000 - (204)*pi"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "holes1.bore_radius",
+            "mm": "12",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "height",
+          "holes1.depth",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "r",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "680c7a38-cd9f-4f9d-9e04-ff834d542f3c",
+          "revision": 3,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "680c7a38-cd9f-4f9d-9e04-ff834d542f3c",
+          "reply": {
+            "error": {
+              "code": "hole_clearance",
+              "entity": "h1",
+              "message": "Counterbore must have positive clearance inside stock"
+            }
+          },
+          "revision": 3,
+          "status": "failed"
+        }
+      },
+      "url": "/api/preview-jobs?id=680c7a38-cd9f-4f9d-9e04-ff834d542f3c"
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 3,
+        "transaction_id": "cc086313-8897-46b7-bc53-c819ea2833af"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "h1",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "172"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "36000 - (172)*pi"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "holes1.bore_radius",
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "holes1.bore_radius": "5",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "3",
+              "holes1.h1.x": "12",
+              "holes1.h1.y": "12",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "88",
+              "holes1.h2.y": "12",
+              "r": "3",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    }
+  ]
+}

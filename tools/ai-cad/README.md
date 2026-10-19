@@ -33,7 +33,7 @@ python3 tools/ai-cad/cad.py --store work/profile.cad.json < examples/ai-cad/prof
 python3 tools/ai-cad/viewer.py --store work/profile.cad.json
 ```
 
-Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create simple planar profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Through-holes can be placed with **Add through-holes** on an extrusion or adjusted with **Edit holes** on a group. Other feature creation uses CLI/MCP commands. Restart connected MCP clients after upgrading to load the new typed feature schemas.
+Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. The viewer can create simple planar profiles/extrusions with **New sketch → solid**, and edit existing profile coordinates with **Edit sketch**. Through, blind and counterbored holes can be placed with **Add holes** on an extrusion/cylinder or adjusted with **Edit holes** on a group. The hole editor exposes shared recess depth/radius for counterbores. Restart connected MCP clients after upgrading to load the new typed feature schemas.
 
 ## Preserve design relationships
 
@@ -227,3 +227,5 @@ Select a saved planar part and choose **Measure solid**, or call MCP `cad_measur
 Measure solid and `cad_measure` also support circular stock, through/blind holes and their placements. Centroids and volume inertia remain exact expressions involving π; bounds remain rational. [Editable source/copy depth workflow and fifteen independent references](../../examples/ai-cad/analytic-measurements/README.md) document the format and units. Run `verify_analytic_measurements.py`; optional MCP and reference checks use `verify_analytic_measurements_mcp.py` and `verify_analytic_measurements_reference.py`. No density or physical mass is assigned.
 
 [Request-local CPU reuse](../../examples/ai-cad/transaction-reuse/README.md) avoids duplicate rebuilding of a validated unchanged feature prefix. Six baseline-equivalent workloads include 32-feature linked models; measured inspection/late-edit gains are about 1.8–1.9× on the recorded host, while root edits remain unchanged. Run `python3 tools/ai-cad/verify_rebuild.py` for exact retained replies, and Rust tests with `--release` for the full differential corpus. This does not add a persistent worker or cross-request geometry cache.
+
+[Exact counterbores](../../examples/ai-cad/counterbores/README.md) combine a through aperture with a wider flat-bottom recess, preserving analytic cylindrical walls, annular shoulders and exact symbolic measurements. Browser/MCP creation, native history, downloaded STL and eight independent STEP comparisons are retained. One group shares recess radius/depth; individual through radii remain editable.

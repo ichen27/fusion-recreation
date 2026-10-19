@@ -157,6 +157,31 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
             q(-1),
         ));
     }
+    if let Some(bore) = &shape.counterbore {
+        let radius = value(&bore.radius)?;
+        let floor = &height - value(&bore.depth)?;
+        for hole in &shape.holes {
+            let x = value(&hole.center[0])?;
+            let y = value(&hole.center[1])?;
+            // Remove only the upper annulus; the small through cylinder is already subtracted.
+            disks.push((
+                x.clone(),
+                y.clone(),
+                radius.clone(),
+                floor.clone(),
+                height.clone(),
+                q(-1),
+            ));
+            disks.push((
+                x,
+                y,
+                value(&hole.radius)?,
+                floor.clone(),
+                height.clone(),
+                q(1),
+            ));
+        }
+    }
     for (x, y, r, z0, z1, sign) in disks {
         let v = sign * &r * &r * (&z1 - &z0);
         let center = [x, y, (&z0 + &z1) / q(2)];

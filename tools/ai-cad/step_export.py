@@ -59,9 +59,12 @@ def translate(body):
     if "analytic" in body:
         shape = body["analytic"]
         h = number(shape["height"])
-        depth = number(shape.get("hole_depth", shape["height"]))
+        bore = shape.get("counterbore")
+        depth = number(
+            bore["depth"] if bore else shape.get("hole_depth", shape["height"])
+        )
         floor = h - depth
-        if "hole_depth" in shape and (depth <= 1e-6 or floor <= 1e-6):
+        if ("hole_depth" in shape or bore) and (depth <= 1e-6 or floor <= 1e-6):
             raise RuntimeError(
                 "STEP adapter requires blind depth and remaining floor above 1e-6 mm"
             )
@@ -78,11 +81,23 @@ def translate(body):
         if round_outer and round_outer[2] <= 1e-6:
             raise RuntimeError("STEP adapter requires outer radius above 1e-6 mm")
         disks = [
-            (number(c["center"][0]), number(c["center"][1]), number(c["radius"]))
+            (
+                number(c["center"][0]),
+                number(c["center"][1]),
+                number(bore["radius"] if bore else c["radius"]),
+            )
             for c in shape["holes"]
         ]
         if h <= 1e-6 or any(r <= 1e-6 for _, _, r in disks):
             raise RuntimeError("STEP adapter requires height/radii above 1e-6 mm")
+        if bore and any(
+            number(c["radius"]) <= 1e-6
+            or number(bore["radius"]) - number(c["radius"]) <= 1e-6
+            for c in shape["holes"]
+        ):
+            raise RuntimeError(
+                "STEP adapter requires through radii and counterbore shoulders above 1e-6 mm"
+            )
         for i, (x, y, r) in enumerate(disks):
             if (
                 round_outer
@@ -149,13 +164,28 @@ def translate(body):
             if "hole_depth" in shape
             else cap.Face()
         )
-        converted.extend(
-            [TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(cap.Face(), h))]
-        )
+        top = cap.Face()
+        large_rings = []
+        if bore:
+            top_builder = BRepBuilderAPI_MakeFace(wire(rings[0]), True)
+            for hole in shape["holes"]:
+                x, y = map(number, hole["center"])
+                circle = gp_Circ(
+                    gp_Ax2(gp_Pnt(x, y, 0), gp_Dir(0, 0, 1)), number(bore["radius"])
+                )
+                large_ring = [
+                    TopoDS.Edge(BRepBuilderAPI_MakeEdge(circle).Edge().Reversed())
+                ]
+                large_rings.append(large_ring)
+                top_builder.Add(wire(large_ring))
+            if not top_builder.IsDone():
+                raise RuntimeError("STEP counterbore top construction failed")
+            top = top_builder.Face()
+        converted.extend([TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(top, h))])
         for index, ring in enumerate(rings):
             for edge in ring:
-                start = floor if index else 0.0
-                wall_height = depth if index else h
+                start = floor if index and not bore else 0.0
+                wall_height = (floor if bore else depth) if index else h
                 converted.extend(
                     faces(
                         BRepPrimAPI_MakePrism(
@@ -163,6 +193,24 @@ def translate(body):
                         ).Shape()
                     )
                 )
+            if index and bore:
+                large = large_rings[index - 1]
+                for edge in large:
+                    converted.extend(
+                        faces(
+                            BRepPrimAPI_MakePrism(
+                                moved(edge, floor), gp_Vec(0, 0, depth)
+                            ).Shape()
+                        )
+                    )
+                shoulder = BRepBuilderAPI_MakeFace(
+                    wire([TopoDS.Edge(edge.Reversed()) for edge in reversed(large)]),
+                    True,
+                )
+                shoulder.Add(wire(ring))
+                if not shoulder.IsDone():
+                    raise RuntimeError("STEP counterbore shoulder construction failed")
+                converted.append(TopoDS.Face(moved(shoulder.Face(), floor)))
             if index and "hole_depth" in shape:
                 floor_wire = wire(
                     [TopoDS.Edge(edge.Reversed()) for edge in reversed(ring)]
