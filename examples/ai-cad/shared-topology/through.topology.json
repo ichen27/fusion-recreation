@@ -1,0 +1,715 @@
+{
+  "components": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  ],
+  "edges": [
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        0,
+        2
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        2,
+        14
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        12,
+        14
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        0,
+        12
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        4,
+        8
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        8,
+        10
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        6,
+        10
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        4,
+        6
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        1,
+        13
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        13,
+        15
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        3,
+        15
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        1,
+        3
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        5,
+        7
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        7,
+        11
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        9,
+        11
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        5,
+        9
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        12,
+        13
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        0,
+        1
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        4,
+        5
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        8,
+        9
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        10,
+        11
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        6,
+        7
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        2,
+        3
+      ]
+    },
+    {
+      "curve": {
+        "kind": "line"
+      },
+      "vertices": [
+        14,
+        15
+      ]
+    }
+  ],
+  "faces": [
+    {
+      "id": "evaluated/face/0",
+      "loops": [
+        [
+          {
+            "edge": 0,
+            "forward": true
+          },
+          {
+            "edge": 1,
+            "forward": true
+          },
+          {
+            "edge": 2,
+            "forward": false
+          },
+          {
+            "edge": 3,
+            "forward": false
+          }
+        ],
+        [
+          {
+            "edge": 4,
+            "forward": true
+          },
+          {
+            "edge": 5,
+            "forward": true
+          },
+          {
+            "edge": 6,
+            "forward": false
+          },
+          {
+            "edge": 7,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/0"
+    },
+    {
+      "id": "evaluated/face/1",
+      "loops": [
+        [
+          {
+            "edge": 8,
+            "forward": true
+          },
+          {
+            "edge": 9,
+            "forward": true
+          },
+          {
+            "edge": 10,
+            "forward": false
+          },
+          {
+            "edge": 11,
+            "forward": false
+          }
+        ],
+        [
+          {
+            "edge": 12,
+            "forward": true
+          },
+          {
+            "edge": 13,
+            "forward": true
+          },
+          {
+            "edge": 14,
+            "forward": false
+          },
+          {
+            "edge": 15,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/1"
+    },
+    {
+      "id": "evaluated/face/2",
+      "loops": [
+        [
+          {
+            "edge": 3,
+            "forward": true
+          },
+          {
+            "edge": 16,
+            "forward": true
+          },
+          {
+            "edge": 8,
+            "forward": false
+          },
+          {
+            "edge": 17,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/2"
+    },
+    {
+      "id": "evaluated/face/3",
+      "loops": [
+        [
+          {
+            "edge": 18,
+            "forward": true
+          },
+          {
+            "edge": 15,
+            "forward": true
+          },
+          {
+            "edge": 19,
+            "forward": false
+          },
+          {
+            "edge": 4,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/3"
+    },
+    {
+      "id": "evaluated/face/4",
+      "loops": [
+        [
+          {
+            "edge": 6,
+            "forward": true
+          },
+          {
+            "edge": 20,
+            "forward": true
+          },
+          {
+            "edge": 13,
+            "forward": false
+          },
+          {
+            "edge": 21,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/4"
+    },
+    {
+      "id": "evaluated/face/5",
+      "loops": [
+        [
+          {
+            "edge": 22,
+            "forward": true
+          },
+          {
+            "edge": 10,
+            "forward": true
+          },
+          {
+            "edge": 23,
+            "forward": false
+          },
+          {
+            "edge": 1,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/5"
+    },
+    {
+      "id": "evaluated/face/6",
+      "loops": [
+        [
+          {
+            "edge": 17,
+            "forward": true
+          },
+          {
+            "edge": 11,
+            "forward": true
+          },
+          {
+            "edge": 22,
+            "forward": false
+          },
+          {
+            "edge": 0,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/6"
+    },
+    {
+      "id": "evaluated/face/7",
+      "loops": [
+        [
+          {
+            "edge": 7,
+            "forward": true
+          },
+          {
+            "edge": 21,
+            "forward": true
+          },
+          {
+            "edge": 12,
+            "forward": false
+          },
+          {
+            "edge": 18,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/7"
+    },
+    {
+      "id": "evaluated/face/8",
+      "loops": [
+        [
+          {
+            "edge": 19,
+            "forward": true
+          },
+          {
+            "edge": 14,
+            "forward": true
+          },
+          {
+            "edge": 20,
+            "forward": false
+          },
+          {
+            "edge": 5,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/8"
+    },
+    {
+      "id": "evaluated/face/9",
+      "loops": [
+        [
+          {
+            "edge": 2,
+            "forward": true
+          },
+          {
+            "edge": 23,
+            "forward": true
+          },
+          {
+            "edge": 9,
+            "forward": false
+          },
+          {
+            "edge": 16,
+            "forward": false
+          }
+        ]
+      ],
+      "surface": "evaluated/face/9"
+    }
+  ],
+  "feature_id": "result",
+  "naming": "revision_only",
+  "shell_euler": [
+    0
+  ],
+  "shells": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  ],
+  "surfaces": {
+    "evaluated/face/0": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "0",
+        "-1"
+      ],
+      "offset": "0",
+      "owner_feature": "result"
+    },
+    "evaluated/face/1": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "0",
+        "1"
+      ],
+      "offset": "10",
+      "owner_feature": "result"
+    },
+    "evaluated/face/2": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "-1",
+        "0"
+      ],
+      "offset": "0",
+      "owner_feature": "result"
+    },
+    "evaluated/face/3": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "1",
+        "0"
+      ],
+      "offset": "2",
+      "owner_feature": "result"
+    },
+    "evaluated/face/4": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "-1",
+        "0"
+      ],
+      "offset": "-8",
+      "owner_feature": "result"
+    },
+    "evaluated/face/5": {
+      "kind": "plane",
+      "normal": [
+        "0",
+        "1",
+        "0"
+      ],
+      "offset": "10",
+      "owner_feature": "result"
+    },
+    "evaluated/face/6": {
+      "kind": "plane",
+      "normal": [
+        "-1",
+        "0",
+        "0"
+      ],
+      "offset": "0",
+      "owner_feature": "result"
+    },
+    "evaluated/face/7": {
+      "kind": "plane",
+      "normal": [
+        "1",
+        "0",
+        "0"
+      ],
+      "offset": "2",
+      "owner_feature": "result"
+    },
+    "evaluated/face/8": {
+      "kind": "plane",
+      "normal": [
+        "-1",
+        "0",
+        "0"
+      ],
+      "offset": "-8",
+      "owner_feature": "result"
+    },
+    "evaluated/face/9": {
+      "kind": "plane",
+      "normal": [
+        "1",
+        "0",
+        "0"
+      ],
+      "offset": "10",
+      "owner_feature": "result"
+    }
+  },
+  "vertices": [
+    [
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0",
+      "10"
+    ],
+    [
+      "0",
+      "10",
+      "0"
+    ],
+    [
+      "0",
+      "10",
+      "10"
+    ],
+    [
+      "2",
+      "2",
+      "0"
+    ],
+    [
+      "2",
+      "2",
+      "10"
+    ],
+    [
+      "2",
+      "8",
+      "0"
+    ],
+    [
+      "2",
+      "8",
+      "10"
+    ],
+    [
+      "8",
+      "2",
+      "0"
+    ],
+    [
+      "8",
+      "2",
+      "10"
+    ],
+    [
+      "8",
+      "8",
+      "0"
+    ],
+    [
+      "8",
+      "8",
+      "10"
+    ],
+    [
+      "10",
+      "0",
+      "0"
+    ],
+    [
+      "10",
+      "0",
+      "10"
+    ],
+    [
+      "10",
+      "10",
+      "0"
+    ],
+    [
+      "10",
+      "10",
+      "10"
+    ]
+  ]
+}

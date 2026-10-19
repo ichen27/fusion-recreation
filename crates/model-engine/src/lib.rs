@@ -14,6 +14,7 @@ pub mod mesh;
 mod mesh_counterbore;
 pub mod polyhedral;
 mod rebuild;
+pub mod topology;
 pub use polyhedral::Operation as BooleanOperation;
 pub mod placement;
 mod profile;

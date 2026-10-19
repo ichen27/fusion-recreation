@@ -120,6 +120,41 @@ class Viewer(unittest.TestCase):
                 )
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_topology_http_revision_origin_and_limits(self):
+        result = self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        feature = result["bodies"][0]["feature_id"]
+        for revision, expected in [(1, 200), (0, 400)]:
+            status, payload = self.request(
+                "POST",
+                "/api/topology",
+                json.dumps(dict(expected_revision=revision, feature_id=feature)),
+                {"Content-Type": "application/json"},
+            )
+            self.assertEqual(status, expected)
+            if status == 200:
+                self.assertEqual(json.loads(payload)["result"]["shell_euler"], [2])
+        self.assertEqual(
+            self.request(
+                "POST",
+                "/api/topology",
+                "x" * 4097,
+                {"Content-Type": "application/json"},
+            )[0],
+            413,
+        )
+        self.assertEqual(
+            self.request(
+                "POST",
+                "/api/topology",
+                "{}",
+                {"Content-Type": "application/json", "Origin": "https://example.com"},
+            )[0],
+            403,
+        )
+        self.assertEqual(self.request("GET", "/topology-view.mjs")[0], 200)
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_preview_job_http_stays_responsive_and_cancel_preserves_model(self):
         from store import CadError
         from test_preview_jobs import until

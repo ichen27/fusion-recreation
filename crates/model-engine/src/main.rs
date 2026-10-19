@@ -24,6 +24,16 @@ fn main() {
                 serde_json::json!({"error":{"code":"invalid_request","entity":"measurement","message":e.to_string()}})
             }
         }
+    } else if std::env::args().nth(1).as_deref() == Some("--topology") {
+        match serde_json::from_str::<model_engine::topology::Request>(&input) {
+            Ok(request) => match model_engine::topology::inspect(request) {
+                Ok(value) => serde_json::json!({"result":value}),
+                Err(error) => serde_json::json!({"error":error}),
+            },
+            Err(e) => {
+                serde_json::json!({"error":{"code":"invalid_request","entity":"topology","message":e.to_string()}})
+            }
+        }
     } else if std::env::args().nth(1).as_deref() == Some("--mesh") {
         match serde_json::from_str::<model_engine::mesh::Request>(&input) {
             Ok(request) => match model_engine::mesh::evaluate(request) {
