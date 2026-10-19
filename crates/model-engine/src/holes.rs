@@ -39,6 +39,8 @@ pub struct AnalyticPrism {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub outer_circle: Option<CircularBoundary>,
     pub height: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hole_depth: Option<String>,
     pub holes: Vec<Circle>,
     pub volume: ExactVolume,
 }
@@ -123,6 +125,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
             .collect(),
         outer_circle: None,
         height: height.to_string(),
+        hole_depth: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: (profile.twice_area.abs() * height / Q::from_integer(2.into()))
@@ -162,6 +165,7 @@ pub(super) fn round(
             radius: r.to_string(),
         }),
         height: h.to_string(),
+        hole_depth: None,
         holes: vec![],
         volume: ExactVolume {
             constant_mm3: "0".into(),
@@ -191,5 +195,36 @@ pub(super) fn resolve_round(
     },"Hole must have positive clearance inside the outer circle; tangency and breakout are unsupported")?;
     shape.holes = circles;
     shape.volume.pi_subtract_mm3 = ((sum_r2 - &r * &r) * h).to_string();
+    Ok(shape)
+}
+
+/// Apply a flat-bottom depth measured down from the top stock face.
+pub(super) fn blind(
+    m: &Model,
+    id: &str,
+    depth: &str,
+    mut shape: AnalyticPrism,
+) -> Result<AnalyticPrism> {
+    let d = positive(m, depth)?;
+    let h = super::rational(&shape.height, id)?;
+    if d >= h {
+        return Err(error("hole_depth", id, "Blind hole depth must be strictly below stock height; use through_holes for a full-depth cut"));
+    }
+    let mut sum_r2 = Q::zero();
+    for circle in &shape.holes {
+        let r = super::rational(&circle.radius, id)?;
+        sum_r2 += &r * &r;
+    }
+    // Recompute from bounded input dimensions. Computed volume coefficients can
+    // legitimately exceed the input parser's 128-bit component limit.
+    let outer_r2 = match &shape.outer_circle {
+        Some(outer) => {
+            let r = super::rational(&outer.radius, id)?;
+            &r * &r
+        }
+        None => Q::zero(),
+    };
+    shape.volume.pi_subtract_mm3 = (sum_r2 * &d - outer_r2 * h).to_string();
+    shape.hole_depth = Some(d.to_string());
     Ok(shape)
 }

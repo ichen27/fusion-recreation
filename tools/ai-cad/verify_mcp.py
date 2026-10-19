@@ -336,6 +336,42 @@ async def main():
                 assert ring["analytic"]["kind"] == "round_prism"
                 assert len(ring["analytic"]["holes"]) == 1
                 assert "outer_circle" in ring["analytic"]
+                blind_result = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 15,
+                        "transaction_id": "mcp-blind",
+                        "preserve": [],
+                        "operations": [
+                            {"op": "remove_feature", "id": "round_ring"},
+                            {"op": "define_parameter", "id": "blind_depth", "mm": "1"},
+                            {
+                                "op": "add_feature",
+                                "feature": {
+                                    "kind": "blind_holes",
+                                    "id": "round_pocket",
+                                    "input": "round_stock",
+                                    "depth": "blind_depth",
+                                    "holes": [
+                                        {
+                                            "id": "center",
+                                            "x": "zero",
+                                            "y": "zero",
+                                            "radius": "hole_radius",
+                                        }
+                                    ],
+                                },
+                            },
+                        ],
+                    },
+                )
+                assert "result" in blind_result, blind_result
+                pocket = next(
+                    b
+                    for b in blind_result["result"]["bodies"]
+                    if b["feature_id"] == "round_pocket"
+                )
+                assert pocket["analytic"]["hole_depth"] == "1"
                 print(
                     "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )

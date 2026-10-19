@@ -26,10 +26,12 @@ jobs:
       - run: python tools/ai-cad/verify_bracket_example.py
       - run: python tools/ai-cad/verify_concave_example.py
       - run: python tools/ai-cad/verify_round_example.py
+      - run: python tools/ai-cad/verify_blind_example.py
       - run: python -m pip install -r tools/ai-cad/step-requirements.txt
       - run: python tools/ai-cad/verify_step_export.py
       - run: python tools/ai-cad/verify_concave_export.py
       - run: python tools/ai-cad/verify_round_export.py
+      - run: python tools/ai-cad/verify_blind_export.py
       - run: python tools/ai-cad/verify_sketch_recording.py
       - run: python tools/ai-cad/verify_hole_recording.py
       - run: python tools/ai-cad/verify_feature_edits.py

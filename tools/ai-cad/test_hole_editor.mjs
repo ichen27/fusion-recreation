@@ -9,6 +9,7 @@ import {
   addHole,
   removeHole,
   setHoleValue,
+  setHoleDepth,
   holeProposal,
 } from "./web/hole-model.mjs";
 const root = fileURLToPath(new URL("../../", import.meta.url));
@@ -196,4 +197,63 @@ test("round stock exposes an exact circular outline and accepts typed hole editi
       .error.code,
     "hole_clearance",
   );
+});
+
+test("blind depth survives creation, resizing, fixed rules and group removal", () => {
+  const m = model(),
+    d = draftHoles(m, "plate");
+  d.kind = "blind_holes";
+  addHole(d, 10, 50, "3");
+  setHoleDepth(d, "2");
+  const first = run(m, holeProposal({ model: m, revision: 0 }, d)).result;
+  assert.equal(first.bodies[0].volume_mm3, "12000 - (18)*pi");
+  assert.equal(first.bodies[0].analytic.hole_depth, "2");
+  assert.equal(availableHoleInputs(first.model).length, 0);
+  let edit = draftHoles(first.model, null, "holes1");
+  assert.equal(edit.kind, "blind_holes");
+  setHoleDepth(edit, "3");
+  const changed = run(
+    first.model,
+    holeProposal({ model: first.model, revision: 1 }, edit),
+  ).result;
+  assert.equal(changed.bodies[0].volume_mm3, "12000 - (27)*pi");
+  setHoleDepth(edit, "5");
+  assert.equal(
+    run(first.model, holeProposal({ model: first.model, revision: 1 }, edit))
+      .error.code,
+    "hole_depth",
+  );
+  const fixed = structuredClone(first.model);
+  fixed.fixed[edit.depth] = "2";
+  edit = draftHoles(fixed, null, "holes1");
+  assert.throws(() => setHoleDepth(edit, "3"), /fixed or derived/);
+  removeHole(edit, 0);
+  const proposal = holeProposal({ model: fixed, revision: 1 }, edit);
+  assert.deepEqual(proposal.operations, [
+    { op: "remove_feature", id: "holes1" },
+  ]);
+  assert.equal(run(fixed, proposal).result.bodies[0].volume_mm3, "12000");
+});
+
+test("depth references can be shared without duplicate edits or shadowing old values", () => {
+  const { result } = create();
+  let m = structuredClone(result.model),
+    f = m.features.at(-1);
+  m.parameters["holes1.depth"] = "70";
+  f.holes[1].x = "holes1.depth";
+  assert.equal(draftHoles(m, null, f.id).values["holes1.depth"], "70");
+  m = structuredClone(result.model);
+  f = m.features.at(-1);
+  f.kind = "blind_holes";
+  f.depth = f.holes[0].radius;
+  let d = draftHoles(m, null, f.id);
+  setHoleDepth(d, "2");
+  const proposal = holeProposal({ model: m, revision: 2 }, d);
+  assert.equal(proposal.operations.length, 1);
+  assert.ok(run(m, proposal).result);
+  m.relations = {
+    [f.depth]: { offset_mm: "0", terms: { [f.holes[1].radius]: "1" } },
+  };
+  d = draftHoles(m, null, f.id);
+  assert.throws(() => setHoleDepth(d, "2"), /fixed or derived/);
 });

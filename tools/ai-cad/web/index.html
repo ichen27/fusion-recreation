@@ -177,6 +177,18 @@
             <p id="hole-count"></p>
           </div>
           <div class="sketch-properties">
+            <label
+              >Hole type<select id="hole-kind" aria-label="Hole type">
+                <option value="through_holes">Through all</option>
+                <option value="blind_holes">Blind · flat bottom</option>
+              </select></label
+            >
+            <label id="hole-depth-row" hidden
+              >Depth from top (mm)<input
+                id="hole-depth"
+                value="2"
+                aria-label="Hole depth"
+            /></label>
             <label id="hole-radius-row"
               >Radius for new holes (mm)<input
                 id="hole-radius"
@@ -185,10 +197,11 @@
             /></label>
             <div id="hole-coordinates"></div>
             <p class="hint">
-              Through the full stock height in +Z. Circles must stay inside the
-              outline and apart. Existing hole IDs survive edits. Remove all
-              holes to remove the group. Unused parameters are retained. Preview
-              checks before saving.
+              Through holes span the stock. Blind holes start at the top and
+              leave a positive flat floor. All holes in a group share one depth.
+              Circles must stay inside the outline and apart. Existing hole IDs
+              survive edits. Remove all holes to remove the group. Unused
+              parameters are retained. Preview checks before saving.
             </p>
             <button id="hole-preview" class="primary" type="submit">
               Preview holes

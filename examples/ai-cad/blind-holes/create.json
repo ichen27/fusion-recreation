@@ -1,0 +1,93 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "blind-create",
+  "preserve": [],
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "cx",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "cy",
+      "mm": "0"
+    },
+    {
+      "op": "define_parameter",
+      "id": "radius",
+      "mm": "40"
+    },
+    {
+      "op": "define_parameter",
+      "id": "height",
+      "mm": "5"
+    },
+    {
+      "op": "define_parameter",
+      "id": "left",
+      "mm": "-30"
+    },
+    {
+      "op": "define_parameter",
+      "id": "right",
+      "mm": "30"
+    },
+    {
+      "op": "define_parameter",
+      "id": "mount_r",
+      "mm": "3"
+    },
+    {
+      "op": "define_parameter",
+      "id": "bore_r",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "2"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "cylinder",
+        "id": "stock",
+        "x": "cx",
+        "y": "cy",
+        "radius": "radius",
+        "height": "height"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "blind_holes",
+        "id": "flange",
+        "input": "stock",
+        "holes": [
+          {
+            "id": "left",
+            "x": "left",
+            "y": "cy",
+            "radius": "mount_r"
+          },
+          {
+            "id": "right",
+            "x": "right",
+            "y": "cy",
+            "radius": "mount_r"
+          },
+          {
+            "id": "bore",
+            "x": "cx",
+            "y": "cy",
+            "radius": "bore_r"
+          }
+        ],
+        "depth": "depth"
+      }
+    }
+  ]
+}

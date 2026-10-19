@@ -57,6 +57,12 @@ def translate(body):
     if "analytic" in body:
         shape = body["analytic"]
         h = number(shape["height"])
+        depth = number(shape.get("hole_depth", shape["height"]))
+        floor = h - depth
+        if "hole_depth" in shape and (depth <= 1e-6 or floor <= 1e-6):
+            raise RuntimeError(
+                "STEP adapter requires blind depth and remaining floor above 1e-6 mm"
+            )
         points = [[number(v) for v in p] + [0.0] for p in shape.get("outer", [])]
         outer_circle = shape.get("outer_circle")
         round_outer = (
@@ -133,21 +139,36 @@ def translate(body):
         from OCP.BRepBuilderAPI import BRepBuilderAPI_Transform
         from OCP.gp import gp_Trsf
 
-        transform = gp_Trsf()
-        transform.SetTranslation(gp_Vec(0, 0, h))
-        converted.extend(
-            [
-                TopoDS.Face(cap.Face().Reversed()),
-                TopoDS.Face(
-                    BRepBuilderAPI_Transform(cap.Face(), transform, True).Shape()
-                ),
-            ]
+        def moved(value, z):
+            transform = gp_Trsf()
+            transform.SetTranslation(gp_Vec(0, 0, z))
+            return BRepBuilderAPI_Transform(value, transform, True).Shape()
+
+        bottom = (
+            BRepBuilderAPI_MakeFace(wire(rings[0]), True).Face()
+            if "hole_depth" in shape
+            else cap.Face()
         )
-        for ring in rings:
+        converted.extend(
+            [TopoDS.Face(bottom.Reversed()), TopoDS.Face(moved(cap.Face(), h))]
+        )
+        for index, ring in enumerate(rings):
             for edge in ring:
+                start = floor if index else 0.0
+                wall_height = depth if index else h
                 converted.extend(
-                    faces(BRepPrimAPI_MakePrism(edge, gp_Vec(0, 0, h)).Shape())
+                    faces(
+                        BRepPrimAPI_MakePrism(
+                            moved(edge, start), gp_Vec(0, 0, wall_height)
+                        ).Shape()
+                    )
                 )
+            if index and "hole_depth" in shape:
+                floor_wire = wire(
+                    [TopoDS.Edge(edge.Reversed()) for edge in reversed(ring)]
+                )
+                floor_face = BRepBuilderAPI_MakeFace(floor_wire, True).Face()
+                converted.append(TopoDS.Face(moved(floor_face, floor)))
         v = shape["volume"]
         expected = number(v["constant_mm3"]) - math.pi * number(v["pi_subtract_mm3"])
     else:

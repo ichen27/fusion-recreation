@@ -1,0 +1,95 @@
+{
+  "step": [
+    {
+      "case": "rectangular",
+      "volume_mm3": 35886.90266447077,
+      "oracle_volume_mm3": 35886.90266447078,
+      "error_mm3": 7.275957614183426e-12,
+      "hole_depth_mm": 2.0,
+      "remaining_floor_mm": 4.0,
+      "cylinders": [
+        [
+          12.0,
+          12.0,
+          3.0
+        ],
+        [
+          88.0,
+          12.0,
+          3.0
+        ]
+      ],
+      "floor_faces": 2,
+      "material_below_holes": true,
+      "void_above_floors": true
+    },
+    {
+      "case": "round",
+      "volume_mm3": 24391.3253624719,
+      "oracle_volume_mm3": 24391.32536247115,
+      "error_mm3": 7.494236342608929e-10,
+      "hole_depth_mm": 2.0,
+      "remaining_floor_mm": 3.0,
+      "cylinders": [
+        [
+          0.0,
+          0.0,
+          40.0
+        ],
+        [
+          -30.0,
+          0.0,
+          3.0
+        ],
+        [
+          30.0,
+          0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "floor_faces": 3,
+      "material_below_holes": true,
+      "void_above_floors": true
+    },
+    {
+      "case": "deeper",
+      "volume_mm3": 23649.909496224744,
+      "oracle_volume_mm3": 23649.90949622396,
+      "error_mm3": 7.821654435247183e-10,
+      "hole_depth_mm": 4.0,
+      "remaining_floor_mm": 1.0,
+      "cylinders": [
+        [
+          0.0,
+          0.0,
+          40.0
+        ],
+        [
+          -30.0,
+          0.0,
+          3.0
+        ],
+        [
+          30.0,
+          0.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "floor_faces": 3,
+      "material_below_holes": true,
+      "void_above_floors": true
+    }
+  ],
+  "stl_volume_mm3": 23640.412949555594,
+  "max_radial_error_mm": 0.01204725215183089
+}

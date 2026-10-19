@@ -149,17 +149,51 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
         let flat: Vec<_> = points.iter().flatten().copied().collect();
         let cap = earcutr::earcut(&flat, &starts[1..], 2).map_err(|_| fail())?;
         let n = points.len();
-        for z in [0.0, h] {
-            mesh.vertices.extend(points.iter().map(|p| [p[0], p[1], z]));
-        }
-        for t in cap.chunks_exact(3) {
+        let outer_n = starts.get(1).copied().unwrap_or(n);
+        let floor = if let Some(depth) = &shape.hole_depth {
+            let z = h - value(depth)?;
+            if z <= 0.0 || z >= h {
+                return Err(fail());
+            }
+            z
+        } else {
+            0.0
+        };
+        mesh.vertices.extend(
+            points
+                .iter()
+                .enumerate()
+                .map(|(i, p)| [p[0], p[1], if i < outer_n { 0.0 } else { floor }]),
+        );
+        mesh.vertices.extend(points.iter().map(|p| [p[0], p[1], h]));
+        let orient = |t: &[usize]| {
             let (a, b, c) = (points[t[0]], points[t[1]], points[t[2]]);
             let mut ids = [t[0], t[1], t[2]];
             if (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) < 0.0 {
                 ids.swap(1, 2);
             }
-            mesh.triangles.push([ids[2], ids[1], ids[0]]);
+            ids
+        };
+        for t in cap.chunks_exact(3) {
+            let ids = orient(t);
+            if shape.hole_depth.is_none() {
+                mesh.triangles.push([ids[2], ids[1], ids[0]]);
+            }
             mesh.triangles.push(ids.map(|i| i + n));
+        }
+        if shape.hole_depth.is_some() {
+            let bottom = earcutr::earcut(&flat[..outer_n * 2], &[], 2).map_err(|_| fail())?;
+            for t in bottom.chunks_exact(3) {
+                let ids = orient(t);
+                mesh.triangles.push([ids[2], ids[1], ids[0]]);
+            }
+            // Each clockwise hole ring closes with an upward-facing flat floor.
+            for (j, &start) in starts.iter().enumerate().skip(1) {
+                let end = starts.get(j + 1).copied().unwrap_or(n);
+                for i in start + 1..end - 1 {
+                    mesh.triangles.push([start, i + 1, i]);
+                }
+            }
         }
         starts.push(n);
         for ring in starts.windows(2) {

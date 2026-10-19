@@ -4,7 +4,7 @@ export { editable };
 export function availableHoleInputs(model) {
   const consumed = new Set(
     model.features
-      .filter((f) => f.kind === "through_holes")
+      .filter((f) => ["through_holes", "blind_holes"].includes(f.kind))
       .map((f) => f.input),
   );
   return model.features.filter(
@@ -27,10 +27,12 @@ export function nextHolePrefix(model) {
 export function draftHoles(model, input, featureId = null) {
   const feature = featureId
     ? model.features.find(
-        (f) => f.id === featureId && f.kind === "through_holes",
+        (f) =>
+          f.id === featureId &&
+          ["through_holes", "blind_holes"].includes(f.kind),
       )
     : null;
-  if (featureId && !feature) throw Error("Select a through-hole group");
+  if (featureId && !feature) throw Error("Select a hole group");
   input = feature?.input ?? input;
   const parent = model.features.find(
     (f) => f.id === input && ["extrude", "cylinder"].includes(f.kind),
@@ -47,14 +49,21 @@ export function draftHoles(model, input, featureId = null) {
     !["planar_profile", "polygon_profile", "circle"].includes(profile.kind)
   )
     throw Error("Select a polygon extrusion");
+  const prefix = featureId ?? nextHolePrefix(model);
+  const depth = feature?.depth ?? `${prefix}.depth`;
   return {
     model: structuredClone(model),
     input,
     featureId,
+    kind: feature?.kind ?? "through_holes",
+    depth,
     profile: structuredClone(profile),
-    prefix: featureId ?? nextHolePrefix(model),
+    prefix,
     holes: structuredClone(feature?.holes ?? []),
-    values: { ...model.parameters },
+    values: {
+      ...model.parameters,
+      ...(depth in model.parameters ? {} : { [depth]: "2" }),
+    },
   };
 }
 export function addHole(draft, x, y, radius) {
@@ -102,6 +111,12 @@ export function holeProposal(state, draft) {
   if (!draft.holes.length && !draft.featureId)
     throw Error("Place at least one hole");
   const refs = [...new Set(draft.holes.flatMap((h) => [h.x, h.y, h.radius]))];
+  if (
+    draft.kind === "blind_holes" &&
+    draft.holes.length &&
+    !refs.includes(draft.depth)
+  )
+    refs.push(draft.depth);
   const changed = refs.filter(
     (id) =>
       id in draft.model.parameters &&
@@ -116,7 +131,8 @@ export function holeProposal(state, draft) {
     ...changed.map((id) => ({ op: "set_parameter", id, mm: draft.values[id] })),
   );
   const feature = {
-    kind: "through_holes",
+    kind: draft.kind,
+    ...(draft.kind === "blind_holes" ? { depth: draft.depth } : {}),
     id: draft.featureId ?? draft.prefix,
     input: draft.input,
     holes: structuredClone(draft.holes),
@@ -137,4 +153,10 @@ export function holeProposal(state, draft) {
       (id) => !changed.includes(id) && !(id in (state.model.relations ?? {})),
     ),
   };
+}
+
+export function setHoleDepth(draft, value) {
+  if (!editable(draft, draft.depth))
+    throw Error("Depth is fixed or derived; edit its controlling parameter");
+  draft.values[draft.depth] = String(value);
 }

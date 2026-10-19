@@ -91,7 +91,7 @@ Errors carry `code`, `entity`, `message`. Typical codes: `missing_parameter`, `d
 ]}
 ```
 
-`input` must reference an earlier polygon extrusion (convex or simple concave) or cylinder. One group of 1..16 uniquely named holes per extrusion is supported; the consumed extrusion is hidden. Centers and radii reference exact mm parameters. All holes run along +Z through the full height. Circles must be strictly inside the outer loop with positive distance from every boundary segment and mutually separate; touching, intersecting, breakout and blind holes reject. Radius is positive and at most 1000000 mm. The original profile IDs and hole IDs remain stable through coordinate edits.
+`input` must reference an earlier polygon extrusion (convex or simple concave) or cylinder. One group of 1..16 uniquely named holes per extrusion is supported; the consumed extrusion is hidden. Centers and radii reference exact mm parameters. All holes run along +Z through the full height. Circles must be strictly inside the outer loop with positive distance from every boundary segment and mutually separate; touching, intersecting and breakout reject. Blind holes use the separate depth-aware feature below. Radius is positive and at most 1000000 mm. The original profile IDs and hole IDs remain stable through coordinate edits.
 
 The exact predicate uses ray-crossing containment and squared distance to each finite boundary segment (including endpoint distance when the projection is outside the segment); circle pairs require `squared_center_distance > (r1+r2)^2`. No square roots, π approximations or tolerance decisions enter these predicates. The bounded constructive representation guarantees a single perforated-prism family; it does **not** pass through or claim the convex planar B-rep validator. A general curved B-rep/incidence model remains future work.
 
@@ -140,3 +140,12 @@ Display/STL sample the circular outer boundary counterclockwise and holes clockw
 Cylinder creation uses CLI/MCP; its dimensions and holes can be edited in the viewer, whose hole dialog shows the circular boundary. There is no general circle sketch/revolve, arbitrary axis, fillet or curved intersection solver in this addition. [Editable flange examples, browser recording, STEP/STL and independent checks](../examples/ai-cad/round-flange/README.md).
 
 Round-stock tessellation tries the original angular samples and, only if validation fails, at most two deterministic phase offsets. This addresses collinear triangulation bridge triangles for aligned circles. Circle radii, centers, segment count and maximum chord-error bound stay unchanged; every candidate must pass containment, noncollapsed-triangle and opposite-edge-incidence checks. All six hole orders at16/64/128 segments are covered for the radius12 bore regression. Native geometry is never changed by this display retry.
+
+
+## Flat-bottom blind holes
+
+`{kind:"blind_holes",id,input,depth,holes}` has the same stock and named circle references as `through_holes`, plus a depth parameter. Require `0 < depth < stock height` exactly. Holes descend from the top face and end at `height − depth`; all holes in the group share this depth. One group of either kind consumes a stock feature. Switching kind requires explicit removal/recreation because `replace_feature` preserves kind.
+
+The existing analytic prism representation gains optional `hole_depth`. Its absence retains full-depth through-hole behavior. With depth present, the bottom stock face is unperforated, each inner cylinder spans `height-depth` to `height`, and each circular floor has an upward material normal. Removed volume is `π × sum(radius²) × depth`. Circle containment/separation rules and IDs are unchanged. Old serialized replies remain unchanged.
+
+Display/STL construct separate outer bottom and pocket floor faces. Numerically collapsed depth or floor rejects tessellation without invalidating the exact model. STEP explicitly translates these faces and walls; both depth and remaining floor must exceed 1e−6 mm. [Independent surface, floor-containment, volume and browser evidence](../examples/ai-cad/blind-holes/README.md). This does not provide drill-tip cones, counterbores, mixed-depth groups, intersecting pockets, arbitrary axes or features on already perforated stock.

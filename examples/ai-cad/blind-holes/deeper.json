@@ -1,0 +1,18 @@
+{
+  "action": "commit",
+  "expected_revision": 1,
+  "transaction_id": "blind-deeper",
+  "preserve": [
+    "radius",
+    "height",
+    "bore_r",
+    "mount_r"
+  ],
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "depth",
+      "mm": "4"
+    }
+  ]
+}
