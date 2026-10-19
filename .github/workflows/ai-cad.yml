@@ -33,6 +33,7 @@ jobs:
       - run: python tools/ai-cad/verify_counterbores_mcp.py
       - run: python tools/ai-cad/verify_frustum_mcp.py
       - run: python tools/ai-cad/verify_countersinks_mcp.py
+      - run: python tools/ai-cad/verify_individual_depths_mcp.py
       - run: python tools/ai-cad/verify_topology_mcp.py
       - run: python tools/ai-cad/verify_surface_context_mcp.py
       - run: python tools/ai-cad/verify_selection_guard_mcp.py
@@ -58,6 +59,7 @@ jobs:
       - run: python tools/ai-cad/verify_counterbores.py
       - run: python tools/ai-cad/verify_frustum.py
       - run: python tools/ai-cad/verify_countersinks.py
+      - run: python tools/ai-cad/verify_individual_depths.py
       - run: python tools/ai-cad/verify_topology_recording.py
       - run: python tools/ai-cad/verify_surface_context_recording.py
       - run: python tools/ai-cad/verify_selection_guard_recording.py
@@ -86,6 +88,7 @@ jobs:
       - run: python tools/ai-cad/verify_counterbores_export.py
       - run: python tools/ai-cad/verify_frustum_export.py
       - run: python tools/ai-cad/verify_countersinks_export.py
+      - run: python tools/ai-cad/verify_individual_depths_export.py
       - run: python tools/ai-cad/verify_topology_export.py
       - run: python tools/ai-cad/verify_intersection_export.py
       - run: python tools/ai-cad/verify_rotation_export.py

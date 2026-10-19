@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "height": "6",
+    "c0": "0",
+    "c1": "100",
+    "c2": "20",
+    "c3": "60",
+    "x": "12",
+    "y": "12",
+    "r": "3",
+    "x2": "88",
+    "depth": "2",
+    "individual_depth": "4"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "c0",
+          "y": "c0"
+        },
+        {
+          "id": "v1",
+          "x": "c1",
+          "y": "c0"
+        },
+        {
+          "id": "v2",
+          "x": "c1",
+          "y": "c2"
+        },
+        {
+          "id": "v3",
+          "x": "c2",
+          "y": "c2"
+        },
+        {
+          "id": "v4",
+          "x": "c2",
+          "y": "c3"
+        },
+        {
+          "id": "v5",
+          "x": "c0",
+          "y": "c3"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "solid",
+      "profile": "outline",
+      "height": "height"
+    },
+    {
+      "kind": "blind_holes",
+      "id": "part",
+      "input": "solid",
+      "holes": [
+        {
+          "id": "left",
+          "x": "x",
+          "y": "y",
+          "radius": "r"
+        },
+        {
+          "id": "right",
+          "x": "x2",
+          "y": "y",
+          "radius": "r"
+        }
+      ],
+      "depth": "depth",
+      "depth_overrides": {
+        "right": "individual_depth"
+      }
+    }
+  ]
+}

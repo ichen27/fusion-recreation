@@ -235,21 +235,20 @@ fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<
         let cap = earcutr::earcut(&flat, &starts[1..], 2).map_err(|_| fail())?;
         let n = points.len();
         let outer_n = starts.get(1).copied().unwrap_or(n);
-        let floor = if let Some(depth) = &shape.hole_depth {
-            let z = h - value(depth)?;
-            if z <= 0.0 || z >= h {
-                return Err(fail());
+        let mut floors = vec![0.0; n];
+        for (j, hole) in shape.holes.iter().enumerate() {
+            if let Some(depth) = hole.depth.as_ref().or(shape.hole_depth.as_ref()) {
+                let z = h - value(depth)?;
+                if z <= 0.0 || z >= h {
+                    return Err(fail());
+                }
+                let start = starts[j + 1];
+                let end = starts.get(j + 2).copied().unwrap_or(n);
+                floors[start..end].fill(z);
             }
-            z
-        } else {
-            0.0
-        };
-        mesh.vertices.extend(
-            points
-                .iter()
-                .enumerate()
-                .map(|(i, p)| [p[0], p[1], if i < outer_n { 0.0 } else { floor }]),
-        );
+        }
+        mesh.vertices
+            .extend(points.iter().zip(&floors).map(|(p, z)| [p[0], p[1], *z]));
         if let Some(top) = &shape.top_radius {
             let circle = shape.outer_circle.as_ref().ok_or_else(fail)?;
             let x = value(&circle.center[0])?;

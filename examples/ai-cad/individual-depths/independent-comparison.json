@@ -1,0 +1,484 @@
+[
+  {
+    "case": "asymmetric",
+    "volume_mm3": 35893.185849777954,
+    "step_volume_mm3": 35893.18584977794,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.4569682106375694e-12,
+    "remaining_floors_mm": [
+      4.0,
+      2.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 7.275957614183426e-12,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "60",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "(1800000 + (-1624)*pi)/(36000 + (-34)*pi)",
+        "(1080000 + (-408)*pi)/(36000 + (-34)*pi)",
+        "(108000 + (-154)*pi)/(36000 + (-34)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(392688000000 + (-773634000)*pi + (9415/3)*pi*pi)/(36000 + (-34)*pi)",
+          "((49248000)*pi)/(36000 + (-34)*pi)",
+          "((-27360000)*pi + (21888)*pi*pi)/(36000 + (-34)*pi)"
+        ],
+        [
+          "((49248000)*pi)/(36000 + (-34)*pi)",
+          "(1083888000000 + (-2797314000)*pi + (4999879/3)*pi*pi)/(36000 + (-34)*pi)",
+          "((-33696000)*pi)/(36000 + (-34)*pi)"
+        ],
+        [
+          "((-27360000)*pi + (21888)*pi*pi)/(36000 + (-34)*pi)",
+          "((-33696000)*pi)/(36000 + (-34)*pi)",
+          "(1468800000000 + (-3555300000)*pi + (1667330)*pi*pi)/(36000 + (-34)*pi)"
+        ]
+      ],
+      "feature_id": "part",
+      "volume_mm3": "36000 - (34)*pi"
+    },
+    "centroid_error_mm": 2.1316282072803006e-14,
+    "inertia_error_mm5": 7.450580596923828e-08
+  },
+  {
+    "case": "concave",
+    "volume_mm3": 16630.35399670615,
+    "step_volume_mm3": 16630.353996706097,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 7.275957614183426e-12,
+    "remaining_floors_mm": [
+      4.0,
+      2.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-13,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "60",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "(648000 + (-3384)*pi)/(16800 + (-54)*pi)",
+        "(312000 + (-648)*pi)/(16800 + (-54)*pi)",
+        "(50400 + (-234)*pi)/(16800 + (-54)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(70158720000 + (-269449200)*pi + (10125)*pi*pi)/(16800 + (-54)*pi)",
+          "(69120000000 + (-365817600)*pi)/(16800 + (-54)*pi)",
+          "((13824000)*pi + (49248)*pi*pi)/(16800 + (-54)*pi)"
+        ],
+        [
+          "(69120000000 + (-365817600)*pi)/(16800 + (-54)*pi)",
+          "(263694720000 + (-2543497200)*pi + (3752973)*pi*pi)/(16800 + (-54)*pi)",
+          "((-7948800)*pi)/(16800 + (-54)*pi)"
+        ],
+        [
+          "((13824000)*pi + (49248)*pi*pi)/(16800 + (-54)*pi)",
+          "((-7948800)*pi)/(16800 + (-54)*pi)",
+          "(332160000000 + (-2802060000)*pi + (3755970)*pi*pi)/(16800 + (-54)*pi)"
+        ]
+      ],
+      "feature_id": "part",
+      "volume_mm3": "16800 - (54)*pi"
+    },
+    "centroid_error_mm": 7.105427357601002e-15,
+    "inertia_error_mm5": 1.1175870895385742e-08
+  },
+  {
+    "case": "plate",
+    "volume_mm3": 35830.35399670616,
+    "step_volume_mm3": 35830.35399670612,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.4569682106375694e-12,
+    "remaining_floors_mm": [
+      4.0,
+      2.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 5.4569682106375694e-12,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "60",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "(1800000 + (-3384)*pi)/(36000 + (-54)*pi)",
+        "(1080000 + (-648)*pi)/(36000 + (-54)*pi)",
+        "(108000 + (-234)*pi)/(36000 + (-54)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(392688000000 + (-1229094000)*pi + (10125)*pi*pi)/(36000 + (-54)*pi)",
+          "((-443232000)*pi)/(36000 + (-54)*pi)",
+          "((49248)*pi*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((-443232000)*pi)/(36000 + (-54)*pi)",
+          "(1083888000000 + (-4443174000)*pi + (3752973)*pi*pi)/(36000 + (-54)*pi)",
+          "((-46656000)*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((49248)*pi*pi)/(36000 + (-54)*pi)",
+          "((-46656000)*pi)/(36000 + (-54)*pi)",
+          "(1468800000000 + (-5648940000)*pi + (3755970)*pi*pi)/(36000 + (-54)*pi)"
+        ]
+      ],
+      "feature_id": "part",
+      "volume_mm3": "36000 - (54)*pi"
+    },
+    "centroid_error_mm": 1.0658141036401503e-14,
+    "inertia_error_mm5": 2.0489096641540527e-08
+  },
+  {
+    "case": "reverse_plate",
+    "volume_mm3": 35830.35399670616,
+    "step_volume_mm3": 35830.35399670612,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.4569682106375694e-12,
+    "remaining_floors_mm": [
+      4.0,
+      2.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 5.4569682106375694e-12,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "60",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "(1800000 + (-3384)*pi)/(36000 + (-54)*pi)",
+        "(1080000 + (-648)*pi)/(36000 + (-54)*pi)",
+        "(108000 + (-234)*pi)/(36000 + (-54)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(392688000000 + (-1229094000)*pi + (10125)*pi*pi)/(36000 + (-54)*pi)",
+          "((-443232000)*pi)/(36000 + (-54)*pi)",
+          "((49248)*pi*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((-443232000)*pi)/(36000 + (-54)*pi)",
+          "(1083888000000 + (-4443174000)*pi + (3752973)*pi*pi)/(36000 + (-54)*pi)",
+          "((-46656000)*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((49248)*pi*pi)/(36000 + (-54)*pi)",
+          "((-46656000)*pi)/(36000 + (-54)*pi)",
+          "(1468800000000 + (-5648940000)*pi + (3755970)*pi*pi)/(36000 + (-54)*pi)"
+        ]
+      ],
+      "feature_id": "part",
+      "volume_mm3": "36000 - (54)*pi"
+    },
+    "centroid_error_mm": 1.0658141036401503e-14,
+    "inertia_error_mm5": 1.4901161193847656e-08
+  },
+  {
+    "case": "round",
+    "volume_mm3": 23763.006831753195,
+    "step_volume_mm3": 23763.006831753955,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 1.0186340659856796e-10,
+    "remaining_floors_mm": [
+      3.0,
+      3.0,
+      1.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 1.2732925824820995e-11,
+    "classified_floor_material_and_void_points": 6,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-40",
+          "-40",
+          "0"
+        ],
+        [
+          "40",
+          "40",
+          "5"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "4664/1891"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(18186791611/5673)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(18002986411/5673)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(6347438)*pi"
+        ]
+      ],
+      "feature_id": "flange",
+      "volume_mm3": "7564*pi"
+    },
+    "centroid_error_mm": 2.9853371351766144e-15,
+    "inertia_error_mm5": 1.5832483768463135e-07
+  },
+  {
+    "case": "fractional_depth",
+    "volume_mm3": 35934.02655427462,
+    "step_volume_mm3": 35934.02655427466,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.4569682106375694e-12,
+    "remaining_floors_mm": [
+      4.0,
+      5.666666666666667
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-12,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "60",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "(1800000 + (-480)*pi)/(36000 + (-21)*pi)",
+        "(1080000 + (-252)*pi)/(36000 + (-21)*pi)",
+        "(108000 + (-215/2)*pi)/(36000 + (-21)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(392688000000 + (-479389000)*pi + (3469/3)*pi*pi)/(36000 + (-21)*pi)",
+          "((369360000)*pi)/(36000 + (-21)*pi)",
+          "((-37620000)*pi + (-3420)*pi*pi)/(36000 + (-21)*pi)"
+        ],
+        [
+          "((369360000)*pi)/(36000 + (-21)*pi)",
+          "(1083888000000 + (-1729309000)*pi + (939181/3)*pi*pi)/(36000 + (-21)*pi)",
+          "((-28836000)*pi)/(36000 + (-21)*pi)"
+        ],
+        [
+          "((-37620000)*pi + (-3420)*pi*pi)/(36000 + (-21)*pi)",
+          "((-28836000)*pi)/(36000 + (-21)*pi)",
+          "(1468800000000 + (-2196810000)*pi + (627777/2)*pi*pi)/(36000 + (-21)*pi)"
+        ]
+      ],
+      "feature_id": "part",
+      "volume_mm3": "36000 - (21)*pi"
+    },
+    "centroid_error_mm": 2.1316282072803006e-14,
+    "inertia_error_mm5": 5.21540641784668e-08
+  },
+  {
+    "case": "turned",
+    "volume_mm3": 35830.35399670616,
+    "step_volume_mm3": 35830.35399670612,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.4569682106375694e-12,
+    "remaining_floors_mm": [
+      4.0,
+      2.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 5.4569682106375694e-12,
+    "classified_floor_material_and_void_points": 4,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "5",
+          "-9",
+          "-2"
+        ],
+        [
+          "105",
+          "-3",
+          "58"
+        ]
+      ],
+      "centroid_mm": [
+        "(1980000 + (-3654)*pi)/(36000 + (-54)*pi)",
+        "(-216000 + (396)*pi)/(36000 + (-54)*pi)",
+        "(1008000 + (-540)*pi)/(36000 + (-54)*pi)"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(392688000000 + (-1229094000)*pi + (10125)*pi*pi)/(36000 + (-54)*pi)",
+          "((-49248)*pi*pi)/(36000 + (-54)*pi)",
+          "((-443232000)*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((-49248)*pi*pi)/(36000 + (-54)*pi)",
+          "(1468800000000 + (-5648940000)*pi + (3755970)*pi*pi)/(36000 + (-54)*pi)",
+          "((46656000)*pi)/(36000 + (-54)*pi)"
+        ],
+        [
+          "((-443232000)*pi)/(36000 + (-54)*pi)",
+          "((46656000)*pi)/(36000 + (-54)*pi)",
+          "(1083888000000 + (-4443174000)*pi + (3752973)*pi*pi)/(36000 + (-54)*pi)"
+        ]
+      ],
+      "feature_id": "turned",
+      "volume_mm3": "36000 - (54)*pi"
+    },
+    "centroid_error_mm": 1.4210854715202004e-14,
+    "inertia_error_mm5": 4.470348358154297e-08
+  },
+  {
+    "case": "linked_round",
+    "volume_mm3": 23763.006831753195,
+    "step_volume_mm3": 23763.006831753955,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 1.0368239600211382e-10,
+    "remaining_floors_mm": [
+      3.0,
+      3.0,
+      1.0
+    ],
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 1.2732925824820995e-11,
+    "classified_floor_material_and_void_points": 6,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "60",
+          "-40",
+          "0"
+        ],
+        [
+          "140",
+          "40",
+          "5"
+        ]
+      ],
+      "centroid_mm": [
+        "100",
+        "0",
+        "4664/1891"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(18186791611/5673)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(18002986411/5673)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(6347438)*pi"
+        ]
+      ],
+      "feature_id": "copy",
+      "volume_mm3": "7564*pi"
+    },
+    "centroid_error_mm": 1.4210854715202004e-14,
+    "inertia_error_mm5": 1.5832483768463135e-07
+  }
+]

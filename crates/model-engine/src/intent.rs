@@ -86,11 +86,13 @@ impl Feature {
             Self::BlindHoles {
                 input,
                 depth,
+                depth_overrides,
                 holes,
                 ..
             } => (
                 vec![input],
                 std::iter::once(depth)
+                    .chain(depth_overrides.values())
                     .chain(holes.iter().flat_map(|h| [&h.x, &h.y, &h.radius]))
                     .collect(),
             ),

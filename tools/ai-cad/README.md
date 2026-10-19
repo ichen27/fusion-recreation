@@ -286,3 +286,14 @@ python tools/ai-cad/verify_countersinks_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_countersinks_export.py
 ```
+
+### Individual blind-hole depths
+
+Choose **Blind · flat bottom**, then set a per-hole depth or leave it blank to use the group depth. Existing individual depths can return to the shared value with **Use group depth**. Preview validates each remaining floor; fixed/derived depth values retain their constraints. [Examples and verification](../../examples/ai-cad/individual-depths/README.md).
+
+```sh
+python tools/ai-cad/verify_individual_depths.py
+python tools/ai-cad/verify_individual_depths_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_individual_depths_export.py
+```

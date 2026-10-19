@@ -405,6 +405,18 @@ dialog::backdrop {
 .sketch-properties > :not(#sketch-coordinates):not(#hole-coordinates) {
   flex-shrink: 0;
 }
+#hole-dialog .sketch-properties {
+  max-height: none;
+  overflow: visible;
+}
+#hole-coordinates {
+  flex: 0 1 auto;
+  min-height: 180px;
+  max-height: 360px;
+}
+.hole-depth-label {
+  grid-column: 1 / -1;
+}
 .hole-coordinate button {
   grid-column: 1 / -1;
 }

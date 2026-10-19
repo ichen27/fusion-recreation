@@ -2,7 +2,7 @@
 use super::{error, identifier, parameter, positive, profile::Profile, Model, Result, Q};
 use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -17,6 +17,8 @@ pub struct Circle {
     pub id: String,
     pub center: [String; 2],
     pub radius: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub depth: Option<String>,
 }
 #[derive(Clone, Debug, Serialize)]
 pub struct CircularBoundary {
@@ -116,6 +118,7 @@ fn disks(
         }
         sum_r2 += &r * &r;
         circles.push(Circle {
+            depth: None,
             id: hole.id.clone(),
             center: [x.to_string(), y.to_string()],
             radius: r.to_string(),
@@ -250,6 +253,7 @@ pub(super) fn blind(
     m: &Model,
     id: &str,
     depth: &str,
+    overrides: &BTreeMap<String, String>,
     mut shape: AnalyticPrism,
 ) -> Result<AnalyticPrism> {
     let d = positive(m, depth)?;
@@ -257,10 +261,33 @@ pub(super) fn blind(
     if d >= h {
         return Err(error("hole_depth", id, "Blind hole depth must be strictly below stock height; use through_holes for a full-depth cut"));
     }
-    let mut sum_r2 = Q::zero();
-    for circle in &shape.holes {
+    for hole in overrides.keys() {
+        if !shape.holes.iter().any(|c| &c.id == hole) {
+            return Err(error(
+                "unknown_hole_depth",
+                hole,
+                "Depth override must name a hole in this group",
+            ));
+        }
+    }
+    let mut removal = Q::zero();
+    for circle in &mut shape.holes {
         let r = super::rational(&circle.radius, id)?;
-        sum_r2 += &r * &r;
+        let actual = if let Some(reference) = overrides.get(&circle.id) {
+            let value = positive(m, reference)?;
+            if value >= h {
+                return Err(error(
+                    "hole_depth",
+                    &circle.id,
+                    "Individual blind depth must be strictly below stock height",
+                ));
+            }
+            circle.depth = Some(value.to_string());
+            value
+        } else {
+            d.clone()
+        };
+        removal += &r * &r * actual;
     }
     // Recompute from bounded input dimensions. Computed volume coefficients can
     // legitimately exceed the input parser's 128-bit component limit.
@@ -271,7 +298,7 @@ pub(super) fn blind(
         }
         None => Q::zero(),
     };
-    shape.volume.pi_subtract_mm3 = (sum_r2 * &d - outer_r2 * h).to_string();
+    shape.volume.pi_subtract_mm3 = (removal - outer_r2 * h).to_string();
     shape.hole_depth = Some(d.to_string());
     Ok(shape)
 }

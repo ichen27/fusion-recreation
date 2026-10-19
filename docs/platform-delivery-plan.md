@@ -201,3 +201,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Countersink checkpoint
 
 [Original conical through-hole recesses](../examples/ai-cad/countersinks/README.md) reuse exact conical supports with inward orientation, cylindrical apertures and symbolic moments. Browser/MCP authoring, guarded edits, native history and downloaded STL are retained; eight independent solid comparisons check STEP and shared topology. Mixed-depth groups, arbitrary axes, angle-driven authoring and general curved Booleans remain open.
+
+## Individual blind-depth checkpoint
+
+[Per-hole depth references](../examples/ai-cad/individual-depths/README.md) retain a shared default while allowing distinct flat floors within one group. Exact measurements, topology, placements and STEP use each resolved depth; browser fields can reconnect the default without deleting old parameters. Actual browser/MCP creation, edit, rejection and native history are retained. Counterbore/countersink groups still share recess dimensions. Broader profile construction and curved modeling remain open.

@@ -10,6 +10,7 @@ import {
   removeHole,
   setHoleValue,
   setHoleDepth,
+  setIndividualHoleDepth,
   setCounterboreRadius,
   holeProposal,
 } from "./web/hole-model.mjs";
@@ -320,5 +321,56 @@ test("countersink editor uses a conical rim and preserves its parameter link on 
       holeProposal({ model: created.model, revision: 2 }, edit),
     ).error.code,
     "countersink_radius",
+  );
+});
+
+test("individual blind depths create, edit, reconnect and remove without changing other holes", () => {
+  const m = model(),
+    d = draftHoles(m, "plate");
+  d.kind = "blind_holes";
+  addHole(d, 10, 50, "3");
+  addHole(d, 70, 10, "3");
+  setIndividualHoleDepth(d, 1, "4");
+  const first = run(m, holeProposal({ model: m, revision: 0 }, d)).result;
+  assert.equal(first.bodies[0].volume_mm3, "12000 - (54)*pi");
+  assert.equal(
+    first.model.features.at(-1).depth_overrides.h2,
+    "holes1.h2.depth",
+  );
+  let edit = draftHoles(first.model, null, "holes1");
+  setIndividualHoleDepth(edit, 1, "3");
+  const resized = run(
+    first.model,
+    holeProposal({ model: first.model, revision: 1 }, edit),
+  ).result;
+  assert.equal(resized.bodies[0].volume_mm3, "12000 - (45)*pi");
+  assert.deepEqual(resized.model.features, first.model.features);
+  setIndividualHoleDepth(edit, 1, "");
+  const reset = run(
+    first.model,
+    holeProposal({ model: first.model, revision: 1 }, edit),
+  ).result;
+  assert.equal(reset.bodies[0].volume_mm3, "12000 - (36)*pi");
+  assert.equal(reset.model.features.at(-1).depth_overrides, undefined);
+  assert.equal(reset.model.parameters["holes1.h2.depth"], "4");
+  edit = draftHoles(reset.model, null, "holes1");
+  setIndividualHoleDepth(edit, 1, "3");
+  assert.equal(edit.depthOverrides.h2, "holes1.h2.depth2");
+  removeHole(edit, 1);
+  const removed = run(
+    reset.model,
+    holeProposal({ model: reset.model, revision: 2 }, edit),
+  ).result;
+  assert.equal(removed.bodies[0].volume_mm3, "12000 - (18)*pi");
+  assert.equal(removed.model.features.at(-1).depth_overrides, undefined);
+  const fixed = structuredClone(first.model);
+  fixed.fixed["holes1.h2.depth"] = "4";
+  edit = draftHoles(fixed, null, "holes1");
+  assert.throws(() => setIndividualHoleDepth(edit, 1, "3"), /fixed or derived/);
+  setIndividualHoleDepth(edit, 1, "");
+  assert.equal(
+    run(fixed, holeProposal({ model: fixed, revision: 1 }, edit)).result
+      .bodies[0].volume_mm3,
+    "12000 - (36)*pi",
   );
 });

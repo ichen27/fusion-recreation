@@ -4,6 +4,7 @@ import {
   removeHole,
   setHoleValue,
   setHoleDepth,
+  setIndividualHoleDepth,
   setCounterboreRadius,
   holeProposal,
   editable,
@@ -128,6 +129,43 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
           label.append(input);
           row.append(label);
         }
+        if (draft.kind === "blind_holes") {
+          const label = document.createElement("label");
+          label.className = "hole-depth-label";
+          label.textContent = "Depth (blank uses group)";
+          const input = document.createElement("input");
+          const ref = draft.depthOverrides[hole.id];
+          input.value = ref ? draft.values[ref] : "";
+          input.placeholder = draft.values[draft.depth];
+          input.setAttribute("aria-label", `${hole.id} depth`);
+          input.disabled = pending || (!!ref && !editable(draft, ref));
+          input.addEventListener("change", () => {
+            try {
+              setIndividualHoleDepth(draft, index, input.value);
+              render();
+              message("Depth changed. Preview checks the remaining floor.");
+            } catch (error) {
+              message(error);
+            }
+          });
+          label.append(input);
+          row.append(label);
+          if (ref) {
+            const reset = document.createElement("button");
+            reset.type = "button";
+            reset.textContent = "Use group depth";
+            reset.setAttribute("aria-label", `Use group depth for ${hole.id}`);
+            reset.disabled = pending;
+            reset.addEventListener("click", () => {
+              setIndividualHoleDepth(draft, index, "");
+              render();
+              message(
+                "Hole uses group depth. Its former parameter is retained.",
+              );
+            });
+            row.append(reset);
+          }
+        }
         const remove = document.createElement("button");
         remove.type = "button";
         remove.textContent = "Remove";
@@ -220,7 +258,7 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
   });
   $("hole-fit").addEventListener("click", fit);
   $("hole-remove").addEventListener("click", () => {
-    draft.holes.pop();
+    if (draft.holes.length) removeHole(draft, draft.holes.length - 1);
     render();
   });
   $("hole-add").addEventListener("click", () => {
