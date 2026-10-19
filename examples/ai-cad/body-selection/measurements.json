@@ -1,0 +1,75 @@
+{
+  "actual": {
+    "bodies": 2,
+    "iterations": 50,
+    "median_ms": 0.10000002384185792,
+    "p95_ms": 0.2999999523162842,
+    "triangles": 520
+  },
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "selections": [
+    {
+      "action": "click plane at 600,650",
+      "pressed": [
+        "plane1"
+      ],
+      "selection": "plane1 \u00b7 18000 mm\u00b3 (exact)",
+      "uploads": 0
+    },
+    {
+      "action": "click circular part at 920,420",
+      "pressed": [
+        "holes1"
+      ],
+      "selection": "holes1 \u00b7 3900*pi mm\u00b3 (exact)",
+      "uploads": 0
+    },
+    {
+      "action": "click empty background",
+      "pressed": [],
+      "selection": "Click a solid or select it in the feature list.",
+      "uploads": 0
+    },
+    {
+      "action": "select from feature list",
+      "pressed": [
+        "holes1"
+      ],
+      "selection": "holes1 \u00b7 3900*pi mm\u00b3 (exact)",
+      "uploads": 0
+    },
+    {
+      "action": "orbit while selected",
+      "pressed": [
+        "holes1"
+      ],
+      "selection": "holes1 \u00b7 3900*pi mm\u00b3 (exact)",
+      "uploads": 0
+    },
+    {
+      "action": "graphics context restored",
+      "pressed": [
+        "holes1"
+      ],
+      "selection": "holes1 \u00b7 3900*pi mm\u00b3 (exact)",
+      "uploads": 1
+    },
+    {
+      "action": "undo removes selected hole feature",
+      "pressed": [],
+      "selection": "Click a solid or select it in the feature list.",
+      "uploads": 2
+    }
+  ],
+  "synthetic": {
+    "bodies": 32,
+    "iterations": 20,
+    "median_ms": 2.700000047683716,
+    "p95_ms": 3.299999952316284,
+    "triangles": 65536
+  },
+  "viewport": [
+    910,
+    928
+  ]
+}

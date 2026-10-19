@@ -1,3 +1,4 @@
+import { pickBody } from "/picking.mjs";
 import { installIntersectionEditor } from "/intersection-editor.mjs";
 import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
@@ -25,6 +26,10 @@ const gl = canvas.getContext("webgl2", { antialias: true });
 let yaw = -0.65,
   pitch = 0.65,
   zoom = 1,
+  selectedBody = null,
+  visibleBodies = [],
+  bodyGroups = [],
+  packedDisplay = new Float32Array(),
   triangles = [],
   lines = [],
   center = [0, 0, 0],
@@ -61,8 +66,8 @@ function initializeGL() {
     shader(
       gl.FRAGMENT_SHADER,
       `#version 300 es
-    precision highp float; in vec3 tint; out vec4 outputColor;
-    void main(){outputColor=vec4(tint,1.0);}`,
+    precision highp float; in vec3 tint; uniform float selected; out vec4 outputColor;
+    void main(){outputColor=vec4(mix(tint,vec3(0.95,0.69,0.17),selected*0.6),1.0);}`,
     ),
   );
   gl.linkProgram(program);
@@ -96,7 +101,20 @@ function geometry(bodies, profiles) {
   triangles = [];
   lines = [];
   const all = [];
+  bodyGroups = [];
+  visibleBodies = bodies;
+  if (!bodies.some((b) => b.feature_id === selectedBody)) selectedBody = null;
   for (const body of bodies) {
+    const first = triangles.length / 6,
+      lineFirst = lines.length / 6;
+    const record = () =>
+      bodyGroups.push({
+        feature_id: body.feature_id,
+        first,
+        count: triangles.length / 6 - first,
+        lineFirst,
+        lineCount: lines.length / 6 - lineFirst,
+      });
     if (body.analytic) {
       const mesh = body.display_mesh;
       if (!mesh) {
@@ -126,6 +144,7 @@ function geometry(bodies, profiles) {
       }
       for (const edge of mesh.edges)
         for (const id of edge) lines.push(...vertices[id], 0.15, 0.31, 0.27);
+      record();
       continue;
     }
     const b = body.boundary,
@@ -147,6 +166,7 @@ function geometry(bodies, profiles) {
     for (const edge of b.edges)
       for (const id of edge.vertices)
         lines.push(...vertices[id], 0.15, 0.31, 0.27);
+    record();
   }
   for (const profile of profiles) {
     const vertices = profile.vertices.map((v) => v.position.map(number));
@@ -157,13 +177,14 @@ function geometry(bodies, profiles) {
   }
   ({ center, extent } = displayFrame(all));
   geometryDirty = true;
+  updateSelection();
   draw();
 }
 function draw() {
   if (!gl || contextLost) return;
   if (geometryDirty) {
-    const vertices = packVertices(triangles, lines, center, extent);
-    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+    packedDisplay = packVertices(triangles, lines, center, extent);
+    gl.bufferData(gl.ARRAY_BUFFER, packedDisplay, gl.STATIC_DRAW);
     geometryDirty = false;
   }
   const ratio = Math.min(devicePixelRatio, 2),
@@ -181,9 +202,28 @@ function draw() {
   gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
   gl.enable(gl.POLYGON_OFFSET_FILL);
   gl.polygonOffset(1, 1);
-  gl.drawArrays(gl.TRIANGLES, 0, triangles.length / 6);
+  const highlight = gl.getUniformLocation(program, "selected");
+  for (const group of bodyGroups) {
+    gl.uniform1f(highlight, group.feature_id === selectedBody ? 1 : 0);
+    gl.drawArrays(gl.TRIANGLES, group.first, group.count);
+  }
   gl.disable(gl.POLYGON_OFFSET_FILL);
-  gl.drawArrays(gl.LINES, triangles.length / 6, lines.length / 6);
+  let bodyLineCount = 0;
+  for (const group of bodyGroups) {
+    gl.uniform1f(highlight, group.feature_id === selectedBody ? 1 : 0);
+    gl.drawArrays(
+      gl.LINES,
+      triangles.length / 6 + group.lineFirst,
+      group.lineCount,
+    );
+    bodyLineCount += group.lineCount;
+  }
+  gl.uniform1f(highlight, 0);
+  gl.drawArrays(
+    gl.LINES,
+    triangles.length / 6 + bodyLineCount,
+    lines.length / 6 - bodyLineCount,
+  );
 }
 canvas.addEventListener("webglcontextlost", (event) => {
   event.preventDefault();
@@ -197,20 +237,66 @@ canvas.addEventListener("webglcontextrestored", () => {
   draw();
   $("display-status").textContent = "";
 });
+function updateSelection() {
+  const body = visibleBodies.find((b) => b.feature_id === selectedBody);
+  $("selection-info").textContent = body
+    ? `${body.feature_id} · ${body.volume_mm3} mm³ (exact)`
+    : "Click a solid or select it in the feature list.";
+  $("clear-selection").disabled = !body;
+  for (const button of document.querySelectorAll(".select-body")) {
+    const active = button.dataset.body === selectedBody;
+    button.setAttribute("aria-pressed", String(active));
+    button.closest(".feature").classList.toggle("selected-feature", active);
+  }
+}
+function selectBody(id) {
+  selectedBody = id;
+  updateSelection();
+  draw();
+}
+$("clear-selection").addEventListener("click", () => selectBody(null));
 let pointer;
 canvas.addEventListener("pointerdown", (e) => {
-  pointer = [e.clientX, e.clientY];
+  if (e.button !== 0 || pointer) return;
+  pointer = {
+    id: e.pointerId,
+    start: [e.clientX, e.clientY],
+    last: [e.clientX, e.clientY],
+    dragged: false,
+  };
   canvas.setPointerCapture(e.pointerId);
 });
 canvas.addEventListener("pointermove", (e) => {
-  if (!pointer) return;
-  yaw += (e.clientX - pointer[0]) * 0.008;
-  pitch += (e.clientY - pointer[1]) * 0.008;
-  pointer = [e.clientX, e.clientY];
+  if (!pointer || pointer.id !== e.pointerId) return;
+  if (
+    Math.hypot(e.clientX - pointer.start[0], e.clientY - pointer.start[1]) > 4
+  )
+    pointer.dragged = true;
+  if (!pointer.dragged) return;
+  yaw += (e.clientX - pointer.last[0]) * 0.008;
+  pitch += (e.clientY - pointer.last[1]) * 0.008;
+  pointer.last = [e.clientX, e.clientY];
   draw();
 });
-canvas.addEventListener("pointerup", () => (pointer = null));
+canvas.addEventListener("pointerup", (e) => {
+  if (!pointer || pointer.id !== e.pointerId) return;
+  if (!pointer.dragged && gl && !contextLost) {
+    const rect = canvas.getBoundingClientRect(),
+      aspect = canvas.width / canvas.height;
+    selectBody(
+      pickBody(
+        packedDisplay,
+        bodyGroups,
+        { yaw, pitch, zoom: fittedZoom(zoom, aspect), aspect },
+        (2 * (e.clientX - rect.left)) / rect.width - 1,
+        1 - (2 * (e.clientY - rect.top)) / rect.height,
+      ),
+    );
+  }
+  pointer = null;
+});
 canvas.addEventListener("pointercancel", () => (pointer = null));
+canvas.addEventListener("lostpointercapture", () => (pointer = null));
 canvas.addEventListener(
   "wheel",
   (e) => {
@@ -273,6 +359,15 @@ function render(state) {
       const div = document.createElement("div");
       div.className = "feature";
       div.textContent = `${f.kind === "block" ? "◇" : "◩"}  ${f.id} · ${f.kind.replaceAll("_", " ")}`;
+      if (state.bodies.some((b) => b.feature_id === f.id)) {
+        const select = document.createElement("button");
+        select.className = "select-body";
+        select.dataset.body = f.id;
+        select.textContent = "Select solid";
+        select.setAttribute("aria-label", `Select solid ${f.id}`);
+        select.addEventListener("click", () => selectBody(f.id));
+        div.append(select);
+      }
       if (["polygon_profile", "planar_profile"].includes(f.kind)) {
         const button = document.createElement("button");
         button.className = "edit-sketch";
