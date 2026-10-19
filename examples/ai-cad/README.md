@@ -81,3 +81,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Exact planar measurements](measurements/README.md): world bounds, volume centroid and centroidal volume inertia with read-only browser/MCP recordings, closed forms and independent references.
 
 - [Analytic solid placement](analytic-placement/README.md): exact movement, turns and linked copies of circular/perforated parts, editable blind depth, world-space STL floors and analytic STEP references.
+
+- [Analytic engineering measurements](analytic-measurements/README.md): exact symbolic-π centroids/inertia, asymmetric blind holes, placed parts and a recorded shared-depth edit with fifteen independent references.

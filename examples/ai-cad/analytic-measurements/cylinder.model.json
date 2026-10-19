@@ -1,0 +1,19 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    }
+  ]
+}

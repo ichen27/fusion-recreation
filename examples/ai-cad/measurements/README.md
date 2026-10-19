@@ -47,3 +47,5 @@ python3 tools/ai-cad/viewer.py --store work/measured.cad.json
 ```
 
 Select either part and choose **Measure solid**. Run `verify_measurements_mcp.py` with `tools/ai-cad/requirements.lock`, and `verify_measurements_reference.py` with `tools/ai-cad/step-requirements.txt`; optional `--write` regenerates their synthetic artifacts. Measurement is read-only and revision-bound. It does not measure clearance, infer collisions, sum overlapping bodies, compute surface area or assign materials. A disconnected selected body is integrated as a whole. Centroid need not lie inside material.
+
+Subsequent support: [symbolic analytic measurements](../analytic-measurements/README.md) now includes circular/perforated solids and their exact placements. Earlier curved-measurement exclusions describe the original checkpoint.

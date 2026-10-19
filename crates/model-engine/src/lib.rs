@@ -9,6 +9,7 @@ use std::collections::{BTreeMap, BTreeSet};
 mod holes;
 pub mod intent;
 pub mod measure;
+mod measure_curved;
 pub mod mesh;
 pub mod polyhedral;
 pub use polyhedral::Operation as BooleanOperation;

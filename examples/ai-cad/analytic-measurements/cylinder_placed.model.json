@@ -1,0 +1,32 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "copy.x": "7/3",
+    "copy.y": "-2",
+    "copy.z": "5"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "instance",
+      "id": "copy",
+      "source": "stock",
+      "offset": [
+        "copy.x",
+        "copy.y",
+        "copy.z"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""Read-only, revision-bound original-engine planar engineering measurements."""
+"""Read-only, revision-bound original-engine exact engineering measurements."""
 
 import json
 import subprocess
