@@ -157,3 +157,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Planar measurement checkpoint
 
 [Exact bounds, centroids and volume inertia](../examples/ai-cad/measurements/README.md) are available read-only in browser/MCP for terminal planar solids. Closed-form and independent per-solid references cover concavity, cavities, separated material and transform covariance. Native history is unchanged; density/material assignment, curved analytic measurements, surface area and inter-part clearance remain open.
+
+## Analytic placement checkpoint
+
+[Exact placements for round stock and hole groups](../examples/ai-cad/analytic-placement/README.md) preserve analytic circles/cylinders through movement, quarter turns and linked reuse. Browser/MCP depth edits, rejection/undo, world-space blind floors and six independent STEP comparisons are verified. Curved Booleans, arbitrary rotations and curved-part measurements remain open.

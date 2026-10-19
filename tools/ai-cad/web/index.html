@@ -112,8 +112,9 @@
           <p>
             Blocks, convex and simple concave XY profile extrusions, and
             circular stock. Separate round holes can pass through the stock or
-            stop at one shared flat-bottom depth. Convex planar solids support
-            chained cuts by arbitrary planes. Planar Booleans join, subtract or
+            stop at one shared flat-bottom depth. All supported solids can move,
+            quarter-turn and form linked copies. Planar solids support chained
+            cuts by arbitrary planes. Planar Booleans join, subtract or
             intersect solids, including cavities and separate pieces. Exact
             affine relationships preserve declared dimensions. Curved
             intersections, fillets and a general sketch constraint solver remain
@@ -421,10 +422,10 @@
           >Z offset (mm)<input id="translate-z" aria-label="Z offset" required
         /></label>
         <p class="hint">
-          Simple planar stock and previous Boolean results, including concave
-          sketches, cavities and separate pieces. Offsets are signed integers or
-          fractions, up to ±1,000,000 mm per axis. Analytic curved stock and
-          round hole groups are unsupported.
+          Planar and circular stock, including round holes, cavities and
+          separate pieces. Offsets are signed integers or fractions, up to
+          ±1,000,000 mm per axis. Circles and cylinders retain their exact
+          analytic shape.
         </p>
         <button type="submit" id="translate-preview" class="primary">
           Preview move
@@ -462,9 +463,9 @@
           >Pivot Z (mm)<input id="rotation-z" aria-label="Pivot Z" required
         /></label>
         <p class="hint">
-          Simple planar stock and previous Boolean results, including concave
-          sketches, cavities and separate pieces. Exact 90°, 180° or 270°
-          rotations. Preview checks downstream features.
+          Planar and circular stock, including round holes, cavities and
+          separate pieces. Exact 90°, 180° or 270° rotations preserve circles
+          and cylinders. Preview checks downstream features.
         </p>
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation

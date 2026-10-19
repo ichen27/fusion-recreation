@@ -88,3 +88,56 @@ test("fixed, derived and shared pivots retain coordinate rules", () => {
   draft.values = ["1", "2", "0"];
   assert.throws(() => rotationProposal(state, draft), /Shared/);
 });
+
+test("round stock can be moved, turned and linked without entering planar cuts", async () => {
+  const { translationDraft, translationProposal } = await import(
+    "./web/translate-model.mjs"
+  );
+  const { planeCandidate } = await import("./web/plane-model.mjs");
+  let state = {
+    revision: 1,
+    ...run({
+      parameters: { zero: "0", r: "4", h: "5" },
+      fixed: {},
+      features: [
+        {
+          kind: "cylinder",
+          id: "round",
+          x: "zero",
+          y: "zero",
+          radius: "r",
+          height: "h",
+        },
+      ],
+    }).result,
+  };
+  let draft = translationDraft(state, "round");
+  draft.values = ["10", "-5", "3"];
+  state = {
+    revision: 2,
+    ...run(state.model, translationProposal(state, draft)).result,
+  };
+  const turn = rotationDraft(state, "move1");
+  turn.axis = "x";
+  state = {
+    revision: 3,
+    ...run(state.model, rotationProposal(state, turn)).result,
+  };
+  assert.deepEqual(state.bodies[0].analytic.placement, {
+    axes: [
+      [1, 0, 0],
+      [0, 0, -1],
+      [0, 1, 0],
+    ],
+    origin: ["10", "-3", "-5"],
+  });
+  assert.equal(state.bodies[0].volume_mm3, "80*pi");
+  assert.equal(planeCandidate(state.bodies[0]), false);
+  draft = translationDraft(state, "turn1", null, "instance");
+  draft.values = ["20", "0", "0"];
+  const copied = run(state.model, translationProposal(state, draft)).result;
+  assert.deepEqual(
+    copied.bodies.map((b) => b.volume_mm3),
+    ["80*pi", "80*pi"],
+  );
+});

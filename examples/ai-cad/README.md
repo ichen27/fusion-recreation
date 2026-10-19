@@ -79,3 +79,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Linked part instances](linked-instances/README.md): shared source dimensions, independent placement, native history, browser/MCP edits and separate world-coordinate exports.
 
 - [Exact planar measurements](measurements/README.md): world bounds, volume centroid and centroidal volume inertia with read-only browser/MCP recordings, closed forms and independent references.
+
+- [Analytic solid placement](analytic-placement/README.md): exact movement, turns and linked copies of circular/perforated parts, editable blind depth, world-space STL floors and analytic STEP references.

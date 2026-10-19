@@ -26,6 +26,7 @@ jobs:
       - run: python tools/ai-cad/verify_polyhedral_cut_mcp.py
       - run: python tools/ai-cad/verify_concave_operations_mcp.py
       - run: python tools/ai-cad/verify_instances_mcp.py
+      - run: python tools/ai-cad/verify_analytic_placement_mcp.py
       - run: python tools/ai-cad/verify_measurements_mcp.py
       - run: python tools/ai-cad/verify_codex_recording.py
       - run: python tools/ai-cad/verify_profile_example.py
@@ -43,6 +44,7 @@ jobs:
       - run: python tools/ai-cad/verify_polyhedral_cuts.py
       - run: python tools/ai-cad/verify_concave_operations.py
       - run: python tools/ai-cad/verify_instances.py
+      - run: python tools/ai-cad/verify_analytic_placement.py
       - run: python tools/ai-cad/verify_measurements.py
       - run: python tools/ai-cad/verify_intersection.py
       - run: python tools/ai-cad/verify_preview_recording.py
@@ -62,6 +64,7 @@ jobs:
       - run: python tools/ai-cad/verify_polyhedral_cut_export.py
       - run: python tools/ai-cad/verify_concave_operations_export.py
       - run: python tools/ai-cad/verify_instances_export.py
+      - run: python tools/ai-cad/verify_analytic_placement_export.py
       - run: python tools/ai-cad/verify_measurements_reference.py
       - run: python tools/ai-cad/verify_intersection_export.py
       - run: python tools/ai-cad/verify_rotation_export.py

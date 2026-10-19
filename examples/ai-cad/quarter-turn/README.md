@@ -30,3 +30,5 @@ Tests independently check all three axes and angles with fractional pivots, sign
 - `rotation-form.png`, `edited.png`, `disjoint-rejected.png`: actual browser evidence; form/error screenshots were refreshed after dialog styling was unified.
 
 Body IDs retain intent. Generated boundary indices remain ephemeral; rotation does not add persistent face naming.
+
+Subsequent support: [analytic rigid placement](../analytic-placement/README.md) now admits circular stock and through/blind-hole groups. Earlier curved-placement exclusions describe the original checkpoint.

@@ -1,0 +1,1519 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "move1.x",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "move1.y",
+            "mm": "-5",
+            "op": "define_parameter"
+          },
+          {
+            "id": "move1.z",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "move1",
+              "input": "flange",
+              "kind": "translate",
+              "offset": [
+                "move1.x",
+                "move1.y",
+                "move1.z"
+              ]
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "depth",
+          "height",
+          "left",
+          "mount_r",
+          "radius",
+          "right"
+        ]
+      },
+      "elapsed_ms": 10.100000023841858,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "19b23603-0124-4d5d-9cf6-3e983df7748b",
+          "revision": 1,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 4.300000071525574,
+      "path": "/api/preview-jobs?id=19b23603-0124-4d5d-9cf6-3e983df7748b",
+      "reply": {
+        "result": {
+          "job_id": "19b23603-0124-4d5d-9cf6-3e983df7748b",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "5",
+                    "hole_depth": "2",
+                    "holes": [
+                      {
+                        "center": [
+                          "-30",
+                          "0"
+                        ],
+                        "id": "left",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "30",
+                          "0"
+                        ],
+                        "id": "right",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "0",
+                          "0"
+                        ],
+                        "id": "bore",
+                        "radius": "10"
+                      }
+                    ],
+                    "kind": "round_prism",
+                    "outer_circle": {
+                      "center": [
+                        "0",
+                        "0"
+                      ],
+                      "radius": "40"
+                    },
+                    "placement": {
+                      "axes": [
+                        [
+                          1,
+                          0,
+                          0
+                        ],
+                        [
+                          0,
+                          1,
+                          0
+                        ],
+                        [
+                          0,
+                          0,
+                          1
+                        ]
+                      ],
+                      "origin": [
+                        "10",
+                        "-5",
+                        "3"
+                      ]
+                    },
+                    "volume": {
+                      "constant_mm3": "0",
+                      "pi_subtract_mm3": "-7764"
+                    }
+                  },
+                  "feature_id": "move1",
+                  "volume_mm3": "7764*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "move1.x",
+                "move1.y",
+                "move1.z"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "height": "height",
+                    "id": "stock",
+                    "kind": "cylinder",
+                    "radius": "radius",
+                    "x": "cx",
+                    "y": "cy"
+                  },
+                  {
+                    "depth": "depth",
+                    "holes": [
+                      {
+                        "id": "left",
+                        "radius": "mount_r",
+                        "x": "left",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "right",
+                        "radius": "mount_r",
+                        "x": "right",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "bore",
+                        "radius": "bore_r",
+                        "x": "cx",
+                        "y": "cy"
+                      }
+                    ],
+                    "id": "flange",
+                    "input": "stock",
+                    "kind": "blind_holes"
+                  },
+                  {
+                    "id": "move1",
+                    "input": "flange",
+                    "kind": "translate",
+                    "offset": [
+                      "move1.x",
+                      "move1.y",
+                      "move1.z"
+                    ]
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "bore_r": "10",
+                  "cx": "0",
+                  "cy": "0",
+                  "depth": "2",
+                  "height": "5",
+                  "left": "-30",
+                  "mount_r": "3",
+                  "move1.x": "10",
+                  "move1.y": "-5",
+                  "move1.z": "3",
+                  "radius": "40",
+                  "right": "30"
+                }
+              },
+              "preview": true,
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "move1.x",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "move1.y",
+            "mm": "-5",
+            "op": "define_parameter"
+          },
+          {
+            "id": "move1.z",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "id": "move1",
+              "input": "flange",
+              "kind": "translate",
+              "offset": [
+                "move1.x",
+                "move1.y",
+                "move1.z"
+              ]
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "depth",
+          "height",
+          "left",
+          "mount_r",
+          "radius",
+          "right"
+        ],
+        "transaction_id": "10dc7526-8f25-4aff-85dd-7d20d52c7cd5"
+      },
+      "elapsed_ms": 18.799999952316284,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "bore",
+                    "radius": "10"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "10",
+                    "-5",
+                    "3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "move1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "move1.x",
+            "move1.y",
+            "move1.z"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "mount_r",
+                    "x": "left",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "mount_r",
+                    "x": "right",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "bore",
+                    "radius": "bore_r",
+                    "x": "cx",
+                    "y": "cy"
+                  }
+                ],
+                "id": "flange",
+                "input": "stock",
+                "kind": "blind_holes"
+              },
+              {
+                "id": "move1",
+                "input": "flange",
+                "kind": "translate",
+                "offset": [
+                  "move1.x",
+                  "move1.y",
+                  "move1.z"
+                ]
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bore_r": "10",
+              "cx": "0",
+              "cy": "0",
+              "depth": "2",
+              "height": "5",
+              "left": "-30",
+              "mount_r": "3",
+              "move1.x": "10",
+              "move1.y": "-5",
+              "move1.z": "3",
+              "radius": "40",
+              "right": "30"
+            }
+          },
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "turn1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "turn1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "turn1.z",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "axis": "x",
+              "id": "turn1",
+              "input": "move1",
+              "kind": "rotate_quarter",
+              "pivot": [
+                "turn1.x",
+                "turn1.y",
+                "turn1.z"
+              ],
+              "turns": 1
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "depth",
+          "height",
+          "left",
+          "mount_r",
+          "move1.x",
+          "move1.y",
+          "move1.z",
+          "radius",
+          "right"
+        ]
+      },
+      "elapsed_ms": 9,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "d49994b1-591e-4672-a835-83675fd4b64a",
+          "revision": 2,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 4.299999952316284,
+      "path": "/api/preview-jobs?id=d49994b1-591e-4672-a835-83675fd4b64a",
+      "reply": {
+        "result": {
+          "job_id": "d49994b1-591e-4672-a835-83675fd4b64a",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "5",
+                    "hole_depth": "2",
+                    "holes": [
+                      {
+                        "center": [
+                          "-30",
+                          "0"
+                        ],
+                        "id": "left",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "30",
+                          "0"
+                        ],
+                        "id": "right",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "0",
+                          "0"
+                        ],
+                        "id": "bore",
+                        "radius": "10"
+                      }
+                    ],
+                    "kind": "round_prism",
+                    "outer_circle": {
+                      "center": [
+                        "0",
+                        "0"
+                      ],
+                      "radius": "40"
+                    },
+                    "placement": {
+                      "axes": [
+                        [
+                          1,
+                          0,
+                          0
+                        ],
+                        [
+                          0,
+                          0,
+                          -1
+                        ],
+                        [
+                          0,
+                          1,
+                          0
+                        ]
+                      ],
+                      "origin": [
+                        "10",
+                        "-3",
+                        "-5"
+                      ]
+                    },
+                    "volume": {
+                      "constant_mm3": "0",
+                      "pi_subtract_mm3": "-7764"
+                    }
+                  },
+                  "feature_id": "turn1",
+                  "volume_mm3": "7764*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "turn1.x",
+                "turn1.y",
+                "turn1.z"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "height": "height",
+                    "id": "stock",
+                    "kind": "cylinder",
+                    "radius": "radius",
+                    "x": "cx",
+                    "y": "cy"
+                  },
+                  {
+                    "depth": "depth",
+                    "holes": [
+                      {
+                        "id": "left",
+                        "radius": "mount_r",
+                        "x": "left",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "right",
+                        "radius": "mount_r",
+                        "x": "right",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "bore",
+                        "radius": "bore_r",
+                        "x": "cx",
+                        "y": "cy"
+                      }
+                    ],
+                    "id": "flange",
+                    "input": "stock",
+                    "kind": "blind_holes"
+                  },
+                  {
+                    "id": "move1",
+                    "input": "flange",
+                    "kind": "translate",
+                    "offset": [
+                      "move1.x",
+                      "move1.y",
+                      "move1.z"
+                    ]
+                  },
+                  {
+                    "axis": "x",
+                    "id": "turn1",
+                    "input": "move1",
+                    "kind": "rotate_quarter",
+                    "pivot": [
+                      "turn1.x",
+                      "turn1.y",
+                      "turn1.z"
+                    ],
+                    "turns": 1
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "bore_r": "10",
+                  "cx": "0",
+                  "cy": "0",
+                  "depth": "2",
+                  "height": "5",
+                  "left": "-30",
+                  "mount_r": "3",
+                  "move1.x": "10",
+                  "move1.y": "-5",
+                  "move1.z": "3",
+                  "radius": "40",
+                  "right": "30",
+                  "turn1.x": "0",
+                  "turn1.y": "0",
+                  "turn1.z": "0"
+                }
+              },
+              "preview": true,
+              "revision": 2,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 2,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "turn1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "turn1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "turn1.z",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "axis": "x",
+              "id": "turn1",
+              "input": "move1",
+              "kind": "rotate_quarter",
+              "pivot": [
+                "turn1.x",
+                "turn1.y",
+                "turn1.z"
+              ],
+              "turns": 1
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "depth",
+          "height",
+          "left",
+          "mount_r",
+          "move1.x",
+          "move1.y",
+          "move1.z",
+          "radius",
+          "right"
+        ],
+        "transaction_id": "552be02e-09cd-4315-8d85-cafac68cb71a"
+      },
+      "elapsed_ms": 26,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "bore",
+                    "radius": "10"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      -1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "origin": [
+                    "10",
+                    "-3",
+                    "-5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "turn1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "turn1.x",
+            "turn1.y",
+            "turn1.z"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "mount_r",
+                    "x": "left",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "mount_r",
+                    "x": "right",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "bore",
+                    "radius": "bore_r",
+                    "x": "cx",
+                    "y": "cy"
+                  }
+                ],
+                "id": "flange",
+                "input": "stock",
+                "kind": "blind_holes"
+              },
+              {
+                "id": "move1",
+                "input": "flange",
+                "kind": "translate",
+                "offset": [
+                  "move1.x",
+                  "move1.y",
+                  "move1.z"
+                ]
+              },
+              {
+                "axis": "x",
+                "id": "turn1",
+                "input": "move1",
+                "kind": "rotate_quarter",
+                "pivot": [
+                  "turn1.x",
+                  "turn1.y",
+                  "turn1.z"
+                ],
+                "turns": 1
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bore_r": "10",
+              "cx": "0",
+              "cy": "0",
+              "depth": "2",
+              "height": "5",
+              "left": "-30",
+              "mount_r": "3",
+              "move1.x": "10",
+              "move1.y": "-5",
+              "move1.z": "3",
+              "radius": "40",
+              "right": "30",
+              "turn1.x": "0",
+              "turn1.y": "0",
+              "turn1.z": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "height",
+          "left",
+          "mount_r",
+          "move1.x",
+          "move1.y",
+          "move1.z",
+          "radius",
+          "right",
+          "turn1.x",
+          "turn1.y",
+          "turn1.z"
+        ]
+      },
+      "elapsed_ms": 12.799999952316284,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "fb050b63-cba6-44bd-9bb9-bb912ff5bbc2",
+          "revision": 3,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 2.600000023841858,
+      "path": "/api/preview-jobs?id=fb050b63-cba6-44bd-9bb9-bb912ff5bbc2",
+      "reply": {
+        "result": {
+          "job_id": "fb050b63-cba6-44bd-9bb9-bb912ff5bbc2",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "5",
+                    "hole_depth": "3",
+                    "holes": [
+                      {
+                        "center": [
+                          "-30",
+                          "0"
+                        ],
+                        "id": "left",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "30",
+                          "0"
+                        ],
+                        "id": "right",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "0",
+                          "0"
+                        ],
+                        "id": "bore",
+                        "radius": "10"
+                      }
+                    ],
+                    "kind": "round_prism",
+                    "outer_circle": {
+                      "center": [
+                        "0",
+                        "0"
+                      ],
+                      "radius": "40"
+                    },
+                    "placement": {
+                      "axes": [
+                        [
+                          1,
+                          0,
+                          0
+                        ],
+                        [
+                          0,
+                          0,
+                          -1
+                        ],
+                        [
+                          0,
+                          1,
+                          0
+                        ]
+                      ],
+                      "origin": [
+                        "10",
+                        "-3",
+                        "-5"
+                      ]
+                    },
+                    "volume": {
+                      "constant_mm3": "0",
+                      "pi_subtract_mm3": "-7646"
+                    }
+                  },
+                  "feature_id": "turn1",
+                  "volume_mm3": "7646*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "depth"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "height": "height",
+                    "id": "stock",
+                    "kind": "cylinder",
+                    "radius": "radius",
+                    "x": "cx",
+                    "y": "cy"
+                  },
+                  {
+                    "depth": "depth",
+                    "holes": [
+                      {
+                        "id": "left",
+                        "radius": "mount_r",
+                        "x": "left",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "right",
+                        "radius": "mount_r",
+                        "x": "right",
+                        "y": "cy"
+                      },
+                      {
+                        "id": "bore",
+                        "radius": "bore_r",
+                        "x": "cx",
+                        "y": "cy"
+                      }
+                    ],
+                    "id": "flange",
+                    "input": "stock",
+                    "kind": "blind_holes"
+                  },
+                  {
+                    "id": "move1",
+                    "input": "flange",
+                    "kind": "translate",
+                    "offset": [
+                      "move1.x",
+                      "move1.y",
+                      "move1.z"
+                    ]
+                  },
+                  {
+                    "axis": "x",
+                    "id": "turn1",
+                    "input": "move1",
+                    "kind": "rotate_quarter",
+                    "pivot": [
+                      "turn1.x",
+                      "turn1.y",
+                      "turn1.z"
+                    ],
+                    "turns": 1
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "bore_r": "10",
+                  "cx": "0",
+                  "cy": "0",
+                  "depth": "3",
+                  "height": "5",
+                  "left": "-30",
+                  "mount_r": "3",
+                  "move1.x": "10",
+                  "move1.y": "-5",
+                  "move1.z": "3",
+                  "radius": "40",
+                  "right": "30",
+                  "turn1.x": "0",
+                  "turn1.y": "0",
+                  "turn1.z": "0"
+                }
+              },
+              "preview": true,
+              "revision": 3,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 3,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "height",
+          "left",
+          "mount_r",
+          "move1.x",
+          "move1.y",
+          "move1.z",
+          "radius",
+          "right",
+          "turn1.x",
+          "turn1.y",
+          "turn1.z"
+        ],
+        "transaction_id": "09577bc8-0424-40cd-b6ea-84968d90b4d9"
+      },
+      "elapsed_ms": 27.899999976158146,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "3",
+                "holes": [
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "bore",
+                    "radius": "10"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      -1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "origin": [
+                    "10",
+                    "-3",
+                    "-5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7646"
+                }
+              },
+              "feature_id": "turn1",
+              "volume_mm3": "7646*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "depth"
+          ],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "mount_r",
+                    "x": "left",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "mount_r",
+                    "x": "right",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "bore",
+                    "radius": "bore_r",
+                    "x": "cx",
+                    "y": "cy"
+                  }
+                ],
+                "id": "flange",
+                "input": "stock",
+                "kind": "blind_holes"
+              },
+              {
+                "id": "move1",
+                "input": "flange",
+                "kind": "translate",
+                "offset": [
+                  "move1.x",
+                  "move1.y",
+                  "move1.z"
+                ]
+              },
+              {
+                "axis": "x",
+                "id": "turn1",
+                "input": "move1",
+                "kind": "rotate_quarter",
+                "pivot": [
+                  "turn1.x",
+                  "turn1.y",
+                  "turn1.z"
+                ],
+                "turns": 1
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bore_r": "10",
+              "cx": "0",
+              "cy": "0",
+              "depth": "3",
+              "height": "5",
+              "left": "-30",
+              "mount_r": "3",
+              "move1.x": "10",
+              "move1.y": "-5",
+              "move1.z": "3",
+              "radius": "40",
+              "right": "30",
+              "turn1.x": "0",
+              "turn1.y": "0",
+              "turn1.z": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 4,
+        "operations": [
+          {
+            "id": "depth",
+            "mm": "5",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "bore_r",
+          "cx",
+          "cy",
+          "height",
+          "left",
+          "mount_r",
+          "move1.x",
+          "move1.y",
+          "move1.z",
+          "radius",
+          "right",
+          "turn1.x",
+          "turn1.y",
+          "turn1.z"
+        ]
+      },
+      "elapsed_ms": 9.600000023841858,
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "9cb858de-b202-42aa-ba04-210af1097a93",
+          "revision": 4,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "elapsed_ms": 1.899999976158142,
+      "path": "/api/preview-jobs?id=9cb858de-b202-42aa-ba04-210af1097a93",
+      "reply": {
+        "result": {
+          "job_id": "9cb858de-b202-42aa-ba04-210af1097a93",
+          "reply": {
+            "error": {
+              "code": "hole_depth",
+              "entity": "flange",
+              "message": "Blind hole depth must be strictly below stock height; use through_holes for a full-depth cut"
+            }
+          },
+          "revision": 4,
+          "status": "failed"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 4,
+        "transaction_id": "b4e0e0e6-742c-4781-bf4a-6a624ac634c0"
+      },
+      "elapsed_ms": 18.299999952316284,
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "bore",
+                    "radius": "10"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      -1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "origin": [
+                    "10",
+                    "-3",
+                    "-5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "turn1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 5,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "mount_r",
+                    "x": "left",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "mount_r",
+                    "x": "right",
+                    "y": "cy"
+                  },
+                  {
+                    "id": "bore",
+                    "radius": "bore_r",
+                    "x": "cx",
+                    "y": "cy"
+                  }
+                ],
+                "id": "flange",
+                "input": "stock",
+                "kind": "blind_holes"
+              },
+              {
+                "id": "move1",
+                "input": "flange",
+                "kind": "translate",
+                "offset": [
+                  "move1.x",
+                  "move1.y",
+                  "move1.z"
+                ]
+              },
+              {
+                "axis": "x",
+                "id": "turn1",
+                "input": "move1",
+                "kind": "rotate_quarter",
+                "pivot": [
+                  "turn1.x",
+                  "turn1.y",
+                  "turn1.z"
+                ],
+                "turns": 1
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "bore_r": "10",
+              "cx": "0",
+              "cy": "0",
+              "depth": "2",
+              "height": "5",
+              "left": "-30",
+              "mount_r": "3",
+              "move1.x": "10",
+              "move1.y": "-5",
+              "move1.z": "3",
+              "radius": "40",
+              "right": "30",
+              "turn1.x": "0",
+              "turn1.y": "0",
+              "turn1.z": "0"
+            }
+          },
+          "replayed": false,
+          "revision": 5,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

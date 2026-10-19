@@ -11,13 +11,17 @@ from OCP.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_Transform,
 )
-from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism, BRepPrimAPI_MakeHalfSpace
+from OCP.BRepPrimAPI import (
+    BRepPrimAPI_MakePrism,
+    BRepPrimAPI_MakeHalfSpace,
+    BRepPrimAPI_MakeCylinder,
+)
 from OCP.BRepCheck import BRepCheck_Analyzer
 from OCP.BRepGProp import BRepGProp
 from OCP.GProp import GProp_GProps
 from OCP.IFSelect import IFSelect_RetDone
 from OCP.STEPControl import STEPControl_Reader
-from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Dir, gp_Pln
+from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Ax2, gp_Dir, gp_Pln
 from store import ROOT, evaluate
 from step_export import export_step, measure, number
 from test_booleans import cases, boolean, box
@@ -41,6 +45,31 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "cylinder":
+            shape = BRepPrimAPI_MakeCylinder(
+                gp_Ax2(gp_Pnt(values[f["x"]], values[f["y"]], 0), gp_Dir(0, 0, 1)),
+                values[f["radius"]],
+                values[f["height"]],
+            ).Shape()
+        elif f["kind"] in ("through_holes", "blind_holes"):
+            source = next(
+                feature for feature in model["features"] if feature["id"] == f["input"]
+            )
+            height = values[source["height"]]
+            depth = values[f["depth"]] if f["kind"] == "blind_holes" else height
+            shape = shapes[f["input"]]
+            for hole in f["holes"]:
+                tool = BRepPrimAPI_MakeCylinder(
+                    gp_Ax2(
+                        gp_Pnt(values[hole["x"]], values[hole["y"]], height - depth),
+                        gp_Dir(0, 0, 1),
+                    ),
+                    values[hole["radius"]],
+                    depth,
+                ).Shape()
+                result = BRepAlgoAPI_Cut(shape, tool)
+                assert result.IsDone()
+                shape = result.Shape()
         elif f["kind"] in ("translate", "instance"):
             transform = gp_Trsf()
             transform.SetTranslation(gp_Vec(*[values[v] for v in f["offset"]]))

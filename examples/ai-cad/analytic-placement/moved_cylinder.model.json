@@ -1,0 +1,32 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "move.x": "5",
+    "move.y": "-2",
+    "move.z": "3"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "translate",
+      "id": "moved",
+      "input": "stock",
+      "offset": [
+        "move.x",
+        "move.y",
+        "move.z"
+      ]
+    }
+  ]
+}

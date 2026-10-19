@@ -109,9 +109,7 @@ class Instances(unittest.TestCase):
                 dict(kind="cylinder", id="round", x="z", y="z", radius="r", height="h")
             ],
         )
-        with self.assertRaises(CadError) as error:
-            evaluate(instance(model))
-        self.assertEqual(error.exception.detail["code"], "unsupported_reference")
+        self.assertEqual(set(bodies(instance(model))), {"round", "copy"})
 
     def test_atomic_limits_source_deletion_undo_reopen_and_fixed_offsets(self):
         model = instance(l_shape())

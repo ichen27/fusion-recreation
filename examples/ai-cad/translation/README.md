@@ -32,3 +32,5 @@ Use the [setup](../../../tools/ai-cad/README.md) and open a copy of a native che
 - `move-form.png`, `edited.png`, `contact-rejected.png`: actual browser authoring and failure evidence.
 
 Generated boundary indices remain ephemeral. Body feature IDs and parameter references provide editable intent; translation does not introduce persistent face naming.
+
+Subsequent support: [analytic rigid placement](../analytic-placement/README.md) now admits circular stock and through/blind-hole groups. Earlier curved-placement exclusions describe the original checkpoint.

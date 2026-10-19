@@ -49,3 +49,5 @@ python3 tools/ai-cad/viewer.py --store work/parts.cad.json
 Run `verify_instances_mcp.py` with `tools/ai-cad/requirements.lock` and `verify_instances_export.py` with `tools/ai-cad/step-requirements.txt`. Optional `--write` regenerates their synthetic artifacts. Tests cover nested propagation, provenance/impact, independent offsets, later consuming operations, forward/self-reference rejection, invalid source removal, fixed offsets and undo/reopen.
 
 Only supported unperforated planar stock and original planar operation results can be instanced. Circular analytic stock and analytic hole groups reject. Offset components are bounded to ±1000000 mm; existing model/cell limits apply. Orientation uses a subsequent quarter-turn feature. A source feature denotes that historical modeling stage, not an automatically followed later tip. Generated face indices are not persistent references.
+
+Subsequent support: [analytic rigid placement](../analytic-placement/README.md) now admits circular stock and through/blind-hole groups. Earlier curved-placement exclusions describe the original checkpoint.

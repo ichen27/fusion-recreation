@@ -100,9 +100,9 @@ class Rotation(unittest.TestCase):
         self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
         from test_round_stock import cylinder
 
-        with self.assertRaises(CadError) as caught:
-            evaluate(rotated(cylinder()))
-        self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
+        self.assertIn(
+            "placement", evaluate(rotated(cylinder()))["bodies"][0]["analytic"]
+        )
 
     def test_replacement_rebuilds_intersection_and_invalid_pivot_is_atomic(self):
         a = rectangle("a", 0, 0, 40, 20, 10)

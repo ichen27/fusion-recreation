@@ -12,6 +12,7 @@ pub mod measure;
 pub mod mesh;
 pub mod polyhedral;
 pub use polyhedral::Operation as BooleanOperation;
+pub mod placement;
 mod profile;
 mod solid_ops;
 pub use holes::{AnalyticPrism, Hole};
@@ -629,12 +630,20 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Pivot coordinates must be within +/-1000000 mm",
                     ));
                 }
-                evaluated.insert(
-                    id,
-                    transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
+                let rotated = placement::rotate(origin.clone(), *axis, *turns);
+                let delta = std::array::from_fn(|i| &origin[i] - &rotated[i]);
+                let analytic = evaluated
+                    .get(input.as_str())
+                    .map(|body| placement::analytic(body, id, &delta, Some((*axis, *turns))))
+                    .transpose()?
+                    .flatten();
+                let body = match analytic {
+                    Some(body) => body,
+                    None => transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
                         solid_ops::rotate_quarter(id, boundary, *axis, *turns, &origin)
                     })?,
-                );
+                };
+                evaluated.insert(id, body);
                 continue;
             }
             Feature::Translate { input, offset, .. }
@@ -666,9 +675,17 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Each translation component must be within +/-1000000 mm",
                     ));
                 }
-                let body = transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
-                    solid_ops::translate(id, boundary, &delta)
-                })?;
+                let analytic = evaluated
+                    .get(input.as_str())
+                    .map(|body| placement::analytic(body, id, &delta, None))
+                    .transpose()?
+                    .flatten();
+                let body = match analytic {
+                    Some(body) => body,
+                    None => transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
+                        solid_ops::translate(id, boundary, &delta)
+                    })?,
+                };
                 evaluated.insert(id, body);
                 continue;
             }
