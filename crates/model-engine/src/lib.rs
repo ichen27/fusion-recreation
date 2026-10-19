@@ -326,6 +326,32 @@ fn polyhedral_body(id: &str, solid: polyhedral::Solid) -> Body {
     }
 }
 
+// Construct backing cells only when an operation needs a nonconvex profile.
+// Keep existing serialized source prisms and convex operation results stable.
+fn polyhedral_input(
+    m: &Model,
+    profiles: &BTreeMap<&str, profile::Profile>,
+    evaluated: &BTreeMap<&str, Body>,
+    input: &str,
+) -> Result<Option<polyhedral::Solid>> {
+    let Some(parent) = evaluated.get(input) else {
+        return Ok(None);
+    };
+    if let Some(solid) = &parent.polyhedral {
+        return Ok(Some(solid.clone()));
+    }
+    if let Some(Feature::Extrude {
+        profile, height, ..
+    }) = m.features.iter().find(|f| f.id() == input)
+    {
+        let outline = &profiles[profile.as_str()];
+        if !profile::is_convex(outline) {
+            return polyhedral::Solid::from_profile(outline, &positive(m, height)?).map(Some);
+        }
+    }
+    Ok(None)
+}
+
 // Resolve a bounded planar rigid transform without losing nonconvex backing cells.
 fn transformed_body(
     m: &Model,
@@ -335,10 +361,7 @@ fn transformed_body(
     input: &str,
     mut transform: impl FnMut(Boundary) -> Result<Body>,
 ) -> Result<Body> {
-    if let Some(solid) = evaluated
-        .get(input)
-        .and_then(|body| body.polyhedral.as_ref())
-    {
+    if let Some(solid) = polyhedral_input(m, profiles, evaluated, input)? {
         let transformed = solid
             .transform(|cell| {
                 transform(cell)?.boundary.ok_or_else(|| {
@@ -533,11 +556,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     ));
                 }
                 let resolve = |input: &str| -> Result<polyhedral::Solid> {
-                    if let Some(solid) = evaluated
-                        .get(input)
-                        .and_then(|body: &Body| body.polyhedral.as_ref())
-                    {
-                        return Ok(solid.clone());
+                    if let Some(solid) = polyhedral_input(m, &profiles, &evaluated, input)? {
+                        return Ok(solid);
                     }
                     polyhedral::Solid::from_convex(convex_input(
                         m,
@@ -768,10 +788,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     normal: parsed.map(|n| n.to_string()),
                     offset: parameter(m, offset)?.to_string(),
                 };
-                if let Some(solid) = evaluated
-                    .get(input.as_str())
-                    .and_then(|b| b.polyhedral.as_ref())
-                {
+                if let Some(solid) = polyhedral_input(m, &profiles, &evaluated, input)? {
                     let result = solid.clipped(&plane).map_err(|mut e| {
                         e.entity = id.into();
                         e

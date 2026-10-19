@@ -176,13 +176,13 @@ Start a new browser document with `python3 tools/ai-cad/viewer.py --store work/n
 
 Use **Download editable project** to keep the native model and history. **Import saved model…** previews a file before **Replace model** saves one undoable replacement. To reopen the source history directly, use the downloaded file as `--store`. [Native workflow and verified downloads](../../examples/ai-cad/native-project/README.md).
 
-[Browser sketch plane cuts](../../examples/ai-cad/sketch-plane/README.md) now accept convex `planar_profile` extrusions. Changing an upstream sketch rebuilds its cuts; concavity rejects atomically. Run `verify_sketch_plane.py` and optional `verify_sketch_plane_export.py`.
+[Browser sketch plane cuts](../../examples/ai-cad/sketch-plane/README.md) now accept convex `planar_profile` extrusions. Changing an upstream sketch rebuilds its cuts; simple concave edits are now supported. The retained historical recording includes the former rejection. Run `verify_sketch_plane.py` and optional `verify_sketch_plane_export.py`.
 
 [Convex solid intersection](../../examples/ai-cad/intersection/README.md) keeps common volume through typed MCP commands or **Intersect two solids** in the browser. Inputs remain editable; empty results reject atomically. Run `verify_intersection.py` and optional `verify_intersection_export.py`.
 
 Click a solid or use its feature-list **Select solid** button to highlight it and inspect its stable ID/exact volume. [Viewport selection and measured CPU/GPU behavior](../../examples/ai-cad/body-selection/README.md). Selection/orbit retain GPU buffers and do not save the model.
 
-Use **Move solid** / **Edit move** for exact XYZ translation of convex planar bodies, including movement before an intersection. [Editable positioned parts and export checks](../../examples/ai-cad/translation/README.md). Run `verify_translation.py` and optional `verify_translation_export.py`. Planar Boolean results, including cavities and separate pieces, are also supported; analytic curved stock and initial concave extrusions remain unsupported.
+Use **Move solid** / **Edit move** for exact XYZ translation of convex planar bodies, including movement before an intersection. [Editable positioned parts and export checks](../../examples/ai-cad/translation/README.md). Run `verify_translation.py` and optional `verify_translation_export.py`. Planar Boolean results, including cavities and separate pieces, are also supported; analytic curved stock remains unsupported.
 
 Use **Quarter-turn solid** / **Edit turn** to orient convex planar parts by exact 90°, 180° or 270° rotations about a global axis through a parameter-backed pivot. [Editable rotation and export evidence](../../examples/ai-cad/quarter-turn/README.md). Run `verify_rotation.py` and optional `verify_rotation_export.py`. Planar Boolean results, including cavities and separate pieces, are also supported; arbitrary angles and curved-stock rotation remain open.
 
@@ -194,7 +194,7 @@ Browser previews now use a bounded background CPU queue with **Cancel calculatio
 
 ## Planar union, difference and intersection
 
-**Combine solids** consumes two terminal convex planar bodies or previous Boolean results. Choose union, difference (first minus second), or intersection. Results can have concave faces, holes, enclosed cavities and separate solid pieces. **Edit Boolean** changes the operation while retaining its inputs; upstream dimensions remain editable. Empty/nonmanifold results reject without saving. General curved inputs and initial concave-profile operands remain unsupported.
+**Combine solids** consumes two terminal convex planar bodies or previous Boolean results. Choose union, difference (first minus second), or intersection. Results can have concave faces, holes, enclosed cavities and separate solid pieces. **Edit Boolean** changes the operation while retaining its inputs; upstream dimensions remain editable. Empty/nonmanifold results reject without saving. Simple concave profile extrusions are also supported; general curved inputs remain unsupported.
 
 The original Rust implementation retains disjoint convex cells and merges exposed planar patches into a boundary. Float tessellation handles concave faces and face holes; STEP translates the supplied component/shell topology. No OCCT operation computes native model geometry. See the [recorded browser/MCP workflow and independent STEP comparisons](../../examples/ai-cad/planar-booleans/README.md) and [bounded contract](../../docs/ai-cad-contract.md#planar-solid-booleans).
 
@@ -204,4 +204,8 @@ The original Rust implementation retains disjoint convex cells and merges expose
 
 ## Trim nonconvex planar results
 
-**Cut with plane** and **Edit plane** now accept planar Boolean results and their rigid transforms. A cut can open a cavity into a pocket, trim a hole, or remove separated pieces; it retains exact cells for later transforms/Booleans. Empty results reject atomically. [Browser/MCP recordings, native history, pocket STL and independent STEP references](../../examples/ai-cad/nonconvex-plane-cuts/README.md) are included. Initial concave extrusions and analytic curved stock remain unsupported.
+**Cut with plane** and **Edit plane** now accept planar Boolean results and their rigid transforms. A cut can open a cavity into a pocket, trim a hole, or remove separated pieces; it retains exact cells for later transforms/Booleans. Empty results reject atomically. [Browser/MCP recordings, native history, pocket STL and independent STEP references](../../examples/ai-cad/nonconvex-plane-cuts/README.md) are included. Analytic curved stock remains unsupported.
+
+## Operations on simple concave stock
+
+Unperforated simple XY profile extrusions now feed Boolean operations, movement, quarter turns and plane cuts. Exact rational ear clipping builds disjoint triangular prisms without changing source history or using display triangles. [Native/browser/MCP and independent STEP evidence](../../examples/ai-cad/concave-operations/README.md) includes both windings, tiny rational coordinates and a split U-profile. Run `verify_concave_operations.py`; optional transport/export checks use `verify_concave_operations_mcp.py` and `verify_concave_operations_export.py`. Legacy `intersection` remains convex-only.

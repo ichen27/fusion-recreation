@@ -1,5 +1,7 @@
 # Browser sketch to a sloped solid
 
+**Historical recording:** the concavity rejection below describes the original capture. Simple concave stock is now supported by [exact decomposition](../concave-operations/README.md). The original recording and screenshot remain unchanged; replay explicitly checks the formerly rejected preview now succeeds with exact volume 295000/27 mm³ and still does not save.
+
 A browser-created rectangle now works with the original exact plane-cut engine. `planar_profile` continues to store a simple polygon and its extrusion continues to use its existing analytic prism representation. When a plane cut consumes that extrusion, the engine verifies strict convexity using exact rational edge-side tests and constructs the planar boundary it needs. It does not convert circles or concave outlines into approximate convex solids.
 
 The recorded browser workflow creates a 100×60 mm rectangle, extrudes it 20 mm, then keeps `x + z ≤ 100`. Its exact volume is 108000 mm³. Moving the upper-right sketch point from (100,60) to (80,60) rebuilds the downstream cut and gives 104000 mm³. Moving that point to (10,5) would make the outline concave, so preview rejects and the saved part stays unchanged. Undo restores the rectangular cut.

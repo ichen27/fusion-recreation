@@ -145,3 +145,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Nonconvex plane-cut checkpoint
 
 [Half-space cuts on planar results](../examples/ai-cad/nonconvex-plane-cuts/README.md) now open cavities, trim through-holes and remove components while retaining exact geometry for later operations. Browser/MCP edits, empty rejection, native undo and eight independent STEP comparisons cover the integrated workflow. Initial concave extrusions are still not admitted as inputs to the cell pipeline; next connect validated simple profiles through exact convex decomposition without a floating-point modeling fallback.
+
+## Concave-stock checkpoint
+
+[Exact simple-profile decomposition](../examples/ai-cad/concave-operations/README.md) now admits initial concave extrusions to Boolean, move/turn and cut operations. Both windings, 32-vertex profiles, tiny rational inputs and topology splitting are verified, alongside actual browser/MCP edits and seven independent STEP references. The next foundational gap is reusable part instances: current consuming transforms duplicate feature work and cannot express an assembly. Add explicit non-consuming linked instances before joints, with provenance, rebuild, selection and export semantics.

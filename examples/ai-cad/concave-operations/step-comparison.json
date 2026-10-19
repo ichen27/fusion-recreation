@@ -1,0 +1,79 @@
+[
+  {
+    "case": "moved",
+    "expected_volume_mm3": 204,
+    "step_volume_mm3": 203.99999999999997,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 5.684341886080802e-14
+  },
+  {
+    "case": "turned",
+    "expected_volume_mm3": 204,
+    "step_volume_mm3": 204.0,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 5.684341886080802e-14
+  },
+  {
+    "case": "trimmed",
+    "expected_volume_mm3": 144,
+    "step_volume_mm3": 144.0,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 0.0
+  },
+  {
+    "case": "intersection",
+    "expected_volume_mm3": 28,
+    "step_volume_mm3": 27.99999999999999,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 0.0
+  },
+  {
+    "case": "difference",
+    "expected_volume_mm3": 176,
+    "step_volume_mm3": 175.99999999999994,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 0.0
+  },
+  {
+    "case": "union",
+    "expected_volume_mm3": 240,
+    "step_volume_mm3": 239.99999999999994,
+    "material_components": 1,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 0.0
+  },
+  {
+    "case": "split_profile",
+    "expected_volume_mm3": 60,
+    "step_volume_mm3": 59.99999999999999,
+    "material_components": 2,
+    "directed_residue_mm3": [
+      0.0,
+      0.0
+    ],
+    "surface_difference_mm2": 0.0
+  }
+]

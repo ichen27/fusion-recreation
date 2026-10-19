@@ -1,0 +1,76 @@
+{
+  "parameters": {
+    "u.height": "2",
+    "u.c0": "0",
+    "u.c1": "10",
+    "u.c2": "7",
+    "u.c3": "3",
+    "trimmed.offset": "-5"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "u.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "u.c0",
+          "y": "u.c0"
+        },
+        {
+          "id": "v1",
+          "x": "u.c1",
+          "y": "u.c0"
+        },
+        {
+          "id": "v2",
+          "x": "u.c1",
+          "y": "u.c1"
+        },
+        {
+          "id": "v3",
+          "x": "u.c2",
+          "y": "u.c1"
+        },
+        {
+          "id": "v4",
+          "x": "u.c2",
+          "y": "u.c3"
+        },
+        {
+          "id": "v5",
+          "x": "u.c3",
+          "y": "u.c3"
+        },
+        {
+          "id": "v6",
+          "x": "u.c3",
+          "y": "u.c1"
+        },
+        {
+          "id": "v7",
+          "x": "u.c0",
+          "y": "u.c1"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "u",
+      "profile": "u.profile",
+      "height": "u.height"
+    },
+    {
+      "kind": "plane_cut",
+      "id": "trimmed",
+      "input": "u",
+      "normal": [
+        "0",
+        "-1",
+        "0"
+      ],
+      "offset": "trimmed.offset"
+    }
+  ]
+}

@@ -96,7 +96,7 @@ test("normal replacement, unchanged draft and constrained offset semantics", () 
   assert.equal(offsetEditable(state, d), false);
 });
 
-test("browser-created simple sketches feed plane cuts; concavity rejects in Rust", async () => {
+test("browser-created simple sketches feed plane cuts after concave edits", async () => {
   const { draftSketch, addPoint, sketchProposal } = await import(
     "./web/sketch-model.mjs"
   );
@@ -127,8 +127,8 @@ test("browser-created simple sketches feed plane cuts; concavity rejects in Rust
   state.model.parameters["sketch1.v3.x"] = "10";
   state.model.parameters["sketch1.v3.y"] = "5";
   assert.equal(
-    run(state.model, planeProposal(state, p)).error.code,
-    "unsupported_reference",
+    run(state.model, planeProposal(state, p)).result.bodies[0].volume_mm3,
+    "43000/9",
   );
   assert.equal(
     planeCandidate({ analytic: { kind: "cylinder", holes: [] } }),

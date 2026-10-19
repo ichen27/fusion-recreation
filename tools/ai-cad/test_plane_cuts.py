@@ -234,7 +234,7 @@ class PlaneCuts(unittest.TestCase):
                     uncut["features"].pop()
                     self.assertIn("analytic", evaluate(uncut)["bodies"][0])
 
-    def test_downstream_cut_rejects_new_concavity_atomically(self):
+    def test_downstream_cut_accepts_new_concavity_and_rejects_repeated_corner(self):
         m = model_for([(0, 0), (10, 0), (10, 10), (0, 10)], "5")
         m["features"][0]["kind"] = "planar_profile"
         # A separate parameter lets only the upper right vertex move inward.
@@ -264,16 +264,22 @@ class PlaneCuts(unittest.TestCase):
                 "preserve": [],
                 "operations": [{"op": "set_parameter", "id": "corner", "mm": "2"}],
             }
+            result = s.execute(edit)
+            # Original area is 20; only a small triangular wedge beyond x=7
+            # meets the sloping plane. Independent integration gives 791/8.
+            self.assertEqual(result["bodies"][0]["volume_mm3"], "791/8")
+            self.assertIn("components", result["bodies"][0])
+            before = s.path.read_bytes()
+            edit.update(expected_revision=2, transaction_id="invalid")
+            edit["operations"][0]["mm"] = "0"
             with self.assertRaises(CadError) as caught:
                 s.execute(edit)
-            self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
-            self.assertEqual(caught.exception.detail["entity"], "solid")
+            self.assertEqual(caught.exception.detail["code"], "invalid_profile")
             self.assertEqual(s.path.read_bytes(), before)
-            # Explicitly removing the dependent cut makes this simple concave edit valid.
-            edit["operations"].insert(0, {"op": "remove_feature", "id": "diagonal_cut"})
-            result = s.execute(edit)
-            self.assertEqual(result["bodies"][0]["analytic"]["kind"], "polygon_prism")
-            self.assertEqual(result["bodies"][0]["volume_mm3"], "100")
+            result = s.execute(
+                {"action": "undo", "expected_revision": 2, "transaction_id": "restore"}
+            )
+            self.assertNotIn("components", result["bodies"][0])
 
     def test_perforated_planar_stock_remains_unsupported(self):
         m = model_for([(0, 0), (10, 0), (10, 10), (0, 10)], "5")
