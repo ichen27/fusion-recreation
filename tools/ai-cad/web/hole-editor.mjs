@@ -3,6 +3,7 @@ import {
   addHole,
   removeHole,
   setHoleValue,
+  setHoleDepth,
   holeProposal,
   editable,
 } from "./hole-model.mjs";
@@ -130,9 +131,14 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
       }),
     );
     $("hole-count").textContent =
-      `${draft.holes.length} through-holes · millimeters`;
+      `${draft.holes.length} ${draft.kind === "blind_holes" ? "blind" : "through"} holes · millimeters`;
     $("hole-remove").disabled = pending || !draft.holes.length;
     $("hole-add").disabled = pending || draft.holes.length >= 16;
+    $("hole-kind").value = draft.kind;
+    $("hole-kind").disabled = pending || !!draft.featureId;
+    $("hole-depth-row").hidden = draft.kind !== "blind_holes";
+    $("hole-depth").value = draft.values[draft.depth];
+    $("hole-depth").disabled = pending || !editable(draft, draft.depth);
     $("hole-radius-row").hidden = false;
     $("hole-radius").disabled = pending;
     $("hole-preview").disabled = pending;
@@ -165,6 +171,19 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
     close();
+  });
+  $("hole-kind").addEventListener("change", () => {
+    if (draft.featureId || pending) return;
+    draft.kind = $("hole-kind").value;
+    render();
+  });
+  $("hole-depth").addEventListener("change", () => {
+    try {
+      setHoleDepth(draft, $("hole-depth").value);
+      render();
+    } catch (error) {
+      message(error);
+    }
   });
   $("hole-fit").addEventListener("click", fit);
   $("hole-remove").addEventListener("click", () => {
@@ -248,7 +267,7 @@ export function installHoleEditor({ getState, onOpen, onClose, onPreview }) {
       dragging = null;
       $("hole-title").textContent = featureId
         ? `Edit ${featureId}`
-        : `Through-holes in ${input}`;
+        : `Holes in ${input}`;
       $("hole-radius").value = "3";
       message(
         featureId

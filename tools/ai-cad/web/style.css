@@ -105,7 +105,8 @@ h2 span {
   color: #72867c;
   font-size: 10px;
 }
-input {
+input,
+select {
   width: 100%;
   border: 1px solid #cfdcd4;
   border-radius: 5px;
@@ -114,7 +115,8 @@ input {
   color: #183b37;
   font: inherit;
 }
-input:disabled {
+input:disabled,
+select:disabled {
   background: #edf1ed;
   color: #7e8f85;
 }

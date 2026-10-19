@@ -1,0 +1,120 @@
+{
+  "result": {
+    "revision": 1,
+    "committed_revision": 1,
+    "replayed": false,
+    "can_undo": true,
+    "can_redo": false,
+    "bodies": [
+      {
+        "analytic": {
+          "height": "5",
+          "hole_depth": "2",
+          "holes": [
+            {
+              "center": [
+                "-30",
+                "0"
+              ],
+              "id": "left",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "30",
+                "0"
+              ],
+              "id": "right",
+              "radius": "3"
+            },
+            {
+              "center": [
+                "0",
+                "0"
+              ],
+              "id": "bore",
+              "radius": "10"
+            }
+          ],
+          "kind": "round_prism",
+          "outer_circle": {
+            "center": [
+              "0",
+              "0"
+            ],
+            "radius": "40"
+          },
+          "volume": {
+            "constant_mm3": "0",
+            "pi_subtract_mm3": "-7764"
+          }
+        },
+        "feature_id": "flange",
+        "volume_mm3": "7764*pi"
+      }
+    ],
+    "changed_parameters": [
+      "bore_r",
+      "cx",
+      "cy",
+      "depth",
+      "height",
+      "left",
+      "mount_r",
+      "radius",
+      "right"
+    ],
+    "model": {
+      "features": [
+        {
+          "height": "height",
+          "id": "stock",
+          "kind": "cylinder",
+          "radius": "radius",
+          "x": "cx",
+          "y": "cy"
+        },
+        {
+          "depth": "depth",
+          "holes": [
+            {
+              "id": "left",
+              "radius": "mount_r",
+              "x": "left",
+              "y": "cy"
+            },
+            {
+              "id": "right",
+              "radius": "mount_r",
+              "x": "right",
+              "y": "cy"
+            },
+            {
+              "id": "bore",
+              "radius": "bore_r",
+              "x": "cx",
+              "y": "cy"
+            }
+          ],
+          "id": "flange",
+          "input": "stock",
+          "kind": "blind_holes"
+        }
+      ],
+      "fixed": {},
+      "parameters": {
+        "bore_r": "10",
+        "cx": "0",
+        "cy": "0",
+        "depth": "2",
+        "height": "5",
+        "left": "-30",
+        "mount_r": "3",
+        "radius": "40",
+        "right": "30"
+      }
+    },
+    "schema_version": 1,
+    "units": "mm"
+  }
+}

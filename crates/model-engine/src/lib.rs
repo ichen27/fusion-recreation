@@ -63,6 +63,12 @@ pub enum Feature {
         radius: String,
         height: String,
     },
+    BlindHoles {
+        id: String,
+        input: String,
+        depth: String,
+        holes: Vec<Hole>,
+    },
     ThroughHoles {
         id: String,
         input: String,
@@ -90,7 +96,8 @@ impl Feature {
             | Self::PlanarProfile { id, .. }
             | Self::Extrude { id, .. }
             | Self::ThroughHoles { id, .. }
-            | Self::Cylinder { id, .. } => id,
+            | Self::Cylinder { id, .. }
+            | Self::BlindHoles { id, .. } => id,
         }
     }
 }
@@ -290,7 +297,8 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             return Err(error("duplicate_id", id, "Feature ID already exists"));
         }
         let (boundary, plane) = match feature {
-            Feature::ThroughHoles { input, holes, .. } => {
+            Feature::ThroughHoles { input, holes, .. }
+            | Feature::BlindHoles { input, holes, .. } => {
                 let parent = m
                     .features
                     .iter()
@@ -323,6 +331,11 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         ))
                     }
                 };
+                let shape = if let Feature::BlindHoles { depth, .. } = feature {
+                    holes::blind(m, id, depth, shape)?
+                } else {
+                    shape
+                };
                 if !consumed.insert(input.as_str()) {
                     return Err(error(
                         "unsupported_branch",
@@ -331,7 +344,10 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     ));
                 }
                 let volume_mm3 = if shape.outer_circle.is_some() {
-                    format!("{}*pi", -rational(&shape.volume.pi_subtract_mm3, id)?)
+                    format!(
+                        "{}*pi",
+                        shape.volume.pi_subtract_mm3.trim_start_matches('-')
+                    )
                 } else {
                     format!(
                         "{} - ({})*pi",
@@ -357,7 +373,10 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 ..
             } => {
                 let shape = holes::round(m, x, y, radius, height)?;
-                let volume_mm3 = format!("{}*pi", -rational(&shape.volume.pi_subtract_mm3, id)?);
+                let volume_mm3 = format!(
+                    "{}*pi",
+                    shape.volume.pi_subtract_mm3.trim_start_matches('-')
+                );
                 evaluated.insert(
                     id,
                     Body {

@@ -258,18 +258,19 @@ function render(state) {
         div.append(button);
       }
       if (
-        f.kind === "through_holes" ||
+        ["through_holes", "blind_holes"].includes(f.kind) ||
         availableHoleInputs(state.model).some((e) => e.id === f.id)
       ) {
         const button = document.createElement("button");
         button.className = "edit-holes";
-        button.textContent =
-          f.kind === "through_holes" ? "Edit holes" : "Add through-holes";
+        button.textContent = ["through_holes", "blind_holes"].includes(f.kind)
+          ? "Edit holes"
+          : "Add holes";
         button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
         button.addEventListener("click", () =>
           holes.open(
-            f.kind !== "through_holes" ? f.id : null,
-            f.kind === "through_holes" ? f.id : null,
+            !["through_holes", "blind_holes"].includes(f.kind) ? f.id : null,
+            ["through_holes", "blind_holes"].includes(f.kind) ? f.id : null,
           ),
         );
         div.append(button);

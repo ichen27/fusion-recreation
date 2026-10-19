@@ -1,0 +1,890 @@
+{
+  "description": "Actual browser blind-hole placement, depth 2\u21924 edit, rejected depth5 preview and undo. Six calls across two browser sessions. Disposable display_mesh and volume_approx_mm3 omitted. Reload verified the undone saved state.",
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "-30",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.x",
+            "mm": "30",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                },
+                {
+                  "id": "h3",
+                  "radius": "holes1.h3.radius",
+                  "x": "holes1.h3.x",
+                  "y": "holes1.h3.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "stock",
+              "kind": "blind_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "cx",
+          "cy",
+          "height",
+          "radius"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "h1",
+                    "radius": "10"
+                  },
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "h3",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth",
+            "holes1.h1.radius",
+            "holes1.h1.x",
+            "holes1.h1.y",
+            "holes1.h2.radius",
+            "holes1.h2.x",
+            "holes1.h2.y",
+            "holes1.h3.radius",
+            "holes1.h3.x",
+            "holes1.h3.y"
+          ],
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  },
+                  {
+                    "id": "h3",
+                    "radius": "holes1.h3.radius",
+                    "x": "holes1.h3.x",
+                    "y": "holes1.h3.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "stock",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "cx": "0",
+              "cy": "0",
+              "height": "5",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "10",
+              "holes1.h1.x": "0",
+              "holes1.h1.y": "0",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "-30",
+              "holes1.h2.y": "0",
+              "holes1.h3.radius": "3",
+              "holes1.h3.x": "30",
+              "holes1.h3.y": "0",
+              "radius": "40"
+            }
+          },
+          "preview": true,
+          "revision": 1,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "holes1.h1.x",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h1.radius",
+            "mm": "10",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.x",
+            "mm": "-30",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h2.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.x",
+            "mm": "30",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.h3.radius",
+            "mm": "3",
+            "op": "define_parameter"
+          },
+          {
+            "id": "holes1.depth",
+            "mm": "2",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "depth": "holes1.depth",
+              "holes": [
+                {
+                  "id": "h1",
+                  "radius": "holes1.h1.radius",
+                  "x": "holes1.h1.x",
+                  "y": "holes1.h1.y"
+                },
+                {
+                  "id": "h2",
+                  "radius": "holes1.h2.radius",
+                  "x": "holes1.h2.x",
+                  "y": "holes1.h2.y"
+                },
+                {
+                  "id": "h3",
+                  "radius": "holes1.h3.radius",
+                  "x": "holes1.h3.x",
+                  "y": "holes1.h3.y"
+                }
+              ],
+              "id": "holes1",
+              "input": "stock",
+              "kind": "blind_holes"
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "cx",
+          "cy",
+          "height",
+          "radius"
+        ],
+        "transaction_id": "85032555-d0e6-4c63-99fa-b853933e4fab"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "h1",
+                    "radius": "10"
+                  },
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "h3",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth",
+            "holes1.h1.radius",
+            "holes1.h1.x",
+            "holes1.h1.y",
+            "holes1.h2.radius",
+            "holes1.h2.x",
+            "holes1.h2.y",
+            "holes1.h3.radius",
+            "holes1.h3.x",
+            "holes1.h3.y"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  },
+                  {
+                    "id": "h3",
+                    "radius": "holes1.h3.radius",
+                    "x": "holes1.h3.x",
+                    "y": "holes1.h3.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "stock",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "cx": "0",
+              "cy": "0",
+              "height": "5",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "10",
+              "holes1.h1.x": "0",
+              "holes1.h1.y": "0",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "-30",
+              "holes1.h2.y": "0",
+              "holes1.h3.radius": "3",
+              "holes1.h3.x": "30",
+              "holes1.h3.y": "0",
+              "radius": "40"
+            }
+          },
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.depth",
+            "mm": "4",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "cx",
+          "cy",
+          "height",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "holes1.h3.radius",
+          "holes1.h3.x",
+          "holes1.h3.y",
+          "radius"
+        ]
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "4",
+                "holes": [
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "h1",
+                    "radius": "10"
+                  },
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "h3",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7528"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "7528*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth"
+          ],
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  },
+                  {
+                    "id": "h3",
+                    "radius": "holes1.h3.radius",
+                    "x": "holes1.h3.x",
+                    "y": "holes1.h3.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "stock",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "cx": "0",
+              "cy": "0",
+              "height": "5",
+              "holes1.depth": "4",
+              "holes1.h1.radius": "10",
+              "holes1.h1.x": "0",
+              "holes1.h1.y": "0",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "-30",
+              "holes1.h2.y": "0",
+              "holes1.h3.radius": "3",
+              "holes1.h3.x": "30",
+              "holes1.h3.y": "0",
+              "radius": "40"
+            }
+          },
+          "preview": true,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "holes1.depth",
+            "mm": "4",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "cx",
+          "cy",
+          "height",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "holes1.h3.radius",
+          "holes1.h3.x",
+          "holes1.h3.y",
+          "radius"
+        ],
+        "transaction_id": "9ddb1296-8cf3-4a0b-a675-279e015ad97b"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "4",
+                "holes": [
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "h1",
+                    "radius": "10"
+                  },
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "h3",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7528"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "7528*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "holes1.depth"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  },
+                  {
+                    "id": "h3",
+                    "radius": "holes1.h3.radius",
+                    "x": "holes1.h3.x",
+                    "y": "holes1.h3.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "stock",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "cx": "0",
+              "cy": "0",
+              "height": "5",
+              "holes1.depth": "4",
+              "holes1.h1.radius": "10",
+              "holes1.h1.x": "0",
+              "holes1.h1.y": "0",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "-30",
+              "holes1.h2.y": "0",
+              "holes1.h3.radius": "3",
+              "holes1.h3.x": "30",
+              "holes1.h3.y": "0",
+              "radius": "40"
+            }
+          },
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "holes1.depth",
+            "mm": "5",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "cx",
+          "cy",
+          "height",
+          "holes1.h1.radius",
+          "holes1.h1.x",
+          "holes1.h1.y",
+          "holes1.h2.radius",
+          "holes1.h2.x",
+          "holes1.h2.y",
+          "holes1.h3.radius",
+          "holes1.h3.x",
+          "holes1.h3.y",
+          "radius"
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "hole_depth",
+          "entity": "holes1",
+          "message": "Blind hole depth must be strictly below stock height; use through_holes for a full-depth cut"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 3,
+        "transaction_id": "530e7f08-c83f-4a22-b7fb-be4ff6956c3c"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "5",
+                "hole_depth": "2",
+                "holes": [
+                  {
+                    "center": [
+                      "0",
+                      "0"
+                    ],
+                    "id": "h1",
+                    "radius": "10"
+                  },
+                  {
+                    "center": [
+                      "-30",
+                      "0"
+                    ],
+                    "id": "h2",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "30",
+                      "0"
+                    ],
+                    "id": "h3",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "0",
+                    "0"
+                  ],
+                  "radius": "40"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-7764"
+                }
+              },
+              "feature_id": "holes1",
+              "volume_mm3": "7764*pi"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              },
+              {
+                "depth": "holes1.depth",
+                "holes": [
+                  {
+                    "id": "h1",
+                    "radius": "holes1.h1.radius",
+                    "x": "holes1.h1.x",
+                    "y": "holes1.h1.y"
+                  },
+                  {
+                    "id": "h2",
+                    "radius": "holes1.h2.radius",
+                    "x": "holes1.h2.x",
+                    "y": "holes1.h2.y"
+                  },
+                  {
+                    "id": "h3",
+                    "radius": "holes1.h3.radius",
+                    "x": "holes1.h3.x",
+                    "y": "holes1.h3.y"
+                  }
+                ],
+                "id": "holes1",
+                "input": "stock",
+                "kind": "blind_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "cx": "0",
+              "cy": "0",
+              "height": "5",
+              "holes1.depth": "2",
+              "holes1.h1.radius": "10",
+              "holes1.h1.x": "0",
+              "holes1.h1.y": "0",
+              "holes1.h2.radius": "3",
+              "holes1.h2.x": "-30",
+              "holes1.h2.y": "0",
+              "holes1.h3.radius": "3",
+              "holes1.h3.x": "30",
+              "holes1.h3.y": "0",
+              "radius": "40"
+            }
+          },
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

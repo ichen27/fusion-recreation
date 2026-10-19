@@ -81,3 +81,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## GPU precision checkpoint
 
 [CPU rebasing before GPU upload](../examples/ai-cad/gpu-precision/README.md) preserves compact geometry far from the origin while retaining camera-only buffer reuse. Actual before/after browser evidence and context recovery are recorded. Native coordinates remain unchanged. Mixed-scale assemblies and float64 tessellation precision still require separate policies.
+
+## Blind-hole checkpoint
+
+[Depth-controlled blind holes](../examples/ai-cad/blind-holes/README.md) add flat floors with exact depth/remaining-material checks, browser editing and independent STEP solid classification below/above each floor. The same stock can be polygonal or circular. Mixed depths, arbitrary axes and general curved intersections remain open.
