@@ -85,3 +85,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Blind-hole checkpoint
 
 [Depth-controlled blind holes](../examples/ai-cad/blind-holes/README.md) add flat floors with exact depth/remaining-material checks, browser editing and independent STEP solid classification below/above each floor. The same stock can be polygonal or circular. Mixed depths, arbitrary axes and general curved intersections remain open.
+
+## Three-dimensional plane-cut checkpoint
+
+[Sequential arbitrary-plane cuts](../examples/ai-cad/plane-cuts/README.md) integrates the original exact convex boundary clipper into typed model features and browser controls. Upstream plane edits rebuild later cuts; empty solids reject atomically. Independent STEP half-space comparisons and native recordings are included. General nonconvex/curved Booleans and persistent generated topology references remain open.

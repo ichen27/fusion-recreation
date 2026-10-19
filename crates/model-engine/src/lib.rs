@@ -63,6 +63,13 @@ pub enum Feature {
         radius: String,
         height: String,
     },
+    /// Keep the closed half-space normal dot position <= offset.
+    PlaneCut {
+        id: String,
+        input: String,
+        normal: [String; 3],
+        offset: String,
+    },
     BlindHoles {
         id: String,
         input: String,
@@ -97,7 +104,8 @@ impl Feature {
             | Self::Extrude { id, .. }
             | Self::ThroughHoles { id, .. }
             | Self::Cylinder { id, .. }
-            | Self::BlindHoles { id, .. } => id,
+            | Self::BlindHoles { id, .. }
+            | Self::PlaneCut { id, .. } => id,
         }
     }
 }
@@ -448,6 +456,40 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     },
                 )
             }
+            Feature::PlaneCut {
+                input,
+                normal,
+                offset,
+                ..
+            } => {
+                let parent: &Body = evaluated.get(input.as_str()).ok_or_else(|| {
+                    error(
+                        "unsupported_reference",
+                        input,
+                        "Plane cut must reference an earlier convex planar solid",
+                    )
+                })?;
+                let boundary = parent.boundary.clone().ok_or_else(||
+                    error("unsupported_reference", input, "Plane cuts currently require a convex planar boundary; circular, perforated and concave stock are unsupported"))?;
+                if !consumed.insert(input.as_str()) {
+                    return Err(error("unsupported_branch",input,"A solid can have only one consuming feature; apply further cuts to the previous cut"));
+                }
+                let parsed = [
+                    rational(&normal[0], id)?,
+                    rational(&normal[1], id)?,
+                    rational(&normal[2], id)?,
+                ];
+                if parsed.iter().all(Zero::is_zero) {
+                    return Err(error("plane_normal", id, "Plane normal must be nonzero"));
+                }
+                (
+                    boundary,
+                    Plane {
+                        normal: parsed.map(|n| n.to_string()),
+                        offset: parameter(m, offset)?.to_string(),
+                    },
+                )
+            }
             Feature::CornerCut { input, size, .. } => {
                 let parent = m
                     .features
@@ -499,6 +541,9 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             plane,
         })
         .map_err(|message| error("invalid_geometry", id, &message))?;
+        if result.classification == "empty" {
+            return Err(error("empty_solid", id, "Cut removes the entire solid or leaves only a face/edge/point; adjust the plane or remove the feature explicitly"));
+        }
         evaluated.insert(
             id,
             Body {

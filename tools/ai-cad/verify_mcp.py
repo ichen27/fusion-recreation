@@ -372,6 +372,60 @@ async def main():
                     if b["feature_id"] == "round_pocket"
                 )
                 assert pocket["analytic"]["hole_depth"] == "1"
+                plane_result = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 16,
+                        "transaction_id": "mcp-planes",
+                        "preserve": [],
+                        "operations": [
+                            {"op": "define_parameter", "id": "cut_extent", "mm": "60"},
+                            {
+                                "op": "define_parameter",
+                                "id": "cut_diagonal",
+                                "mm": "60",
+                            },
+                            {"op": "define_parameter", "id": "cut_side", "mm": "-10"},
+                            {
+                                "op": "add_feature",
+                                "feature": {
+                                    "kind": "block",
+                                    "id": "plane_stock",
+                                    "width": "cut_extent",
+                                    "depth": "cut_extent",
+                                    "height": "cut_extent",
+                                },
+                            },
+                            {
+                                "op": "add_feature",
+                                "feature": {
+                                    "kind": "plane_cut",
+                                    "id": "plane_one",
+                                    "input": "plane_stock",
+                                    "normal": ["1", "1", "1"],
+                                    "offset": "cut_diagonal",
+                                },
+                            },
+                            {
+                                "op": "add_feature",
+                                "feature": {
+                                    "kind": "plane_cut",
+                                    "id": "plane_two",
+                                    "input": "plane_one",
+                                    "normal": ["-1", "0", "0"],
+                                    "offset": "cut_side",
+                                },
+                            },
+                        ],
+                    },
+                )
+                assert "result" in plane_result, plane_result
+                plane = next(
+                    b
+                    for b in plane_result["result"]["bodies"]
+                    if b["feature_id"] == "plane_two"
+                )
+                assert plane["volume_mm3"] == "62500/3"
                 print(
                     "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships, analytic holes and diagnostics"
                 )

@@ -1,0 +1,231 @@
+{
+  "result": {
+    "revision": 1,
+    "committed_revision": 1,
+    "replayed": false,
+    "can_undo": true,
+    "can_redo": false,
+    "bodies": [
+      {
+        "boundary": {
+          "edges": [
+            {
+              "kind": "line",
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "kind": "line",
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "kind": "line",
+              "vertices": [
+                0,
+                2
+              ]
+            },
+            {
+              "kind": "line",
+              "vertices": [
+                1,
+                3
+              ]
+            },
+            {
+              "kind": "line",
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "kind": "line",
+              "vertices": [
+                0,
+                3
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "kind": "plane",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 2,
+                    "forward": false
+                  }
+                ]
+              ],
+              "normal": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "offset": "0"
+            },
+            {
+              "kind": "plane",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  }
+                ]
+              ],
+              "normal": [
+                "0",
+                "-1",
+                "0"
+              ],
+              "offset": "0"
+            },
+            {
+              "kind": "plane",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": false
+                  },
+                  {
+                    "edge": 0,
+                    "forward": false
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  }
+                ]
+              ],
+              "normal": [
+                "1",
+                "1",
+                "1"
+              ],
+              "offset": "60"
+            },
+            {
+              "kind": "plane",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 2,
+                    "forward": true
+                  }
+                ]
+              ],
+              "normal": [
+                "-1",
+                "0",
+                "0"
+              ],
+              "offset": "-10"
+            }
+          ],
+          "vertices": [
+            [
+              "10",
+              "50",
+              "0"
+            ],
+            [
+              "60",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "0",
+              "50"
+            ]
+          ]
+        },
+        "feature_id": "side_cut",
+        "volume_mm3": "62500/3"
+      }
+    ],
+    "changed_parameters": [
+      "diagonal",
+      "side",
+      "size"
+    ],
+    "model": {
+      "features": [
+        {
+          "depth": "size",
+          "height": "size",
+          "id": "stock",
+          "kind": "block",
+          "width": "size"
+        },
+        {
+          "id": "diagonal_cut",
+          "input": "stock",
+          "kind": "plane_cut",
+          "normal": [
+            "1",
+            "1",
+            "1"
+          ],
+          "offset": "diagonal"
+        },
+        {
+          "id": "side_cut",
+          "input": "diagonal_cut",
+          "kind": "plane_cut",
+          "normal": [
+            "-1",
+            "0",
+            "0"
+          ],
+          "offset": "side"
+        }
+      ],
+      "fixed": {},
+      "parameters": {
+        "diagonal": "60",
+        "side": "-10",
+        "size": "60"
+      }
+    },
+    "schema_version": 1,
+    "units": "mm"
+  }
+}
