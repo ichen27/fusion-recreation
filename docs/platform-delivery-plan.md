@@ -77,3 +77,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Round-stock checkpoint
 
 [Exact circular stock and flanges](../examples/ai-cad/round-flange/README.md) adds cylindrical outer boundaries, exact circular hole containment, parameter-linked mounting positions, browser editing and independently checked STEP/STL. Native geometry is analytic; display/export resolution limits are explicit. General curved B-rep intersections, arbitrary-axis operations and revolve/sweep/fillet remain open. Next runtime work rebases GPU display coordinates to preserve small geometry far from the origin.
+
+## GPU precision checkpoint
+
+[CPU rebasing before GPU upload](../examples/ai-cad/gpu-precision/README.md) preserves compact geometry far from the origin while retaining camera-only buffer reuse. Actual before/after browser evidence and context recovery are recorded. Native coordinates remain unchanged. Mixed-scale assemblies and float64 tessellation precision still require separate policies.
