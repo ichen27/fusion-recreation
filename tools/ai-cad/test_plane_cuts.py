@@ -206,3 +206,92 @@ class PlaneCuts(unittest.TestCase):
                 )["bodies"][0]["volume_mm3"],
                 "62500/3",
             )
+
+    def test_simple_convex_sketch_matches_strict_convex_boundary(self):
+        import copy
+
+        outlines = [
+            [(0, 0), (60, 0), (60, 60), (0, 60)],
+            [(F(-7, 3), -2), (8, -2), (10, 6), (3, 10), (-4, 4)],
+        ]
+        for points in outlines:
+            for reverse in [False, True]:
+                for normal, offset in [
+                    (["1", "1", "1"], "50"),
+                    (["1/2", "0", "1"], "20"),
+                    (["-1", "0", "0"], "-1"),
+                ]:
+                    strict = model_for(points, "30", reverse)
+                    strict["parameters"]["diagonal"] = offset
+                    strict["features"].append(cut(input="solid", normal=normal))
+                    simple = copy.deepcopy(strict)
+                    simple["features"][0]["kind"] = "planar_profile"
+                    actual = evaluate(simple)
+                    self.assertEqual(actual["bodies"], evaluate(strict)["bodies"])
+                    volume = F(actual["bodies"][0]["volume_mm3"])
+                    self.check_mesh(simple, volume)
+                    uncut = copy.deepcopy(simple)
+                    uncut["features"].pop()
+                    self.assertIn("analytic", evaluate(uncut)["bodies"][0])
+
+    def test_downstream_cut_rejects_new_concavity_atomically(self):
+        m = model_for([(0, 0), (10, 0), (10, 10), (0, 10)], "5")
+        m["features"][0]["kind"] = "planar_profile"
+        # A separate parameter lets only the upper right vertex move inward.
+        m["parameters"].update(diagonal="12", corner="10")
+        m["features"][0]["vertices"][2].update(x="corner", y="corner")
+        m["features"].append(cut(input="solid", normal=["1", "0", "1"]))
+        with tempfile.TemporaryDirectory() as d:
+            s = Store(Path(d) / "part.json")
+            s.execute(
+                {
+                    "action": "commit",
+                    "expected_revision": 0,
+                    "transaction_id": "create",
+                    "preserve": [],
+                    "operations": [
+                        {"op": "define_parameter", "id": k, "mm": v}
+                        for k, v in m["parameters"].items()
+                    ]
+                    + [{"op": "add_feature", "feature": f} for f in m["features"]],
+                }
+            )
+            before = s.path.read_bytes()
+            edit = {
+                "action": "commit",
+                "expected_revision": 1,
+                "transaction_id": "concave",
+                "preserve": [],
+                "operations": [{"op": "set_parameter", "id": "corner", "mm": "2"}],
+            }
+            with self.assertRaises(CadError) as caught:
+                s.execute(edit)
+            self.assertEqual(caught.exception.detail["code"], "unsupported_reference")
+            self.assertEqual(caught.exception.detail["entity"], "solid")
+            self.assertEqual(s.path.read_bytes(), before)
+            # Explicitly removing the dependent cut makes this simple concave edit valid.
+            edit["operations"].insert(0, {"op": "remove_feature", "id": "diagonal_cut"})
+            result = s.execute(edit)
+            self.assertEqual(result["bodies"][0]["analytic"]["kind"], "polygon_prism")
+            self.assertEqual(result["bodies"][0]["volume_mm3"], "100")
+
+    def test_perforated_planar_stock_remains_unsupported(self):
+        m = model_for([(0, 0), (10, 0), (10, 10), (0, 10)], "5")
+        m["features"][0]["kind"] = "planar_profile"
+        m["parameters"].update(diagonal="12", center="5", radius="1")
+        m["features"].extend(
+            [
+                {
+                    "kind": "through_holes",
+                    "id": "holes",
+                    "input": "solid",
+                    "holes": [
+                        {"id": "bore", "x": "center", "y": "center", "radius": "radius"}
+                    ],
+                },
+                cut(input="holes", normal=["1", "0", "1"]),
+            ]
+        )
+        with self.assertRaises(CadError) as caught:
+            evaluate(m)
+        self.assertEqual(caught.exception.detail["code"], "unsupported_reference")

@@ -1,0 +1,86 @@
+solid cad_mm
+facet normal 0 0 -1
+outer loop
+vertex 0 60 0
+vertex 80 60 0
+vertex 100 0 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 60 0
+vertex 100 0 0
+vertex 0 0 0
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0 0 20
+vertex 80 0 20
+vertex 80 60 20
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0 0 20
+vertex 80 60 20
+vertex 0 60 20
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 0 0 0
+vertex 100 0 0
+vertex 80 0 20
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 0 0 0
+vertex 80 0 20
+vertex 0 0 20
+endloop
+endfacet
+facet normal 0.94868329805051377 0.31622776601683789 0
+outer loop
+vertex 100 0 0
+vertex 80 60 0
+vertex 80 60 20
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 80 60 0
+vertex 0 60 0
+vertex 0 60 20
+endloop
+endfacet
+facet normal 0 1 -0
+outer loop
+vertex 80 60 0
+vertex 0 60 20
+vertex 80 60 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 0 60 0
+vertex 0 0 0
+vertex 0 0 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 0 60 0
+vertex 0 0 20
+vertex 0 60 20
+endloop
+endfacet
+facet normal 0.70710678118654746 -0 0.70710678118654746
+outer loop
+vertex 80 0 20
+vertex 100 0 0
+vertex 80 60 20
+endloop
+endfacet
+endsolid cad_mm

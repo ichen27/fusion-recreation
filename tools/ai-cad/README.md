@@ -175,3 +175,5 @@ The viewer [rebases display coordinates on the CPU](../../examples/ai-cad/gpu-pr
 Start a new browser document with `python3 tools/ai-cad/viewer.py --store work/new-part.cad.json`, then choose **New block or circular stock** or **New sketch → solid**. The [full browser example](../../examples/ai-cad/browser-stock/README.md) creates two parts, edits them and exports a single STL ZIP. Single-body downloads remain STL; multi-body ZIPs include a revision/units/precision manifest.
 
 Use **Download editable project** to keep the native model and history. **Import saved model…** previews a file before **Replace model** saves one undoable replacement. To reopen the source history directly, use the downloaded file as `--store`. [Native workflow and verified downloads](../../examples/ai-cad/native-project/README.md).
+
+[Browser sketch plane cuts](../../examples/ai-cad/sketch-plane/README.md) now accept convex `planar_profile` extrusions. Changing an upstream sketch rebuilds its cuts; concavity rejects atomically. Run `verify_sketch_plane.py` and optional `verify_sketch_plane_export.py`.

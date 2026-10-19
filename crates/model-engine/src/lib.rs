@@ -469,8 +469,22 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Plane cut must reference an earlier convex planar solid",
                     )
                 })?;
-                let boundary = parent.boundary.clone().ok_or_else(||
-                    error("unsupported_reference", input, "Plane cuts currently require a convex planar boundary; circular, perforated and concave stock are unsupported"))?;
+                let boundary = if let Some(boundary) = &parent.boundary {
+                    boundary.clone()
+                } else if let Some(Feature::Extrude {
+                    profile, height, ..
+                }) = m.features.iter().find(|f| f.id() == input)
+                {
+                    // Keep a planar_profile's native representation stable. Build an
+                    // exact convex boundary only when this downstream cut needs it.
+                    profile::convex_boundary(
+                        &profiles[profile.as_str()],
+                        &positive(m, height)?,
+                        input,
+                    )?
+                } else {
+                    return Err(error("unsupported_reference", input, "Plane cuts currently require convex unperforated planar stock; circular and perforated stock are unsupported"));
+                };
                 if !consumed.insert(input.as_str()) {
                     return Err(error("unsupported_branch",input,"A solid can have only one consuming feature; apply further cuts to the previous cut"));
                 }

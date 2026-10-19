@@ -1,4 +1,5 @@
 import { installStockEditor } from "/stock-editor.mjs";
+import { planeCandidate } from "/plane-model.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
 import {
   packVertices,
@@ -292,7 +293,7 @@ function render(state) {
       }
       if (
         f.kind === "plane_cut" ||
-        state.bodies.some((b) => b.feature_id === f.id && b.boundary)
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
       ) {
         const button = document.createElement("button");
         button.className = "edit-plane";
@@ -305,7 +306,7 @@ function render(state) {
         div.append(button);
         if (
           f.kind === "plane_cut" &&
-          state.bodies.some((b) => b.feature_id === f.id && b.boundary)
+          state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
         ) {
           const next = document.createElement("button");
           next.className = "edit-plane";
