@@ -1,0 +1,262 @@
+[
+  {
+    "tool": "cad_explain",
+    "arguments": {
+      "expected_revision": 2,
+      "feature_id": "positioned"
+    },
+    "reply": {
+      "result": {
+        "revision": 2,
+        "downstream_features": [],
+        "feature_id": "positioned",
+        "parameters": {
+          "depth": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "8"
+          },
+          "dx": {
+            "affected_bodies": [
+              "positioned"
+            ],
+            "affected_features": [
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "60"
+          },
+          "half": {
+            "affected_bodies": [
+              "positioned"
+            ],
+            "affected_features": [
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": false,
+            "driving_parameters": [
+              "width"
+            ],
+            "fixed_mm": null,
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "width": "1/2"
+              }
+            },
+            "value_mm": "20"
+          },
+          "height": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": false,
+            "driving_parameters": [],
+            "fixed_mm": "5",
+            "relation": null,
+            "value_mm": "5"
+          },
+          "width": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [
+              "half"
+            ],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "40"
+          },
+          "zero": {
+            "affected_bodies": [
+              "positioned"
+            ],
+            "affected_features": [
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "0"
+          }
+        },
+        "source_features": [
+          {
+            "id": "second",
+            "inputs": [],
+            "parameters": [
+              "depth",
+              "half",
+              "height"
+            ]
+          },
+          {
+            "id": "positioned",
+            "inputs": [
+              "second"
+            ],
+            "parameters": [
+              "dx",
+              "zero"
+            ]
+          }
+        ],
+        "terminal_body": true
+      }
+    }
+  },
+  {
+    "tool": "cad_explain",
+    "arguments": {
+      "expected_revision": 2,
+      "feature_id": "second"
+    },
+    "reply": {
+      "result": {
+        "revision": 2,
+        "downstream_features": [
+          "positioned"
+        ],
+        "feature_id": "second",
+        "parameters": {
+          "depth": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "8"
+          },
+          "half": {
+            "affected_bodies": [
+              "positioned"
+            ],
+            "affected_features": [
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": false,
+            "driving_parameters": [
+              "width"
+            ],
+            "fixed_mm": null,
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "width": "1/2"
+              }
+            },
+            "value_mm": "20"
+          },
+          "height": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [],
+            "directly_editable": false,
+            "driving_parameters": [],
+            "fixed_mm": "5",
+            "relation": null,
+            "value_mm": "5"
+          },
+          "width": {
+            "affected_bodies": [
+              "first",
+              "positioned"
+            ],
+            "affected_features": [
+              "first",
+              "second",
+              "positioned"
+            ],
+            "affected_parameters": [
+              "half"
+            ],
+            "directly_editable": true,
+            "driving_parameters": [],
+            "fixed_mm": null,
+            "relation": null,
+            "value_mm": "40"
+          }
+        },
+        "source_features": [
+          {
+            "id": "second",
+            "inputs": [],
+            "parameters": [
+              "depth",
+              "half",
+              "height"
+            ]
+          }
+        ],
+        "terminal_body": false
+      }
+    }
+  },
+  {
+    "tool": "cad_explain",
+    "arguments": {
+      "expected_revision": 1,
+      "feature_id": "positioned"
+    },
+    "reply": {
+      "error": {
+        "code": "revision_conflict",
+        "message": "Refresh before explaining this feature",
+        "entity": "document"
+      }
+    }
+  }
+]

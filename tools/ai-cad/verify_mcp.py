@@ -28,6 +28,7 @@ async def main():
                 assert {t.name for t in listing.tools} == {
                     "cad_inspect",
                     "cad_context",
+                    "cad_explain",
                     "cad_preview",
                     "cad_commit",
                     "cad_history",
@@ -55,6 +56,21 @@ async def main():
                 assert context["selection_status"] == "current"
                 assert context["selected_body"]["feature_id"] == selected
                 assert context["revision"] == 1
+                explanation = (
+                    await call(
+                        "cad_explain", {"expected_revision": 1, "feature_id": selected}
+                    )
+                )["result"]
+                assert explanation["terminal_body"]
+                assert explanation["parameters"]["thickness"]["fixed_mm"] == "12"
+                assert explanation["parameters"]["width"]["affected_bodies"] == [
+                    selected
+                ]
+                assert (
+                    await call(
+                        "cad_explain", {"expected_revision": 0, "feature_id": selected}
+                    )
+                )["error"]["code"] == "revision_conflict"
 
                 widen = json.loads((ROOT / "examples/ai-cad/widen.json").read_text())
                 widen.pop("action")

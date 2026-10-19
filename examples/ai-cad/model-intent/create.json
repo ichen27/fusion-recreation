@@ -1,0 +1,85 @@
+{
+  "action": "commit",
+  "expected_revision": 0,
+  "transaction_id": "create-intent-example",
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "width",
+      "mm": "20"
+    },
+    {
+      "op": "define_parameter",
+      "id": "half",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "height",
+      "mm": "5"
+    },
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "8"
+    },
+    {
+      "op": "define_parameter",
+      "id": "dx",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "zero",
+      "mm": "0"
+    },
+    {
+      "op": "set_relation",
+      "id": "half",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "width": "1/2"
+        }
+      }
+    },
+    {
+      "op": "fix_parameter",
+      "id": "height"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "block",
+        "id": "first",
+        "width": "width",
+        "depth": "depth",
+        "height": "height"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "block",
+        "id": "second",
+        "width": "half",
+        "depth": "depth",
+        "height": "height"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "kind": "translate",
+        "id": "positioned",
+        "input": "second",
+        "offset": [
+          "dx",
+          "zero",
+          "zero"
+        ]
+      }
+    }
+  ],
+  "preserve": []
+}

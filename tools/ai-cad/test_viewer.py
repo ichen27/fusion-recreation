@@ -80,6 +80,26 @@ class Viewer(unittest.TestCase):
         self.assertEqual(status, 400)
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_explanation_http_is_read_only_and_revision_bound(self):
+        result = self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        feature = result["bodies"][0]["feature_id"]
+        for revision, expected_status in [(1, 200), (0, 400)]:
+            status, payload = self.request(
+                "POST",
+                "/api/explain",
+                json.dumps({"expected_revision": revision, "feature_id": feature}),
+                {"Content-Type": "application/json"},
+            )
+            self.assertEqual(status, expected_status)
+            if status == 200:
+                info = json.loads(payload)["result"]
+                self.assertEqual(
+                    info["parameters"]["width"]["affected_bodies"], [feature]
+                )
+                self.assertFalse(info["parameters"]["thickness"]["directly_editable"])
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_render_and_edit_share_store(self):
         status, html = self.request("GET", "/")
         self.assertEqual(status, 200)

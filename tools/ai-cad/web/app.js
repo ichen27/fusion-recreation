@@ -239,12 +239,84 @@ canvas.addEventListener("webglcontextrestored", () => {
   draw();
   $("display-status").textContent = "";
 });
+let intentKey = null,
+  intentPending = false;
+function intentControls() {
+  $("explain-selection").disabled =
+    intentPending || busy || !!preview || editPending || !selectedBody;
+  const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
+  if (intentKey !== key) {
+    $("intent-info").replaceChildren();
+    intentKey = key;
+  }
+}
+$("explain-selection").addEventListener("click", async () => {
+  const feature = selectedBody,
+    revision = saved.revision,
+    key = `${revision}:${feature}`;
+  intentPending = true;
+  intentControls();
+  $("intent-info").textContent = "Reading controlling features and dimensions…";
+  try {
+    const reply = await (
+      await fetch("/api/explain", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          expected_revision: revision,
+          feature_id: feature,
+        }),
+      })
+    ).json();
+    if (intentKey !== key) return;
+    if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
+    const info = reply.result,
+      container = $("intent-info");
+    container.replaceChildren();
+    const source = document.createElement("p");
+    source.textContent = `Source features: ${info.source_features.map((f) => f.id).join(", ")}.`;
+    container.append(source);
+    const note = document.createElement("p");
+    note.textContent =
+      "Potential dependency impact. Preview still validates the edit.";
+    container.append(note);
+    for (const [id, parameter] of Object.entries(info.parameters)) {
+      const item = document.createElement("details"),
+        title = document.createElement("summary"),
+        description = document.createElement("p");
+      const state = parameter.relation
+        ? "derived"
+        : parameter.fixed_mm !== null
+          ? "fixed"
+          : "editable";
+      title.textContent = `${id}: ${parameter.value_mm} mm · ${state}`;
+      description.textContent = [
+        parameter.fixed_mm !== null ? `Fixed at ${parameter.fixed_mm} mm.` : "",
+        parameter.relation
+          ? `Driven by: ${parameter.driving_parameters.join(", ") || "constant relationship"}.`
+          : "",
+        `May affect solids: ${parameter.affected_bodies.join(", ") || "none"}.`,
+        `Dependent features: ${parameter.affected_features.join(", ")}.`,
+      ]
+        .filter(Boolean)
+        .join(" ");
+      item.append(title, description);
+      container.append(item);
+    }
+  } catch (error) {
+    if (intentKey === key) $("intent-info").textContent = error.message;
+  } finally {
+    intentPending = false;
+    intentControls();
+  }
+});
 function updateSelection() {
   const body = visibleBodies.find((b) => b.feature_id === selectedBody);
   $("selection-info").textContent = body
     ? `${body.feature_id} · ${body.volume_mm3} mm³ (exact)`
     : "Click a solid or select it in the feature list.";
   $("clear-selection").disabled = !saved;
+  intentControls();
   for (const button of document.querySelectorAll(".select-body")) {
     const active = button.dataset.body === selectedBody;
     button.setAttribute("aria-pressed", String(active));
@@ -385,6 +457,7 @@ $("fit-view").addEventListener("click", () => {
 });
 new ResizeObserver(draw).observe(canvas);
 function controls() {
+  intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
   $("new-intersection").disabled =
