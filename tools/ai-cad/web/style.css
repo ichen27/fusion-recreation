@@ -334,17 +334,12 @@ summary {
   font-size: 12px;
 }
 
-.edit-sketch,
-.edit-holes,
-.edit-plane {
+.feature button {
   display: block;
   margin-top: 8px;
   padding: 5px 8px;
 }
-#sketch-dialog,
-#hole-dialog,
-#plane-dialog,
-#stock-dialog {
+dialog {
   width: min(1000px, 95vw);
   max-height: 94vh;
   overflow: auto;
@@ -353,10 +348,7 @@ summary {
   padding: 20px;
   color: #1b343b;
 }
-#sketch-dialog::backdrop,
-#hole-dialog::backdrop,
-#plane-dialog::backdrop,
-#stock-dialog::backdrop {
+dialog::backdrop {
   background: #132b3780;
 }
 .sketch-heading {
@@ -502,7 +494,10 @@ summary {
 }
 
 #plane-dialog,
-#stock-dialog {
+#stock-dialog,
+#intersection-dialog,
+#translate-dialog,
+#rotation-dialog {
   max-width: 560px;
 }
 .plane-normal {
@@ -538,4 +533,14 @@ summary {
   font-size: 12px;
   overflow-wrap: anywhere;
   line-height: 1.6;
+}
+
+dialog form > label {
+  display: block;
+  margin: 14px 0;
+}
+dialog p[role="status"] {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #527268;
 }

@@ -182,4 +182,6 @@ Use **Download editable project** to keep the native model and history. **Import
 
 Click a solid or use its feature-list **Select solid** button to highlight it and inspect its stable ID/exact volume. [Viewport selection and measured CPU/GPU behavior](../../examples/ai-cad/body-selection/README.md). Selection/orbit retain GPU buffers and do not save the model.
 
-Use **Move solid** / **Edit move** for exact XYZ translation of convex planar bodies, including movement before an intersection. [Editable positioned parts and export checks](../../examples/ai-cad/translation/README.md). Run `verify_translation.py` and optional `verify_translation_export.py`. Circular/perforated/concave bodies and rotation remain unsupported by this feature.
+Use **Move solid** / **Edit move** for exact XYZ translation of convex planar bodies, including movement before an intersection. [Editable positioned parts and export checks](../../examples/ai-cad/translation/README.md). Run `verify_translation.py` and optional `verify_translation_export.py`. Circular/perforated/concave bodies remain unsupported by this feature.
+
+Use **Quarter-turn solid** / **Edit turn** to orient convex planar parts by exact 90°, 180° or 270° rotations about a global axis through a parameter-backed pivot. [Editable rotation and export evidence](../../examples/ai-cad/quarter-turn/README.md). Run `verify_rotation.py` and optional `verify_rotation_export.py`. Arbitrary angles and curved/nonconvex rotations remain open.

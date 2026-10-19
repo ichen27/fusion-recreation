@@ -377,6 +377,45 @@
         </button>
       </form>
     </dialog>
+    <dialog id="rotation-dialog" aria-labelledby="rotation-title">
+      <form id="rotation-form">
+        <header class="sketch-heading">
+          <h2 id="rotation-title">Quarter-turn solid</h2>
+          <button type="button" id="rotation-close">Cancel</button>
+        </header>
+        <p id="rotation-feedback" role="status"></p>
+        <label
+          >Global axis<select id="rotation-axis" aria-label="Rotation axis">
+            <option value="x">X</option>
+            <option value="y">Y</option>
+            <option value="z">Z</option>
+          </select></label
+        >
+        <label
+          >Angle<select id="rotation-turns" aria-label="Rotation angle">
+            <option value="1">90°</option>
+            <option value="2">180°</option>
+            <option value="3">270°</option>
+          </select></label
+        >
+        <label
+          >Pivot X (mm)<input id="rotation-x" aria-label="Pivot X" required
+        /></label>
+        <label
+          >Pivot Y (mm)<input id="rotation-y" aria-label="Pivot Y" required
+        /></label>
+        <label
+          >Pivot Z (mm)<input id="rotation-z" aria-label="Pivot Z" required
+        /></label>
+        <p class="hint">
+          Convex planar solids only. Exact 90°, 180° or 270° rotations; no
+          arbitrary-angle approximation. Preview checks downstream features.
+        </p>
+        <button type="submit" id="rotation-preview" class="primary">
+          Preview rotation
+        </button>
+      </form>
+    </dialog>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

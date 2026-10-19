@@ -1,3 +1,5 @@
+import { vectorOperations } from "./vector-parameters.mjs";
+export { parameterEditable as translationEditable } from "./vector-parameters.mjs";
 import { planeCandidate } from "./plane-model.mjs";
 export function translationDraft(state, input, featureId = null) {
   const feature = featureId
@@ -38,30 +40,13 @@ export function translationDraft(state, input, featureId = null) {
       : ["0", "0", "0"],
   };
 }
-export function translationEditable(state, reference) {
-  return (
-    !(reference in state.model.fixed) &&
-    !(reference in (state.model.relations ?? {}))
-  );
-}
 export function translationProposal(state, draft) {
-  const values = new Map();
-  draft.offset.forEach((id, i) => {
-    if (values.has(id) && values.get(id) !== draft.values[i])
-      throw Error("Shared offset references must have one value");
-    values.set(id, draft.values[i]);
-  });
-  const operations = [];
-  for (const [id, mm] of values) {
-    if (!draft.featureId) operations.push({ op: "define_parameter", id, mm });
-    else if (mm !== state.model.parameters[id]) {
-      if (!translationEditable(state, id))
-        throw Error(
-          "Offset is fixed or derived; edit its controlling parameter",
-        );
-      operations.push({ op: "set_parameter", id, mm });
-    }
-  }
+  const operations = vectorOperations(
+    state,
+    draft.offset,
+    draft.values,
+    !draft.featureId,
+  );
   if (!draft.featureId)
     operations.push({
       op: "add_feature",
@@ -77,7 +62,8 @@ export function translationProposal(state, draft) {
     expected_revision: state.revision,
     operations,
     preserve: Object.keys(state.model.parameters).filter(
-      (id) => !values.has(id) && !(id in (state.model.relations ?? {})),
+      (id) =>
+        !draft.offset.includes(id) && !(id in (state.model.relations ?? {})),
     ),
   };
 }

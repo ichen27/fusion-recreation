@@ -1,3 +1,4 @@
+import { installRotationEditor } from "/rotation-editor.mjs";
 import { installTranslateEditor } from "/translate-editor.mjs";
 import { pickBody } from "/picking.mjs";
 import { installIntersectionEditor } from "/intersection-editor.mjs";
@@ -14,7 +15,7 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes, planes, stocks, intersections, translations;
+let sketches, holes, planes, stocks, intersections, translations, rotations;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -322,7 +323,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-sketch, .edit-holes, .edit-plane, .edit-move",
+    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -431,6 +432,20 @@ function render(state) {
           translations.open(f.id, f.kind === "translate" ? f.id : null),
         );
         div.append(move);
+      }
+      if (
+        f.kind === "rotate_quarter" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-rotation";
+        button.textContent =
+          f.kind === "rotate_quarter" ? "Edit turn" : "Quarter-turn solid";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          rotations.open(f.id, f.kind === "rotate_quarter" ? f.id : null),
+        );
+        div.append(button);
       }
       return div;
     }),
@@ -638,6 +653,7 @@ holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));
+rotations = installRotationEditor(editorCallbacks("Rotation"));
 intersections = installIntersectionEditor(editorCallbacks("Intersection"));
 $("new-intersection").addEventListener("click", () => intersections.open());
 $("new-stock").addEventListener("click", () => stocks.open());
