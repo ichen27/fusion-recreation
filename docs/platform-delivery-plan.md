@@ -97,3 +97,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Browser stock and multi-body delivery checkpoint
 
 [Creation from an empty document](../examples/ai-cad/browser-stock/README.md) now supports block/circular stock and existing cut/hole editors without CLI model setup. Eleven actual browser calls and a downloaded two-body ZIP verify native editing, atomic rejection, undo/redo and consistent-revision export. Document management, assembly structure and broader geometry remain open.
+
+## Native project checkpoint
+
+[Native download and import](../examples/ai-cad/native-project/README.md) retain editable history in downloads and make importing a model an explicit undoable replacement. Actual browser records, downloaded files and corruption/stale/retry tests verify the workflow. Project libraries, document migrations and multi-user synchronization remain open. Next: connect browser-created convex sketches to existing three-dimensional plane cuts without approximating concave or curved solids.

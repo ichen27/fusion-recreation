@@ -14,6 +14,7 @@ const $ = (id) => document.getElementById(id);
 let saved,
   preview,
   proposed,
+  commitAction = "commit",
   editPending = false,
   busy = false;
 const canvas = $("viewport");
@@ -231,6 +232,9 @@ function controls() {
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
   $("redo").disabled = busy || !!preview || !saved?.can_redo;
   $("commit").disabled = busy;
+  $("cancel").disabled = busy;
+  for (const id of ["export-native", "import-native", "native-file"])
+    $(id).disabled = busy || !!preview || editPending || !saved;
   $("export-stl").disabled =
     busy || !!preview || editPending || !saved?.bodies.length;
   $("dimensions").querySelector("button").disabled = busy || !!preview;
@@ -253,6 +257,8 @@ function render(state) {
   $("revision").textContent = `Revision ${state.revision} · Millimeters`;
   $("mode").textContent = preview ? "EDIT PREVIEW" : "SAVED MODEL";
   $("preview-actions").hidden = !preview;
+  $("commit").textContent =
+    commitAction === "import" ? "Replace model" : "Save edit";
   $("features").replaceChildren(
     ...state.model.features.map((f) => {
       const div = document.createElement("div");
@@ -451,6 +457,7 @@ $("dimensions").addEventListener("submit", (e) => {
       ),
     };
     preview = await call({ action: "preview", ...proposed });
+    commitAction = "commit";
     render(preview);
     $("status").textContent =
       "Preview valid. Fixed dimensions and preserved parameters are unchanged.";
@@ -460,7 +467,7 @@ $("commit").addEventListener("click", () =>
   task(async () => {
     // Retain the same transaction ID for an uncertain acknowledgement and retry.
     proposed.transaction_id ??= crypto.randomUUID();
-    saved = await call({ action: "commit", ...proposed });
+    saved = await call({ action: commitAction, ...proposed });
     preview = null;
     editPending = false;
     render(saved);
@@ -501,6 +508,7 @@ const editorCallbacks = (name) => ({
   onPreview: async (proposal) => {
     const result = await call({ action: "preview", ...proposal });
     proposed = proposal;
+    commitAction = "commit";
     preview = result;
     render(preview);
     $("status").textContent =
@@ -548,4 +556,40 @@ $("export-stl").addEventListener("click", async () => {
     busy = false;
     controls();
   }
+});
+
+$("export-native").addEventListener("click", () =>
+  task(async () => {
+    const revision = saved.revision;
+    const response = await fetch(`/api/export.cad?revision=${revision}`);
+    if (!response.ok) throw Error((await response.json()).error.message);
+    const url = URL.createObjectURL(await response.blob());
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `cad-r${revision}.cad.json`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $("status").textContent =
+      `Downloaded editable revision ${revision}, including its undo history.`;
+  }),
+);
+$("import-native").addEventListener("click", () => $("native-file").click());
+$("native-file").addEventListener("change", () => {
+  const file = $("native-file").files[0];
+  $("native-file").value = "";
+  if (!file || busy || preview || editPending || !saved) return;
+  task(async () => {
+    const revision = saved.revision;
+    if (file.size > 16 * 1024 * 1024)
+      throw Error("Native files must be at most 16 MiB.");
+    const document = JSON.parse(await file.text());
+    const proposal = { expected_revision: revision, document };
+    const result = await call({ action: "preview_import", ...proposal });
+    proposed = proposal;
+    commitAction = "import";
+    preview = result;
+    render(preview);
+    $("status").textContent =
+      `${file.name}: validated import preview. Replace model saves this model as one undoable edit. This workspace keeps its history; source history is not copied.`;
+  });
 });

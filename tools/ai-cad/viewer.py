@@ -5,7 +5,7 @@ import argparse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from pathlib import Path
-from store import CadError, Store, dispatch
+from store import MAX_BYTES, CadError, Store, dispatch
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from urllib.parse import urlsplit, parse_qs
@@ -45,6 +45,27 @@ def handler(store, port):
                         display(dispatch(store, {"action": "inspect"}), meshes)
                     ).encode(),
                 )
+            if urlsplit(self.path).path == "/api/export.cad":
+                try:
+                    query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
+                    if set(query) != {"revision"} or len(query["revision"]) != 1:
+                        raise ValueError("Expected one revision")
+                    return self.reply(
+                        200,
+                        store.native_snapshot(int(query["revision"][0])),
+                        "application/json",
+                    )
+                except (CadError, ValueError) as exc:
+                    return self.reply(
+                        400,
+                        json.dumps(
+                            {
+                                "error": exc.detail
+                                if isinstance(exc, CadError)
+                                else {"message": str(exc)}
+                            }
+                        ).encode(),
+                    )
             if urlsplit(self.path).path in ("/api/export.stl", "/api/export.zip"):
                 bundled = urlsplit(self.path).path.endswith(".zip")
                 try:
@@ -110,7 +131,7 @@ def handler(store, port):
                 return self.reply(404, b"{}")
             try:
                 length = int(self.headers.get("Content-Length", "0"))
-                if not 0 < length <= 262144:
+                if not 0 < length <= MAX_BYTES + 1024:
                     return self.reply(413, b"{}")
                 self.connection.settimeout(5)
                 command = json.loads(self.rfile.read(length))

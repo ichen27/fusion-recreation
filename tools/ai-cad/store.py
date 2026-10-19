@@ -5,6 +5,7 @@ POSIX only (macOS/Linux); the lock file is permanent and never unlinked.
 """
 
 import copy
+from contextlib import contextmanager
 import fcntl
 import hashlib
 import json
@@ -88,15 +89,10 @@ class Store:
     def inspect_model(self, model):
         return self.evaluations.get(BINARY, model, lambda: evaluate(model))
 
-    def load(self):
-        if not self.path.exists():
-            return fresh()
+    def decode_document(self, envelope):
         try:
-            with self.path.open("rb") as stream:
-                raw = stream.read(MAX_BYTES + 1)
-            if len(raw) > MAX_BYTES:
+            if len(encode(envelope)) > MAX_BYTES:
                 raise ValueError("document exceeds 16 MiB")
-            envelope = json.loads(raw)
             state = envelope["state"]
             if hashlib.sha256(encode(state)).hexdigest() != envelope["sha256"]:
                 raise ValueError("checksum mismatch")
@@ -139,6 +135,18 @@ class Store:
         except (ValueError, KeyError, TypeError, CadError) as exc:
             raise CadError("invalid_document", str(exc)) from exc
 
+    def load(self):
+        if not self.path.exists():
+            return fresh()
+        try:
+            with self.path.open("rb") as stream:
+                raw = stream.read(MAX_BYTES + 1)
+            if len(raw) > MAX_BYTES:
+                raise ValueError("document exceeds 16 MiB")
+            return self.decode_document(json.loads(raw))
+        except (ValueError, KeyError, TypeError) as exc:
+            raise CadError("invalid_document", str(exc)) from exc
+
     def save(self, state):
         data = encode(
             {"sha256": hashlib.sha256(encode(state)).hexdigest(), "state": state}
@@ -176,13 +184,29 @@ class Store:
             if temporary and os.path.exists(temporary):
                 os.unlink(temporary)
 
-    def execute(self, command):
+    @contextmanager
+    def locked(self):
         with self.path.with_suffix(self.path.suffix + ".lock").open("a+b") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             try:
-                return self._execute(command)
+                yield
             finally:
                 fcntl.flock(lock, fcntl.LOCK_UN)
+
+    def native_snapshot(self, revision):
+        with self.locked():
+            state = self.load()
+            if type(revision) is not int or revision != state["revision"]:
+                raise CadError(
+                    "revision_conflict", "Refresh before downloading the saved document"
+                )
+            return encode(
+                {"state": state, "sha256": hashlib.sha256(encode(state)).hexdigest()}
+            )
+
+    def execute(self, command):
+        with self.locked():
+            return self._execute(command)
 
     def _execute(self, command):
         if not isinstance(command, dict):
@@ -191,25 +215,37 @@ class Store:
         fields = {"action"}
         if action in ("preview", "commit"):
             fields |= {"expected_revision", "operations", "preserve"}
-        if action in ("commit", "undo", "redo"):
+        if action in ("preview_import", "import"):
+            fields |= {"expected_revision", "document"}
+        if action in ("commit", "undo", "redo", "import"):
             fields |= {"expected_revision", "transaction_id"}
         if (
-            action not in ("inspect", "preview", "commit", "undo", "redo")
+            action
+            not in (
+                "inspect",
+                "preview",
+                "commit",
+                "undo",
+                "redo",
+                "preview_import",
+                "import",
+            )
             or set(command) != fields
         ):
             raise CadError(
                 "invalid_command",
                 "Wrong action or fields; consult the command contract",
             )
-        if len(encode(command)) > 262144:
-            raise CadError("request_limit", "Command exceeds 256 KiB")
+        limit = MAX_BYTES + 1024 if action in ("preview_import", "import") else 262144
+        if len(encode(command)) > limit:
+            raise CadError("request_limit", f"Command exceeds {limit} bytes")
         state = self.load()
         result = {
             "revision": state["revision"],
             "can_undo": bool(state["undo"]),
             "can_redo": bool(state["redo"]),
         }
-        mutation = action in ("commit", "undo", "redo")
+        mutation = action in ("commit", "undo", "redo", "import")
         if mutation:
             tx = command["transaction_id"]
             if not isinstance(tx, str) or not 1 <= len(tx) <= 128:
@@ -245,23 +281,42 @@ class Store:
                     "revision_conflict",
                     f"Expected current revision {state['revision']}; inspect and replan",
                 )
-        if action in ("inspect", "preview", "commit"):
-            if action != "inspect" and (
+        if action in ("inspect", "preview", "commit", "preview_import", "import"):
+            if action in ("preview", "commit") and (
                 not isinstance(command["operations"], list)
                 or not isinstance(command["preserve"], list)
             ):
                 raise CadError(
                     "invalid_command", "operations and preserve must be arrays"
                 )
-            evaluated = (
-                self.inspect_model(state["model"])
-                if action == "inspect"
-                else evaluate(
-                    state["model"], command.get("operations"), command.get("preserve")
+            if action in ("preview_import", "import"):
+                imported = self.decode_document(command["document"])
+                evaluated = self.inspect_model(imported["model"])
+                before, after = (
+                    state["model"]["parameters"],
+                    evaluated["model"]["parameters"],
                 )
-            )
+                evaluated["changed_parameters"] = sorted(
+                    k
+                    for k in before.keys() | after.keys()
+                    if before.get(k) != after.get(k)
+                )
+            else:
+                evaluated = (
+                    self.inspect_model(state["model"])
+                    if action == "inspect"
+                    else evaluate(
+                        state["model"],
+                        command.get("operations"),
+                        command.get("preserve"),
+                    )
+                )
             if not mutation:
-                return {**result, "preview": action == "preview", **evaluated}
+                return {
+                    **result,
+                    "preview": action in ("preview", "preview_import"),
+                    **evaluated,
+                }
             if evaluated["model"] == state["model"]:
                 raise CadError("no_change", "Commit would not change the model")
             state["undo"] = (state["undo"] + [state["model"]])[-64:]

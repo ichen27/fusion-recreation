@@ -77,6 +77,20 @@
         <p id="status" role="status">Loading saved document…</p>
         <button id="refresh">Refresh model</button>
         <button id="export-stl" disabled>Download saved STL</button>
+        <h2>Project files</h2>
+        <button id="export-native" disabled>Download editable project</button>
+        <button id="import-native" disabled>Import saved model…</button>
+        <input
+          id="native-file"
+          type="file"
+          accept=".json,.cad.json"
+          aria-label="Native project file"
+          hidden
+        />
+        <p class="hint">
+          Native downloads keep dimensions, features and undo history. Import
+          previews replacing this workspace’s model as one undoable edit.
+        </p>
         <details>
           <summary>Supported geometry</summary>
           <p>
