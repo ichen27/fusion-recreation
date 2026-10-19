@@ -83,3 +83,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Analytic solid placement](analytic-placement/README.md): exact movement, turns and linked copies of circular/perforated parts, editable blind depth, world-space STL floors and analytic STEP references.
 
 - [Analytic engineering measurements](analytic-measurements/README.md): exact symbolic-π centroids/inertia, asymmetric blind holes, placed parts and a recorded shared-depth edit with fifteen independent references.
+
+- [CPU reuse within a transaction](transaction-reuse/README.md): unchanged validated feature prefixes, six full input/reply pairs, baseline/new CPU timings and 63-model differential coverage.

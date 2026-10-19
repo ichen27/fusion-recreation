@@ -12,6 +12,7 @@ pub mod measure;
 mod measure_curved;
 pub mod mesh;
 pub mod polyhedral;
+mod rebuild;
 pub use polyhedral::Operation as BooleanOperation;
 pub mod placement;
 mod profile;
@@ -340,8 +341,8 @@ fn polyhedral_body(id: &str, solid: polyhedral::Solid) -> Body {
 // Keep existing serialized source prisms and convex operation results stable.
 fn polyhedral_input(
     m: &Model,
-    profiles: &BTreeMap<&str, profile::Profile>,
-    evaluated: &BTreeMap<&str, Body>,
+    profiles: &BTreeMap<String, profile::Profile>,
+    evaluated: &BTreeMap<String, Body>,
     input: &str,
 ) -> Result<Option<polyhedral::Solid>> {
     let Some(parent) = evaluated.get(input) else {
@@ -365,8 +366,8 @@ fn polyhedral_input(
 // Resolve a bounded planar rigid transform without losing nonconvex backing cells.
 fn transformed_body(
     m: &Model,
-    profiles: &BTreeMap<&str, profile::Profile>,
-    evaluated: &BTreeMap<&str, Body>,
+    profiles: &BTreeMap<String, profile::Profile>,
+    evaluated: &BTreeMap<String, Body>,
     id: &str,
     input: &str,
     mut transform: impl FnMut(Boundary) -> Result<Body>,
@@ -399,8 +400,8 @@ fn transformed_body(
 
 fn convex_input(
     m: &Model,
-    profiles: &BTreeMap<&str, profile::Profile>,
-    evaluated: &BTreeMap<&str, Body>,
+    profiles: &BTreeMap<String, profile::Profile>,
+    evaluated: &BTreeMap<String, Body>,
     input: &str,
     operation: &str,
 ) -> Result<Boundary> {
@@ -447,9 +448,16 @@ fn convex_input(
 }
 
 pub fn validate(m: &Model) -> Result<Vec<Body>> {
-    Ok(evaluate_geometry(m)?.0)
+    Ok(evaluate_geometry(m)?.into_parts().0)
 }
-fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
+fn evaluate_geometry(m: &Model) -> Result<rebuild::Geometry> {
+    evaluate_geometry_from(m, rebuild::Geometry::default(), 0)
+}
+fn evaluate_geometry_from(
+    m: &Model,
+    state: rebuild::Geometry,
+    start: usize,
+) -> Result<rebuild::Geometry> {
     if m.parameters.len() > 64 || m.features.len() > 32 || m.fixed.len() > 64 {
         return Err(error(
             "model_limit",
@@ -471,11 +479,15 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             ));
         }
     }
-    let mut evaluated = BTreeMap::new();
-    let mut profiles = BTreeMap::new();
-    let mut consumed = BTreeSet::new();
-    let mut ids = BTreeSet::new();
-    for feature in &m.features {
+    let rebuild::Geometry {
+        mut evaluated,
+        mut profiles,
+        mut consumed,
+        mut checkpoints,
+    } = state;
+    let mut ids: BTreeSet<_> = m.features[..start].iter().map(Feature::id).collect();
+    for feature in &m.features[start..] {
+        checkpoints.push(consumed.clone());
         let id = feature.id();
         identifier(id)?;
         if !ids.insert(id) {
@@ -521,7 +533,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 } else {
                     shape
                 };
-                if !consumed.insert(input.as_str()) {
+                if !consumed.insert(input.clone()) {
                     return Err(error(
                         "unsupported_branch",
                         input,
@@ -540,7 +552,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     )
                 };
                 evaluated.insert(
-                    id,
+                    id.into(),
                     Body {
                         feature_id: id.into(),
                         components: None,
@@ -580,7 +592,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 let a = resolve(left)?;
                 let b = resolve(right)?;
                 for input in [left, right] {
-                    if !consumed.insert(input.as_str()) {
+                    if !consumed.insert(input.clone()) {
                         return Err(error(
                             "unsupported_branch",
                             input,
@@ -592,7 +604,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     e.entity = id.into();
                     e
                 })?;
-                evaluated.insert(id, polyhedral_body(id, solid));
+                evaluated.insert(id.into(), polyhedral_body(id, solid));
                 continue;
             }
             Feature::RotateQuarter {
@@ -609,7 +621,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Quarter turns must be 1, 2 or 3 (90, 180 or 270 degrees)",
                     ));
                 }
-                if !consumed.insert(input.as_str()) {
+                if !consumed.insert(input.clone()) {
                     return Err(error(
                         "unsupported_branch",
                         input,
@@ -644,7 +656,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         solid_ops::rotate_quarter(id, boundary, *axis, *turns, &origin)
                     })?,
                 };
-                evaluated.insert(id, body);
+                evaluated.insert(id.into(), body);
                 continue;
             }
             Feature::Translate { input, offset, .. }
@@ -653,8 +665,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 offset,
                 ..
             } => {
-                if matches!(feature, Feature::Translate { .. }) && !consumed.insert(input.as_str())
-                {
+                if matches!(feature, Feature::Translate { .. }) && !consumed.insert(input.clone()) {
                     return Err(error(
                         "unsupported_branch",
                         input,
@@ -687,7 +698,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         solid_ops::translate(id, boundary, &delta)
                     })?,
                 };
-                evaluated.insert(id, body);
+                evaluated.insert(id.into(), body);
                 continue;
             }
             Feature::Intersection { left, right, .. } => {
@@ -701,7 +712,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 let a = convex_input(m, &profiles, &evaluated, left, "Intersections")?;
                 let b = convex_input(m, &profiles, &evaluated, right, "Intersections")?;
                 for input in [left, right] {
-                    if !consumed.insert(input.as_str()) {
+                    if !consumed.insert(input.clone()) {
                         return Err(error(
                             "unsupported_branch",
                             input,
@@ -709,7 +720,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         ));
                     }
                 }
-                evaluated.insert(id, solid_ops::intersection(id, a, &b)?);
+                evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
                 continue;
             }
             Feature::Cylinder {
@@ -725,7 +736,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     shape.volume.pi_subtract_mm3.trim_start_matches('-')
                 );
                 evaluated.insert(
-                    id,
+                    id.into(),
                     Body {
                         feature_id: id.into(),
                         components: None,
@@ -738,11 +749,11 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 continue;
             }
             Feature::PlanarProfile { vertices, .. } => {
-                profiles.insert(id, profile::resolve_planar(m, id, vertices)?);
+                profiles.insert(id.into(), profile::resolve_planar(m, id, vertices)?);
                 continue;
             }
             Feature::PolygonProfile { vertices, .. } => {
-                profiles.insert(id, profile::resolve(m, id, vertices)?);
+                profiles.insert(id.into(), profile::resolve(m, id, vertices)?);
                 continue;
             }
             Feature::Extrude {
@@ -760,7 +771,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                     let shape = holes::prism(input, &h);
                     let volume_mm3 = shape.volume.constant_mm3.clone();
                     evaluated.insert(
-                        id,
+                        id.into(),
                         Body {
                             feature_id: id.into(),
                             components: None,
@@ -805,7 +816,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 offset,
                 ..
             } => {
-                if !consumed.insert(input.as_str()) {
+                if !consumed.insert(input.clone()) {
                     return Err(error("unsupported_branch",input,"A solid can have only one consuming feature; apply further cuts to the previous cut"));
                 }
                 let parsed = [
@@ -825,7 +836,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         e.entity = id.into();
                         e
                     })?;
-                    evaluated.insert(id, polyhedral_body(id, result));
+                    evaluated.insert(id.into(), polyhedral_body(id, result));
                     continue;
                 }
                 (
@@ -846,7 +857,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                         "Corner cut must reference an earlier block feature",
                     ));
                 };
-                if !consumed.insert(input.as_str()) {
+                if !consumed.insert(input.clone()) {
                     return Err(error(
                         "unsupported_branch",
                         input,
@@ -888,7 +899,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             return Err(error("empty_solid", id, "Cut removes the entire solid or leaves only a face/edge/point; adjust the plane or remove the feature explicitly"));
         }
         evaluated.insert(
-            id,
+            id.into(),
             Body {
                 feature_id: id.into(),
                 components: None,
@@ -899,14 +910,18 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
             },
         );
     }
-    let bodies = evaluated
-        .into_iter()
-        .filter(|(id, _)| !consumed.contains(id))
-        .map(|(_, v)| v)
-        .collect();
-    Ok((bodies, profiles.into_values().map(|p| p.output()).collect()))
+    checkpoints.push(consumed.clone());
+    Ok(rebuild::Geometry {
+        evaluated,
+        profiles,
+        consumed,
+        checkpoints,
+    })
 }
 pub fn evaluate(request: Request) -> Result<Evaluation> {
+    evaluate_with_reuse(request, true)
+}
+fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
     if request.schema_version != 1 {
         return Err(error(
             "schema_version",
@@ -921,7 +936,7 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
             "Too many operations or preserve entries",
         ));
     }
-    validate(&request.model)?;
+    let previous = evaluate_geometry(&request.model)?;
     let before = request.model;
     let mut model = before.clone();
     for op in request.operations {
@@ -1037,7 +1052,13 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
     }
     // A fixed value can only change if explicitly released in the transaction.
     // Re-fixing without releasing must not overwrite an existing invariant.
-    let (bodies, profiles) = evaluate_geometry(&model)?;
+    let next = if reuse {
+        let (state, start) = previous.retain_prefix(&before, &model);
+        evaluate_geometry_from(&model, state, start)?
+    } else {
+        evaluate_geometry(&model)?
+    };
+    let (bodies, profiles) = next.into_parts();
     let changed_parameters = before
         .parameters
         .keys()

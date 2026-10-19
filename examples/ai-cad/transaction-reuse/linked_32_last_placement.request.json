@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "model": {
+    "parameters": {
+      "width": "10",
+      "height": "5",
+      "zero": "0",
+      "step": "20",
+      "last": "30"
+    },
+    "fixed": {},
+    "features": [
+      {
+        "kind": "block",
+        "id": "part",
+        "width": "width",
+        "depth": "width",
+        "height": "height"
+      },
+      {
+        "kind": "instance",
+        "id": "copy0",
+        "source": "part",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy1",
+        "source": "copy0",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy2",
+        "source": "copy1",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy3",
+        "source": "copy2",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy4",
+        "source": "copy3",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy5",
+        "source": "copy4",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy6",
+        "source": "copy5",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy7",
+        "source": "copy6",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy8",
+        "source": "copy7",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy9",
+        "source": "copy8",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy10",
+        "source": "copy9",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy11",
+        "source": "copy10",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy12",
+        "source": "copy11",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy13",
+        "source": "copy12",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy14",
+        "source": "copy13",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy15",
+        "source": "copy14",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy16",
+        "source": "copy15",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy17",
+        "source": "copy16",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy18",
+        "source": "copy17",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy19",
+        "source": "copy18",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy20",
+        "source": "copy19",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy21",
+        "source": "copy20",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy22",
+        "source": "copy21",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy23",
+        "source": "copy22",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy24",
+        "source": "copy23",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy25",
+        "source": "copy24",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy26",
+        "source": "copy25",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy27",
+        "source": "copy26",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy28",
+        "source": "copy27",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy29",
+        "source": "copy28",
+        "offset": [
+          "step",
+          "zero",
+          "zero"
+        ]
+      },
+      {
+        "kind": "instance",
+        "id": "copy30",
+        "source": "copy29",
+        "offset": [
+          "last",
+          "zero",
+          "zero"
+        ]
+      }
+    ]
+  },
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "last",
+      "mm": "35"
+    }
+  ],
+  "preserve": []
+}

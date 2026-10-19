@@ -18,7 +18,7 @@ pub struct FeatureLinks {
 }
 
 impl Feature {
-    fn links(&self) -> FeatureLinks {
+    pub(crate) fn links(&self) -> FeatureLinks {
         let (inputs, parameters): (Vec<&String>, Vec<&String>) = match self {
             Self::Block {
                 width,

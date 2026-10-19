@@ -165,3 +165,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Analytic measurement checkpoint
 
 [Symbolic-pi centroids and volume inertia](../examples/ai-cad/analytic-measurements/README.md) now cover circular/perforated stock and exact placements. Native coefficient checks, closed forms, symbolic identities, all-axis covariance, six browser/six MCP calls and fifteen independent analytic references are verified. Material density, surface area, principal axes, collision/clearance and new curved geometry remain open.
+
+## Transaction CPU reuse checkpoint
+
+[Validated feature-prefix reuse](../examples/ai-cad/transaction-reuse/README.md) removes a duplicate geometry pass on inspection and rebuilds only the suffix for late edits. All 63 model fixtures compare against full rebuilding, including valid/rejected edits and consumption/constraint semantics. Six paired workloads retain full replies and CPU samples; observed inspection/late-edit speedups are about 1.8–1.9×, with no meaningful root-edit gain. This is one-request reuse; cross-request dependency caching, persistent workers and larger-model scheduling remain open.
