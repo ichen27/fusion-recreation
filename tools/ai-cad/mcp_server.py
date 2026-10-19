@@ -6,6 +6,7 @@ from typing import Annotated, Literal, Union
 from pydantic import BaseModel, ConfigDict, Field
 from mcp.server import MCPServer
 from selection import dispatch_selection
+from intent import dispatch_explain
 from store import Store, dispatch
 
 
@@ -205,6 +206,13 @@ Operation = Annotated[
 def server(path):
     store = Store(path)
     mcp = MCPServer("Original CAD engine")
+
+    @mcp.tool()
+    def cad_explain(expected_revision: int, feature_id: str) -> dict:
+        """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
+        return dispatch_explain(
+            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
 
     @mcp.tool()
     def cad_context() -> dict:

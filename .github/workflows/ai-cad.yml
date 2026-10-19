@@ -32,6 +32,7 @@ jobs:
       - run: python tools/ai-cad/verify_native_recording.py
       - run: python tools/ai-cad/verify_sketch_plane.py
       - run: python tools/ai-cad/verify_intersection.py
+      - run: python tools/ai-cad/verify_intent_recording.py
       - run: python tools/ai-cad/verify_selection_recording.py
       - run: python tools/ai-cad/verify_rotation.py
       - run: python tools/ai-cad/verify_translation.py

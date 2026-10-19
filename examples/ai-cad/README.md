@@ -63,3 +63,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Exact quarter-turns](quarter-turn/README.md): pivoted orientation, downstream intersection edits, invalid placement rejection and independently verified exports.
 
 - [Shared saved-body selection](shared-selection/README.md): actual browser pick → MCP context/edit → stale rejection → reselect → clear, without changing model history.
+
+- [Model intent and edit impact](model-intent/README.md): original-engine provenance, shared drivers, fixed dimensions and actual browser/MCP explanations checked against a two-part edit.

@@ -125,3 +125,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Shared selection checkpoint
 
 [Browser-to-MCP context](../examples/ai-cad/shared-selection/README.md) binds a selected terminal body to saved content and revision. Actual browser selection and MCP edits demonstrate invalidation, reselect and clear; native history remains unchanged. This closes the ambiguity between a visible pick and an AI reference for one body. Persistent face/edge naming, selection-specific commit guards, intent ambiguity benchmarks and multi-user context remain open.
+
+## Model-intent checkpoint
+
+[Original-engine provenance and impact](../examples/ai-cad/model-intent/README.md) explains controlling features, root drivers, fixed/derived values and potentially affected bodies. Actual browser/MCP explanations are checked against a shared-driver edit on two parts. The engine uses exhaustive typed references and validates source models; it does not infer semantic intent or replace preview validation. General sketch constraints, persistent face references and broader intent benchmarks remain open.

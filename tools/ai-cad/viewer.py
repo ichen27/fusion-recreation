@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from store import MAX_BYTES, CadError, Store, dispatch
 from selection import dispatch_selection
+from intent import dispatch_explain
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from urllib.parse import urlsplit, parse_qs
@@ -147,17 +148,19 @@ def handler(store, port):
                 or self.headers.get("Content-Type") != "application/json"
             ):
                 return self.reply(403, b"{}")
-            if self.path not in ("/api/command", "/api/selection"):
+            if self.path not in ("/api/command", "/api/selection", "/api/explain"):
                 return self.reply(404, b"{}")
             try:
                 length = int(self.headers.get("Content-Length", "0"))
-                limit = 4096 if self.path == "/api/selection" else MAX_BYTES + 1024
+                limit = MAX_BYTES + 1024 if self.path == "/api/command" else 4096
                 if not 0 < length <= limit:
                     return self.reply(413, b"{}")
                 self.connection.settimeout(5)
                 command = json.loads(self.rfile.read(length))
                 reply = (
-                    dispatch_selection(store, command)
+                    dispatch_explain(store, command)
+                    if self.path == "/api/explain"
+                    else dispatch_selection(store, command)
                     if self.path == "/api/selection"
                     else display(dispatch(store, command), meshes)
                 )

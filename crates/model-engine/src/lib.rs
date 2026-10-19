@@ -7,6 +7,7 @@ use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 mod holes;
+pub mod intent;
 pub mod mesh;
 mod profile;
 mod solid_ops;

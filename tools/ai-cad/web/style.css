@@ -544,3 +544,18 @@ dialog p[role="status"] {
   line-height: 1.6;
   color: #527268;
 }
+
+#intent-info {
+  max-height: 300px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+#intent-info details {
+  border-top: 1px solid #d9e2de;
+  padding: 8px 0;
+}
+#intent-info summary {
+  cursor: pointer;
+}
