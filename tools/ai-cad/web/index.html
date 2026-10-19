@@ -351,6 +351,32 @@
         </button>
       </form>
     </dialog>
+    <dialog id="translate-dialog" aria-labelledby="translate-title">
+      <form id="translate-form">
+        <header class="sketch-heading">
+          <h2 id="translate-title">Move solid</h2>
+          <button type="button" id="translate-close">Cancel</button>
+        </header>
+        <p id="translate-feedback" role="status"></p>
+        <label
+          >X offset (mm)<input id="translate-x" aria-label="X offset" required
+        /></label>
+        <label
+          >Y offset (mm)<input id="translate-y" aria-label="Y offset" required
+        /></label>
+        <label
+          >Z offset (mm)<input id="translate-z" aria-label="Z offset" required
+        /></label>
+        <p class="hint">
+          Convex planar solids only. Offsets are signed integers or fractions,
+          up to ±1,000,000 mm per axis. No rotation. Circular, perforated and
+          concave bodies are unsupported.
+        </p>
+        <button type="submit" id="translate-preview" class="primary">
+          Preview move
+        </button>
+      </form>
+    </dialog>
     <script type="module" src="/app.js"></script>
   </body>
 </html>
