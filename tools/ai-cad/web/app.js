@@ -1,3 +1,5 @@
+import { installIntersectionEditor } from "/intersection-editor.mjs";
+import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
 import { planeCandidate } from "/plane-model.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
@@ -10,7 +12,7 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
-let sketches, holes, planes, stocks;
+let sketches, holes, planes, stocks, intersections;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -226,6 +228,12 @@ new ResizeObserver(draw).observe(canvas);
 function controls() {
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("new-intersection").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
     ".edit-sketch, .edit-holes, .edit-plane",
   ))
@@ -520,6 +528,8 @@ sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
 stocks = installStockEditor(editorCallbacks("Stock"));
+intersections = installIntersectionEditor(editorCallbacks("Intersection"));
+$("new-intersection").addEventListener("click", () => intersections.open());
 $("new-stock").addEventListener("click", () => stocks.open());
 $("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();

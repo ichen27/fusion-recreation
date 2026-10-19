@@ -1,0 +1,114 @@
+solid cad_mm
+facet normal 0 0 -1
+outer loop
+vertex 10 40 0
+vertex 40 10 0
+vertex 40 0 0
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex 10 40 0
+vertex 40 0 0
+vertex 0 0 0
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex 10 40 0
+vertex 0 0 0
+vertex 0 40 0
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 0 0 0
+vertex 40 0 0
+vertex 40 0 20
+endloop
+endfacet
+facet normal 0 -1 0
+outer loop
+vertex 0 0 0
+vertex 40 0 20
+vertex 0 0 20
+endloop
+endfacet
+facet normal 0.70710678118654746 0.70710678118654746 0
+outer loop
+vertex 40 10 0
+vertex 10 40 0
+vertex 10 40 20
+endloop
+endfacet
+facet normal 0.70710678118654746 0.70710678118654746 -0
+outer loop
+vertex 40 10 0
+vertex 10 40 20
+vertex 40 10 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 0 40 0
+vertex 0 0 0
+vertex 0 0 20
+endloop
+endfacet
+facet normal -1 0 0
+outer loop
+vertex 0 40 0
+vertex 0 0 20
+vertex 0 40 20
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0 0 20
+vertex 40 0 20
+vertex 40 10 20
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0 0 20
+vertex 40 10 20
+vertex 10 40 20
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 0 0 20
+vertex 10 40 20
+vertex 0 40 20
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 0 40 0
+vertex 0 40 20
+vertex 10 40 20
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 0 40 0
+vertex 10 40 20
+vertex 10 40 0
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 40 0 0
+vertex 40 10 0
+vertex 40 10 20
+endloop
+endfacet
+facet normal 1 0 0
+outer loop
+vertex 40 0 0
+vertex 40 10 20
+vertex 40 0 20
+endloop
+endfacet
+endsolid cad_mm

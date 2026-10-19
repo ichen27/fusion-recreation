@@ -1,0 +1,16 @@
+[
+  {
+    "stage": "common",
+    "exact_volume_mm3": 28000,
+    "step_volume_mm3": 27999.999999999993,
+    "oracle_volume_mm3": 27999.999999999996,
+    "difference_mm3": 3.637978807091713e-12
+  },
+  {
+    "stage": "edited",
+    "exact_volume_mm3": 23000,
+    "step_volume_mm3": 23000.0,
+    "oracle_volume_mm3": 23000.0,
+    "difference_mm3": 0.0
+  }
+]

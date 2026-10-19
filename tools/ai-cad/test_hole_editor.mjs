@@ -54,7 +54,7 @@ test("place two holes in a concave plate, then edit with persistent feature and 
     5,
   );
   assert.equal(availableHoleInputs(result.model).length, 0);
-  assert.throws(() => draftHoles(result.model, "plate"), /already has/);
+  assert.throws(() => draftHoles(result.model, "plate"), /consumed/);
   const edit = draftHoles(result.model, null, "holes1");
   setHoleValue(edit, 1, "x", "65");
   const changed = run(

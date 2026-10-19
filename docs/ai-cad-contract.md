@@ -169,3 +169,9 @@ The loopback viewer's read-only `GET /api/export.zip?revision=N&segments=S` expo
 ## Plane cuts on browser sketches
 
 A plane cut can consume an unperforated `planar_profile` extrusion when its evaluated outline is strictly convex. Exact all-vertices/edge-side tests run on every rebuild. The source sketch/prism representation stays unchanged; a convex boundary is constructed only for the consuming cut. An upstream edit that introduces concavity rejects atomically with `unsupported_reference` naming the input solid. Browser candidate selection is permissive for unperforated polygonal stock; preview performs authoritative convexity validation. [Actual browser/native/export evidence](../examples/ai-cad/sketch-plane/README.md).
+
+## Convex solid intersection
+
+`{kind:"intersection",id,left,right}` keeps the common positive volume of two distinct earlier convex planar bodies. It consumes both inputs. Previous cuts/intersections and convex simple-profile extrusions are supported; circular/perforated/concave operands reject with `unsupported_reference`. Identical geometry is valid under distinct feature IDs. Same-ID operands reject `invalid_intersection`; reused consumed inputs reject `unsupported_branch`. Disjoint or touching-only solids reject `empty_solid`, including on upstream edits. No partial result is committed.
+
+Each outward face of the second operand supplies an exact clipping half-space. Every intermediate passes the original closed-convex boundary validator and its resource bounds. The result has exact planar `boundary` and rational `volume_mm3`, and can feed subsequent cuts/intersections. Operation order may affect generated topology indices, which are not persistent references. Existing feature replacement/removal, parameter constraints and transaction semantics apply. [Browser, MCP, native, STEP/STL validation](../examples/ai-cad/intersection/README.md). Union/difference and nonconvex/curved Booleans remain unsupported.

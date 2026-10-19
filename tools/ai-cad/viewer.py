@@ -105,6 +105,14 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/intersection-model.mjs": (
+                    "intersection-model.mjs",
+                    "text/javascript",
+                ),
+                "/intersection-editor.mjs": (
+                    "intersection-editor.mjs",
+                    "text/javascript",
+                ),
                 "/stock-model.mjs": ("stock-model.mjs", "text/javascript"),
                 "/stock-editor.mjs": ("stock-editor.mjs", "text/javascript"),
                 "/plane-model.mjs": ("plane-model.mjs", "text/javascript"),

@@ -9,6 +9,7 @@ use std::collections::{BTreeMap, BTreeSet};
 mod holes;
 pub mod mesh;
 mod profile;
+mod solid_ops;
 pub use holes::{AnalyticPrism, Hole};
 mod relations;
 pub use profile::{EvaluatedProfile, ProfileVertex};
@@ -70,6 +71,12 @@ pub enum Feature {
         normal: [String; 3],
         offset: String,
     },
+    /// Keep the common volume of two earlier convex planar solids.
+    Intersection {
+        id: String,
+        left: String,
+        right: String,
+    },
     BlindHoles {
         id: String,
         input: String,
@@ -105,7 +112,8 @@ impl Feature {
             | Self::ThroughHoles { id, .. }
             | Self::Cylinder { id, .. }
             | Self::BlindHoles { id, .. }
-            | Self::PlaneCut { id, .. } => id,
+            | Self::PlaneCut { id, .. }
+            | Self::Intersection { id, .. } => id,
         }
     }
 }
@@ -269,6 +277,38 @@ fn block(w: &Q, d: &Q, h: &Q) -> Boundary {
         faces,
     }
 }
+fn convex_input(
+    m: &Model,
+    profiles: &BTreeMap<&str, profile::Profile>,
+    evaluated: &BTreeMap<&str, Body>,
+    input: &str,
+    operation: &str,
+) -> Result<Boundary> {
+    let parent = evaluated.get(input).ok_or_else(|| {
+        error(
+            "unsupported_reference",
+            input,
+            "Operation must reference an earlier convex planar solid",
+        )
+    })?;
+    if let Some(boundary) = &parent.boundary {
+        return Ok(boundary.clone());
+    }
+    if let Some(Feature::Extrude {
+        profile, height, ..
+    }) = m.features.iter().find(|f| f.id() == input)
+    {
+        // Build a boundary for this operation without changing the source prism.
+        return profile::convex_boundary(
+            &profiles[profile.as_str()],
+            &positive(m, height)?,
+            input,
+            operation,
+        );
+    }
+    Err(error("unsupported_reference", input, "Operation requires convex unperforated planar stock; circular and perforated stock are unsupported"))
+}
+
 pub fn validate(m: &Model) -> Result<Vec<Body>> {
     Ok(evaluate_geometry(m)?.0)
 }
@@ -373,6 +413,28 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 );
                 continue;
             }
+            Feature::Intersection { left, right, .. } => {
+                if left == right {
+                    return Err(error(
+                        "invalid_intersection",
+                        id,
+                        "Select two distinct input features",
+                    ));
+                }
+                let a = convex_input(m, &profiles, &evaluated, left, "Intersections")?;
+                let b = convex_input(m, &profiles, &evaluated, right, "Intersections")?;
+                for input in [left, right] {
+                    if !consumed.insert(input.as_str()) {
+                        return Err(error(
+                            "unsupported_branch",
+                            input,
+                            "A solid can have only one consuming feature; select a terminal result",
+                        ));
+                    }
+                }
+                evaluated.insert(id, solid_ops::intersection(id, a, &b)?);
+                continue;
+            }
             Feature::Cylinder {
                 x,
                 y,
@@ -462,29 +524,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
                 offset,
                 ..
             } => {
-                let parent: &Body = evaluated.get(input.as_str()).ok_or_else(|| {
-                    error(
-                        "unsupported_reference",
-                        input,
-                        "Plane cut must reference an earlier convex planar solid",
-                    )
-                })?;
-                let boundary = if let Some(boundary) = &parent.boundary {
-                    boundary.clone()
-                } else if let Some(Feature::Extrude {
-                    profile, height, ..
-                }) = m.features.iter().find(|f| f.id() == input)
-                {
-                    // Keep a planar_profile's native representation stable. Build an
-                    // exact convex boundary only when this downstream cut needs it.
-                    profile::convex_boundary(
-                        &profiles[profile.as_str()],
-                        &positive(m, height)?,
-                        input,
-                    )?
-                } else {
-                    return Err(error("unsupported_reference", input, "Plane cuts currently require convex unperforated planar stock; circular and perforated stock are unsupported"));
-                };
+                let boundary = convex_input(m, &profiles, &evaluated, input, "Plane cuts")?;
                 if !consumed.insert(input.as_str()) {
                     return Err(error("unsupported_branch",input,"A solid can have only one consuming feature; apply further cuts to the previous cut"));
                 }

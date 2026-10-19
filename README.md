@@ -2,7 +2,7 @@
 
 An original AI-native CAD / 3D modeling engine under development. The first editable Rust workflow now exposes typed commands, constraints, preview/commit, undo, persistence, MCP tools for Codex/Claude Code, and a minimal WebGL viewer. The earlier C++/OCCT foundation remains a separate track. This is not a complete CAD system.
 
-The current workflow supports interactive convex/simple-concave profile extrusion, circular stock, through and flat-bottom blind holes, and repeated arbitrary-plane cuts on convex planar solids. Exact affine relationships, native history and atomic previews are shared by the browser and typed AI tools. [Runnable examples](examples/ai-cad/README.md) include editable native stages, STEP/STL exports, actual browser recordings and independent geometry checks. Geometry remains bounded; general curved/nonconvex Boolean operations, assemblies and drawings are still ahead.
+The current workflow supports interactive convex/simple-concave profile extrusion, circular stock, through and flat-bottom blind holes, and repeated arbitrary-plane cuts and convex solid intersections on convex planar solids. Exact affine relationships, native history and atomic previews are shared by the browser and typed AI tools. [Runnable examples](examples/ai-cad/README.md) include editable native stages, STEP/STL exports, actual browser recordings and independent geometry checks. Geometry remains bounded; general curved/nonconvex Boolean operations, assemblies and drawings are still ahead.
 
 The [platform delivery plan](docs/platform-delivery-plan.md) tracks the full long-term scope and acceptance gates. [Exact parameter relationships](examples/ai-cad/relationships/README.md) now preserve declared design relationships across edits.
 

@@ -45,6 +45,8 @@ class Viewer(unittest.TestCase):
         self.assertIn(b"viewport", html)
         for asset in (
             "/display-data.mjs",
+            "/intersection-model.mjs",
+            "/intersection-editor.mjs",
             "/stock-model.mjs",
             "/stock-editor.mjs",
             "/plane-model.mjs",

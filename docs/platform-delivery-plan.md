@@ -105,3 +105,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Convex sketch/cut integration checkpoint
 
 [Browser sketches feed exact plane cuts](../examples/ai-cad/sketch-plane/README.md) through an exact convexity-checked boundary construction. Existing simple-profile output remains stable, and invalid downstream edits are atomic. Eight actual browser calls, native history and independent STEP/STL checks verify the path. Continue into bounded solid/solid Boolean operations before extending to general nonconvex and curved intersections.
+
+## Convex solid intersection checkpoint
+
+[Exact solid intersection](../examples/ai-cad/intersection/README.md) keeps the common volume of two convex planar bodies, including browser sketches and previous cuts/intersections. Both inputs remain in editable history. Typed MCP, ten actual browser calls, rational/seeded/contact cases and independent STEP Booleans verify the bounded operation. Union/difference, disconnected/nonconvex results, curved topology and broader semantic selections remain open.

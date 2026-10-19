@@ -177,3 +177,5 @@ Start a new browser document with `python3 tools/ai-cad/viewer.py --store work/n
 Use **Download editable project** to keep the native model and history. **Import saved model…** previews a file before **Replace model** saves one undoable replacement. To reopen the source history directly, use the downloaded file as `--store`. [Native workflow and verified downloads](../../examples/ai-cad/native-project/README.md).
 
 [Browser sketch plane cuts](../../examples/ai-cad/sketch-plane/README.md) now accept convex `planar_profile` extrusions. Changing an upstream sketch rebuilds its cuts; concavity rejects atomically. Run `verify_sketch_plane.py` and optional `verify_sketch_plane_export.py`.
+
+[Convex solid intersection](../../examples/ai-cad/intersection/README.md) keeps common volume through typed MCP commands or **Intersect two solids** in the browser. Inputs remain editable; empty results reject atomically. Run `verify_intersection.py` and optional `verify_intersection_export.py`.
