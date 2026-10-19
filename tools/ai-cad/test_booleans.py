@@ -123,7 +123,7 @@ class Booleans(unittest.TestCase):
             ]:
                 self.verify(boolean(a, b, op), expected)
 
-    def test_repeated_nonconvex_operations_and_convex_consumers(self):
+    def test_repeated_nonconvex_operations_and_plane_consumers(self):
         hole, _, _ = cases()["through"]
         refill = boolean(hole, box("c", [2, 2, 0], [8, 8, 10]), "union", "filled")
         body = self.verify(refill, 1000, 1)
@@ -147,9 +147,11 @@ class Booleans(unittest.TestCase):
                 "offset": "a.height",
             }
         )
-        with self.assertRaises(CadError) as e:
-            evaluate(hole)
-        self.assertEqual(e.exception.detail["code"], "unsupported_reference")
+        unchanged = evaluate(hole)["bodies"][0]
+        self.assertEqual(unchanged["volume_mm3"], "640")
+        self.assertEqual(
+            sum(len(f["loops"]) == 2 for f in unchanged["boundary"]["faces"]), 2
+        )
 
     def test_atomic_operation_edit_empty_rejection_and_undo(self):
         m, _, _ = cases()["overlap"]

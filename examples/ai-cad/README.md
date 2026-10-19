@@ -71,3 +71,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Planar solid Booleans](planar-booleans/README.md): original Rust union/difference/intersection, cavities, through-holes, split pieces, browser/MCP edits, native history and independent STEP comparisons.
 
 - [Move and rotate planar Boolean results](planar-transforms/README.md): cavities, holes and separate pieces retain exact geometry and downstream Boolean support through browser/MCP placement edits.
+
+- [Plane cuts on nonconvex results](nonconvex-plane-cuts/README.md): open cavities, trim holes and remove components, with recorded browser/MCP edits, native history, pocket STL and eight independent STEP comparisons.

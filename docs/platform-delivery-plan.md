@@ -141,3 +141,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Nonconvex rigid-operation checkpoint
 
 [Moved/turned planar results](../examples/ai-cad/planar-transforms/README.md) preserve cavity shells, face holes and disconnected pieces through exact whole-result placement. Backing cells survive for later Booleans. All quarter-turn axes/angles and fractional pivots, browser/MCP upstream edits and independent transformed STEP references are verified. Arbitrary angles, curved stock, per-component instances and assembly relationships remain open.
+
+## Nonconvex plane-cut checkpoint
+
+[Half-space cuts on planar results](../examples/ai-cad/nonconvex-plane-cuts/README.md) now open cavities, trim through-holes and remove components while retaining exact geometry for later operations. Browser/MCP edits, empty rejection, native undo and eight independent STEP comparisons cover the integrated workflow. Initial concave extrusions are still not admitted as inputs to the cell pipeline; next connect validated simple profiles through exact convex decomposition without a floating-point modeling fallback.

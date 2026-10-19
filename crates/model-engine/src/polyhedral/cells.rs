@@ -10,7 +10,7 @@ pub(super) fn budget(cells: &[Boundary]) -> Result<()> {
     }
     Ok(())
 }
-fn clip(cell: &Boundary, plane: Plane) -> Result<Option<Boundary>> {
+pub(super) fn clip(cell: &Boundary, plane: Plane) -> Result<Option<Boundary>> {
     let reply = boundary_clip::clip(Request {
         schema_version: 1,
         boundary: cell.clone(),

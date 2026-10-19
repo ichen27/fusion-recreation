@@ -1,5 +1,5 @@
 // Exact half-space intent. Rust owns geometry, parameter parsing and validation.
-// Candidate selection only: Rust checks exact convexity during preview.
+// Candidate selection only: Rust validates convex stock or backed planar results.
 export function planeCandidate(body) {
   return (
     !!body.boundary ||
@@ -19,7 +19,7 @@ export function planeDraft(state, input, featureId = null) {
     !state.bodies.some((b) => b.feature_id === input && planeCandidate(b))
   )
     throw Error(
-      "Select terminal unperforated planar stock; preview checks convexity",
+      "Select terminal convex planar stock or a previous planar Boolean/cut result",
     );
   let prefix = featureId;
   if (!prefix)

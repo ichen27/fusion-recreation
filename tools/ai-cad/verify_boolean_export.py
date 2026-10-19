@@ -11,13 +11,13 @@ from OCP.BRepBuilderAPI import (
     BRepBuilderAPI_MakeFace,
     BRepBuilderAPI_Transform,
 )
-from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
+from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism, BRepPrimAPI_MakeHalfSpace
 from OCP.BRepCheck import BRepCheck_Analyzer
 from OCP.BRepGProp import BRepGProp
 from OCP.GProp import GProp_GProps
 from OCP.IFSelect import IFSelect_RetDone
 from OCP.STEPControl import STEPControl_Reader
-from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Dir
+from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Dir, gp_Pln
 from store import ROOT, evaluate
 from step_export import export_step, measure, number
 from test_booleans import cases, boolean, box
@@ -47,6 +47,20 @@ def oracle(model):
             shape = BRepBuilderAPI_Transform(
                 shapes[f["input"]], transform, True
             ).Shape()
+        elif f["kind"] == "plane_cut":
+            normal = list(map(number, f["normal"]))
+            offset = values[f["offset"]]
+            norm2 = sum(v * v for v in normal)
+            point = [offset * v / norm2 for v in normal]
+            face = BRepBuilderAPI_MakeFace(
+                gp_Pln(gp_Pnt(*point), gp_Dir(*normal))
+            ).Face()
+            half = BRepPrimAPI_MakeHalfSpace(
+                face, gp_Pnt(*[p - n / math.sqrt(norm2) for p, n in zip(point, normal)])
+            ).Solid()
+            result = BRepAlgoAPI_Common(shapes[f["input"]], half)
+            assert result.IsDone()
+            shape = result.Shape()
         elif f["kind"] == "rotate_quarter":
             transform = gp_Trsf()
             axis = [int(f["axis"] == a) for a in "xyz"]
