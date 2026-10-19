@@ -215,6 +215,8 @@ class Store:
         fields = {"action"}
         if action in ("preview", "commit"):
             fields |= {"expected_revision", "operations", "preserve"}
+            if "selection_guard" in command:
+                fields.add("selection_guard")
         if action in ("preview_import", "import"):
             fields |= {"expected_revision", "document"}
         if action in ("commit", "undo", "redo", "import"):
@@ -281,6 +283,12 @@ class Store:
                     "revision_conflict",
                     f"Expected current revision {state['revision']}; inspect and replan",
                 )
+        if "selection_guard" in command:
+            # Local import keeps selection's document helpers outside the persistence module.
+            # Receipt replay above intentionally precedes preconditions: it never applies an edit twice.
+            from selection import require_selection
+
+            require_selection(self, state, command["selection_guard"])
         if action in ("inspect", "preview", "commit", "preview_import", "import"):
             if action in ("preview", "commit") and (
                 not isinstance(command["operations"], list)

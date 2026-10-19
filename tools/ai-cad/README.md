@@ -247,3 +247,10 @@ Inside **Inspect surfaces**, expand a surface and choose **Select surface** to s
 python tools/ai-cad/verify_surface_context_mcp.py
 python tools/ai-cad/verify_surface_context_recording.py
 ```
+
+For an AI edit based on shared context, supply the same `selection_guard:{feature_id,surface_id}` to `cad_preview` and `cad_commit`. Use a null surface only for a body-only selection. A selection change at the same model revision now rejects the guarded save; inspect/replan instead of dropping the precondition. Browser edits automatically retain the currently selected surface. [Recorded guarded-save conflict and recovery](../../examples/ai-cad/selection-guard/README.md).
+
+```sh
+python tools/ai-cad/verify_selection_guard_mcp.py
+python tools/ai-cad/verify_selection_guard_recording.py
+```

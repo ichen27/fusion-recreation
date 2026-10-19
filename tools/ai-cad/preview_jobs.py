@@ -16,6 +16,7 @@ import threading
 import time
 import uuid
 from store import CadError, encode
+from selection import require_selection
 
 
 class PreviewJobs:
@@ -43,7 +44,17 @@ class PreviewJobs:
     def start(self, command):
         if (
             not isinstance(command, dict)
-            or set(command) != {"action", "expected_revision", "operations", "preserve"}
+            or set(command)
+            not in (
+                {"action", "expected_revision", "operations", "preserve"},
+                {
+                    "action",
+                    "expected_revision",
+                    "operations",
+                    "preserve",
+                    "selection_guard",
+                },
+            )
             or command["action"] != "preview"
             or not isinstance(command["operations"], list)
             or not isinstance(command["preserve"], list)
@@ -69,6 +80,8 @@ class PreviewJobs:
                     raise CadError(
                         "revision_conflict", "Refresh before starting a preview"
                     )
+                if "selection_guard" in command:
+                    require_selection(self.store, state, command["selection_guard"])
                 snapshot = encode(
                     {
                         "model": state["model"],
