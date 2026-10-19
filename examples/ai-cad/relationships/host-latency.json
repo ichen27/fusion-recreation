@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-19T18:03:39.937453+00:00",
+  "base_commit": "b5f27ba0e39e690bb003736a4bc60ad207792658",
+  "working_tree_dirty": true,
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "python_version": "3.14.3",
+  "binary_sha256": "6a0c311d0b9cd5758ea7f3d36e792afd7db18b819f2db62d587a0a9170ee3cc1",
+  "source_sha256": {
+    "crates/model-engine/src/lib.rs": "50efdc3859a80c7a3fd02c4379059992061321ab37e92490c94b7ae568539229",
+    "crates/model-engine/src/main.rs": "7b44a704ecc7b85c17fda9379b60448ca81fa11b0cd14be54a30dbd375e9c7d5",
+    "crates/model-engine/src/profile.rs": "c87561a494ce8be161c1200a3215fc0618564111e40a3b6e240820fbb1d541d6",
+    "crates/model-engine/src/relations.rs": "3da92ddfd205e3ab4424d0934bc968a753472ec29614095636d0367bcac4f389",
+    "experiments/2026-10-15-rust-boundary/src/lib.rs": "b346b51cb016423d578085c2c1903964e2284602861c89be122c6d13261401db",
+    "tools/ai-cad/benchmark_workflow.py": "f53c9e5d287171bf5da4133f00b43b7cb904c5b62a9099ff74ad72123f787fd9",
+    "tools/ai-cad/store.py": "31287259b249b504d7b03efb616e1c9c93b0fe67a67d0040f42b6ac671020969"
+  },
+  "rows": [
+    {
+      "name": "evaluate_profile_with_relationship",
+      "samples_ms": [
+        4.843542,
+        4.285708,
+        4.084167,
+        4.198292,
+        4.680417,
+        4.104875,
+        3.998166,
+        4.157709,
+        4.69125,
+        4.09575
+      ],
+      "first_sample_ms": 4.843542,
+      "median_ms": 4.1780005,
+      "p95_ms": 4.843542
+    },
+    {
+      "name": "inspect_one_undo_snapshot",
+      "samples_ms": [
+        11.511708,
+        10.672333,
+        10.911,
+        10.367542,
+        10.660459,
+        10.565334,
+        10.372,
+        10.420333,
+        10.564958,
+        10.586875
+      ],
+      "first_sample_ms": 11.511708,
+      "median_ms": 10.5761045,
+      "p95_ms": 11.511708
+    },
+    {
+      "name": "inspect_64_undo_snapshots",
+      "samples_ms": [
+        289.058417,
+        285.730666,
+        285.448125,
+        285.99925,
+        266.004875,
+        273.934834,
+        285.594583,
+        276.38225,
+        275.788334,
+        279.393208
+      ],
+      "first_sample_ms": 289.058417,
+      "median_ms": 282.42066650000004,
+      "p95_ms": 289.058417
+    },
+    {
+      "name": "preview_64_undo_snapshots",
+      "samples_ms": [
+        273.858333,
+        277.176917,
+        277.787709,
+        317.567,
+        316.44225,
+        299.1715,
+        330.683875,
+        280.929917,
+        281.534958,
+        277.865459
+      ],
+      "first_sample_ms": 273.858333,
+      "median_ms": 281.2324375,
+      "p95_ms": 330.683875
+    }
+  ],
+  "limits": "Wall-clock host latency on the current machine, including JSON/process overhead and repeated CPU validation. Sequential samples share OS caches; first sample is not a certified cold start. No isolated kernel timing, GPU timing, memory measurement or general performance guarantee. History workload contains 64 actual accepted edits of a small part."
+}

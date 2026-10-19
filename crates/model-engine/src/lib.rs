@@ -7,7 +7,9 @@ use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 mod profile;
+mod relations;
 pub use profile::{EvaluatedProfile, ProfileVertex};
+pub use relations::Relation;
 
 #[derive(Debug, Serialize)]
 pub struct Error {
@@ -29,6 +31,8 @@ pub struct Model {
     pub parameters: BTreeMap<String, String>,
     pub features: Vec<Feature>,
     pub fixed: BTreeMap<String, String>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub relations: BTreeMap<String, Relation>,
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
@@ -76,6 +80,8 @@ pub enum Operation {
     AddFeature { feature: Feature },
     FixParameter { id: String },
     ReleaseParameter { id: String },
+    SetRelation { id: String, relation: Relation },
+    RemoveRelation { id: String },
 }
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -234,6 +240,7 @@ fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
         identifier(id)?;
         rational(value, id)?;
     }
+    relations::validate(m)?;
     for (id, value) in &m.fixed {
         if parameter(m, id)? != rational(value, id)? {
             return Err(error(
@@ -388,11 +395,13 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
                 model.parameters.insert(id, n.to_string());
             }
             Operation::SetParameter { id, mm } => {
+                relations::require_free(&model, &id)?;
                 parameter(&model, &id)?;
                 let n = rational(&mm, &id)?;
                 model.parameters.insert(id, n.to_string());
             }
             Operation::AdjustParameter { id, delta_mm } => {
+                relations::require_free(&model, &id)?;
                 let n = parameter(&model, &id)? + rational(&delta_mm, &id)?;
                 let value = n.to_string();
                 rational(&value, &id)?;
@@ -400,6 +409,7 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
             }
             Operation::AddFeature { feature } => model.features.push(feature),
             Operation::FixParameter { id } => {
+                relations::refresh(&mut model)?;
                 let n = parameter(&model, &id)?;
                 model.fixed.entry(id).or_insert_with(|| n.to_string());
             }
@@ -412,8 +422,25 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
                     ));
                 }
             }
+            Operation::SetRelation { id, relation } => {
+                parameter(&model, &id)?;
+                model.relations.insert(id, relation);
+            }
+            Operation::RemoveRelation { id } => {
+                if !model.relations.contains_key(&id) {
+                    return Err(error(
+                        "missing_relation",
+                        &id,
+                        "Parameter has no relationship",
+                    ));
+                }
+                // Removing a relationship freezes its current computed value.
+                relations::refresh(&mut model)?;
+                model.relations.remove(&id);
+            }
         }
     }
+    relations::refresh(&mut model)?;
     for id in request.preserve {
         if parameter(&before, &id)? != parameter(&model, &id)? {
             return Err(error(

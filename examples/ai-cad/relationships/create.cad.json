@@ -1,0 +1,82 @@
+{
+  "sha256": "2e14dd150baf2114430d3185e621714d7286af49cf6ed19f71e01c08653a4586",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "lower_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "lower_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "shoulder_right",
+              "x": "width",
+              "y": "shoulder"
+            },
+            {
+              "id": "tip",
+              "x": "tip_x",
+              "y": "depth"
+            },
+            {
+              "id": "shoulder_left",
+              "x": "zero",
+              "y": "shoulder"
+            }
+          ]
+        },
+        {
+          "height": "thickness",
+          "id": "plate",
+          "kind": "extrude",
+          "profile": "outline"
+        }
+      ],
+      "fixed": {
+        "thickness": "12",
+        "zero": "0"
+      },
+      "parameters": {
+        "depth": "60",
+        "shoulder": "35",
+        "thickness": "12",
+        "tip_x": "50",
+        "width": "100",
+        "zero": "0"
+      },
+      "relations": {
+        "tip_x": {
+          "offset_mm": "0",
+          "terms": {
+            "width": "1/2"
+          }
+        }
+      }
+    },
+    "receipts": {
+      "relationships-create-v1": {
+        "request": "016cc264eef7462d58b220abbbbd16995a47d192809104046f31026d88300e5f",
+        "revision": 1
+      }
+    },
+    "redo": [],
+    "revision": 1,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      }
+    ]
+  }
+}

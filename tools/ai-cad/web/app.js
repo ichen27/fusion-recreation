@@ -193,19 +193,35 @@ function render(state) {
       label.htmlFor = `p-${id}`;
       label.textContent = id.replaceAll("_", " ");
       const fixed = id in state.model.fixed;
+      const relation = state.model.relations?.[id];
       if (fixed) {
         const note = document.createElement("small");
-        note.textContent = "FIXED";
+        note.textContent = relation ? "FIXED · DERIVED" : "FIXED";
+        label.append(note);
+      }
+      if (relation && !fixed) {
+        const note = document.createElement("small");
+        note.textContent = "DERIVED";
         label.append(note);
       }
       const input = document.createElement("input");
       input.id = `p-${id}`;
       input.name = id;
       input.value = value;
-      input.disabled = fixed || !!preview;
+      input.disabled = fixed || !!relation || !!preview;
       input.autocomplete = "off";
       input.addEventListener("input", () => (editPending = true));
       div.append(label, input);
+      if (relation) {
+        const formula = document.createElement("small");
+        formula.className = "relationship";
+        formula.textContent = `${id} = ${relation.offset_mm} + ${
+          Object.entries(relation.terms)
+            .map(([source, coefficient]) => `(${coefficient} × ${source})`)
+            .join(" + ") || "0"
+        }`;
+        div.append(formula);
+      }
       return div;
     }),
   );
@@ -301,7 +317,7 @@ $("dimensions").addEventListener("submit", (e) => {
       expected_revision: saved.revision,
       operations,
       preserve: Object.keys(saved.model.parameters).filter(
-        (id) => !changed.has(id),
+        (id) => !changed.has(id) && !(id in (saved.model.relations ?? {})),
       ),
     };
     preview = await call({ action: "preview", ...proposed });
