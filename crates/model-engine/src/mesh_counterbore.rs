@@ -23,18 +23,21 @@ fn ring(
         })
         .collect()
 }
-fn wall(mesh: &mut Mesh, bottom: usize, top: usize, count: usize) {
+fn wall(mesh: &mut Mesh, bottom: usize, top: usize, count: usize, role: &str) {
     for i in 0..count {
         let j = (i + 1) % count;
-        mesh.triangles.extend([
-            [bottom + i, bottom + j, top + j],
-            [bottom + i, top + j, top + i],
-        ]);
+        let surface = if role == "outer/side" {
+            format!("{role}/{i}")
+        } else {
+            role.into()
+        };
+        mesh.triangle([bottom + i, bottom + j, top + j], &surface);
+        mesh.triangle([bottom + i, top + j, top + i], &surface);
         mesh.edges
             .extend([[bottom + i, bottom + j], [top + i, top + j]]);
     }
 }
-pub(super) fn build(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
+pub(super) fn build(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<Mesh> {
     let fail = || {
         error("tessellation_failed",&body.feature_id,"Counterbore cannot be resolved at this display scale or chord count; exact model is unchanged")
     };
@@ -105,6 +108,7 @@ pub(super) fn build(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
     let mut mesh = Mesh {
         vertices: bottom,
         triangles: vec![],
+        triangle_surfaces: tagged.then(Vec::new),
         edges: vec![],
         max_radial_error_mm: error_radius * (1.0 - (std::f64::consts::PI / segments as f64).cos()),
     };
@@ -126,9 +130,22 @@ pub(super) fn build(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
                 ids.swap(1, 2);
             }
             mesh.triangles.push(ids);
+            if let Some(surfaces) = &mut mesh.triangle_surfaces {
+                surfaces.push(if side == 0 { "cap/bottom" } else { "cap/top" }.into());
+            }
         }
     }
-    wall(&mut mesh, 0, n, outer_n);
+    wall(
+        &mut mesh,
+        0,
+        n,
+        outer_n,
+        if round.is_some() {
+            "outer/cylinder"
+        } else {
+            "outer/side"
+        },
+    );
     for (j, (x, y, r)) in disks.into_iter().enumerate() {
         let large = mesh.vertices.len();
         mesh.vertices
@@ -136,14 +153,26 @@ pub(super) fn build(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
         let small = mesh.vertices.len();
         mesh.vertices
             .extend(ring([x, y], r, floor, segments, phase, -1.0));
-        wall(&mut mesh, holes[j], small, segments);
-        wall(&mut mesh, large, n + holes[j], segments);
+        let role = format!("hole/{}", shape.holes[j].id);
+        wall(
+            &mut mesh,
+            holes[j],
+            small,
+            segments,
+            &format!("{role}/lower"),
+        );
+        wall(
+            &mut mesh,
+            large,
+            n + holes[j],
+            segments,
+            &format!("{role}/upper"),
+        );
         for i in 0..segments {
             let next = (i + 1) % segments;
-            mesh.triangles.extend([
-                [large + i, small + i, small + next],
-                [large + i, small + next, large + next],
-            ]);
+            let shoulder = format!("{role}/shoulder");
+            mesh.triangle([large + i, small + i, small + next], &shoulder);
+            mesh.triangle([large + i, small + next, large + next], &shoulder);
         }
     }
     Ok(mesh)

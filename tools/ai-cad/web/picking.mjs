@@ -16,7 +16,7 @@ function projector({ yaw, pitch, zoom, aspect }) {
 export function projectVertex(point, camera) {
   return projector(camera)(...point);
 }
-export function pickBody(packed, groups, camera, x, y) {
+export function pickSurface(packed, groups, camera, x, y) {
   if (
     ![x, y, camera.yaw, camera.pitch, camera.zoom, camera.aspect].every(
       Number.isFinite,
@@ -51,12 +51,20 @@ export function pickBody(packed, groups, camera, x, y) {
       if (Math.min(u, v, w) < -1e-7) continue;
       const depth = u * a[2] + v * b[2] + w * c[2];
       // Match the viewport's orthographic clip/depth direction. Stable group
-      // order breaks coplanar ties; this is not persistent face selection.
+      // order breaks coplanar ties. Returned surface IDs must be revision-validated.
       if (depth >= -1 && depth <= 1 && depth < nearest - 1e-10) {
         nearest = depth;
-        selected = group.feature_id;
+        selected = {
+          feature_id: group.feature_id,
+          surface_id:
+            group.triangle_surfaces?.[(first - group.first) / 3] ?? null,
+        };
       }
     }
   }
   return selected;
+}
+
+export function pickBody(packed, groups, camera, x, y) {
+  return pickSurface(packed, groups, camera, x, y)?.feature_id ?? null;
 }

@@ -93,3 +93,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Shared surface context](surface-context/README.md): explicit surface selection across browser/MCP, linked-copy source impact, revision invalidation and native checkpoints.
 
 - [Selection-bound edits](selection-guard/README.md): preview/save context guards, actual browser/MCP conflict and explicit recovery, native checkpoints.
+
+- [Viewport surface picking](surface-picking/README.md): native triangle provenance, direct cap/wall/shoulder selection and isolated highlights without geometry uploads.

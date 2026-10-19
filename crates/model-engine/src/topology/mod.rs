@@ -145,6 +145,29 @@ pub fn inspect(request: Request) -> Result<Topology> {
     topology.shell_euler = euler;
     Ok(topology)
 }
+/// Disposable tessellation roles resolve through the same native boundary builder.
+/// Polygon wall order is the normalized analytic outline order used by both builders.
+pub(crate) fn mesh_surfaces(model: &Model, body: &crate::Body) -> Result<BTreeMap<String, String>> {
+    let topology = build::body(model, body)?;
+    let mut names = BTreeMap::new();
+    for name in topology.surfaces.keys() {
+        let role = if body.analytic.is_some() {
+            name.split('/').skip(2).collect::<Vec<_>>().join("/")
+        } else {
+            name.clone()
+        };
+        names.insert(role, name.clone());
+    }
+    if let Some(shape) = &body.analytic {
+        if shape.outer_circle.is_none() {
+            for (i, face) in topology.faces.iter().take(shape.outer.len()).enumerate() {
+                names.insert(format!("outer/side/{i}"), face.surface.clone());
+            }
+        }
+    }
+    Ok(names)
+}
+
 pub(super) fn reverse(ring: &[Use]) -> Vec<Use> {
     ring.iter()
         .rev()
