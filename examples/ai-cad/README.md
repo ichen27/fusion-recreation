@@ -45,3 +45,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Blind holes](blind-holes/README.md): depth-controlled flat-bottom pockets, exact floors, browser undo and independent STEP/STL checks.
 
 - [Arbitrary-plane cuts](plane-cuts/README.md): repeated exact 3D cuts, browser authoring and independent STEP/STL oracle.
+
+- [Viewport framing](viewport-framing/README.md): orientation/aspect-aware fit with actual GPU projection evidence and zero buffer uploads on fit/resize.

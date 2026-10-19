@@ -511,3 +511,8 @@ summary {
   line-height: 1.5;
   font-size: 14px;
 }
+
+#fit-view {
+  pointer-events: auto;
+  margin-left: 12px;
+}

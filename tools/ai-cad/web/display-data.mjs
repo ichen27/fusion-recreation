@@ -32,3 +32,33 @@ export function formatMeasurement(value, locale) {
       : { maximumFractionDigits: 3 },
   );
 }
+
+// A containing sphere fits at every orbit angle. Iterate to avoid argument-count
+// limits from Math.min(...allVertices) on large display meshes.
+export function displayFrame(points) {
+  if (!points.length) return { center: [0, 0, 0], extent: 1 };
+  const min = [Infinity, Infinity, Infinity],
+    max = [-Infinity, -Infinity, -Infinity];
+  for (const point of points)
+    for (let axis = 0; axis < 3; axis++) {
+      if (!Number.isFinite(point[axis]))
+        throw Error("Display vertices must be finite");
+      min[axis] = Math.min(min[axis], point[axis]);
+      max[axis] = Math.max(max[axis], point[axis]);
+    }
+  const center = min.map((v, i) => v + (max[i] - v) / 2);
+  let radius = 0;
+  for (const point of points)
+    radius = Math.max(
+      radius,
+      Math.hypot(
+        point[0] - center[0],
+        point[1] - center[1],
+        point[2] - center[2],
+      ),
+    );
+  return { center, extent: radius ? radius * 1.15 : 1 };
+}
+export function fittedZoom(zoom, aspect) {
+  return zoom * Math.min(1, aspect);
+}

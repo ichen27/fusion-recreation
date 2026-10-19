@@ -89,3 +89,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Three-dimensional plane-cut checkpoint
 
 [Sequential arbitrary-plane cuts](../examples/ai-cad/plane-cuts/README.md) integrates the original exact convex boundary clipper into typed model features and browser controls. Upstream plane edits rebuild later cuts; empty solids reject atomically. Independent STEP half-space comparisons and native recordings are included. General nonconvex/curved Booleans and persistent generated topology references remain open.
+
+## Viewport framing checkpoint
+
+[Orientation and aspect-aware fit](../examples/ai-cad/viewport-framing/README.md) keeps bounded geometry visible at default zoom across window shapes, adds Fit view and retains GPU buffers on camera/resize operations. View presets, panning and semantic selection remain open.
