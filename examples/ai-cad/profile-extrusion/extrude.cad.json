@@ -1,0 +1,125 @@
+{
+  "sha256": "a19b89647faa527ebb01989e2810e8b11c3b4ea81939277f9574a50926d2786b",
+  "state": {
+    "model": {
+      "features": [
+        {
+          "id": "outline",
+          "kind": "polygon_profile",
+          "vertices": [
+            {
+              "id": "lower_left",
+              "x": "zero",
+              "y": "zero"
+            },
+            {
+              "id": "lower_right",
+              "x": "width",
+              "y": "zero"
+            },
+            {
+              "id": "shoulder_right",
+              "x": "width",
+              "y": "shoulder"
+            },
+            {
+              "id": "tip",
+              "x": "tip_x",
+              "y": "depth"
+            },
+            {
+              "id": "shoulder_left",
+              "x": "zero",
+              "y": "shoulder"
+            }
+          ]
+        },
+        {
+          "height": "thickness",
+          "id": "plate",
+          "kind": "extrude",
+          "profile": "outline"
+        }
+      ],
+      "fixed": {
+        "thickness": "12",
+        "zero": "0"
+      },
+      "parameters": {
+        "depth": "60",
+        "shoulder": "35",
+        "thickness": "12",
+        "tip_x": "50",
+        "width": "100",
+        "zero": "0"
+      }
+    },
+    "receipts": {
+      "profile-create-v1": {
+        "request": "3c62e11f2edcf94a8af3d5eb5c7b6fc94a9da44e76787e27b0c6c5e80d21775c",
+        "revision": 1
+      },
+      "profile-extrude-v1": {
+        "request": "5bfd49c34c28db240f176df755ba7a82e14a5011e76322d109094187fe90e4b5",
+        "revision": 2
+      }
+    },
+    "redo": [],
+    "revision": 2,
+    "schema_version": 1,
+    "undo": [
+      {
+        "features": [],
+        "fixed": {},
+        "parameters": {}
+      },
+      {
+        "features": [
+          {
+            "id": "outline",
+            "kind": "polygon_profile",
+            "vertices": [
+              {
+                "id": "lower_left",
+                "x": "zero",
+                "y": "zero"
+              },
+              {
+                "id": "lower_right",
+                "x": "width",
+                "y": "zero"
+              },
+              {
+                "id": "shoulder_right",
+                "x": "width",
+                "y": "shoulder"
+              },
+              {
+                "id": "tip",
+                "x": "tip_x",
+                "y": "depth"
+              },
+              {
+                "id": "shoulder_left",
+                "x": "zero",
+                "y": "shoulder"
+              }
+            ]
+          }
+        ],
+        "fixed": {
+          "thickness": "12",
+          "zero": "0"
+        },
+        "parameters": {
+          "depth": "60",
+          "shoulder": "35",
+          "thickness": "12",
+          "tip_x": "50",
+          "width": "100",
+          "zero": "0"
+        }
+      }
+    ]
+  }
+}

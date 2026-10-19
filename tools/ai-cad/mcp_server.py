@@ -27,6 +27,25 @@ class CornerCut(Strict):
     size: str
 
 
+class ProfileVertex(Strict):
+    id: str
+    x: str
+    y: str
+
+
+class PolygonProfile(Strict):
+    kind: Literal["polygon_profile"]
+    id: str
+    vertices: list[ProfileVertex]
+
+
+class Extrude(Strict):
+    kind: Literal["extrude"]
+    id: str
+    profile: str
+    height: str
+
+
 class Define(Strict):
     op: Literal["define_parameter"]
     id: str
@@ -47,7 +66,9 @@ class Adjust(Strict):
 
 class AddFeature(Strict):
     op: Literal["add_feature"]
-    feature: Annotated[Union[Block, CornerCut], Field(discriminator="kind")]
+    feature: Annotated[
+        Union[Block, CornerCut, PolygonProfile, Extrude], Field(discriminator="kind")
+    ]
 
 
 class Constraint(Strict):
@@ -67,7 +88,7 @@ def server(path):
 
     @mcp.tool()
     def cad_inspect() -> dict:
-        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Inspect before planning. No generic fillets, holes, sketches, booleans or curved surfaces yet."""
+        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Also supported: strictly convex XY polygon_profile with 3..32 named vertices (x/y reference parameter IDs), and positive-Z extrude referencing an earlier profile and a height parameter. Either winding is accepted; repeated points, collinear corners and crossings are rejected. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Inspect before planning. No generic fillets, holes, sketch constraint solving, booleans or curved surfaces yet."""
         return dispatch(store, {"action": "inspect"})
 
     @mcp.tool()

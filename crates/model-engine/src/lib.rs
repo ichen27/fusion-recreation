@@ -6,6 +6,8 @@ use num_rational::BigRational as Q;
 use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
+mod profile;
+pub use profile::{EvaluatedProfile, ProfileVertex};
 
 #[derive(Debug, Serialize)]
 pub struct Error {
@@ -31,6 +33,17 @@ pub struct Model {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Feature {
+    /// One strictly convex loop on the XY plane, with parameter-backed coordinates.
+    PolygonProfile {
+        id: String,
+        vertices: Vec<ProfileVertex>,
+    },
+    /// A positive-Z extrusion of an earlier profile; height references a parameter.
+    Extrude {
+        id: String,
+        profile: String,
+        height: String,
+    },
     Block {
         id: String,
         width: String,
@@ -47,7 +60,10 @@ pub enum Feature {
 impl Feature {
     fn id(&self) -> &str {
         match self {
-            Self::Block { id, .. } | Self::CornerCut { id, .. } => id,
+            Self::Block { id, .. }
+            | Self::CornerCut { id, .. }
+            | Self::PolygonProfile { id, .. }
+            | Self::Extrude { id, .. } => id,
         }
     }
 }
@@ -82,6 +98,8 @@ pub struct Evaluation {
     pub units: &'static str,
     pub model: Model,
     pub bodies: Vec<Body>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub profiles: Vec<EvaluatedProfile>,
     pub changed_parameters: Vec<String>,
 }
 fn identifier(s: &str) -> Result<()> {
@@ -202,6 +220,9 @@ fn block(w: &Q, d: &Q, h: &Q) -> Boundary {
     }
 }
 pub fn validate(m: &Model) -> Result<Vec<Body>> {
+    Ok(evaluate_geometry(m)?.0)
+}
+fn evaluate_geometry(m: &Model) -> Result<(Vec<Body>, Vec<EvaluatedProfile>)> {
     if m.parameters.len() > 64 || m.features.len() > 32 || m.fixed.len() > 64 {
         return Err(error(
             "model_limit",
@@ -223,6 +244,7 @@ pub fn validate(m: &Model) -> Result<Vec<Body>> {
         }
     }
     let mut evaluated = BTreeMap::new();
+    let mut profiles = BTreeMap::new();
     let mut consumed = BTreeSet::new();
     let mut ids = BTreeSet::new();
     for feature in &m.features {
@@ -232,6 +254,29 @@ pub fn validate(m: &Model) -> Result<Vec<Body>> {
             return Err(error("duplicate_id", id, "Feature ID already exists"));
         }
         let (boundary, plane) = match feature {
+            Feature::PolygonProfile { vertices, .. } => {
+                profiles.insert(id, profile::resolve(m, id, vertices)?);
+                continue;
+            }
+            Feature::Extrude {
+                profile, height, ..
+            } => {
+                let input = profiles.get(profile.as_str()).ok_or_else(|| {
+                    error(
+                        "unsupported_reference",
+                        profile,
+                        "Extrusion must reference an earlier polygon profile",
+                    )
+                })?;
+                let h = positive(m, height)?;
+                (
+                    profile::extrude(input, &h),
+                    Plane {
+                        normal: ["0".into(), "0".into(), "1".into()],
+                        offset: h.to_string(),
+                    },
+                )
+            }
             Feature::Block {
                 width,
                 depth,
@@ -291,7 +336,7 @@ pub fn validate(m: &Model) -> Result<Vec<Body>> {
                 )
             }
         };
-        // Even an uncut block passes the kernel's full closed-boundary validator.
+        // Every solid passes the kernel's full closed-boundary validator.
         let result = boundary_clip::clip(ClipRequest {
             schema_version: 1,
             boundary,
@@ -307,11 +352,12 @@ pub fn validate(m: &Model) -> Result<Vec<Body>> {
             },
         );
     }
-    Ok(evaluated
+    let bodies = evaluated
         .into_iter()
         .filter(|(id, _)| !consumed.contains(id))
         .map(|(_, v)| v)
-        .collect())
+        .collect();
+    Ok((bodies, profiles.into_values().map(|p| p.output()).collect()))
 }
 pub fn evaluate(request: Request) -> Result<Evaluation> {
     if request.schema_version != 1 {
@@ -379,7 +425,7 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
     }
     // A fixed value can only change if explicitly released in the transaction.
     // Re-fixing without releasing must not overwrite an existing invariant.
-    let bodies = validate(&model)?;
+    let (bodies, profiles) = evaluate_geometry(&model)?;
     let changed_parameters = model
         .parameters
         .iter()
@@ -391,6 +437,7 @@ pub fn evaluate(request: Request) -> Result<Evaluation> {
         units: "mm",
         model,
         bodies,
+        profiles,
         changed_parameters,
     })
 }

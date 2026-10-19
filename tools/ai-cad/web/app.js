@@ -69,7 +69,7 @@ const number = (s) => {
   const parts = s.split("/").map(Number);
   return parts.length === 2 ? parts[0] / parts[1] : parts[0];
 };
-function geometry(bodies) {
+function geometry(bodies, profiles) {
   triangles = [];
   lines = [];
   const all = [];
@@ -93,6 +93,13 @@ function geometry(bodies) {
     for (const edge of b.edges)
       for (const id of edge.vertices)
         lines.push(...vertices[id], 0.15, 0.31, 0.27);
+  }
+  for (const profile of profiles) {
+    const vertices = profile.vertices.map((v) => v.position.map(number));
+    all.push(...vertices);
+    for (let i = 0; i < vertices.length; i++)
+      for (const p of [vertices[i], vertices[(i + 1) % vertices.length]])
+        lines.push(...p, 0.85, 0.56, 0.18);
   }
   if (all.length) {
     const min = [0, 1, 2].map((i) => Math.min(...all.map((p) => p[i]))),
@@ -157,6 +164,16 @@ function controls() {
   $("dimensions").querySelector("button").disabled = busy || !!preview;
 }
 function render(state) {
+  const profiles = state.profiles ?? [];
+  const extruded = new Set(
+    state.model.features
+      .filter((f) => f.kind === "extrude")
+      .map((f) => f.profile),
+  );
+  const visibleProfiles = profiles.filter((p) => !extruded.has(p.feature_id));
+  $("model-title").textContent = profiles.length
+    ? "Profile model"
+    : "Solid model";
   $("revision").textContent = `Revision ${state.revision} · Millimeters`;
   $("mode").textContent = preview ? "EDIT PREVIEW" : "SAVED MODEL";
   $("preview-actions").hidden = !preview;
@@ -199,11 +216,22 @@ function render(state) {
             `${number(b.volume_mm3).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm³`,
         )
         .join(" + ")
-    : "Empty document";
+    : profiles.length
+      ? "Profile only · no solid"
+      : "Empty document";
   $("volume").title = state.bodies
     .map((b) => `${b.feature_id}: ${b.volume_mm3} mm³ (exact)`)
     .join("\n");
-  geometry(state.bodies);
+  $("profile-area").textContent = profiles
+    .map(
+      (p) =>
+        `${p.feature_id}: ${number(p.area_mm2).toLocaleString(undefined, { maximumFractionDigits: 3 })} mm²`,
+    )
+    .join(" · ");
+  $("profile-area").title = profiles
+    .map((p) => `${p.feature_id}: ${p.area_mm2} mm² (exact)`)
+    .join("\n");
+  geometry(state.bodies, visibleProfiles);
   controls();
 }
 async function call(command) {

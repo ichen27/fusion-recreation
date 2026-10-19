@@ -18,3 +18,7 @@ License/ownership follows the repository; no public redistribution license for o
 ## Live subscription-client run
 
 A separate [live Codex recording](live-codex/README.md) now contains the actual tool calls from two natural-language turns using ChatGPT sign-in. The deterministic fixtures above remain the original baseline and are not relabeled as live model output.
+
+## Profile extrusion
+
+[Five-sided profile → solid → width edit](profile-extrusion/README.md): three command inputs, exact replies, editable snapshots, browser screenshots and a deterministic replay verifier.
