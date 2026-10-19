@@ -17,7 +17,7 @@ pub struct Mesh {
     pub edges: Vec<[usize; 2]>,
     pub max_radial_error_mm: f64,
 }
-fn value(s: &str) -> Result<f64> {
+pub(super) fn value(s: &str) -> Result<f64> {
     // These are computed, already validated coordinates, not user literals.
     let q: Q = s
         .parse()
@@ -133,6 +133,12 @@ fn build_mesh(body: &Body, segments: usize, phase: f64) -> Result<Mesh> {
             }
         }
         mesh.edges = b.edges.iter().map(|e| e.vertices).collect();
+    } else if body
+        .analytic
+        .as_ref()
+        .is_some_and(|s| s.counterbore.is_some())
+    {
+        mesh = crate::mesh_counterbore::build(body, segments, phase)?;
     } else if let Some(shape) = &body.analytic {
         let h = value(&shape.height)?;
         let mut points = Vec::new();

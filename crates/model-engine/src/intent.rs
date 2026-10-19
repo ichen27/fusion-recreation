@@ -55,6 +55,19 @@ impl Feature {
                 vec![input],
                 holes.iter().flat_map(|h| [&h.x, &h.y, &h.radius]).collect(),
             ),
+            Self::CounterboreHoles {
+                input,
+                depth,
+                bore_radius,
+                holes,
+                ..
+            } => (
+                vec![input],
+                [depth, bore_radius]
+                    .into_iter()
+                    .chain(holes.iter().flat_map(|h| [&h.x, &h.y, &h.radius]))
+                    .collect(),
+            ),
             Self::BlindHoles {
                 input,
                 depth,

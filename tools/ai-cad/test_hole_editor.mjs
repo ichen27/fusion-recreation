@@ -10,6 +10,7 @@ import {
   removeHole,
   setHoleValue,
   setHoleDepth,
+  setCounterboreRadius,
   holeProposal,
 } from "./web/hole-model.mjs";
 const root = fileURLToPath(new URL("../../", import.meta.url));
@@ -256,4 +257,39 @@ test("depth references can be shared without duplicate edits or shadowing old va
   };
   d = draftHoles(m, null, f.id);
   assert.throws(() => setHoleDepth(d, "2"), /fixed or derived/);
+});
+
+test("counterbore editor retains through radii and shares validated recess dimensions", () => {
+  const m = model(),
+    d = draftHoles(m, "plate");
+  d.kind = "counterbore_holes";
+  addHole(d, 10, 50, "3");
+  addHole(d, 70, 10, "2");
+  setCounterboreRadius(d, "5");
+  setHoleDepth(d, "2");
+  const created = run(m, holeProposal({ model: m, revision: 1 }, d)).result;
+  assert.equal(created.bodies[0].volume_mm3, "12000 - (139)*pi");
+  const edit = draftHoles(created.model, null, "holes1");
+  assert.equal(edit.boreRadius, "holes1.bore_radius");
+  setCounterboreRadius(edit, "6");
+  const changed = run(
+    created.model,
+    holeProposal({ model: created.model, revision: 2 }, edit),
+  ).result;
+  assert.equal(changed.bodies[0].volume_mm3, "12000 - (183)*pi");
+  assert.deepEqual(changed.model.features, created.model.features);
+  setCounterboreRadius(edit, "3");
+  assert.equal(
+    run(
+      created.model,
+      holeProposal({ model: created.model, revision: 2 }, edit),
+    ).error.code,
+    "counterbore_radius",
+  );
+  const fixed = structuredClone(created.model);
+  fixed.fixed[edit.boreRadius] = "5";
+  assert.throws(
+    () => setCounterboreRadius(draftHoles(fixed, null, "holes1"), "6"),
+    /fixed or derived/,
+  );
 });

@@ -85,3 +85,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Analytic engineering measurements](analytic-measurements/README.md): exact symbolic-π centroids/inertia, asymmetric blind holes, placed parts and a recorded shared-depth edit with fifteen independent references.
 
 - [CPU reuse within a transaction](transaction-reuse/README.md): unchanged validated feature prefixes, six full input/reply pairs, baseline/new CPU timings and 63-model differential coverage.
+
+- [Counterbored through-holes](counterbores/README.md): browser/MCP authoring, editable recess dimensions, exact measurements, native history, downloaded STL and eight independently compared analytic STEP models.

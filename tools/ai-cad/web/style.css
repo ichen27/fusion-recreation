@@ -569,3 +569,8 @@ dialog p[role="status"] {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+.hole-recess {
+  fill: none;
+  stroke-dasharray: 2 1;
+}

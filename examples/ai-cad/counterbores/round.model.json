@@ -1,0 +1,46 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "left": "-30",
+    "right": "30",
+    "mount_r": "3",
+    "bore_r": "10",
+    "recess_radius": "5",
+    "recess_depth": "2"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "counterbore_holes",
+      "id": "flange",
+      "input": "stock",
+      "holes": [
+        {
+          "id": "left",
+          "x": "left",
+          "y": "cy",
+          "radius": "mount_r"
+        },
+        {
+          "id": "right",
+          "x": "right",
+          "y": "cy",
+          "radius": "mount_r"
+        }
+      ],
+      "bore_radius": "recess_radius",
+      "depth": "recess_depth"
+    }
+  ]
+}

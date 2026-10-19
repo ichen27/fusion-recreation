@@ -1,0 +1,1305 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "r",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x2",
+            "mm": "88"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_radius",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_depth",
+            "mm": "2"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "polygon_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "c1",
+                  "y": "c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "c1",
+                  "y": "c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c2"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "solid",
+              "profile": "outline",
+              "height": "height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "counterbore_holes",
+              "id": "part",
+              "input": "solid",
+              "holes": [
+                {
+                  "id": "left",
+                  "x": "x",
+                  "y": "y",
+                  "radius": "r"
+                },
+                {
+                  "id": "right",
+                  "x": "x2",
+                  "y": "y",
+                  "radius": "r"
+                }
+              ],
+              "bore_radius": "recess_radius",
+              "depth": "recess_depth"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "172"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (172)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "height",
+            "r",
+            "recess_depth",
+            "recess_radius",
+            "x",
+            "x2",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "recess_radius",
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "y",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "r",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "x2",
+            "mm": "88"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_radius",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "recess_depth",
+            "mm": "2"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "polygon_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "c1",
+                  "y": "c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "c1",
+                  "y": "c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c2"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "solid",
+              "profile": "outline",
+              "height": "height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "counterbore_holes",
+              "id": "part",
+              "input": "solid",
+              "holes": [
+                {
+                  "id": "left",
+                  "x": "x",
+                  "y": "y",
+                  "radius": "r"
+                },
+                {
+                  "id": "right",
+                  "x": "x2",
+                  "y": "y",
+                  "radius": "r"
+                }
+              ],
+              "bore_radius": "recess_radius",
+              "depth": "recess_depth"
+            }
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "172"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (172)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "height",
+            "r",
+            "recess_depth",
+            "recess_radius",
+            "x",
+            "x2",
+            "y"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "recess_radius",
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "part"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-2064)*pi)/(36000 + (-172)*pi)",
+            "(108000 + (-644)*pi)/(36000 + (-172)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-3932364000)*pi + (667228/3)*pi*pi)/(36000 + (-172)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-14169804000)*pi + (128825116/3)*pi*pi)/(36000 + (-172)*pi)",
+              "((-82944000)*pi)/(36000 + (-172)*pi)"
+            ],
+            [
+              "0",
+              "((-82944000)*pi)/(36000 + (-172)*pi)",
+              "(1468800000000 + (-18021720000)*pi + (42990024)*pi*pi)/(36000 + (-172)*pi)"
+            ]
+          ],
+          "feature_id": "part",
+          "volume_mm3": "36000 - (172)*pi"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_depth",
+            "mm": "3"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "3",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "204"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (204)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "recess_depth"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "recess_radius",
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "3",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_depth",
+            "mm": "3"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "deeper"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "3",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "204"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (204)*pi"
+            }
+          ],
+          "changed_parameters": [
+            "recess_depth"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "recess_radius",
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "3",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "recess_radius",
+            "mm": "12"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "hole_clearance",
+          "message": "Counterbore must have positive clearance inside stock",
+          "entity": "left"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "counterbore": {
+                  "depth": "2",
+                  "radius": "5"
+                },
+                "height": "6",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "172"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (172)*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "bore_radius": "recess_radius",
+                "depth": "recess_depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "counterbore_holes"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "height": "6",
+              "r": "3",
+              "recess_depth": "2",
+              "recess_radius": "5",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 3,
+        "feature_id": "part"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-2064)*pi)/(36000 + (-172)*pi)",
+            "(108000 + (-644)*pi)/(36000 + (-172)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-3932364000)*pi + (667228/3)*pi*pi)/(36000 + (-172)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-14169804000)*pi + (128825116/3)*pi*pi)/(36000 + (-172)*pi)",
+              "((-82944000)*pi)/(36000 + (-172)*pi)"
+            ],
+            [
+              "0",
+              "((-82944000)*pi)/(36000 + (-172)*pi)",
+              "(1468800000000 + (-18021720000)*pi + (42990024)*pi*pi)/(36000 + (-172)*pi)"
+            ]
+          ],
+          "feature_id": "part",
+          "volume_mm3": "36000 - (172)*pi"
+        }
+      }
+    }
+  ]
+}
