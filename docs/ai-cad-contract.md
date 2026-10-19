@@ -63,6 +63,8 @@ All fields shown below are mandatory; unknown fields are rejected.
 | `inspect` | none | Current model, geometry, revision, undo/redo availability |
 | `preview` | `expected_revision`, `operations`, `preserve` | Evaluates without saving, changing history, or advancing revision |
 | `commit` | `expected_revision`, `transaction_id`, `operations`, `preserve` | Validates and atomically publishes a complete edit |
+| `preview_import` | `expected_revision`, `document` | Validates a native envelope and previews replacing the model |
+| `import` | `expected_revision`, `transaction_id`, `document` | Replaces the model as one undoable workspace edit; source history is not copied |
 | `undo`, `redo` | `expected_revision`, `transaction_id` | Reverses one edit and advances revision |
 
 Operations are tagged with `op`: `define_parameter`/`set_parameter` take `id, mm`; `adjust_parameter` takes `id, delta_mm`; `add_feature` takes `feature`; `fix_parameter`/`release_parameter` take `id`. Fixing an already-fixed parameter keeps its existing invariant. Changing it requires an explicit release. `preserve` contains existing parameter IDs that must have equal exact values before/after the entire batch, even if a constraint is released.
@@ -77,7 +79,7 @@ A POSIX advisory lock serializes cooperating host processes using a permanent si
 
 Failure before replace returns `save_failed`, leaving the prior snapshot intact. Failure after replace returns `commit_uncertain`: inspect and retry the **identical** transaction. An envelope SHA-256 detects accidental corruption; invalid files are rejected rather than overwritten. Editing snapshots outside the host is unsupported. The native C++ journal/locking code is not reused or implicitly certified by these tests.
 
-Limits: 64 parameters, 32 features, 64 fixed constraints, 128 operations/request, 64 preserve IDs; 128-bit rational numerator/denominator inputs; geometry dimension `(0, 1000000]` mm; 256 KiB host command, 1 MiB Rust input, 16 MiB saved envelope; 64 undo/redo snapshots and 1024 receipts. Revision is bounded to JavaScript's exact integer range. No-op commits fail and do not advance revision. New commits after undo clear redo.
+Limits: 64 parameters, 32 features, 64 fixed constraints, 128 operations/request, 64 preserve IDs; 128-bit rational numerator/denominator inputs; geometry dimension `(0, 1000000]` mm; 256 KiB ordinary host command (native import permits 16 MiB plus 1024 bytes of command framing), 1 MiB Rust input, 16 MiB saved envelope; 64 undo/redo snapshots and 1024 receipts. Revision is bounded to JavaScript's exact integer range. No-op commits fail and do not advance revision. New commits after undo clear redo.
 
 ## Diagnostics and repair
 
@@ -159,3 +161,7 @@ Cuts retain the existing planar `boundary` representation, exact rational vertic
 ## Multi-body STL archives
 
 The loopback viewer's read-only `GET /api/export.zip?revision=N&segments=S` exports every terminal solid from one validated saved snapshot. A later concurrent edit cannot mix revisions among its files. Single-body `/api/export.stl` remains supported. The ZIP contains numerically prefixed STL filenames and `manifest.json` with revision, mm units, circle segment count, feature/file mapping, exact source volumes, triangle counts and maximum radial chord error. Prefixes avoid case-folded filename collisions. No native history is embedded. Empty documents, stale revisions, failed tessellation or more than 64 MiB of uncompressed STL reject the entire archive. The browser uses one ZIP download when multiple solids are saved.
+
+## Native file workflow
+
+`GET /api/export.cad?revision=N` returns a locked, validated native snapshot with complete history and receipts; a stale revision rejects. `preview_import` and `import` accept this envelope as `document`. Both validate every source history model and checksum. Import retains the destination revision/receipts, adds its prior model to undo and clears redo. Source history/receipts are not copied. Existing fixed/relationship constraints belong to the imported model; replacement is explicit rather than a constrained dimension edit. The browser labels this action **Replace model**. Reopen a downloaded file as the host store to retain that file’s full history. [Recorded acceptance and portable artifacts](../examples/ai-cad/native-project/README.md). These commands are available through the document host/HTTP API; no new MCP import tool is exposed.

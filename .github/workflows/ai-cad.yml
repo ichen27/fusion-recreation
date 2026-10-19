@@ -29,6 +29,7 @@ jobs:
       - run: python tools/ai-cad/verify_blind_example.py
       - run: python tools/ai-cad/verify_plane_example.py
       - run: python tools/ai-cad/verify_stock_recording.py
+      - run: python tools/ai-cad/verify_native_recording.py
       - run: python -m pip install -r tools/ai-cad/step-requirements.txt
       - run: python tools/ai-cad/verify_step_export.py
       - run: python tools/ai-cad/verify_concave_export.py

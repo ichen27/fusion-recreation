@@ -4,16 +4,16 @@
 import argparse
 import json
 import sys
-from store import Store, dispatch
+from store import MAX_BYTES, Store, dispatch
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--store", required=True)
     args = parser.parse_args()
     try:
-        data = sys.stdin.buffer.read(262145)
-        if len(data) > 262144:
-            raise ValueError("Command exceeds 256 KiB")
+        data = sys.stdin.buffer.read(MAX_BYTES + 1025)
+        if len(data) > MAX_BYTES + 1024:
+            raise ValueError("Command exceeds native import transport limit")
         reply = dispatch(Store(args.store), json.loads(data))
     except (ValueError, OSError) as exc:
         reply = {

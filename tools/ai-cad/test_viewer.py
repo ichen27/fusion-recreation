@@ -138,3 +138,58 @@ class Viewer(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_native_download_and_import_over_http(self):
+        self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        status, native = self.request("GET", "/api/export.cad?revision=1")
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(native), json.loads(before))
+        for query in [
+            "",
+            "revision=0",
+            "revision=1&revision=1",
+            "revision=x",
+            "revision=1&body=x",
+        ]:
+            self.assertEqual(self.request("GET", "/api/export.cad?" + query)[0], 400)
+        self.assertEqual(
+            self.request(
+                "GET",
+                "/api/export.cad?revision=1",
+                headers={"Origin": "https://example.com"},
+            )[0],
+            403,
+        )
+        from test_native_files import envelope
+
+        document = json.loads(native)
+        document["state"]["model"]["parameters"]["width"] = "140"
+        # A valid historical receipt can make a native file exceed the ordinary command limit.
+        document["state"]["receipts"]["historical"] = {
+            "request": "a" * 300000,
+            "revision": 1,
+        }
+        document = envelope(document["state"])
+        command = {
+            "action": "preview_import",
+            "expected_revision": 1,
+            "document": document,
+        }
+        headers = {"Content-Type": "application/json"}
+        status, raw = self.request("POST", "/api/command", json.dumps(command), headers)
+        self.assertEqual(status, 200, raw)
+        self.assertTrue(json.loads(raw)["result"]["preview"])
+        self.assertEqual(self.store.path.read_bytes(), before)
+        command.update(action="import", transaction_id="http-import")
+        status, raw = self.request("POST", "/api/command", json.dumps(command), headers)
+        self.assertEqual(status, 200, raw)
+        self.assertEqual(json.loads(raw)["result"]["revision"], 2)
+        self.assertNotIn("historical", self.store.load()["receipts"])
+        document["sha256"] = "bad"
+        command.update(action="preview_import", expected_revision=2)
+        del command["transaction_id"]
+        status, raw = self.request("POST", "/api/command", json.dumps(command), headers)
+        self.assertEqual(status, 400)
+        self.assertEqual(json.loads(raw)["error"]["code"], "invalid_document")
+        self.assertEqual(self.store.load()["revision"], 2)
