@@ -10,13 +10,17 @@ from selection import dispatch_selection
 from intent import dispatch_explain
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
+from preview_jobs import PreviewJobs
 from urllib.parse import urlsplit, parse_qs
 
 
 def handler(store, port):
     meshes = ResultCache(max_entries=32, max_bytes=16 * 1024 * 1024)
+    jobs = PreviewJobs(store)
 
     class Handler(BaseHTTPRequestHandler):
+        preview_jobs = jobs
+
         def reply(self, status, data, content_type="application/json"):
             self.send_response(status)
             self.send_header("Content-Type", content_type)
@@ -40,6 +44,25 @@ def handler(store, port):
         def do_GET(self):
             if not self.allowed():
                 return self.reply(403, b"{}")
+            if urlsplit(self.path).path == "/api/preview-jobs":
+                try:
+                    query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
+                    if set(query) != {"id"} or len(query["id"]) != 1:
+                        raise CadError("invalid_command", "Expected one job ID")
+                    return self.reply(
+                        200, json.dumps({"result": jobs.get(query["id"][0])}).encode()
+                    )
+                except (CadError, ValueError) as exc:
+                    return self.reply(
+                        400,
+                        json.dumps(
+                            {
+                                "error": exc.detail
+                                if isinstance(exc, CadError)
+                                else {"message": str(exc)}
+                            }
+                        ).encode(),
+                    )
             if self.path == "/api/context":
                 reply = dispatch_selection(store, {"action": "context"})
                 return self.reply(
@@ -112,6 +135,7 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/preview-client.mjs": ("preview-client.mjs", "text/javascript"),
                 "/intersection-model.mjs": (
                     "intersection-model.mjs",
                     "text/javascript",
@@ -148,15 +172,44 @@ def handler(store, port):
                 or self.headers.get("Content-Type") != "application/json"
             ):
                 return self.reply(403, b"{}")
-            if self.path not in ("/api/command", "/api/selection", "/api/explain"):
+            if self.path not in (
+                "/api/command",
+                "/api/selection",
+                "/api/explain",
+                "/api/preview-jobs",
+            ):
                 return self.reply(404, b"{}")
             try:
                 length = int(self.headers.get("Content-Length", "0"))
-                limit = MAX_BYTES + 1024 if self.path == "/api/command" else 4096
+                limit = (
+                    MAX_BYTES + 1024
+                    if self.path == "/api/command"
+                    else 262144
+                    if self.path == "/api/preview-jobs"
+                    else 4096
+                )
                 if not 0 < length <= limit:
                     return self.reply(413, b"{}")
                 self.connection.settimeout(5)
                 command = json.loads(self.rfile.read(length))
+                if self.path == "/api/preview-jobs":
+                    try:
+                        if (
+                            isinstance(command, dict)
+                            and set(command) == {"action", "job_id"}
+                            and command["action"] == "cancel"
+                        ):
+                            result = jobs.cancel(command["job_id"])
+                        else:
+                            result = jobs.start(command)
+                        return self.reply(200, json.dumps({"result": result}).encode())
+                    except (CadError, OSError, ValueError, TypeError) as exc:
+                        error = (
+                            exc.detail
+                            if isinstance(exc, CadError)
+                            else {"code": "preview_failed", "message": str(exc)}
+                        )
+                        return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
                     dispatch_explain(store, command)
                     if self.path == "/api/explain"
@@ -183,4 +236,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     finally:
+        server.RequestHandlerClass.preview_jobs.close()
         server.server_close()
