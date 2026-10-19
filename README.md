@@ -4,6 +4,8 @@ An original AI-native CAD / 3D modeling engine under development. The first edit
 
 Convex polygon profiles now extrude into exact editable solids; [the profile example](examples/ai-cad/profile-extrusion/README.md) includes each saved stage and its replay check.
 
+The [platform delivery plan](docs/platform-delivery-plan.md) tracks the full long-term scope and acceptance gates. [Exact parameter relationships](examples/ai-cad/relationships/README.md) now preserve declared design relationships across edits.
+
 Start with the [AI CAD quickstart](tools/ai-cad/README.md), [command contract](docs/ai-cad-contract.md), and [working demo artifacts](examples/ai-cad/README.md).
 
 - [Approved full-product specification](docs/superpowers/specs/2026-10-11-fusion-recreation-design.md)

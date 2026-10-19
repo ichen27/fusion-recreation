@@ -22,3 +22,7 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 ## Profile extrusion
 
 [Five-sided profile → solid → width edit](profile-extrusion/README.md): three command inputs, exact replies, editable snapshots, browser screenshots and a deterministic replay verifier.
+
+## Parameter relationships
+
+[Symmetric profile](relationships/README.md): `tip_x = width / 2`, automatic rebuild, saved rules and snapshots, browser screenshot, replay verification and a measured host-latency baseline.

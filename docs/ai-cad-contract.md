@@ -32,6 +32,28 @@ Replies include `profiles` when at least one profile exists, containing `feature
 
 Every block, extrusion and cut passes the custom kernel's closed-boundary, orientation, manifold and convexity checks. Fixed values are checked against exact rational values, independently of AI interpretation. A language model can still misunderstand intent; the tool descriptions, preview, preserved parameters and explicit constraints make that inspectable, not infallible.
 
+## Exact parameter relationships
+
+Optional `model.relations` maps an existing parameter ID to an affine relationship:
+
+```json
+{"tip_x":{"offset_mm":"0","terms":{"width":"1/2"}}}
+```
+
+This means `tip_x = 0 mm + (1/2 × width)`. Coefficients are dimensionless exact rational strings; inputs and offsets are in mm. Up to eight nonzero terms are allowed per relationship. Empty terms define a constant. General expressions, products of dimensional parameters, trigonometry and a geometric constraint solver are not supported.
+
+`set_relation` takes `id, relation` and explicitly creates/replaces a relationship. Define its target parameter first. `remove_relation` takes `id`, evaluates the current dependencies, removes the rule and retains the computed value as an independent parameter. It does not release a fixed constraint. Direct `set_parameter` or `adjust_parameter` on a derived target fails with `derived_parameter`; edit an input or the rule, or remove the rule first.
+
+All dependent values refresh after a batch before preserve/fixed/geometry validation. `fix_parameter` and `remove_relation` also refresh at their position in the ordered operation sequence, so they capture the current computed value. Relationships may refer to other derived parameters. Cycles reject with a dependency path; missing references reject explicitly. Resolution is bounded to 64 total parameters/relationships, eight terms per rule, and 128-bit numerators/denominators for coefficients, intermediate products/sums and results. Terms evaluate in parameter-ID order. An oversized intermediate rejects even if later terms could cancel it.
+
+Derived values remain present in `model.parameters` for inspection. They are checked against their rules when a saved/input model is loaded; mismatched values reject with `relation_mismatch` rather than silently repairing the file. The host persists the updated values and rules together. `changed_parameters` includes changed dependent values. A fixed derived parameter constrains upstream edits; preserve also applies to derived values when explicitly listed. To widen a symmetric profile, preserve its unrelated independent dimensions, not the center coordinate that should move with width.
+
+The browser displays a derived field and its formula, disables direct edits, and automatically excludes dependent fields from its default preserve list. Fixed invariants remain enforced by Rust. Rule creation/replacement/removal currently uses CLI/MCP; there is no graphical relationship editor yet.
+
+Empty relationships are omitted on output; old fixtures replay unchanged. This is an additive schema-v1 extension. Older engines reject documents with relationships; update engine and adapter together and restart connected clients to refresh tool schemas.
+
+[Symmetric-profile example](../examples/ai-cad/relationships/README.md).
+
 ## Commands
 
 All fields shown below are mandatory; unknown fields are rejected.
@@ -59,4 +81,4 @@ Limits: 64 parameters, 32 features, 64 fixed constraints, 128 operations/request
 
 ## Diagnostics and repair
 
-Errors carry `code`, `entity`, `message`. Typical codes: `missing_parameter`, `duplicate_id`, `invalid_number`, `dimension_range`, `cut_range`, `invalid_profile`, `profile_limit`, `coordinate_range`, `unsupported_reference`, `constraint_conflict`, `preserve_conflict`, `revision_conflict`, `transaction_conflict`, `invalid_document`, `commit_uncertain`. No failed validation partially changes the model. Agents should repair the identified parameter/reference or ask for an intent decision; unsupported geometry must not be substituted silently.
+Errors carry `code`, `entity`, `message`. Typical codes: `missing_parameter`, `duplicate_id`, `invalid_number`, `dimension_range`, `cut_range`, `invalid_profile`, `profile_limit`, `coordinate_range`, `unsupported_reference`, `constraint_conflict`, `preserve_conflict`, `revision_conflict`, `transaction_conflict`, `invalid_document`, `commit_uncertain`, `derived_parameter`, `relation_cycle`, `relation_mismatch`, `relation_overflow`, `relation_limit`, `invalid_relation`, `missing_relation`. No failed validation partially changes the model. Agents should repair the identified parameter/reference or ask for an intent decision; unsupported geometry must not be substituted silently.

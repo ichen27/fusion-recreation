@@ -35,6 +35,18 @@ python3 tools/ai-cad/viewer.py --store work/profile.cad.json
 
 Run the viewer after the first command to see the unextruded outline. It can edit coordinate parameters, preview rebuilt geometry, save and undo. Feature creation currently uses CLI/MCP commands; the viewer does not have interactive sketch drawing tools. Restart connected MCP clients after upgrading to load the new typed feature schemas.
 
+## Preserve design relationships
+
+[The symmetric-profile example](../../examples/ai-cad/relationships/README.md) adds `tip_x = width / 2`. Increasing width from 100 to 120 mm moves the tip from 50 to 60 mm automatically; thickness remains fixed. The browser shows derived dimensions and their formulas. CLI/MCP can create, replace or remove the rules.
+
+```sh
+python3 tools/ai-cad/cad.py --store work/related.cad.json < examples/ai-cad/relationships/create.json
+python3 tools/ai-cad/cad.py --store work/related.cad.json < examples/ai-cad/relationships/widen.json
+python3 tools/ai-cad/viewer.py --store work/related.cad.json
+```
+
+Rules support exact affine combinations of existing parameters, not a general sketch solver. Cycles, direct edits of derived values, fixed/preserve conflicts and invalid rebuilt geometry fail atomically. See the [contract](../../docs/ai-cad-contract.md#exact-parameter-relationships).
+
 ## Connect your subscription client
 
 Install the optional MCP adapter into an isolated environment on the computation host:
@@ -86,9 +98,9 @@ Tools: `cad_inspect`, `cad_preview`, `cad_commit`, `cad_history`. The adapter gi
 
 See [the full command contract](../../docs/ai-cad-contract.md). CLI requests are JSON on stdin; one JSON reply is written to stdout. Errors use `{ "error": { "code", "entity", "message" } }`. Successful replies have a `result` with revision, editable model, exact boundary, volume and changed parameter IDs.
 
-- Model: named exact rational parameters in mm, ordered features, explicit fixed-value constraints.
+- Model: named exact rational parameters in mm, optional affine relationships, ordered features, explicit fixed-value constraints.
 - Features: origin-aligned block; one equal-setback vertical +X/+Y corner cut referencing an earlier block. Terminal solids and unextruded profiles are displayed. Also: strictly convex XY polygon profiles with named parameter-backed vertices and positive-Z extrusion. Independent bodies can overlap; their volumes are per-body, not a union volume.
-- Operations: define/set/adjust parameter, add feature, fix/release parameter. Constraints must be explicitly released to change them.
+- Operations: define/set/adjust parameter, set/remove relationship, add feature, fix/release parameter. Constraints must be explicitly released to change them.
 - Preview and commit take an expected revision and a list of parameter IDs to preserve. The whole proposed model must pass Rust validation.
 - Atomic snapshots retain 64 undo/redo steps and up to 1024 transaction receipts. Revision increases for undo/redo. Receipt exhaustion fails explicitly; there is no silent idempotency expiry.
 - Stable feature/parameter IDs are supported. Boundary face/edge array indices are **not** persistent topology names.
@@ -102,6 +114,7 @@ python3 -m unittest discover -s tools/ai-cad -p 'test_*.py' -v
 .venv/bin/python tools/ai-cad/verify_mcp.py
 python3 tools/ai-cad/verify_codex_recording.py
 python3 tools/ai-cad/verify_profile_example.py
+python3 tools/ai-cad/verify_relationship_example.py
 python3 scripts/check.py
 ```
 
@@ -109,12 +122,14 @@ python3 scripts/check.py
 
 [Profile extrusion validation and limits](../../docs/profile-extrusion-validation.md) records the new geometry and browser checks.
 
+[Relationship validation and measured host latency](../../docs/parameter-relationship-validation.md) records dependency checks and the initial performance baseline.
+
 ## Architecture and limits
 
 `crates/model-engine` owns model interpretation and exact geometry; it currently imports the bounded research crate in `experiments/2026-10-15-rust-boundary`. `store.py` owns revisions, locking, receipts, undo and atomic file publication. CLI, MCP and browser share that host. Moving kernel code to a maintained production crate remains future work.
 
 The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Full model/history revalidation and a new Rust process per evaluation favor correctness and isolation over throughput; this is not the final large-document scheduler.
 
-No general sketch solver beyond fixed values, nonconvex or curved profiles, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+No general geometric sketch solver, nonconvex or curved profiles, arbitrary booleans, curved surfaces, holes, fillets, transforms, assemblies, STEP export, collaborative editing protocol or production crash-recovery guarantee is added here. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
 
 The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.

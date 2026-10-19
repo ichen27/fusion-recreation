@@ -297,3 +297,11 @@ summary {
     font-size: 11px;
   }
 }
+
+.relationship {
+  display: block;
+  margin-top: 6px;
+  color: #61736f;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}

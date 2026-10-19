@@ -112,8 +112,56 @@ async def main():
                     },
                 )
                 assert invalid["error"]["code"] == "invalid_profile"
+                relationship = {
+                    "op": "set_relation",
+                    "id": "tip_x",
+                    "relation": {"offset_mm": "0", "terms": {"width": "1/2"}},
+                }
+                result = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 7,
+                        "transaction_id": "mcp-relation",
+                        "operations": [relationship],
+                        "preserve": ["width", "thickness"],
+                    },
+                )
+                assert result["result"]["model"]["parameters"]["tip_x"] == "60"
+                result = await call(
+                    "cad_commit",
+                    {
+                        "expected_revision": 8,
+                        "transaction_id": "mcp-related-widen",
+                        "operations": [
+                            {"op": "adjust_parameter", "id": "width", "delta_mm": "20"}
+                        ],
+                        "preserve": ["depth", "shoulder", "thickness", "zero"],
+                    },
+                )
+                assert result["result"]["model"]["parameters"]["tip_x"] == "70"
+                assert result["result"]["changed_parameters"] == ["tip_x", "width"]
+                invalid = await call(
+                    "cad_preview",
+                    {
+                        "expected_revision": 9,
+                        "preserve": [],
+                        "operations": [
+                            {"op": "set_parameter", "id": "tip_x", "mm": "60"}
+                        ],
+                    },
+                )
+                assert invalid["error"]["code"] == "derived_parameter"
+                result = await call(
+                    "cad_history",
+                    {
+                        "action": "undo",
+                        "expected_revision": 9,
+                        "transaction_id": "mcp-relation-undo",
+                    },
+                )
+                assert result["result"]["model"]["parameters"]["tip_x"] == "60"
                 print(
-                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas and diagnostics"
+                    "PASS: stdio handshake, typed tool discovery, inspect, create, preview, widen, undo, profile/extrude schemas, exact relationships and diagnostics"
                 )
 
 

@@ -71,13 +71,37 @@ class AddFeature(Strict):
     ]
 
 
+class Relation(Strict):
+    offset_mm: str
+    terms: dict[str, str]
+
+
+class SetRelation(Strict):
+    op: Literal["set_relation"]
+    id: str
+    relation: Relation
+
+
+class RemoveRelation(Strict):
+    op: Literal["remove_relation"]
+    id: str
+
+
 class Constraint(Strict):
     op: Literal["fix_parameter", "release_parameter"]
     id: str
 
 
 Operation = Annotated[
-    Union[Define, SetParameter, Adjust, AddFeature, Constraint],
+    Union[
+        Define,
+        SetParameter,
+        Adjust,
+        AddFeature,
+        Constraint,
+        SetRelation,
+        RemoveRelation,
+    ],
     Field(discriminator="op"),
 ]
 
@@ -88,14 +112,14 @@ def server(path):
 
     @mcp.tool()
     def cad_inspect() -> dict:
-        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Also supported: strictly convex XY polygon_profile with 3..32 named vertices (x/y reference parameter IDs), and positive-Z extrude referencing an earlier profile and a height parameter. Either winding is accepted; repeated points, collinear corners and crossings are rejected. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Inspect before planning. No generic fillets, holes, sketch constraint solving, booleans or curved surfaces yet."""
+        """Read current revision, editable parameters/features, fixed constraints, exact boundary and volume. Units mm. Supported: axis-aligned origin blocks and one +X/+Y vertical corner cut per block. Also supported: strictly convex XY polygon_profile with 3..32 named vertices (x/y reference parameter IDs), and positive-Z extrude referencing an earlier profile and a height parameter. Either winding is accepted; repeated points, collinear corners and crossings are rejected. Cut size is the equal setback along X and Y (not diagonal face width). All number inputs are integer or fraction strings, e.g. '12' or '25/2'. Feature and parameter IDs are stable; face/edge indices are not persistent references. Relationships use set_relation on an existing parameter: value = offset_mm + sum(terms[parameter] * parameter), with dimensionless rational coefficients; e.g. center = width/2 uses offset_mm="0", terms={"width":"1/2"}. Derived values rebuild automatically and cannot be directly set/adjusted. Cycles and fixed-value conflicts are rejected. Inspect before planning. No generic fillets, holes, sketch constraint solving, booleans or curved surfaces yet."""
         return dispatch(store, {"action": "inspect"})
 
     @mcp.tool()
     def cad_preview(
         expected_revision: int, operations: list[Operation], preserve: list[str]
     ) -> dict:
-        """Validate a proposed edit without saving. Preserve lists existing parameter IDs whose values must remain unchanged. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
+        """Validate a proposed edit without saving. Preserve lists existing parameter IDs whose values must remain unchanged, including derived values if explicitly requested. Do not preserve an automatically dependent parameter when the intended edit requires it to move. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
         return dispatch(
             store,
             {
