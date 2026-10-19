@@ -1,0 +1,61 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "left": "-30",
+    "right": "30",
+    "mount_r": "3",
+    "bore_r": "10",
+    "copy.x": "7/3",
+    "copy.y": "-2",
+    "copy.z": "5"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "through_holes",
+      "id": "flange",
+      "input": "stock",
+      "holes": [
+        {
+          "id": "left",
+          "x": "left",
+          "y": "cy",
+          "radius": "mount_r"
+        },
+        {
+          "id": "right",
+          "x": "right",
+          "y": "cy",
+          "radius": "mount_r"
+        },
+        {
+          "id": "bore",
+          "x": "cx",
+          "y": "cy",
+          "radius": "bore_r"
+        }
+      ]
+    },
+    {
+      "kind": "instance",
+      "id": "copy",
+      "source": "flange",
+      "offset": [
+        "copy.x",
+        "copy.y",
+        "copy.z"
+      ]
+    }
+  ]
+}

@@ -161,3 +161,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Analytic placement checkpoint
 
 [Exact placements for round stock and hole groups](../examples/ai-cad/analytic-placement/README.md) preserve analytic circles/cylinders through movement, quarter turns and linked reuse. Browser/MCP depth edits, rejection/undo, world-space blind floors and six independent STEP comparisons are verified. Curved Booleans, arbitrary rotations and curved-part measurements remain open.
+
+## Analytic measurement checkpoint
+
+[Symbolic-pi centroids and volume inertia](../examples/ai-cad/analytic-measurements/README.md) now cover circular/perforated stock and exact placements. Native coefficient checks, closed forms, symbolic identities, all-axis covariance, six browser/six MCP calls and fifteen independent analytic references are verified. Material density, surface area, principal axes, collision/clearance and new curved geometry remain open.

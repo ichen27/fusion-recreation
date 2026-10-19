@@ -21,7 +21,7 @@ pub struct Measurements {
     pub centroidal_volume_inertia_mm5: [[String; 3]; 3],
 }
 
-fn bounded(q: &Q) -> Result<()> {
+pub(super) fn bounded(q: &Q) -> Result<()> {
     if q.numer().bits() > 8192 || q.denom().bits() > 8192 {
         return Err(error(
             "measurement_limit",
@@ -31,7 +31,7 @@ fn bounded(q: &Q) -> Result<()> {
     }
     Ok(())
 }
-fn value(s: &str) -> Result<Q> {
+pub(super) fn value(s: &str) -> Result<Q> {
     let q: Q = s.parse().map_err(|_| {
         error(
             "invalid_geometry",
@@ -59,6 +59,11 @@ pub fn measure(request: Request) -> Result<Measurements> {
         .into_iter()
         .find(|b| &b.feature_id == id)
         .ok_or_else(|| error("missing_body", id, "Select a terminal solid"))?;
+    if let Some(shape) = &body.analytic {
+        if shape.outer_circle.is_some() || !shape.holes.is_empty() || shape.placement.is_some() {
+            return crate::measure_curved::measure(id, shape, &body.volume_mm3);
+        }
+    }
     let boundary = if let Some(boundary) = body.boundary {
         boundary
     } else {

@@ -331,7 +331,7 @@ $("measure-selection").addEventListener("click", async () => {
     key = `${revision}:${feature_id}`;
   measurementPending = true;
   intentControls();
-  $("measurement-info").textContent = "Integrating exact planar geometry…";
+  $("measurement-info").textContent = "Integrating exact geometry…";
   try {
     const reply = await (
       await fetch("/api/measure", {

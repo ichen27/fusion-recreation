@@ -221,3 +221,7 @@ Select a saved planar part and choose **Measure solid**, or call MCP `cad_measur
 ## Place circular and perforated parts
 
 **Move solid**, **Quarter-turn solid** and **Linked copy** now accept circular stock and parts with through/blind holes. Exact local circles/cylinders and depth parameters remain intact; composed placement carries them into world coordinates for display and STEP/STL. [Native history, actual browser/MCP and independent analytic STEP evidence](../../examples/ai-cad/analytic-placement/README.md) includes a turned flange with editable blind pockets. Run `verify_analytic_placement.py`, optional `verify_analytic_placement_mcp.py` and optional `verify_analytic_placement_export.py`. Curved Boolean/cut operations remain unsupported.
+
+## Measure round and perforated parts
+
+Measure solid and `cad_measure` also support circular stock, through/blind holes and their placements. Centroids and volume inertia remain exact expressions involving π; bounds remain rational. [Editable source/copy depth workflow and fifteen independent references](../../examples/ai-cad/analytic-measurements/README.md) document the format and units. Run `verify_analytic_measurements.py`; optional MCP and reference checks use `verify_analytic_measurements_mcp.py` and `verify_analytic_measurements_reference.py`. No density or physical mass is assigned.

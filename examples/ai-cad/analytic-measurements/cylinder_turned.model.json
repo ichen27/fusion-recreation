@@ -1,0 +1,47 @@
+{
+  "parameters": {
+    "cx": "0",
+    "cy": "0",
+    "radius": "40",
+    "height": "5",
+    "move.x": "5",
+    "move.y": "-2",
+    "move.z": "3",
+    "turn.x": "0",
+    "turn.y": "0",
+    "turn.z": "0"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "stock",
+      "x": "cx",
+      "y": "cy",
+      "radius": "radius",
+      "height": "height"
+    },
+    {
+      "kind": "translate",
+      "id": "moved",
+      "input": "stock",
+      "offset": [
+        "move.x",
+        "move.y",
+        "move.z"
+      ]
+    },
+    {
+      "kind": "rotate_quarter",
+      "id": "turned",
+      "input": "moved",
+      "axis": "y",
+      "turns": 1,
+      "pivot": [
+        "turn.x",
+        "turn.y",
+        "turn.z"
+      ]
+    }
+  ]
+}

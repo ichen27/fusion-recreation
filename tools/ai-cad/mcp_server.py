@@ -231,7 +231,7 @@ def server(path):
 
     @mcp.tool()
     def cad_measure(expected_revision: int, feature_id: str) -> dict:
-        """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal planar solid. Values are rational strings; units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Analytic circular/perforated stock is unsupported. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
+        """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
         )

@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from measurements import measure_model, dispatch_measure
-from store import Store, CadError
+from store import Store
 from test_intersection import rectangle, operations
 from test_concave_operations import l_shape
 from test_booleans import cases
@@ -93,7 +93,7 @@ class Measurements(unittest.TestCase):
             ],
         )
 
-    def test_read_only_history_revision_and_unsupported_stock(self):
+    def test_read_only_history_revision_and_analytic_stock(self):
         model = instance(l_shape())
         with tempfile.TemporaryDirectory() as directory:
             store = Store(Path(directory) / "part.json")
@@ -121,9 +121,7 @@ class Measurements(unittest.TestCase):
             self.assertEqual(store.path.read_bytes(), before)
         from test_round_stock import flange
 
-        with self.assertRaises(CadError) as error:
-            measure(flange())
-        self.assertEqual(error.exception.detail["code"], "unsupported_measurement")
+        self.assertEqual(measure(flange())["centroid_mm"], ["0", "0", "5/2"])
 
 
 if __name__ == "__main__":

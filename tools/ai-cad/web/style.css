@@ -564,3 +564,8 @@ dialog p[role="status"] {
 #compute-dialog {
   width: min(90vw, 440px);
 }
+
+#measurement-info pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

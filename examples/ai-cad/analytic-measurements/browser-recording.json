@@ -1,0 +1,774 @@
+{
+  "calls": [
+    {
+      "command": {
+        "expected_revision": 1,
+        "feature_id": "part"
+      },
+      "path": "/api/measure",
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "100",
+              "60",
+              "6"
+            ]
+          ],
+          "centroid_mm": [
+            "50",
+            "(1080000 + (-432)*pi)/(36000 + (-36)*pi)",
+            "(108000 + (-180)*pi)/(36000 + (-36)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-821124000)*pi + (3348)*pi*pi)/(36000 + (-36)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1083888000000 + (-2963844000)*pi + (1874772)*pi*pi)/(36000 + (-36)*pi)",
+              "((-46656000)*pi)/(36000 + (-36)*pi)"
+            ],
+            [
+              "0",
+              "((-46656000)*pi)/(36000 + (-36)*pi)",
+              "(1468800000000 + (-3765960000)*pi + (1877256)*pi*pi)/(36000 + (-36)*pi)"
+            ]
+          ],
+          "feature_id": "part",
+          "revision": 1,
+          "volume_mm3": "36000 - (36)*pi"
+        }
+      }
+    },
+    {
+      "command": {
+        "expected_revision": 1,
+        "feature_id": "turned"
+      },
+      "path": "/api/measure",
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "130",
+              "-6",
+              "0"
+            ],
+            [
+              "230",
+              "0",
+              "60"
+            ]
+          ],
+          "centroid_mm": [
+            "180",
+            "(-108000 + (180)*pi)/(36000 + (-36)*pi)",
+            "(1080000 + (-432)*pi)/(36000 + (-36)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-821124000)*pi + (3348)*pi*pi)/(36000 + (-36)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1468800000000 + (-3765960000)*pi + (1877256)*pi*pi)/(36000 + (-36)*pi)",
+              "((46656000)*pi)/(36000 + (-36)*pi)"
+            ],
+            [
+              "0",
+              "((46656000)*pi)/(36000 + (-36)*pi)",
+              "(1083888000000 + (-2963844000)*pi + (1874772)*pi*pi)/(36000 + (-36)*pi)"
+            ]
+          ],
+          "feature_id": "turned",
+          "revision": 1,
+          "volume_mm3": "36000 - (36)*pi"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "copy.x",
+          "copy.y",
+          "copy.z",
+          "height",
+          "r",
+          "turn.x",
+          "turn.y",
+          "turn.z",
+          "x",
+          "x2",
+          "y"
+        ]
+      },
+      "path": "/api/preview-jobs",
+      "reply": {
+        "result": {
+          "job_id": "1e847991-142c-4a35-8c55-a05e3d691ea3",
+          "revision": 1,
+          "status": "queued"
+        }
+      }
+    },
+    {
+      "command": null,
+      "path": "/api/preview-jobs?id=1e847991-142c-4a35-8c55-a05e3d691ea3",
+      "reply": {
+        "result": {
+          "job_id": "1e847991-142c-4a35-8c55-a05e3d691ea3",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "analytic": {
+                    "height": "6",
+                    "hole_depth": "3",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "left",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "id": "right",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "54"
+                    }
+                  },
+                  "feature_id": "part",
+                  "volume_mm3": "36000 - (54)*pi"
+                },
+                {
+                  "analytic": {
+                    "height": "6",
+                    "hole_depth": "3",
+                    "holes": [
+                      {
+                        "center": [
+                          "12",
+                          "12"
+                        ],
+                        "id": "left",
+                        "radius": "3"
+                      },
+                      {
+                        "center": [
+                          "88",
+                          "12"
+                        ],
+                        "id": "right",
+                        "radius": "3"
+                      }
+                    ],
+                    "kind": "perforated_prism",
+                    "outer": [
+                      [
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "60"
+                      ],
+                      [
+                        "0",
+                        "60"
+                      ]
+                    ],
+                    "placement": {
+                      "axes": [
+                        [
+                          1,
+                          0,
+                          0
+                        ],
+                        [
+                          0,
+                          0,
+                          -1
+                        ],
+                        [
+                          0,
+                          1,
+                          0
+                        ]
+                      ],
+                      "origin": [
+                        "130",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    "volume": {
+                      "constant_mm3": "36000",
+                      "pi_subtract_mm3": "54"
+                    }
+                  },
+                  "feature_id": "turned",
+                  "volume_mm3": "36000 - (54)*pi"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "depth"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "outline",
+                    "kind": "polygon_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "c0",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "c1",
+                        "y": "c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "c1",
+                        "y": "c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "c0",
+                        "y": "c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "height",
+                    "id": "solid",
+                    "kind": "extrude",
+                    "profile": "outline"
+                  },
+                  {
+                    "depth": "depth",
+                    "holes": [
+                      {
+                        "id": "left",
+                        "radius": "r",
+                        "x": "x",
+                        "y": "y"
+                      },
+                      {
+                        "id": "right",
+                        "radius": "r",
+                        "x": "x2",
+                        "y": "y"
+                      }
+                    ],
+                    "id": "part",
+                    "input": "solid",
+                    "kind": "blind_holes"
+                  },
+                  {
+                    "id": "copy",
+                    "kind": "instance",
+                    "offset": [
+                      "copy.x",
+                      "copy.y",
+                      "copy.z"
+                    ],
+                    "source": "part"
+                  },
+                  {
+                    "axis": "x",
+                    "id": "turned",
+                    "input": "copy",
+                    "kind": "rotate_quarter",
+                    "pivot": [
+                      "turn.x",
+                      "turn.y",
+                      "turn.z"
+                    ],
+                    "turns": 1
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "c0": "0",
+                  "c1": "100",
+                  "c2": "60",
+                  "copy.x": "130",
+                  "copy.y": "0",
+                  "copy.z": "0",
+                  "depth": "3",
+                  "height": "6",
+                  "r": "3",
+                  "turn.x": "0",
+                  "turn.y": "0",
+                  "turn.z": "0",
+                  "x": "12",
+                  "x2": "88",
+                  "y": "12"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "6000",
+                  "feature_id": "outline",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "100",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "100",
+                        "60",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "60",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      }
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "depth",
+            "mm": "3",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c1",
+          "c2",
+          "copy.x",
+          "copy.y",
+          "copy.z",
+          "height",
+          "r",
+          "turn.x",
+          "turn.y",
+          "turn.z",
+          "x",
+          "x2",
+          "y"
+        ],
+        "transaction_id": "e879f0ba-5d77-4c55-b019-4b0d1338791f"
+      },
+      "path": "/api/command",
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "3",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "54"
+                }
+              },
+              "feature_id": "part",
+              "volume_mm3": "36000 - (54)*pi"
+            },
+            {
+              "analytic": {
+                "height": "6",
+                "hole_depth": "3",
+                "holes": [
+                  {
+                    "center": [
+                      "12",
+                      "12"
+                    ],
+                    "id": "left",
+                    "radius": "3"
+                  },
+                  {
+                    "center": [
+                      "88",
+                      "12"
+                    ],
+                    "id": "right",
+                    "radius": "3"
+                  }
+                ],
+                "kind": "perforated_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      -1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "origin": [
+                    "130",
+                    "0",
+                    "0"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "54"
+                }
+              },
+              "feature_id": "turned",
+              "volume_mm3": "36000 - (54)*pi"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "depth"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "polygon_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c1",
+                    "y": "c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c1",
+                    "y": "c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c2"
+                  }
+                ]
+              },
+              {
+                "height": "height",
+                "id": "solid",
+                "kind": "extrude",
+                "profile": "outline"
+              },
+              {
+                "depth": "depth",
+                "holes": [
+                  {
+                    "id": "left",
+                    "radius": "r",
+                    "x": "x",
+                    "y": "y"
+                  },
+                  {
+                    "id": "right",
+                    "radius": "r",
+                    "x": "x2",
+                    "y": "y"
+                  }
+                ],
+                "id": "part",
+                "input": "solid",
+                "kind": "blind_holes"
+              },
+              {
+                "id": "copy",
+                "kind": "instance",
+                "offset": [
+                  "copy.x",
+                  "copy.y",
+                  "copy.z"
+                ],
+                "source": "part"
+              },
+              {
+                "axis": "x",
+                "id": "turned",
+                "input": "copy",
+                "kind": "rotate_quarter",
+                "pivot": [
+                  "turn.x",
+                  "turn.y",
+                  "turn.z"
+                ],
+                "turns": 1
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "0",
+              "c1": "100",
+              "c2": "60",
+              "copy.x": "130",
+              "copy.y": "0",
+              "copy.z": "0",
+              "depth": "3",
+              "height": "6",
+              "r": "3",
+              "turn.x": "0",
+              "turn.y": "0",
+              "turn.z": "0",
+              "x": "12",
+              "x2": "88",
+              "y": "12"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "command": {
+        "expected_revision": 2,
+        "feature_id": "turned"
+      },
+      "path": "/api/measure",
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "130",
+              "-6",
+              "0"
+            ],
+            [
+              "230",
+              "0",
+              "60"
+            ]
+          ],
+          "centroid_mm": [
+            "180",
+            "(-108000 + (243)*pi)/(36000 + (-54)*pi)",
+            "(1080000 + (-648)*pi)/(36000 + (-54)*pi)"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(392688000000 + (-1229094000)*pi + (8748)*pi*pi)/(36000 + (-54)*pi)",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(1468800000000 + (-5648940000)*pi + (4223826)*pi*pi)/(36000 + (-54)*pi)",
+              "((52488000)*pi)/(36000 + (-54)*pi)"
+            ],
+            [
+              "0",
+              "((52488000)*pi)/(36000 + (-54)*pi)",
+              "(1083888000000 + (-4443174000)*pi + (4219452)*pi*pi)/(36000 + (-54)*pi)"
+            ]
+          ],
+          "feature_id": "turned",
+          "revision": 2,
+          "volume_mm3": "36000 - (54)*pi"
+        }
+      }
+    }
+  ]
+}
