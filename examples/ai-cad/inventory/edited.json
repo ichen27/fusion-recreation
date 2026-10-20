@@ -1,0 +1,80 @@
+{
+  "revision": 2,
+  "source_model_sha256": "7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77",
+  "units": "mm",
+  "density_units": "kg/m^3",
+  "row_policy": "one_per_terminal_solid",
+  "quantity_policy": "one_body_not_connected_components",
+  "grouping_policy": "none_no_part_equivalence_inferred",
+  "overlap_policy": "each_terminal_solid_listed_separately",
+  "solid_count": 4,
+  "rows": [
+    {
+      "feature_id": "block",
+      "feature_kind": "extrude",
+      "quantity": 1,
+      "linked_source": null,
+      "volume_mm3": "80",
+      "material": {
+        "source_features": [],
+        "status": "unassigned"
+      }
+    },
+    {
+      "feature_id": "copy",
+      "feature_kind": "instance",
+      "quantity": 1,
+      "linked_source": "plate",
+      "volume_mm3": "120",
+      "material": {
+        "material": {
+          "density_kg_per_m3": "1000",
+          "name": "Sample alloy"
+        },
+        "source_features": [
+          "plate"
+        ],
+        "status": "assigned"
+      }
+    },
+    {
+      "feature_id": "plate",
+      "feature_kind": "extrude",
+      "quantity": 1,
+      "linked_source": null,
+      "volume_mm3": "120",
+      "material": {
+        "material": {
+          "density_kg_per_m3": "1000",
+          "name": "Sample alloy"
+        },
+        "source_features": [
+          "plate"
+        ],
+        "status": "assigned"
+      }
+    },
+    {
+      "feature_id": "stock",
+      "feature_kind": "cylinder",
+      "quantity": 1,
+      "linked_source": null,
+      "volume_mm3": "18*pi",
+      "material": {
+        "material": {
+          "density_kg_per_m3": "2000",
+          "name": "Turned stock"
+        },
+        "source_features": [
+          "stock"
+        ],
+        "status": "assigned"
+      }
+    }
+  ],
+  "material_counts": {
+    "assigned": 3,
+    "unassigned": 1,
+    "conflict": 0
+  }
+}

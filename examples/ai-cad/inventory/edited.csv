@@ -1,0 +1,5 @@
+revision,source_model_sha256,feature_id,feature_kind,quantity,linked_source,volume_mm3,material_status,material_name,density_kg_per_m3,material_source_features
+2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,block,extrude,1,,80,unassigned,,,[]
+2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,copy,instance,1,plate,120,assigned,Sample alloy,1000,"[""plate""]"
+2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,plate,extrude,1,,120,assigned,Sample alloy,1000,"[""plate""]"
+2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,stock,cylinder,1,,18*pi,assigned,Turned stock,2000,"[""stock""]"

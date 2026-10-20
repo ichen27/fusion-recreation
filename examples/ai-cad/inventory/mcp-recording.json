@@ -1,0 +1,3176 @@
+{
+  "calls": [
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "transaction_id": "create",
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "plate.height",
+            "mm": "2"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.c1",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.c2",
+            "mm": "4"
+          },
+          {
+            "op": "define_parameter",
+            "id": "copy.x",
+            "mm": "20"
+          },
+          {
+            "op": "define_parameter",
+            "id": "copy.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "copy.z",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "block.height",
+            "mm": "2"
+          },
+          {
+            "op": "define_parameter",
+            "id": "block.c0",
+            "mm": "40"
+          },
+          {
+            "op": "define_parameter",
+            "id": "block.c1",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "block.c2",
+            "mm": "45"
+          },
+          {
+            "op": "define_parameter",
+            "id": "block.c3",
+            "mm": "8"
+          },
+          {
+            "op": "define_parameter",
+            "id": "cx",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "cy",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "radius",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "2"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "plate.c0",
+                  "y": "plate.c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "plate.c1",
+                  "y": "plate.c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "plate.c1",
+                  "y": "plate.c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "plate.c0",
+                  "y": "plate.c2"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "plate",
+              "profile": "plate.profile",
+              "height": "plate.height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "instance",
+              "id": "copy",
+              "source": "plate",
+              "offset": [
+                "copy.x",
+                "copy.y",
+                "copy.z"
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "block.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "block.c0",
+                  "y": "block.c1"
+                },
+                {
+                  "id": "v1",
+                  "x": "block.c2",
+                  "y": "block.c1"
+                },
+                {
+                  "id": "v2",
+                  "x": "block.c2",
+                  "y": "block.c3"
+                },
+                {
+                  "id": "v3",
+                  "x": "block.c0",
+                  "y": "block.c3"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "block",
+              "profile": "block.profile",
+              "height": "block.height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "cylinder",
+              "id": "stock",
+              "x": "cx",
+              "y": "cy",
+              "radius": "radius",
+              "height": "height"
+            }
+          },
+          {
+            "op": "set_material",
+            "feature_id": "plate",
+            "material": {
+              "name": "Sample alloy",
+              "density_kg_per_m3": "1000"
+            }
+          },
+          {
+            "op": "set_material",
+            "feature_id": "stock",
+            "material": {
+              "name": "Turned stock",
+              "density_kg_per_m3": "2000"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "40",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "8"
+                  ],
+                  [
+                    "40",
+                    "8"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "block",
+              "volume_mm3": "80"
+            },
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-10",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "120"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "10",
+                      "0"
+                    ],
+                    "offset": "40"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-80"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "20",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "2"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "2"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "2"
+                  ],
+                  [
+                    "20",
+                    "4",
+                    "2"
+                  ]
+                ]
+              },
+              "feature_id": "copy",
+              "volume_mm3": "80"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "4"
+                  ],
+                  [
+                    "0",
+                    "4"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate",
+              "volume_mm3": "80"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "60",
+                    "0"
+                  ],
+                  "radius": "3"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-18"
+                }
+              },
+              "feature_id": "stock",
+              "volume_mm3": "18*pi"
+            }
+          ],
+          "changed_parameters": [
+            "block.c0",
+            "block.c1",
+            "block.c2",
+            "block.c3",
+            "block.height",
+            "copy.x",
+            "copy.y",
+            "copy.z",
+            "cx",
+            "cy",
+            "height",
+            "plate.c0",
+            "plate.c1",
+            "plate.c2",
+            "plate.height",
+            "radius"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "plate.c0",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "plate.c1",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.c1",
+                    "y": "plate.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.c0",
+                    "y": "plate.c2"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              },
+              {
+                "id": "copy",
+                "kind": "instance",
+                "offset": [
+                  "copy.x",
+                  "copy.y",
+                  "copy.z"
+                ],
+                "source": "plate"
+              },
+              {
+                "id": "block.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "block.c0",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "block.c2",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "block.c2",
+                    "y": "block.c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "block.c0",
+                    "y": "block.c3"
+                  }
+                ]
+              },
+              {
+                "height": "block.height",
+                "id": "block",
+                "kind": "extrude",
+                "profile": "block.profile"
+              },
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              }
+            ],
+            "fixed": {},
+            "materials": {
+              "plate": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "stock": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              }
+            },
+            "parameters": {
+              "block.c0": "40",
+              "block.c1": "0",
+              "block.c2": "45",
+              "block.c3": "8",
+              "block.height": "2",
+              "copy.x": "20",
+              "copy.y": "0",
+              "copy.z": "0",
+              "cx": "60",
+              "cy": "0",
+              "height": "2",
+              "plate.c0": "0",
+              "plate.c1": "10",
+              "plate.c2": "4",
+              "plate.height": "2",
+              "radius": "3"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "40",
+              "feature_id": "block.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "45",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "45",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "40",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "40",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "4",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "4",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "resolved_materials": {
+            "block": {
+              "source_features": [],
+              "status": "unassigned"
+            },
+            "copy": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "plate": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "stock": {
+              "material": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              },
+              "source_features": [
+                "stock"
+              ],
+              "status": "assigned"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inventory",
+      "arguments": {
+        "expected_revision": 1
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "source_model_sha256": "81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3",
+          "units": "mm",
+          "density_units": "kg/m^3",
+          "row_policy": "one_per_terminal_solid",
+          "quantity_policy": "one_body_not_connected_components",
+          "grouping_policy": "none_no_part_equivalence_inferred",
+          "overlap_policy": "each_terminal_solid_listed_separately",
+          "solid_count": 4,
+          "rows": [
+            {
+              "feature_id": "block",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "source_features": [],
+                "status": "unassigned"
+              }
+            },
+            {
+              "feature_id": "copy",
+              "feature_kind": "instance",
+              "quantity": 1,
+              "linked_source": "plate",
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "plate",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "stock",
+              "feature_kind": "cylinder",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "18*pi",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "2000",
+                  "name": "Turned stock"
+                },
+                "source_features": [
+                  "stock"
+                ],
+                "status": "assigned"
+              }
+            }
+          ],
+          "material_counts": {
+            "assigned": 3,
+            "unassigned": 1,
+            "conflict": 0
+          },
+          "csv": "revision,source_model_sha256,feature_id,feature_kind,quantity,linked_source,volume_mm3,material_status,material_name,density_kg_per_m3,material_source_features\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,block,extrude,1,,80,unassigned,,,[]\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,copy,instance,1,plate,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,plate,extrude,1,,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,stock,cylinder,1,,18*pi,assigned,Turned stock,2000,\"[\"\"stock\"\"]\"\r\n"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.height",
+            "mm": "3"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "40",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "8"
+                  ],
+                  [
+                    "40",
+                    "8"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "block",
+              "volume_mm3": "80"
+            },
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "3"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-10",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "120"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "10",
+                      "0"
+                    ],
+                    "offset": "40"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-80"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "20",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "3"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "3"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "3"
+                  ],
+                  [
+                    "20",
+                    "4",
+                    "3"
+                  ]
+                ]
+              },
+              "feature_id": "copy",
+              "volume_mm3": "120"
+            },
+            {
+              "analytic": {
+                "height": "3",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "4"
+                  ],
+                  [
+                    "0",
+                    "4"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "120",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate",
+              "volume_mm3": "120"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "60",
+                    "0"
+                  ],
+                  "radius": "3"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-18"
+                }
+              },
+              "feature_id": "stock",
+              "volume_mm3": "18*pi"
+            }
+          ],
+          "changed_parameters": [
+            "plate.height"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "plate.c0",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "plate.c1",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.c1",
+                    "y": "plate.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.c0",
+                    "y": "plate.c2"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              },
+              {
+                "id": "copy",
+                "kind": "instance",
+                "offset": [
+                  "copy.x",
+                  "copy.y",
+                  "copy.z"
+                ],
+                "source": "plate"
+              },
+              {
+                "id": "block.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "block.c0",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "block.c2",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "block.c2",
+                    "y": "block.c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "block.c0",
+                    "y": "block.c3"
+                  }
+                ]
+              },
+              {
+                "height": "block.height",
+                "id": "block",
+                "kind": "extrude",
+                "profile": "block.profile"
+              },
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              }
+            ],
+            "fixed": {},
+            "materials": {
+              "plate": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "stock": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              }
+            },
+            "parameters": {
+              "block.c0": "40",
+              "block.c1": "0",
+              "block.c2": "45",
+              "block.c3": "8",
+              "block.height": "2",
+              "copy.x": "20",
+              "copy.y": "0",
+              "copy.z": "0",
+              "cx": "60",
+              "cy": "0",
+              "height": "2",
+              "plate.c0": "0",
+              "plate.c1": "10",
+              "plate.c2": "4",
+              "plate.height": "3",
+              "radius": "3"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "40",
+              "feature_id": "block.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "45",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "45",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "40",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "40",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "4",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "4",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "resolved_materials": {
+            "block": {
+              "source_features": [],
+              "status": "unassigned"
+            },
+            "copy": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "plate": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "stock": {
+              "material": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              },
+              "source_features": [
+                "stock"
+              ],
+              "status": "assigned"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inventory",
+      "arguments": {
+        "expected_revision": 1
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "source_model_sha256": "81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3",
+          "units": "mm",
+          "density_units": "kg/m^3",
+          "row_policy": "one_per_terminal_solid",
+          "quantity_policy": "one_body_not_connected_components",
+          "grouping_policy": "none_no_part_equivalence_inferred",
+          "overlap_policy": "each_terminal_solid_listed_separately",
+          "solid_count": 4,
+          "rows": [
+            {
+              "feature_id": "block",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "source_features": [],
+                "status": "unassigned"
+              }
+            },
+            {
+              "feature_id": "copy",
+              "feature_kind": "instance",
+              "quantity": 1,
+              "linked_source": "plate",
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "plate",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "stock",
+              "feature_kind": "cylinder",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "18*pi",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "2000",
+                  "name": "Turned stock"
+                },
+                "source_features": [
+                  "stock"
+                ],
+                "status": "assigned"
+              }
+            }
+          ],
+          "material_counts": {
+            "assigned": 3,
+            "unassigned": 1,
+            "conflict": 0
+          },
+          "csv": "revision,source_model_sha256,feature_id,feature_kind,quantity,linked_source,volume_mm3,material_status,material_name,density_kg_per_m3,material_source_features\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,block,extrude,1,,80,unassigned,,,[]\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,copy,instance,1,plate,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,plate,extrude,1,,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n1,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,stock,cylinder,1,,18*pi,assigned,Turned stock,2000,\"[\"\"stock\"\"]\"\r\n"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.height",
+            "mm": "3"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "height"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "40",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "8"
+                  ],
+                  [
+                    "40",
+                    "8"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "block",
+              "volume_mm3": "80"
+            },
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "3"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-10",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "120"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "10",
+                      "0"
+                    ],
+                    "offset": "40"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-80"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "20",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "3"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "3"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "3"
+                  ],
+                  [
+                    "20",
+                    "4",
+                    "3"
+                  ]
+                ]
+              },
+              "feature_id": "copy",
+              "volume_mm3": "120"
+            },
+            {
+              "analytic": {
+                "height": "3",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "4"
+                  ],
+                  [
+                    "0",
+                    "4"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "120",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate",
+              "volume_mm3": "120"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "60",
+                    "0"
+                  ],
+                  "radius": "3"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-18"
+                }
+              },
+              "feature_id": "stock",
+              "volume_mm3": "18*pi"
+            }
+          ],
+          "changed_parameters": [
+            "plate.height"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "plate.c0",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "plate.c1",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.c1",
+                    "y": "plate.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.c0",
+                    "y": "plate.c2"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              },
+              {
+                "id": "copy",
+                "kind": "instance",
+                "offset": [
+                  "copy.x",
+                  "copy.y",
+                  "copy.z"
+                ],
+                "source": "plate"
+              },
+              {
+                "id": "block.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "block.c0",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "block.c2",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "block.c2",
+                    "y": "block.c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "block.c0",
+                    "y": "block.c3"
+                  }
+                ]
+              },
+              {
+                "height": "block.height",
+                "id": "block",
+                "kind": "extrude",
+                "profile": "block.profile"
+              },
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              }
+            ],
+            "fixed": {},
+            "materials": {
+              "plate": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "stock": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              }
+            },
+            "parameters": {
+              "block.c0": "40",
+              "block.c1": "0",
+              "block.c2": "45",
+              "block.c3": "8",
+              "block.height": "2",
+              "copy.x": "20",
+              "copy.y": "0",
+              "copy.z": "0",
+              "cx": "60",
+              "cy": "0",
+              "height": "2",
+              "plate.c0": "0",
+              "plate.c1": "10",
+              "plate.c2": "4",
+              "plate.height": "3",
+              "radius": "3"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "40",
+              "feature_id": "block.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "45",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "45",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "40",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "40",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "4",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "4",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "resolved_materials": {
+            "block": {
+              "source_features": [],
+              "status": "unassigned"
+            },
+            "copy": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "plate": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "stock": {
+              "material": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              },
+              "source_features": [
+                "stock"
+              ],
+              "status": "assigned"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inventory",
+      "arguments": {
+        "expected_revision": 2
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "source_model_sha256": "7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77",
+          "units": "mm",
+          "density_units": "kg/m^3",
+          "row_policy": "one_per_terminal_solid",
+          "quantity_policy": "one_body_not_connected_components",
+          "grouping_policy": "none_no_part_equivalence_inferred",
+          "overlap_policy": "each_terminal_solid_listed_separately",
+          "solid_count": 4,
+          "rows": [
+            {
+              "feature_id": "block",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "source_features": [],
+                "status": "unassigned"
+              }
+            },
+            {
+              "feature_id": "copy",
+              "feature_kind": "instance",
+              "quantity": 1,
+              "linked_source": "plate",
+              "volume_mm3": "120",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "plate",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "120",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "stock",
+              "feature_kind": "cylinder",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "18*pi",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "2000",
+                  "name": "Turned stock"
+                },
+                "source_features": [
+                  "stock"
+                ],
+                "status": "assigned"
+              }
+            }
+          ],
+          "material_counts": {
+            "assigned": 3,
+            "unassigned": 1,
+            "conflict": 0
+          },
+          "csv": "revision,source_model_sha256,feature_id,feature_kind,quantity,linked_source,volume_mm3,material_status,material_name,density_kg_per_m3,material_source_features\r\n2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,block,extrude,1,,80,unassigned,,,[]\r\n2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,copy,instance,1,plate,120,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,plate,extrude,1,,120,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n2,7c366dab90e44d08e82de0b6168fb0ef6b7b3ed005f13613d9ff900656582b77,stock,cylinder,1,,18*pi,assigned,Turned stock,2000,\"[\"\"stock\"\"]\"\r\n"
+        }
+      }
+    },
+    {
+      "tool": "cad_inventory",
+      "arguments": {
+        "expected_revision": 1
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Refresh before reading the inventory",
+          "entity": "document"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "40",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "0"
+                  ],
+                  [
+                    "45",
+                    "8"
+                  ],
+                  [
+                    "40",
+                    "8"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "block",
+              "volume_mm3": "80"
+            },
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "2"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-10",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 1,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "120"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "10",
+                      "0"
+                    ],
+                    "offset": "40"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-4",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-80"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "20",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "20",
+                    "0",
+                    "2"
+                  ],
+                  [
+                    "30",
+                    "0",
+                    "2"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "2"
+                  ],
+                  [
+                    "20",
+                    "4",
+                    "2"
+                  ]
+                ]
+              },
+              "feature_id": "copy",
+              "volume_mm3": "80"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "4"
+                  ],
+                  [
+                    "0",
+                    "4"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "80",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate",
+              "volume_mm3": "80"
+            },
+            {
+              "analytic": {
+                "height": "2",
+                "holes": [],
+                "kind": "round_prism",
+                "outer_circle": {
+                  "center": [
+                    "60",
+                    "0"
+                  ],
+                  "radius": "3"
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-18"
+                }
+              },
+              "feature_id": "stock",
+              "volume_mm3": "18*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "plate.c0",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "plate.c1",
+                    "y": "plate.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.c1",
+                    "y": "plate.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.c0",
+                    "y": "plate.c2"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              },
+              {
+                "id": "copy",
+                "kind": "instance",
+                "offset": [
+                  "copy.x",
+                  "copy.y",
+                  "copy.z"
+                ],
+                "source": "plate"
+              },
+              {
+                "id": "block.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "block.c0",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "block.c2",
+                    "y": "block.c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "block.c2",
+                    "y": "block.c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "block.c0",
+                    "y": "block.c3"
+                  }
+                ]
+              },
+              {
+                "height": "block.height",
+                "id": "block",
+                "kind": "extrude",
+                "profile": "block.profile"
+              },
+              {
+                "height": "height",
+                "id": "stock",
+                "kind": "cylinder",
+                "radius": "radius",
+                "x": "cx",
+                "y": "cy"
+              }
+            ],
+            "fixed": {},
+            "materials": {
+              "plate": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "stock": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              }
+            },
+            "parameters": {
+              "block.c0": "40",
+              "block.c1": "0",
+              "block.c2": "45",
+              "block.c3": "8",
+              "block.height": "2",
+              "copy.x": "20",
+              "copy.y": "0",
+              "copy.z": "0",
+              "cx": "60",
+              "cy": "0",
+              "height": "2",
+              "plate.c0": "0",
+              "plate.c1": "10",
+              "plate.c2": "4",
+              "plate.height": "2",
+              "radius": "3"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "40",
+              "feature_id": "block.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "45",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "45",
+                    "8",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "40",
+                    "8",
+                    "0"
+                  ]
+                }
+              ]
+            },
+            {
+              "area_mm2": "40",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "4",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "4",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "resolved_materials": {
+            "block": {
+              "source_features": [],
+              "status": "unassigned"
+            },
+            "copy": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "plate": {
+              "material": {
+                "density_kg_per_m3": "1000",
+                "name": "Sample alloy"
+              },
+              "source_features": [
+                "plate"
+              ],
+              "status": "assigned"
+            },
+            "stock": {
+              "material": {
+                "density_kg_per_m3": "2000",
+                "name": "Turned stock"
+              },
+              "source_features": [
+                "stock"
+              ],
+              "status": "assigned"
+            }
+          },
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inventory",
+      "arguments": {
+        "expected_revision": 3
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "source_model_sha256": "81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3",
+          "units": "mm",
+          "density_units": "kg/m^3",
+          "row_policy": "one_per_terminal_solid",
+          "quantity_policy": "one_body_not_connected_components",
+          "grouping_policy": "none_no_part_equivalence_inferred",
+          "overlap_policy": "each_terminal_solid_listed_separately",
+          "solid_count": 4,
+          "rows": [
+            {
+              "feature_id": "block",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "source_features": [],
+                "status": "unassigned"
+              }
+            },
+            {
+              "feature_id": "copy",
+              "feature_kind": "instance",
+              "quantity": 1,
+              "linked_source": "plate",
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "plate",
+              "feature_kind": "extrude",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "80",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Sample alloy"
+                },
+                "source_features": [
+                  "plate"
+                ],
+                "status": "assigned"
+              }
+            },
+            {
+              "feature_id": "stock",
+              "feature_kind": "cylinder",
+              "quantity": 1,
+              "linked_source": null,
+              "volume_mm3": "18*pi",
+              "material": {
+                "material": {
+                  "density_kg_per_m3": "2000",
+                  "name": "Turned stock"
+                },
+                "source_features": [
+                  "stock"
+                ],
+                "status": "assigned"
+              }
+            }
+          ],
+          "material_counts": {
+            "assigned": 3,
+            "unassigned": 1,
+            "conflict": 0
+          },
+          "csv": "revision,source_model_sha256,feature_id,feature_kind,quantity,linked_source,volume_mm3,material_status,material_name,density_kg_per_m3,material_source_features\r\n3,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,block,extrude,1,,80,unassigned,,,[]\r\n3,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,copy,instance,1,plate,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n3,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,plate,extrude,1,,80,assigned,Sample alloy,1000,\"[\"\"plate\"\"]\"\r\n3,81678d69b7311d9289d82de2330939692c3e014161f24a39f70516fe5bc0f6e3,stock,cylinder,1,,18*pi,assigned,Turned stock,2000,\"[\"\"stock\"\"]\"\r\n"
+        }
+      }
+    }
+  ]
+}

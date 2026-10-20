@@ -131,3 +131,7 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Saved materials, explicit inheritance/conflicts and exact assigned mass](materials/README.md).
 
 [Portable development runtime, built engine and isolated validation](runtime-bundle/README.md).
+
+- [Parts inventory](inventory/README.md): exact terminal-solid rows, explicit material status, revision-bound CSV/JSON and browser/MCP history evidence.
+
+- [Full local integration audit](platform-audit/README.md):137 verification commands, a repaired MCP negotiation contract and explicit CI/account limits.

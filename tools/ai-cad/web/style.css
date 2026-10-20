@@ -769,3 +769,32 @@ dialog p[role="status"] {
 #mass-parts label[hidden] {
   display: none;
 }
+
+#inventory-dialog {
+  width: min(1000px, 92vw);
+}
+.inventory-scroll {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+#inventory-dialog table {
+  border-collapse: collapse;
+  width: 100%;
+}
+#inventory-dialog caption {
+  text-align: left;
+  padding-bottom: 12px;
+}
+#inventory-dialog th,
+#inventory-dialog td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #dce5e0;
+  overflow-wrap: anywhere;
+}
+#inventory-dialog th {
+  background: #edf3f0;
+}
+#inventory-source {
+  overflow-wrap: anywhere;
+}

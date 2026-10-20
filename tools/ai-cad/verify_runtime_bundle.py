@@ -31,7 +31,7 @@ async def mcp_probe(root, store):
     async with stdio_client(params) as (read, output):
         async with ClientSession(read, output) as session:
             await session.initialize()
-            for tool, args in [
+            requests = [
                 ("cad_inspect", {}),
                 (
                     "cad_material_mass",
@@ -43,7 +43,10 @@ async def mcp_probe(root, store):
                         expected_revision=1, feature_id="part", axis="Y", offset_mm="2"
                     ),
                 ),
-            ]:
+            ]
+            if (root / "tools/ai-cad/inventory.py").exists():
+                requests.append(("cad_inventory", dict(expected_revision=1)))
+            for tool, args in requests:
                 raw = await session.call_tool(tool, args)
                 reply = json.loads(
                     next(c.text for c in raw.content if c.type == "text")
@@ -53,6 +56,11 @@ async def mcp_probe(root, store):
     assert len(calls[0]["reply"]["result"]["bodies"]) == 2
     assert calls[1]["reply"]["result"]["mass_kg"] == "1/6250"
     assert calls[2]["reply"]["result"]["area_mm2"] == "20"
+    if len(calls) == 4:
+        inventory = calls[3]["reply"]["result"]
+        assert inventory["solid_count"] == 2
+        assert [r["volume_mm3"] for r in inventory["rows"]] == ["80", "80"]
+        assert inventory["material_counts"]["assigned"] == 2
     print(json.dumps(dict(calls=calls)))
 
 
@@ -192,6 +200,18 @@ def verify(archive, mcp_python=None, report=None):
                     },
                 )
                 assert status == 200 and json.loads(data)["result"]["revision"] == 2
+                if (root / "tools/ai-cad/inventory.py").exists():
+                    before = document.read_bytes()
+                    status, data = request(
+                        "POST", "/api/inventory", dict(expected_revision=2)
+                    )
+                    assert status == 200
+                    inventory = json.loads(data)["result"]
+                    assert [r["volume_mm3"] for r in inventory["rows"]] == [
+                        "120",
+                        "120",
+                    ]
+                    assert document.read_bytes() == before
             finally:
                 process.send_signal(signal.SIGINT)
                 try:
@@ -252,7 +272,11 @@ def verify(archive, mcp_python=None, report=None):
             report.write_text(json.dumps(result, indent=2) + "\n")
         print(
             f"PASS: isolated runtime doctor, CLI, {len(assets)} HTTP assets, actual preview/save, platform/tamper rejection"
-            + (" and3 actual MCP calls" if optional_mcp else "")
+            + (
+                f" and{len(optional_mcp['calls'])} actual MCP calls"
+                if optional_mcp
+                else ""
+            )
         )
 
 

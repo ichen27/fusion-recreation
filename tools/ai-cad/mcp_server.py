@@ -12,6 +12,7 @@ from sections import dispatch_section
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
 from materials import dispatch_material_mass
+from inventory import dispatch_inventory
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
@@ -379,6 +380,11 @@ def server(path):
         return dispatch_explain(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
         )
+
+    @mcp.tool()
+    def cad_inventory(expected_revision: int) -> dict:
+        """Read every saved terminal solid as a separate inventory row: stable feature ID, feature kind, quantity1, direct linked-instance source, exact volume_mm3 and resolved persistent material/status. Returns source revision/model SHA256, material counts and CSV. No equal-volume/shape grouping or part-number equivalence is inferred. Consumed features and standalone profiles are excluded; a disconnected or patterned body is one row, not a count of connected components. Overlapping terminal bodies are listed separately. Unassigned/conflicting materials remain explicit; do not invent densities. This is a flat body inventory, not an assembly hierarchy or manufacturing BOM. Read-only; refresh on revision_conflict. CSV prefixes formula-like cells with an apostrophe; JSON retains exact strings. Import exact numeric CSV columns as text to avoid spreadsheet conversion."""
+        return dispatch_inventory(store, dict(expected_revision=expected_revision))
 
     @mcp.tool()
     def cad_material_mass(expected_revision: int, feature_ids: list[str]) -> dict:

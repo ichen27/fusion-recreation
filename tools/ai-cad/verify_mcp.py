@@ -30,6 +30,7 @@ async def main():
                     "cad_context",
                     "cad_explain",
                     "cad_measure",
+                    "cad_inventory",
                     "cad_material_mass",
                     "cad_section",
                     "cad_reference_sheet",
