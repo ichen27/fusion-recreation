@@ -1,0 +1,337 @@
+{
+  "calls": [
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "volume_mm3": "80"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "1000"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "mass_properties": {
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/7500000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "13/18750000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "29/37500000000"
+              ]
+            ],
+            "density_kg_per_m3": "1000",
+            "mass_kg": "1/12500"
+          },
+          "volume_mm3": "80"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "2000"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "mass_properties": {
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/3750000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "13/9375000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "29/18750000000"
+              ]
+            ],
+            "density_kg_per_m3": "2000",
+            "mass_kg": "1/6250"
+          },
+          "volume_mm3": "80"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "3/7"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "mass_properties": {
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/17500000000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "13/43750000000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "29/87500000000000"
+              ]
+            ],
+            "density_kg_per_m3": "3/7",
+            "mass_kg": "3/87500000"
+          },
+          "volume_mm3": "80"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "0"
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_density",
+          "message": "Uniform density must be positive",
+          "entity": "density_kg_per_m3"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "-1"
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_density",
+          "message": "Uniform density must be positive",
+          "entity": "density_kg_per_m3"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "0.5"
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_number",
+          "message": "Use an integer or integer/fraction string, at most 128 bits per component",
+          "entity": "density_kg_per_m3"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "box",
+        "density_kg_per_m3": "1/0"
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_number",
+          "message": "Use an integer or integer/fraction string, at most 128 bits per component",
+          "entity": "density_kg_per_m3"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 0,
+        "feature_id": "box",
+        "density_kg_per_m3": "1000"
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Refresh before measuring this solid",
+          "entity": "document"
+        }
+      }
+    }
+  ]
+}

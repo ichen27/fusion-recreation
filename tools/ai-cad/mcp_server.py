@@ -2,7 +2,7 @@
 """Run inside a signed-in agent client; never handles model-provider credentials."""
 
 import argparse
-from typing import Annotated, Literal, Union
+from typing import Annotated, Literal, Optional, Union
 from pydantic import BaseModel, ConfigDict, Field
 from mcp.server import MCPServer
 from selection import dispatch_selection
@@ -353,10 +353,17 @@ def server(path):
         )
 
     @mcp.tool()
-    def cad_measure(expected_revision: int, feature_id: str) -> dict:
-        """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
+    def cad_measure(
+        expected_revision: int, feature_id: str, density_kg_per_m3: Optional[str] = None
+    ) -> dict:
+        """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass. Optional density_kg_per_m3 is a positive strict rational string in kg/m^3. It adds mass_properties with canonical density, exact mass_kg and centroidal_inertia_kg_m2 in global XYZ. Density is a read-only measurement input, not a saved material assignment or mixed-density assembly calculation. Omission retains geometric measurements only. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
-            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+            store,
+            {
+                "expected_revision": expected_revision,
+                "feature_id": feature_id,
+                "density_kg_per_m3": density_kg_per_m3,
+            },
         )
 
     @mcp.tool()

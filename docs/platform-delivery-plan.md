@@ -295,3 +295,7 @@ degrees of freedom remain future work.
 ## Human constraint-authoring checkpoint
 
 [Browser-authored coupled dimensions](../examples/ai-cad/linear-editor/README.md) expose explicit targets and structured equation terms through the shared native command. A failed rank check retains the draft for repair; saved formulas support driver edits, replacement and undo. Twelve actual requests, native snapshots and placed STL exports verify the workflow. General nonlinear sketch solving, persistent original constraint-row metadata and automatic target choice remain open.
+
+## Uniform-density mass checkpoint
+
+[Exact mass and centroidal mass inertia](../examples/ai-cad/mass/README.md) now accept an optional positive rational density through native, browser and MCP measurements. SI conversion is verified against independent box/cylinder formulas, including placements, holes and cavities. This read-only scenario leaves native bytes unchanged; persistent materials and mixed-density assembly mass remain open.
