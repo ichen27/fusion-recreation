@@ -73,6 +73,13 @@ pub enum Feature {
         profile: String,
         height: String,
     },
+    /// Join matching convex XY profiles at z=0 and z=height with planar sides.
+    PlanarLoft {
+        id: String,
+        bottom: String,
+        top: String,
+        height: String,
+    },
     Cylinder {
         id: String,
         x: String,
@@ -176,6 +183,7 @@ impl Feature {
             | Self::PolygonProfile { id, .. }
             | Self::PlanarProfile { id, .. }
             | Self::Extrude { id, .. }
+            | Self::PlanarLoft { id, .. }
             | Self::ThroughHoles { id, .. }
             | Self::Cylinder { id, .. }
             | Self::ConicalFrustum { id, .. }
@@ -821,6 +829,30 @@ fn evaluate_geometry_from(
             Feature::PolygonProfile { vertices, .. } => {
                 profiles.insert(id.into(), profile::resolve(m, id, vertices)?);
                 continue;
+            }
+            Feature::PlanarLoft {
+                bottom,
+                top,
+                height,
+                ..
+            } => {
+                let get = |reference: &str| {
+                    profiles.get(reference).ok_or_else(|| {
+                        error(
+                            "unsupported_reference",
+                            reference,
+                            "Loft must reference earlier polygon profiles",
+                        )
+                    })
+                };
+                let h = positive(m, height)?;
+                (
+                    profile::loft(id, get(bottom)?, get(top)?, &h)?,
+                    Plane {
+                        normal: ["0".into(), "0".into(), "1".into()],
+                        offset: h.to_string(),
+                    },
+                )
             }
             Feature::Extrude {
                 profile, height, ..

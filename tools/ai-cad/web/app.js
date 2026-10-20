@@ -1,3 +1,5 @@
+import { installLoftEditor } from "/loft-editor.mjs";
+import { loftCandidates } from "/loft-model.mjs";
 import { renderTopology } from "/topology-view.mjs";
 import { installBooleanEditor } from "/boolean-editor.mjs";
 import { booleanCandidates } from "/boolean-model.mjs";
@@ -25,6 +27,7 @@ let sketches,
   planes,
   stocks,
   intersections,
+  lofts,
   translations,
   rotations,
   booleans;
@@ -641,6 +644,12 @@ function controls() {
     editPending ||
     !saved ||
     booleanCandidates(saved).length < 2;
+  $("new-loft").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    loftCandidates(saved).length < 1;
   $("new-intersection").disabled =
     busy ||
     !!preview ||
@@ -669,9 +678,13 @@ function render(state) {
     .join(" · ");
   const profiles = state.profiles ?? [];
   const extruded = new Set(
-    state.model.features
-      .filter((f) => f.kind === "extrude")
-      .map((f) => f.profile),
+    state.model.features.flatMap((f) =>
+      f.kind === "extrude"
+        ? [f.profile]
+        : f.kind === "planar_loft"
+          ? [f.bottom, f.top]
+          : [],
+    ),
   );
   const visibleProfiles = profiles.filter((p) => !extruded.has(p.feature_id));
   $("model-title").textContent = profiles.length
@@ -1115,6 +1128,8 @@ planes = installPlaneEditor(editorCallbacks("Plane cut"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));
 rotations = installRotationEditor(editorCallbacks("Rotation"));
+lofts = installLoftEditor(editorCallbacks("Loft"));
+$("new-loft").addEventListener("click", () => lofts.open());
 intersections = installIntersectionEditor(editorCallbacks("Intersection"));
 $("new-intersection").addEventListener("click", () => intersections.open());
 $("new-stock").addEventListener("click", () => stocks.open());

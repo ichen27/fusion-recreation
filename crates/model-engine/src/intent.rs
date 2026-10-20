@@ -47,6 +47,12 @@ impl Feature {
             Self::Extrude {
                 profile, height, ..
             } => (vec![profile], vec![height]),
+            Self::PlanarLoft {
+                bottom,
+                top,
+                height,
+                ..
+            } => (vec![bottom, top], vec![height]),
             Self::CornerCut { input, size, .. } => (vec![input], vec![size]),
             Self::PlaneCut { input, offset, .. } => (vec![input], vec![offset]),
             Self::Translate { input, offset, .. }

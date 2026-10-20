@@ -297,3 +297,14 @@ python tools/ai-cad/verify_individual_depths_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_individual_depths_export.py
 ```
+
+### Standalone sketches and planar lofts
+
+Choose **Save sketch only** in the sketch editor to retain a profile without an extrusion. **Loft profiles** joins matching convex sections at a specified height, with exact planar side faces. Preview rejects twisted/nonplanar sides. Source sketch and height edits rebuild the solid; planar cuts, Booleans, placement and exports remain available. [Editable examples, browser/MCP recordings and limits](../../examples/ai-cad/planar-loft/README.md).
+
+```sh
+python tools/ai-cad/verify_planar_loft.py
+python tools/ai-cad/verify_planar_loft_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_planar_loft_export.py
+```

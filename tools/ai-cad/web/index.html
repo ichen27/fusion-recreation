@@ -24,13 +24,14 @@
         <h1 id="model-title">Model workspace</h1>
         <p class="subtle">Precise geometry. Shared intent.</p>
         <button id="new-sketch" class="primary" disabled>
-          New sketch → solid
+          New sketch / solid
         </button>
         <button id="new-stock" type="button" disabled>New solid stock</button>
         <button id="new-boolean" type="button" disabled>Combine solids</button>
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
         </button>
+        <button id="new-loft" type="button" disabled>Loft profiles</button>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
         <form id="dimensions">
@@ -183,6 +184,10 @@
           </div>
           <div class="sketch-properties">
             <div id="sketch-coordinates"></div>
+            <label id="sketch-profile-only-row"
+              ><input type="checkbox" id="sketch-profile-only" /> Save sketch
+              only</label
+            >
             <label id="sketch-height-row"
               >Extrusion height (mm)<input
                 id="sketch-height"
@@ -436,6 +441,39 @@
         </p>
         <button type="submit" id="intersection-preview" class="primary">
           Preview intersection
+        </button>
+      </form>
+    </dialog>
+    <dialog id="loft-dialog" aria-labelledby="loft-title">
+      <form id="loft-form">
+        <header class="sketch-heading">
+          <h2 id="loft-title">Loft polygon profiles</h2>
+          <button type="button" id="loft-close">Cancel</button>
+        </header>
+        <p id="loft-feedback" role="status"></p>
+        <label
+          >Bottom profile<select
+            id="loft-bottom"
+            aria-label="Bottom profile"
+            required
+          ></select
+        ></label>
+        <label
+          >Top profile<select
+            id="loft-top"
+            aria-label="Top profile"
+            required
+          ></select
+        ></label>
+        <label
+          >Section height (mm)<input
+            id="loft-height"
+            aria-label="Loft height"
+            value="12"
+            required
+        /></label>
+        <button type="submit" id="loft-preview" class="primary">
+          Preview loft
         </button>
       </form>
     </dialog>

@@ -159,6 +159,8 @@ def handler(store, port):
                     "text/javascript",
                 ),
                 "/stock-model.mjs": ("stock-model.mjs", "text/javascript"),
+                "/loft-model.mjs": ("loft-model.mjs", "text/javascript"),
+                "/loft-editor.mjs": ("loft-editor.mjs", "text/javascript"),
                 "/stock-editor.mjs": ("stock-editor.mjs", "text/javascript"),
                 "/plane-model.mjs": ("plane-model.mjs", "text/javascript"),
                 "/plane-editor.mjs": ("plane-editor.mjs", "text/javascript"),
