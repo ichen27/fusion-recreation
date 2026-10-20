@@ -7,6 +7,7 @@ use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 pub mod clearance;
+mod dimension;
 pub mod edge_measure;
 mod holes;
 pub mod intent;
@@ -1157,18 +1158,18 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
                 if model.parameters.contains_key(&id) {
                     return Err(error("duplicate_id", &id, "Parameter already exists"));
                 }
-                let n = rational(&mm, &id)?;
+                let n = dimension::parse(&mm, &id)?;
                 model.parameters.insert(id, n.to_string());
             }
             Operation::SetParameter { id, mm } => {
                 relations::require_free(&model, &id)?;
                 parameter(&model, &id)?;
-                let n = rational(&mm, &id)?;
+                let n = dimension::parse(&mm, &id)?;
                 model.parameters.insert(id, n.to_string());
             }
             Operation::AdjustParameter { id, delta_mm } => {
                 relations::require_free(&model, &id)?;
-                let n = parameter(&model, &id)? + rational(&delta_mm, &id)?;
+                let n = parameter(&model, &id)? + dimension::parse(&delta_mm, &id)?;
                 let value = n.to_string();
                 rational(&value, &id)?;
                 model.parameters.insert(id, value);

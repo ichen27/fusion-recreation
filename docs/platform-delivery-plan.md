@@ -245,3 +245,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Feature-tree usability checkpoint
 
 [Compact modeling actions](../examples/ai-cad/feature-actions/README.md) keep selection and existing-feature edits visible while disclosing new operations per solid. An actual three-part comparison reduced the tree from 1230 to 656 px and visible buttons from 28 to 8, with keyboard/accordion/redraw/preview-discard checks and unchanged native bytes. Menu-only interaction uploaded no GPU buffers; explicit full refresh uploaded once. This improves access to the existing bounded platform without changing model semantics.
+
+## Exact dimension-entry checkpoint
+
+[Decimal and unit entry](../examples/ai-cad/dimensions/README.md) accepts physical length strings in human and typed AI operations, with exact rational millimeter persistence. Mixed units survive preview, commit, reopen, native/STL download and undo; fixed/preserved values compare exact physical lengths. Native models and dimensionless/relationship literals retain the strict rational schema. General expressions and per-document display units remain open. Delivery of this checkpoint and compact feature actions is awaiting GitHub CI availability: hosted jobs report account payment/spending-limit failure before execution. Local validation is not a substitute for those merge checks. Continuing viewport navigation and broader platform work while those PRs remain reviewable.

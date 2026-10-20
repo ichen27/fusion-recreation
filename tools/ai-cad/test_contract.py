@@ -139,7 +139,7 @@ class Contract(unittest.TestCase):
         )
 
     def test_bad_numeric_values_and_unknown_fields(self):
-        for mm in ["NaN", "1.2", "1/0", "1e9", "9" * 81]:
+        for mm in ["NaN", "1.2.3", "1/0", "1e9", "9" * 81]:
             self.assert_error(
                 {
                     **CREATE,

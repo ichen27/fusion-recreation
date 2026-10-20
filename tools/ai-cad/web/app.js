@@ -1266,7 +1266,7 @@ $("dimensions").addEventListener("submit", (e) => {
         });
     if (!operations.length)
       throw Error(
-        "Change an unlocked dimension first. Use integers or fractions, such as 25/2.",
+        "Change an unlocked dimension first. Use decimals or fractions, optionally with mm, cm, m, in or ft.",
       );
     const changed = new Set(operations.map((o) => o.id));
     proposed = {
