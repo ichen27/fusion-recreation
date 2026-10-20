@@ -257,3 +257,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Full radial revolution checkpoint
 
 [Editable profile revolutions](../examples/ai-cad/revolution/README.md) add full turns of rational radius/Z polygons, exact integral moments, analytic shared surfaces, browser/MCP edits and independent STEP comparisons. Axis-connected flat-ended parts and positive-radius rings support concave undercuts, translation, coordinate quarter-turns and linked instances. Partial turns, pointed apexes, arbitrary axes and curved Boolean intersections remain open. Continue into bounded swept-profile solids and broader sketch/assembly workflows; this checkpoint does not complete the platform.
+
+## Straight profile sweep checkpoint
+
+[Exact straight sweeps](../examples/ai-cad/straight-sweep/README.md) translate convex/concave XY sketches along parameter-backed XYZ vectors, with negative direction, exact moments, downstream planar cuts and source-linked placement. Browser/MCP create/edit/reject/undo and ten independent STEP comparisons verify the bounded operation. Curved paths, twist, varying sections and general curved intersections remain open. The next geometry dependency is exact coaxial intersection of supported analytic radial sections; arbitrary curved intersections still require a broader trimming and numerical policy.

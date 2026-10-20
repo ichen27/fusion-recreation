@@ -1,0 +1,129 @@
+"""Replay straight-sweep transport evidence and check native history/exports."""
+
+import json
+from pathlib import Path
+import tempfile
+import math
+from store import ROOT, Store, dispatch
+from exports import display
+from measurements import dispatch_measure
+from selection import dispatch_selection
+from topology import dispatch_topology
+from test_holes import read_stl, audit_triangles
+
+EXAMPLE = ROOT / "examples/ai-cad/straight-sweep"
+
+
+def same_reply(actual, recorded):
+    # JSON round trips and libm vary by a few ulps only in disposable display data.
+    # Exact native coordinates, measures, topology IDs and command state stay strict.
+    def compare(a, b, approximate=False):
+        if approximate and type(a) in (int, float) and type(b) in (int, float):
+            assert math.isclose(a, b, rel_tol=1e-13, abs_tol=1e-13), (a, b)
+            return
+        assert type(a) is type(b), (type(a), type(b))
+        if isinstance(a, dict):
+            assert a.keys() == b.keys()
+            for key in a:
+                compare(a[key], b[key], approximate or key == "display_mesh")
+        elif isinstance(a, list):
+            assert len(a) == len(b)
+            for x, y in zip(a, b):
+                compare(x, y, approximate)
+        else:
+            assert a == b, (a, b)
+
+    compare(actual, recorded)
+
+
+def main():
+    counts = {}
+    with tempfile.TemporaryDirectory() as directory:
+        for transport in ("browser", "mcp"):
+            path = Path(directory) / (transport + ".json")
+            if transport == "browser":
+                path.write_bytes((EXAMPLE / "browser-source.cad.json").read_bytes())
+            store = Store(path)
+            commits = 0
+            rejected = 0
+            rows = json.loads((EXAMPLE / (transport + "-recording.json")).read_text())[
+                "calls"
+            ]
+            counts[transport] = len(rows)
+            # The browser recording retains queued replies and later reads of the
+            # completed job records. Compare each job against its submission state.
+            finished = {
+                row["reply"]["result"]["job_id"]: row["reply"]["result"]
+                for row in rows
+                if row.get("url", "").startswith("/api/preview-jobs?")
+                and "reply" in row["reply"]["result"]
+            }
+            for row in rows:
+                before = path.read_bytes() if path.exists() else None
+                command = (
+                    row.get("command") if transport == "browser" else row["arguments"]
+                )
+                name = row.get("url", row.get("tool"))
+                if name in ("/api/selection", "cad_select_surface"):
+                    if transport == "mcp":
+                        command = {"action": "select_surface", **command}
+                    assert dispatch_selection(store, command) == row["reply"]
+                elif name in ("/api/topology", "cad_topology"):
+                    assert dispatch_topology(store, command) == row["reply"]
+                elif name in ("/api/measure", "cad_measure"):
+                    assert dispatch_measure(store, command) == row["reply"]
+                elif transport == "browser" and name.startswith("/api/preview-jobs"):
+                    if command:
+                        job = finished[row["reply"]["result"]["job_id"]]
+                        reply = dispatch(store, command)
+                        reply = display(reply) if transport == "browser" else reply
+                        same_reply(reply, job["reply"])
+                        rejected += int("error" in reply)
+                    else:
+                        assert row["reply"]["result"]["status"] in (
+                            "queued",
+                            "running",
+                            "succeeded",
+                            "failed",
+                        )
+                else:
+                    if transport == "mcp" and name != "cad_history":
+                        command = {"action": name.removeprefix("cad_"), **command}
+                    reply = dispatch(store, command)
+                    reply = display(reply) if transport == "browser" else reply
+                    same_reply(reply, row["reply"])
+                    rejected += int("error" in reply)
+                    if command["action"] in ("commit", "undo") and "result" in reply:
+                        if command["action"] == "commit":
+                            commits += 1
+                            stage = ["created", "edited"][commits - 1]
+                        else:
+                            stage = "undo"
+                        assert json.loads(path.read_text()) == json.loads(
+                            (
+                                EXAMPLE / (transport + "-" + stage + ".cad.json")
+                            ).read_text()
+                        )
+                        continue
+                assert (path.read_bytes() if path.exists() else None) == before
+            assert commits == 2 and rejected >= 1
+            state = store.execute(dict(action="inspect"))
+            assert state["bodies"][0]["volume_mm3"] == "9600"
+
+    downloaded = json.loads((EXAMPLE / "browser-download.cad.json").read_text())
+    assert downloaded == json.loads((EXAMPLE / "browser-edited.cad.json").read_text())
+    triangles = read_stl((EXAMPLE / "browser-edited.stl").read_bytes())
+    volume = audit_triangles(triangles, 0)
+    expected = 19200
+    assert abs(volume - expected) < 1e-7
+    audit = json.loads((EXAMPLE / "browser-audit.json").read_text())
+    assert audit["invalid"]["invalidText"] == "0"
+    assert audit["invalid"]["open"]
+    assert "sweep_direction" in audit["invalid"]["diagnostic"]
+    print(
+        f"PASS: {counts} actual transport calls replayed, canonical native history, closed outward sweep STL, retained invalid-input observation"
+    )
+
+
+if __name__ == "__main__":
+    main()

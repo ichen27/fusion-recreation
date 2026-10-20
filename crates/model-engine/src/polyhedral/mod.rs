@@ -69,6 +69,27 @@ impl Solid {
         }
         Self::from_cells(checked)
     }
+    pub(crate) fn from_sweep(
+        id: &str,
+        profile: &crate::profile::Profile,
+        delta: &[Q; 3],
+    ) -> Result<Self> {
+        use num_traits::Signed;
+        let mut cells = Vec::new();
+        for boundary in crate::sweep::cells(id, profile, delta)? {
+            cells.extend(Self::from_convex(boundary)?.cells);
+        }
+        let result = Self::from_cells(cells)?;
+        let expected = profile.twice_area.abs() * delta[2].abs() / Q::from_integer(2.into());
+        if result.volume != expected || result.components.len() != 1 {
+            return Err(error(
+                "invalid_geometry",
+                id,
+                "Swept volume/component invariant failed",
+            ));
+        }
+        Ok(result)
+    }
     fn from_cells(cells: Vec<Boundary>) -> Result<Self> {
         cells::budget(&cells)?;
         if cells.is_empty() {

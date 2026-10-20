@@ -31,6 +31,7 @@
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
         </button>
+        <button id="new-sweep" disabled>Sweep profile</button>
         <button id="new-revolve" type="button" disabled>Revolve profile</button>
         <button id="new-loft" type="button" disabled>Loft profiles</button>
         <p class="feature-hint">
@@ -557,6 +558,38 @@
         </p>
         <button type="submit" id="intersection-preview" class="primary">
           Preview intersection
+        </button>
+      </form>
+    </dialog>
+    <dialog id="sweep-dialog" aria-labelledby="sweep-title">
+      <form id="sweep-form">
+        <div class="dialog-heading">
+          <h2 id="sweep-title">Straight profile sweep</h2>
+          <button id="sweep-close" type="button">Cancel</button>
+        </div>
+        <p id="sweep-feedback" role="status"></p>
+        <label
+          >Profile<select
+            id="sweep-profile"
+            aria-label="Sweep profile"
+            required
+          ></select
+        ></label>
+        <label
+          >X displacement<input id="sweep-x" type="text" required value="0"
+        /></label>
+        <label
+          >Y displacement<input id="sweep-y" type="text" required value="0"
+        /></label>
+        <label
+          >Z displacement<input id="sweep-z" type="text" required value="10"
+        /></label>
+        <p class="hint">
+          Values accept decimals, fractions and mm/cm/m/in/ft. Bare values are
+          millimeters. This is a straight sweep without twist or curved paths.
+        </p>
+        <button type="submit" id="sweep-preview" class="primary">
+          Preview sweep
         </button>
       </form>
     </dialog>
