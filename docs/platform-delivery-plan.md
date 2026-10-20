@@ -209,3 +209,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Convex planar loft checkpoint
 
 [Standalone sketches and exact planar lofts](../examples/ai-cad/planar-loft/README.md) support matching convex polygon sections, taper/skew and downstream planar operations. Exact side-planarity and convexity checks reject unsupported curved/twisted geometry. Fifteen browser calls create both profiles from empty, loft, resize, export, reject and undo; ten MCP calls and eight independent ruled-loft comparisons cover shared surfaces and exact moments. General curved/multisection lofts, differing vertex counts and concave sections remain open.
+
+## Native worker checkpoint
+
+[A bounded persistent native process](../examples/ai-cad/native-worker/README.md) serves five operation modes with deadline/error/replacement/fork isolation and unchanged exact replies. Ten measured workloads compare fresh CLI and warm worker calls; browser native-history loading plus explanation/measurement/topology reuse one process without document changes. This reduces process startup overhead; cross-request geometry reuse, parallel scheduling and GPU compute remain separate work.

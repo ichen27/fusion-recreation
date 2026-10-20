@@ -9,6 +9,7 @@ import math
 import os
 from pathlib import Path
 import subprocess
+from engine_transport import run as engine_run
 import sys
 import tempfile
 from store import BINARY, CadError, Store, encode
@@ -16,9 +17,10 @@ from store import BINARY, CadError, Store, encode
 
 def tessellate(model, feature_id, segments=64, include_surfaces=False):
     try:
-        process = subprocess.run(
-            [str(BINARY), "--mesh"],
-            input=encode(
+        process = engine_run(
+            BINARY,
+            "--mesh",
+            encode(
                 dict(
                     model=model,
                     feature_id=feature_id,
@@ -26,8 +28,6 @@ def tessellate(model, feature_id, segments=64, include_surfaces=False):
                     include_surfaces=include_surfaces,
                 )
             ),
-            capture_output=True,
-            timeout=20,
         )
         reply = json.loads(process.stdout)
     except (OSError, subprocess.TimeoutExpired, ValueError) as exc:

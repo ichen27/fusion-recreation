@@ -1,0 +1,1167 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "select",
+        "expected_revision": 4,
+        "feature_id": "loft1"
+      },
+      "reply": {
+        "result": {
+          "model": {
+            "features": [
+              {
+                "id": "sketch1.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch1.v1.x",
+                    "y": "sketch1.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch1.v2.x",
+                    "y": "sketch1.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch1.v3.x",
+                    "y": "sketch1.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch1.v4.x",
+                    "y": "sketch1.v4.y"
+                  }
+                ]
+              },
+              {
+                "id": "sketch2.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "sketch2.v1.x",
+                    "y": "sketch2.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "sketch2.v2.x",
+                    "y": "sketch2.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "sketch2.v3.x",
+                    "y": "sketch2.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "sketch2.v4.x",
+                    "y": "sketch2.v4.y"
+                  }
+                ]
+              },
+              {
+                "bottom": "sketch1.profile",
+                "height": "loft1.height",
+                "id": "loft1",
+                "kind": "planar_loft",
+                "top": "sketch2.profile"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "loft1.height": "24",
+              "sketch1.v1.x": "0",
+              "sketch1.v1.y": "0",
+              "sketch1.v2.x": "40",
+              "sketch1.v2.y": "0",
+              "sketch1.v3.x": "40",
+              "sketch1.v3.y": "20",
+              "sketch1.v4.x": "0",
+              "sketch1.v4.y": "20",
+              "sketch2.v1.x": "5",
+              "sketch2.v1.y": "5",
+              "sketch2.v2.x": "35",
+              "sketch2.v2.y": "5",
+              "sketch2.v3.x": "35",
+              "sketch2.v3.y": "15",
+              "sketch2.v4.x": "5",
+              "sketch2.v4.y": "15"
+            }
+          },
+          "revision": 4,
+          "selected_body": {
+            "boundary": {
+              "edges": [
+                {
+                  "kind": "line",
+                  "vertices": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    0,
+                    3
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    4,
+                    5
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    5,
+                    6
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    6,
+                    7
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    4,
+                    7
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    2,
+                    5
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    3,
+                    4
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    1,
+                    6
+                  ]
+                },
+                {
+                  "kind": "line",
+                  "vertices": [
+                    0,
+                    7
+                  ]
+                }
+              ],
+              "faces": [
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 0,
+                        "forward": true
+                      },
+                      {
+                        "edge": 1,
+                        "forward": true
+                      },
+                      {
+                        "edge": 2,
+                        "forward": true
+                      },
+                      {
+                        "edge": 3,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "0",
+                    "0",
+                    "-800"
+                  ],
+                  "offset": "0"
+                },
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 4,
+                        "forward": true
+                      },
+                      {
+                        "edge": 5,
+                        "forward": true
+                      },
+                      {
+                        "edge": 6,
+                        "forward": true
+                      },
+                      {
+                        "edge": 7,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "0",
+                    "0",
+                    "300"
+                  ],
+                  "offset": "7200"
+                },
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 2,
+                        "forward": false
+                      },
+                      {
+                        "edge": 8,
+                        "forward": true
+                      },
+                      {
+                        "edge": 4,
+                        "forward": false
+                      },
+                      {
+                        "edge": 9,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "0",
+                    "-960",
+                    "200"
+                  ],
+                  "offset": "0"
+                },
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 1,
+                        "forward": false
+                      },
+                      {
+                        "edge": 10,
+                        "forward": true
+                      },
+                      {
+                        "edge": 5,
+                        "forward": false
+                      },
+                      {
+                        "edge": 8,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "480",
+                    "0",
+                    "100"
+                  ],
+                  "offset": "19200"
+                },
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 0,
+                        "forward": false
+                      },
+                      {
+                        "edge": 11,
+                        "forward": true
+                      },
+                      {
+                        "edge": 6,
+                        "forward": false
+                      },
+                      {
+                        "edge": 10,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "0",
+                    "960",
+                    "200"
+                  ],
+                  "offset": "19200"
+                },
+                {
+                  "kind": "plane",
+                  "loops": [
+                    [
+                      {
+                        "edge": 3,
+                        "forward": true
+                      },
+                      {
+                        "edge": 9,
+                        "forward": true
+                      },
+                      {
+                        "edge": 7,
+                        "forward": true
+                      },
+                      {
+                        "edge": 11,
+                        "forward": false
+                      }
+                    ]
+                  ],
+                  "normal": [
+                    "-480",
+                    "0",
+                    "100"
+                  ],
+                  "offset": "0"
+                }
+              ],
+              "vertices": [
+                [
+                  "0",
+                  "20",
+                  "0"
+                ],
+                [
+                  "40",
+                  "20",
+                  "0"
+                ],
+                [
+                  "40",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "5",
+                  "5",
+                  "24"
+                ],
+                [
+                  "35",
+                  "5",
+                  "24"
+                ],
+                [
+                  "35",
+                  "15",
+                  "24"
+                ],
+                [
+                  "5",
+                  "15",
+                  "24"
+                ]
+              ]
+            },
+            "feature_id": "loft1",
+            "volume_mm3": "12800"
+          },
+          "selection_status": "current"
+        }
+      },
+      "url": "/api/selection"
+    },
+    {
+      "command": {
+        "expected_revision": 4,
+        "feature_id": "loft1"
+      },
+      "reply": {
+        "result": {
+          "downstream_features": [],
+          "feature_id": "loft1",
+          "parameters": {
+            "loft1.height": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "24"
+            },
+            "sketch1.v1.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "0"
+            },
+            "sketch1.v1.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "0"
+            },
+            "sketch1.v2.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "40"
+            },
+            "sketch1.v2.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "0"
+            },
+            "sketch1.v3.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "40"
+            },
+            "sketch1.v3.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "20"
+            },
+            "sketch1.v4.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "0"
+            },
+            "sketch1.v4.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch1.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "20"
+            },
+            "sketch2.v1.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "5"
+            },
+            "sketch2.v1.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "5"
+            },
+            "sketch2.v2.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "35"
+            },
+            "sketch2.v2.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "5"
+            },
+            "sketch2.v3.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "35"
+            },
+            "sketch2.v3.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "15"
+            },
+            "sketch2.v4.x": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "5"
+            },
+            "sketch2.v4.y": {
+              "affected_bodies": [
+                "loft1"
+              ],
+              "affected_features": [
+                "sketch2.profile",
+                "loft1"
+              ],
+              "affected_parameters": [],
+              "directly_editable": true,
+              "driving_parameters": [],
+              "fixed_mm": null,
+              "relation": null,
+              "value_mm": "15"
+            }
+          },
+          "revision": 4,
+          "source_features": [
+            {
+              "id": "sketch1.profile",
+              "inputs": [],
+              "parameters": [
+                "sketch1.v1.x",
+                "sketch1.v1.y",
+                "sketch1.v2.x",
+                "sketch1.v2.y",
+                "sketch1.v3.x",
+                "sketch1.v3.y",
+                "sketch1.v4.x",
+                "sketch1.v4.y"
+              ]
+            },
+            {
+              "id": "sketch2.profile",
+              "inputs": [],
+              "parameters": [
+                "sketch2.v1.x",
+                "sketch2.v1.y",
+                "sketch2.v2.x",
+                "sketch2.v2.y",
+                "sketch2.v3.x",
+                "sketch2.v3.y",
+                "sketch2.v4.x",
+                "sketch2.v4.y"
+              ]
+            },
+            {
+              "id": "loft1",
+              "inputs": [
+                "sketch1.profile",
+                "sketch2.profile"
+              ],
+              "parameters": [
+                "loft1.height"
+              ]
+            }
+          ],
+          "terminal_body": true
+        }
+      },
+      "url": "/api/explain"
+    },
+    {
+      "command": {
+        "expected_revision": 4,
+        "feature_id": "loft1"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "40",
+              "20",
+              "24"
+            ]
+          ],
+          "centroid_mm": [
+            "20",
+            "10",
+            "81/8"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "851080",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "1951080",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "1648000"
+            ]
+          ],
+          "feature_id": "loft1",
+          "revision": 4,
+          "volume_mm3": "12800"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "expected_revision": 4,
+        "feature_id": "loft1"
+      },
+      "reply": {
+        "result": {
+          "components": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "edges": [
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                4,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                5,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                6,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                4,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                7
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "id": "evaluated/face/0",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 2,
+                    "forward": true
+                  },
+                  {
+                    "edge": 3,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/0"
+            },
+            {
+              "id": "evaluated/face/1",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/1"
+            },
+            {
+              "id": "evaluated/face/2",
+              "loops": [
+                [
+                  {
+                    "edge": 2,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  },
+                  {
+                    "edge": 9,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/2"
+            },
+            {
+              "id": "evaluated/face/3",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/3"
+            },
+            {
+              "id": "evaluated/face/4",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": false
+                  },
+                  {
+                    "edge": 11,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/4"
+            },
+            {
+              "id": "evaluated/face/5",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 9,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": true
+                  },
+                  {
+                    "edge": 11,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "evaluated/face/5"
+            }
+          ],
+          "feature_id": "loft1",
+          "naming": "revision_only",
+          "revision": 4,
+          "shell_euler": [
+            2
+          ],
+          "shells": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "surfaces": {
+            "evaluated/face/0": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "-800"
+              ],
+              "offset": "0",
+              "owner_feature": "loft1"
+            },
+            "evaluated/face/1": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "300"
+              ],
+              "offset": "7200",
+              "owner_feature": "loft1"
+            },
+            "evaluated/face/2": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "-960",
+                "200"
+              ],
+              "offset": "0",
+              "owner_feature": "loft1"
+            },
+            "evaluated/face/3": {
+              "kind": "plane",
+              "normal": [
+                "480",
+                "0",
+                "100"
+              ],
+              "offset": "19200",
+              "owner_feature": "loft1"
+            },
+            "evaluated/face/4": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "960",
+                "200"
+              ],
+              "offset": "19200",
+              "owner_feature": "loft1"
+            },
+            "evaluated/face/5": {
+              "kind": "plane",
+              "normal": [
+                "-480",
+                "0",
+                "100"
+              ],
+              "offset": "0",
+              "owner_feature": "loft1"
+            }
+          },
+          "vertices": [
+            [
+              "0",
+              "20",
+              "0"
+            ],
+            [
+              "40",
+              "20",
+              "0"
+            ],
+            [
+              "40",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "5",
+              "5",
+              "24"
+            ],
+            [
+              "35",
+              "5",
+              "24"
+            ],
+            [
+              "35",
+              "15",
+              "24"
+            ],
+            [
+              "5",
+              "15",
+              "24"
+            ]
+          ]
+        }
+      },
+      "url": "/api/topology"
+    }
+  ]
+}
