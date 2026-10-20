@@ -120,6 +120,27 @@ class Viewer(unittest.TestCase):
                 )
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_reference_sheet_download_rejects_stale_or_ambiguous_query(self):
+        result = self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        feature = result["bodies"][0]["feature_id"]
+        import xml.etree.ElementTree as ET
+
+        for query, expected_status in [
+            (f"revision=1&body={feature}", 200),
+            (f"revision=0&body={feature}", 400),
+            (f"revision=1&body={feature}&body={feature}", 400),
+            ("revision=1&body=missing", 400),
+            ("body=x", 400),
+        ]:
+            status, payload = self.request("GET", "/api/export.svg?" + query)
+            self.assertEqual(status, expected_status)
+            if status == 200:
+                root = ET.fromstring(payload)
+                self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
+                self.assertIn("No hidden-line removal", payload.decode())
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_mass_set_http_read_only_revision_and_validation(self):
         result = self.store.execute(CREATE)
         before = self.store.path.read_bytes()

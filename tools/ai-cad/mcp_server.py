@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from mcp.server import MCPServer
 from selection import dispatch_selection
 from intent import dispatch_explain
+from drawings import dispatch_drawing
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
@@ -356,6 +357,13 @@ def server(path):
     def cad_explain(expected_revision: int, feature_id: str) -> dict:
         """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
         return dispatch_explain(
+            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_reference_sheet(expected_revision: int, feature_id: str) -> dict:
+        """Read a revision-bound SVG orthographic reference sheet for one saved terminal solid. Returns SVG text, exact XYZ bounds/extents in mm, source-model SHA-256 and top/front/right projection counts. All native edges are shown, including occluded edges and smooth surface seams. Circular edges remain SVG arcs where face-on, and project to lines edge-on. No hidden-line removal, section views, tolerances or manufacturing annotations; common fit-to-sheet scale must not be used to measure dimensions. Native model and history remain unchanged."""
+        return dispatch_drawing(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
         )
 

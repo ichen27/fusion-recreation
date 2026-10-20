@@ -307,3 +307,7 @@ degrees of freedom remain future work.
 ## Independent feature CPU rebuild checkpoint
 
 [Dependency-aware transaction reuse](../examples/ai-cad/independent-rebuild/README.md) preserves independent features after the first changed feature, subject to exact feature/parameter/ancestry and consumption-state checks. On the declared Apple M4 workload, editing the first of four cavity branches changed from165.19 to101.57ms, while editing the last branch stayed near103ms. Exact baseline/current/fresh/worker replies match. Original-model validation still runs in full; cross-request geometry caching, parallel execution and larger-document scheduling remain open.
+
+## Orthographic reference-sheet checkpoint
+
+[Native-topology SVG reference sheets](../examples/ai-cad/reference-sheets/README.md) provide revision/hash-bound top, front and right views with exact overall dimensions. Circles remain vector arcs; the browser download matches typed MCP output. Source edits and undo regenerate matching view geometry and native fingerprints. These sheets explicitly show all edges and seams; hidden-line removal, section views, tolerances and persistent associative annotations remain open.

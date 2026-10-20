@@ -10,6 +10,7 @@ from pathlib import Path
 from store import MAX_BYTES, CadError, Store, dispatch
 from selection import dispatch_selection
 from intent import dispatch_explain
+from drawings import dispatch_drawing
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
@@ -110,6 +111,29 @@ def handler(store, port):
                                 else {"message": str(exc)}
                             }
                         ).encode(),
+                    )
+            if urlsplit(self.path).path == "/api/export.svg":
+                try:
+                    query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
+                    if set(query) != {"revision", "body"} or any(
+                        len(v) != 1 for v in query.values()
+                    ):
+                        raise ValueError("Expected one revision and body")
+                    reply = dispatch_drawing(
+                        store,
+                        {
+                            "expected_revision": int(query["revision"][0]),
+                            "feature_id": query["body"][0],
+                        },
+                    )
+                    if "error" in reply:
+                        return self.reply(400, json.dumps(reply).encode())
+                    return self.reply(
+                        200, reply["result"]["svg"].encode("utf-8"), "image/svg+xml"
+                    )
+                except ValueError as exc:
+                    return self.reply(
+                        400, json.dumps({"error": {"message": str(exc)}}).encode()
                     )
             if urlsplit(self.path).path in ("/api/export.stl", "/api/export.zip"):
                 bundled = urlsplit(self.path).path.endswith(".zip")

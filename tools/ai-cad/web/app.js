@@ -372,6 +372,8 @@ function intentControls() {
     intentPending || busy || !!preview || editPending || !selectedBody;
   $("measure-selection").disabled =
     measurementPending || busy || !!preview || editPending || !selectedBody;
+  $("export-drawing").disabled =
+    busy || !!preview || editPending || !selectedBody;
   $("measure-density").disabled = $("measure-selection").disabled;
   $("topology-selection").disabled =
     topologyPending || busy || !!preview || editPending || !selectedBody;
@@ -1496,6 +1498,32 @@ $("new-stock").addEventListener("click", () => stocks.open());
 $("new-sketch").addEventListener("click", () => sketches.open());
 await refresh();
 setInterval(() => refresh(), 2000);
+
+$("export-drawing").addEventListener("click", async () => {
+  if (busy || preview || editPending || !selectedBody) return;
+  const revision = saved.revision,
+    feature = selectedBody;
+  busy = true;
+  controls();
+  try {
+    const query = new URLSearchParams({ revision, body: feature });
+    const response = await fetch(`/api/export.svg?${query}`);
+    if (!response.ok) throw Error((await response.json()).error.message);
+    const url = URL.createObjectURL(await response.blob()),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = `${feature}-r${revision}-reference.svg`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $("status").textContent =
+      `Exported reference sheet for ${feature} at revision ${revision}. All edges shown; no hidden-line removal. Use labeled dimensions, not page measurements.`;
+  } catch (error) {
+    $("status").textContent = error.message;
+  } finally {
+    busy = false;
+    controls();
+  }
+});
 
 $("export-stl").addEventListener("click", async () => {
   if (busy || preview || editPending || !saved?.bodies.length) return;
