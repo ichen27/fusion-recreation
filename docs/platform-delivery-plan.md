@@ -265,3 +265,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Coaxial curved intersection checkpoint
 
 [Exact coaxial intersection](../examples/ai-cad/coaxial-intersection/README.md) clips convex radial sections of cylinders, frusta and revolutions, including rings, opposing coordinate-axis directions and source edits. Forty seeded taper pairs match independent piecewise disk integrals; twelve reference intersections match24 STEP readbacks and exact moments. Browser/MCP edit/reject/undo workflows are retained. Continue into bounded radial-section unions/differences and nonconvex sections; general noncoaxial curved trimming remains open.
+
+## Coaxial material Boolean checkpoint
+
+[Exact radial-section joins and cuts](../examples/ai-cad/coaxial-booleans/README.md) reuse the original planar-cell engine for convex/concave coaxial analytic sections, including stepped unions, blind recesses and through-bores. Browser/MCP editing, native history and14 independent reference solids/28 STEP readbacks are verified. Results with disconnected regions, contour holes or multiple axis contacts reject explicitly. Continue with CPU/memory/worker measurements on these broader geometry workloads before extending the representation to multiple contours and general curved trimming.

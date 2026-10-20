@@ -1,0 +1,6 @@
+{
+  "invalid": {
+    "diagnostic": "unsupported_coaxial: The solids must share exactly the same coordinate axis line",
+    "invalidText": "1"
+  }
+}

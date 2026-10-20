@@ -156,9 +156,11 @@
             quarter-turn and form linked copies. Planar solids support chained
             cuts by arbitrary planes. Planar Booleans join, subtract or
             intersect solids, including cavities and separate pieces. Exact
-            affine relationships preserve declared dimensions. Curved
-            intersections, fillets and a general sketch constraint solver remain
-            unsupported. Preview validates each edit.
+            affine relationships preserve declared dimensions. Full profile
+            revolutions, straight sweeps and bounded coaxial operations retain
+            exact geometry. General curved intersections, fillets and a general
+            sketch constraint solver remain unsupported. Preview validates each
+            edit.
           </p>
         </details>
       </aside>
@@ -492,10 +494,16 @@
     <dialog id="boolean-dialog" aria-labelledby="boolean-title">
       <form id="boolean-form">
         <header class="sketch-heading">
-          <h2 id="boolean-title">Combine planar solids</h2>
+          <h2 id="boolean-title">Combine solids</h2>
           <button type="button" id="boolean-close">Cancel</button>
         </header>
         <p id="boolean-feedback" role="status"></p>
+        <label
+          >Geometry<select id="boolean-kind" aria-label="Boolean geometry">
+            <option value="boolean">Planar solids</option>
+            <option value="coaxial_boolean">Coaxial round solids</option>
+          </select></label
+        >
         <label
           >Operation<select
             id="boolean-operation"
@@ -521,10 +529,9 @@
           ></select
         ></label>
         <p class="hint">
-          Start with unperforated planar solids or previous Boolean results.
-          Concave sketches, cavities, through-holes and separate pieces are
-          supported. Analytic curved inputs, edge/point-only joins and empty
-          results reject.
+          Choose planar or coaxial round geometry. Preview checks input
+          compatibility and supported result boundaries. Edge/point-only joins
+          and empty results reject.
         </p>
         <button type="submit" id="boolean-preview" class="primary">
           Preview Boolean
