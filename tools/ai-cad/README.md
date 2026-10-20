@@ -401,3 +401,13 @@ rings and tapered undercuts retain exact analytic geometry, measurements and sur
 selection. Axis contact needs one connected edge with flat ends; apexes, partial
 turns and general curved Booleans are unsupported. [Examples, native downloads,
 STL/STEP and verification](../../examples/ai-cad/revolution/README.md).
+
+### Straight profile sweeps
+
+Choose **Sweep profile**, select an XY sketch, and enter X/Y/Z displacement. Preview
+and save a slanted or vertical solid; Z may be positive or negative but must not be
+zero. **Edit sweep** changes the vector or earlier source profile. Source sketches
+and displacement parameters remain editable, including fixed/derived controls.
+Concave sections, planar cuts, placement and exact measurements are supported.
+[Editable examples, exports and validation](../../examples/ai-cad/straight-sweep/README.md)
+show the scope; curved paths, twist and changing cross-sections remain unsupported.

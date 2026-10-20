@@ -48,6 +48,10 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "straight_sweep":
+            shape = BRepPrimAPI_MakePrism(
+                shapes[f["profile"]], gp_Vec(*[values[v] for v in f["offset"]])
+            ).Shape()
         elif f["kind"] == "revolve":
             profile = next(p for p in model["features"] if p["id"] == f["profile"])
             polygon = BRepBuilderAPI_MakePolygon()

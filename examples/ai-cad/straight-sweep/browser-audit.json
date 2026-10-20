@@ -1,0 +1,7 @@
+{
+  "invalid": {
+    "diagnostic": "sweep_direction: A sweep from an XY profile needs nonzero Z displacement; an in-plane sweep has no solid volume",
+    "invalidText": "0",
+    "open": true
+  }
+}

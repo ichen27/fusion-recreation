@@ -1,3 +1,5 @@
+import { installSweepEditor } from "/sweep-editor.mjs";
+import { sweepCandidates } from "/sweep-model.mjs";
 import { installRevolveEditor } from "/revolve-editor.mjs";
 import { revolveCandidates } from "/revolve-model.mjs";
 import {
@@ -48,6 +50,7 @@ let sketches,
   intersections,
   lofts,
   revolutions,
+  sweeps,
   translations,
   rotations,
   booleans;
@@ -880,6 +883,12 @@ function controls() {
     editPending ||
     !saved ||
     booleanCandidates(saved).length < 2;
+  $("new-sweep").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    sweepCandidates(saved).length < 1;
   $("new-revolve").disabled =
     busy ||
     !!preview ||
@@ -899,7 +908,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-revolve, .edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
+    ".edit-sweep, .edit-revolve, .edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -921,7 +930,7 @@ function render(state) {
   const profiles = state.profiles ?? [];
   const extruded = new Set(
     state.model.features.flatMap((f) =>
-      ["extrude", "revolve"].includes(f.kind)
+      ["extrude", "revolve", "straight_sweep"].includes(f.kind)
         ? [f.profile]
         : f.kind === "planar_loft"
           ? [f.bottom, f.top]
@@ -1001,6 +1010,14 @@ function render(state) {
               : null,
           ),
         );
+        div.append(button);
+      }
+      if (f.kind === "straight_sweep") {
+        const button = document.createElement("button");
+        button.className = "edit-sweep";
+        button.textContent = "Edit sweep";
+        button.setAttribute("aria-label", `Edit sweep ${f.id}`);
+        button.addEventListener("click", () => sweeps.open(f.id));
         div.append(button);
       }
       if (f.kind === "revolve") {
@@ -1424,6 +1441,8 @@ shells = installShellEditor(editorCallbacks("Shell"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));
 rotations = installRotationEditor(editorCallbacks("Rotation"));
+sweeps = installSweepEditor(editorCallbacks("Sweep"));
+$("new-sweep").addEventListener("click", () => sweeps.open());
 revolutions = installRevolveEditor(editorCallbacks("Revolve"));
 $("new-revolve").addEventListener("click", () => revolutions.open());
 lofts = installLoftEditor(editorCallbacks("Loft"));

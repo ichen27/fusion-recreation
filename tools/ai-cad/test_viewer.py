@@ -255,6 +255,8 @@ class Viewer(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIn(b"viewport", html)
         for asset in (
+            "/sweep-model.mjs",
+            "/sweep-editor.mjs",
             "/display-data.mjs",
             "/preview-client.mjs",
             "/picking.mjs",

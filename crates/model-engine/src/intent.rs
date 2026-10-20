@@ -47,6 +47,9 @@ impl Feature {
             Self::Extrude {
                 profile, height, ..
             } => (vec![profile], vec![height]),
+            Self::StraightSweep {
+                profile, offset, ..
+            } => (vec![profile], offset.iter().collect()),
             Self::Revolve { profile, .. } => (vec![profile], vec![]),
             Self::PlanarLoft {
                 bottom,

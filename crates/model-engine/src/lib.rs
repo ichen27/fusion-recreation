@@ -21,6 +21,7 @@ pub mod polyhedral;
 mod rebuild;
 mod revolution;
 mod shell;
+mod sweep;
 pub mod topology;
 pub use polyhedral::Operation as BooleanOperation;
 pub mod placement;
@@ -79,6 +80,12 @@ pub enum Feature {
         id: String,
         profile: String,
         height: String,
+    },
+    /// Straight translation of a planar profile along an exact XYZ displacement.
+    StraightSweep {
+        id: String,
+        profile: String,
+        offset: [String; 3],
     },
     /// Full turn about Z: source profile X is radius and Y is axial Z.
     Revolve { id: String, profile: String },
@@ -221,6 +228,7 @@ impl Feature {
             | Self::Cylinder { id, .. }
             | Self::ConicalFrustum { id, .. }
             | Self::Revolve { id, .. }
+            | Self::StraightSweep { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
             | Self::CountersinkHoles { id, .. }
@@ -887,6 +895,25 @@ fn evaluate_geometry_from(
                     }
                 }
                 evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
+                continue;
+            }
+            Feature::StraightSweep {
+                profile, offset, ..
+            } => {
+                let input = profiles.get(profile.as_str()).ok_or_else(|| {
+                    error(
+                        "unsupported_reference",
+                        profile,
+                        "Sweep must reference an earlier polygon profile",
+                    )
+                })?;
+                let delta = [
+                    parameter(m, &offset[0])?,
+                    parameter(m, &offset[1])?,
+                    parameter(m, &offset[2])?,
+                ];
+                let solid = polyhedral::Solid::from_sweep(id, input, &delta)?;
+                evaluated.insert(id.into(), polyhedral_body(id, solid));
                 continue;
             }
             Feature::Revolve { profile, .. } => {

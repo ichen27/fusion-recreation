@@ -1,0 +1,50 @@
+{
+  "parameters": {
+    "height": "1",
+    "c0": "0",
+    "c1": "40",
+    "c2": "20",
+    "sweep.x": "7",
+    "sweep.y": "-3",
+    "sweep.z": "12"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "c0",
+          "y": "c0"
+        },
+        {
+          "id": "v1",
+          "x": "c1",
+          "y": "c0"
+        },
+        {
+          "id": "v2",
+          "x": "c1",
+          "y": "c2"
+        },
+        {
+          "id": "v3",
+          "x": "c0",
+          "y": "c2"
+        }
+      ]
+    },
+    {
+      "kind": "straight_sweep",
+      "id": "part",
+      "profile": "outline",
+      "offset": [
+        "sweep.x",
+        "sweep.y",
+        "sweep.z"
+      ]
+    }
+  ]
+}
