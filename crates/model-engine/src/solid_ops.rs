@@ -33,7 +33,7 @@ pub(super) fn intersection(id: &str, mut left: Boundary, right: &Boundary) -> Re
 }
 
 pub(super) fn translate(id: &str, boundary: Boundary, delta: &[Q; 3]) -> Result<Body> {
-    rigid(id, boundary, delta, |point| point)
+    rigid(id, boundary, delta, |point| point, false)
 }
 
 pub(super) fn rotate_quarter(
@@ -56,7 +56,26 @@ pub(super) fn rotate_quarter(
     };
     let rotated = rotate(pivot.clone());
     let delta = std::array::from_fn(|i| &pivot[i] - &rotated[i]);
-    rigid(id, boundary, &delta, rotate)
+    rigid(id, boundary, &delta, rotate, false)
+}
+
+pub(super) fn mirror(id: &str, boundary: Boundary, normal: &[Q; 3], offset: &Q) -> Result<Body> {
+    use num_traits::Zero;
+    let squared = crate::topology::dot(normal, normal);
+    if squared.is_zero() {
+        return Err(error(
+            "mirror_normal",
+            id,
+            "Mirror plane normal must be nonzero",
+        ));
+    }
+    let two = Q::from_integer(2.into());
+    let delta = std::array::from_fn(|i| &two * offset * &normal[i] / &squared);
+    let reflect = |p: [Q; 3]| {
+        let scale = &two * crate::topology::dot(normal, &p) / &squared;
+        std::array::from_fn(|i| &p[i] - &normal[i] * &scale)
+    };
+    rigid(id, boundary, &delta, reflect, true)
 }
 
 fn rigid(
@@ -64,6 +83,7 @@ fn rigid(
     mut boundary: Boundary,
     delta: &[Q; 3],
     rotate: impl Fn([Q; 3]) -> [Q; 3],
+    reverse_orientation: bool,
 ) -> Result<Body> {
     // These are computed boundary values, already validated upstream, not new
     // 128-bit user literals. The boundary validator checks the resulting budget.
@@ -91,6 +111,14 @@ fn rigid(
         let shift = (0..3).map(|axis| &normal[axis] * &delta[axis]).sum::<Q>();
         face.offset = (value(&face.offset)? + shift).to_string();
         face.normal = normal.map(|n| n.to_string());
+        if reverse_orientation {
+            for uses in &mut face.loops {
+                uses.reverse();
+                for edge in uses {
+                    edge.forward = !edge.forward;
+                }
+            }
+        }
     }
     let face = boundary
         .faces

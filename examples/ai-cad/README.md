@@ -119,3 +119,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact hollow planar parts, editable shells and independent exports](planar-shell/README.md).
 
 [Exact linear material patterns, source-linked edits and independent unions](linear-pattern/README.md).
+
+[Exact planar mirrors, linked counterparts and oblique reflections](mirror/README.md).

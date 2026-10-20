@@ -54,7 +54,9 @@ impl Feature {
                 ..
             } => (vec![bottom, top], vec![height]),
             Self::CornerCut { input, size, .. } => (vec![input], vec![size]),
-            Self::PlaneCut { input, offset, .. } => (vec![input], vec![offset]),
+            Self::PlaneCut { input, offset, .. } | Self::MirrorPlane { input, offset, .. } => {
+                (vec![input], vec![offset])
+            }
             Self::PlanarShell {
                 input, thickness, ..
             } => (vec![input], vec![thickness]),

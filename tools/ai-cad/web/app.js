@@ -14,6 +14,7 @@ import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
 import { planeCandidate } from "/plane-model.mjs";
 import { installPatternEditor } from "/pattern-editor.mjs";
+import { installMirrorEditor } from "/mirror-editor.mjs";
 import { installShellEditor } from "/shell-editor.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
 import {
@@ -29,6 +30,7 @@ let sketches,
   holes,
   planes,
   shells,
+  mirrors,
   patterns,
   stocks,
   intersections,
@@ -835,7 +837,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
+    ".edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -950,6 +952,20 @@ function render(state) {
         button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
         button.addEventListener("click", () =>
           patterns.open(f.id, f.kind === "linear_pattern" ? f.id : null),
+        );
+        div.append(button);
+      }
+      if (
+        f.kind === "mirror_plane" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-mirror";
+        button.textContent =
+          f.kind === "mirror_plane" ? "Edit mirror" : "Mirror solid";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          mirrors.open(f.id, f.kind === "mirror_plane" ? f.id : null),
         );
         div.append(button);
       }
@@ -1332,6 +1348,7 @@ sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
 patterns = installPatternEditor(editorCallbacks("Pattern"));
+mirrors = installMirrorEditor(editorCallbacks("Mirror"));
 shells = installShellEditor(editorCallbacks("Shell"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));

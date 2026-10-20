@@ -47,6 +47,15 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "mirror_plane":
+            normal = [number(v) for v in f["normal"]]
+            squared = sum(v * v for v in normal)
+            center = [values[f["offset"]] * v / squared for v in normal]
+            placement = gp_Trsf()
+            placement.SetMirror(gp_Ax2(gp_Pnt(*center), gp_Dir(*normal)))
+            shape = BRepBuilderAPI_Transform(
+                shapes[f["input"]], placement, True
+            ).Shape()
         elif f["kind"] == "linear_pattern":
             source = shapes[f["input"]]
             shape = source

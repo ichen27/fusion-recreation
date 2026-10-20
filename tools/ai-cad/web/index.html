@@ -329,6 +329,46 @@
         </button>
       </form>
     </dialog>
+    <dialog id="mirror-dialog" aria-labelledby="mirror-title">
+      <form id="mirror-form">
+        <header class="sketch-heading">
+          <h2 id="mirror-title">Mirror across plane</h2>
+          <button type="button" id="mirror-close">Cancel</button>
+        </header>
+        <p id="mirror-feedback" role="status"></p>
+        <label
+          ><input type="checkbox" id="mirror-keep" /> Keep source as a linked
+          part</label
+        >
+        <div class="plane-normal">
+          <label
+            >Normal X<input id="mirror-nx" aria-label="Normal X" required
+          /></label>
+          <label
+            >Normal Y<input id="mirror-ny" aria-label="Normal Y" required
+          /></label>
+          <label
+            >Normal Z<input id="mirror-nz" aria-label="Normal Z" required
+          /></label>
+        </div>
+        <label
+          >Plane offset (mm)<input
+            id="mirror-offset"
+            aria-label="Plane offset"
+            placeholder="Integer or fraction"
+            required
+        /></label>
+        <p class="hint">
+          Planar material only, including cavities and disconnected pieces. The
+          normal must be nonzero. For a plane x = 50 use (1, 0, 0) and offset
+          50. Uncheck Keep source to replace the source body with its
+          reflection.
+        </p>
+        <button type="submit" id="mirror-preview" class="primary">
+          Preview mirror
+        </button>
+      </form>
+    </dialog>
     <dialog id="plane-dialog" aria-labelledby="plane-title">
       <form id="plane-form">
         <header class="sketch-heading">
