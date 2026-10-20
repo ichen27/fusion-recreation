@@ -1,5 +1,6 @@
 import { installLoftEditor } from "/loft-editor.mjs";
 import { loftCandidates } from "/loft-model.mjs";
+import { edgeVertices } from "/edge-display.mjs";
 import { renderTopology } from "/topology-view.mjs";
 import { installBooleanEditor } from "/boolean-editor.mjs";
 import { booleanCandidates } from "/boolean-model.mjs";
@@ -62,6 +63,10 @@ function shader(type, source) {
 }
 let program,
   buffer,
+  edgeBuffer,
+  measuredEdgeVertices = [],
+  edgeDirty = true,
+  edgeEpoch = 0,
   geometryDirty = true,
   contextLost = false;
 function initializeGL() {
@@ -76,7 +81,7 @@ function initializeGL() {
     void main(){ vec3 p=position*zoom;
       float c=cos(angles.x),s=sin(angles.x);p=vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);
       c=cos(angles.y);s=sin(angles.y);p=vec3(p.x,-s*p.y+c*p.z,c*p.y+s*p.z);
-      gl_Position=vec4(p.x/aspect,p.y,-p.z*0.2,1.0);tint=color; }`,
+      gl_Position=vec4(p.x/aspect,p.y,-p.z*0.2,1.0);gl_PointSize=7.0;tint=color; }`,
     ),
   );
   gl.attachShader(
@@ -92,8 +97,15 @@ function initializeGL() {
   if (!gl.getProgramParameter(program, gl.LINK_STATUS))
     throw Error(gl.getProgramInfoLog(program));
   buffer = gl.createBuffer();
+  edgeBuffer = gl.createBuffer();
   gl.useProgram(program);
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  bindVertices(buffer);
+  gl.enable(gl.DEPTH_TEST);
+  geometryDirty = true;
+  edgeDirty = true;
+}
+function bindVertices(target) {
+  gl.bindBuffer(gl.ARRAY_BUFFER, target);
   for (const [name, offset] of [
     ["position", 0],
     ["color", 12],
@@ -102,8 +114,6 @@ function initializeGL() {
     gl.enableVertexAttribArray(location);
     gl.vertexAttribPointer(location, 3, gl.FLOAT, false, 24, offset);
   }
-  gl.enable(gl.DEPTH_TEST);
-  geometryDirty = true;
 }
 if (gl) {
   initializeGL();
@@ -116,6 +126,7 @@ const number = (s) => {
   return parts.length === 2 ? parts[0] / parts[1] : parts[0];
 };
 function geometry(bodies, profiles) {
+  clearMeasuredEdge();
   triangles = [];
   lines = [];
   const all = [];
@@ -223,6 +234,7 @@ function geometry(bodies, profiles) {
 }
 function draw() {
   if (!gl || contextLost) return;
+  bindVertices(buffer);
   if (geometryDirty) {
     packedDisplay = packVertices(triangles, lines, center, extent);
     gl.bufferData(gl.ARRAY_BUFFER, packedDisplay, gl.STATIC_DRAW);
@@ -278,6 +290,41 @@ function draw() {
     triangles.length / 6 + bodyLineCount,
     lines.length / 6 - bodyLineCount,
   );
+  if (measuredEdgeVertices.length) {
+    bindVertices(edgeBuffer);
+    if (edgeDirty) {
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        packVertices([], measuredEdgeVertices, center, extent),
+        gl.STATIC_DRAW,
+      );
+      edgeDirty = false;
+    }
+    const count = measuredEdgeVertices.length / 6;
+    gl.drawArrays(gl.LINE_STRIP, 0, count);
+    gl.drawArrays(gl.POINTS, 0, 1);
+    gl.drawArrays(gl.POINTS, count - 1, 1);
+  }
+}
+function clearMeasuredEdge() {
+  edgeEpoch += 1;
+  if (!measuredEdgeVertices.length) return;
+  measuredEdgeVertices = [];
+  edgeDirty = true;
+  const output = $("edge-measurement");
+  if (output) output.textContent = "";
+  draw();
+}
+function showMeasuredEdge(measurement) {
+  try {
+    measuredEdgeVertices = edgeVertices(measurement);
+    edgeDirty = true;
+    draw();
+    return !!gl && !contextLost;
+  } catch {
+    clearMeasuredEdge();
+    return false;
+  }
 }
 canvas.addEventListener("webglcontextlost", (event) => {
   event.preventDefault();
@@ -305,6 +352,7 @@ function intentControls() {
   for (const button of document.querySelectorAll("[data-surface]"))
     button.disabled = busy || !!preview || editPending || !selectedBody;
   const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
+  if (busy || preview || editPending || intentKey !== key) clearMeasuredEdge();
   if (intentKey !== key) {
     $("intent-info").replaceChildren();
     $("measurement-info").replaceChildren();
@@ -424,6 +472,7 @@ $("topology-selection").addEventListener("click", async () => {
   const expected_revision = saved.revision,
     feature_id = selectedBody,
     key = `${expected_revision}:${feature_id}`;
+  clearMeasuredEdge();
   topologyPending = true;
   intentControls();
   $("topology-info").textContent =
@@ -453,11 +502,13 @@ $("topology-selection").addEventListener("click", async () => {
         shareSelection(feature_id, reference);
       },
       async (edge_index) => {
+        const epoch = edgeEpoch;
         const current = () =>
           !busy &&
           !preview &&
           !editPending &&
           intentKey === key &&
+          edgeEpoch === epoch &&
           saved.revision === expected_revision;
         if (!current())
           throw Error("Refresh the saved selection before measuring.");
@@ -472,8 +523,9 @@ $("topology-selection").addEventListener("click", async () => {
           throw Error("Selection changed; refresh before measuring.");
         if (reply.error)
           throw Error(`${reply.error.code}: ${reply.error.message}`);
-        return reply.result;
+        return { ...reply.result, highlighted: showMeasuredEdge(reply.result) };
       },
+      clearMeasuredEdge,
     );
   } catch (error) {
     if (intentKey === key) $("topology-info").textContent = error.message;
@@ -530,7 +582,10 @@ async function readSelectionContext() {
       : context.selection_status === "stale"
         ? "The model changed. Reselect a saved solid to share its current geometry."
         : "No saved solid shared with AI tools.";
-  if (changed) draw();
+  if (changed) {
+    clearMeasuredEdge();
+    draw();
+  }
 }
 function renderSurfaceContext() {
   $("surface-context").textContent = selectedSurface
@@ -543,6 +598,7 @@ function renderSurfaceContext() {
     );
 }
 function shareSelection(id, surface = null) {
+  clearMeasuredEdge();
   const request = ++selectionRequest,
     revision = saved.revision;
   selectionPending = true;
@@ -587,6 +643,7 @@ function shareSelection(id, surface = null) {
     });
 }
 function selectBody(id) {
+  clearMeasuredEdge();
   selectedSurface = null;
   renderSurfaceContext();
   selectedBody = id;

@@ -109,3 +109,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Persistent native worker](native-worker/README.md): bounded serial process reuse, exact reply equivalence, fault isolation and measured startup savings.
 
 [Exact edge lengths, arc/chord distinction and smooth seams](edge-measurements/README.md).
+
+[Measured-edge viewport highlighting and GPU lifecycle evidence](edge-highlight/README.md).

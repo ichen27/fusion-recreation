@@ -217,3 +217,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Exact edge measurement checkpoint
 
 [Revision-bound edge lengths](../examples/ai-cad/edge-measurements/README.md) expose exact line and quarter-circle lengths through the browser and typed MCP. Chord length is separate; smooth patch seams are identified. Independent source-dimension identities, 196 translated-support integrations, strict/stale reference tests and actual browser/MCP recordings preserve native history. Viewport edge highlighting/picking and general entity distances remain open.
+
+## Measured-edge highlight checkpoint
+
+[A separate GPU overlay](../examples/ai-cad/edge-highlight/README.md) locates a measured line/arc with endpoint markers and depth occlusion. Body geometry stays resident while edge buffers are bounded to the sampled curve. Browser evidence covers orbit without uploads, context recovery, stale replies and draft clearing; native history remains unchanged. Shared edge context and direct edge picking remain open.
