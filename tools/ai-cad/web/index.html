@@ -125,6 +125,25 @@
         <button id="export-drawing" disabled>
           Download reference sheet (SVG)
         </button>
+        <details>
+          <summary>Section through solid</summary>
+          <label for="section-axis">World coordinate plane</label>
+          <select id="section-axis" disabled>
+            <option value="Z">Z · horizontal section</option>
+            <option value="Y">Y · front section</option>
+            <option value="X">X · right section</option>
+          </select>
+          <label for="section-offset">Plane offset · mm</label>
+          <input
+            id="section-offset"
+            type="text"
+            maxlength="96"
+            placeholder="Integer or fraction"
+            disabled
+          />
+          <p>Planar solids only. Avoid offsets through vertices.</p>
+          <button id="export-section" disabled>Download section (SVG)</button>
+        </details>
         <label for="measure-density">Uniform density · kg/m³ (optional)</label>
         <input
           id="measure-density"

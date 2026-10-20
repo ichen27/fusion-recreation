@@ -11,6 +11,7 @@ from store import MAX_BYTES, CadError, Store, dispatch
 from selection import dispatch_selection
 from intent import dispatch_explain
 from drawings import dispatch_drawing
+from sections import dispatch_section
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
@@ -246,6 +247,7 @@ def handler(store, port):
                 "/api/explain",
                 "/api/measure",
                 "/api/mass-set",
+                "/api/section",
                 "/api/topology",
                 "/api/measure-edge",
                 "/api/interference",
@@ -285,7 +287,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_mass_set(store, command)
+                    dispatch_section(store, command)
+                    if self.path == "/api/section"
+                    else dispatch_mass_set(store, command)
                     if self.path == "/api/mass-set"
                     else dispatch_clearance(store, command)
                     if self.path == "/api/clearance"

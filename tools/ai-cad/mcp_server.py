@@ -8,6 +8,7 @@ from mcp.server import MCPServer
 from selection import dispatch_selection
 from intent import dispatch_explain
 from drawings import dispatch_drawing
+from sections import dispatch_section
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
@@ -358,6 +359,24 @@ def server(path):
         """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
         return dispatch_explain(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_section(
+        expected_revision: int,
+        feature_id: str,
+        axis: Literal["X", "Y", "Z"],
+        offset_mm: str,
+    ) -> dict:
+        """Read an exact coordinate-plane cross-section of one saved terminal planar solid. Axis X/Y/Z and integer/fraction offset_mm specify the world-coordinate cut plane. Returns exact planar loops, hole nesting, area in mm², 3D area centroid in mm, source revision/hash and a hatched SVG reference view. Only the selected solid participates. Curved solids reject; planes through any native vertex reject as section_degenerate, so choose a different exact offset. Empty cuts reject. This does not remove material or save a feature, drawing or annotation. Fit-to-page SVG must not be measured; no manufacturing tolerances or hidden geometry beyond the cut plane are included."""
+        return dispatch_section(
+            store,
+            dict(
+                expected_revision=expected_revision,
+                feature_id=feature_id,
+                axis=axis,
+                offset_mm=offset_mm,
+            ),
         )
 
     @mcp.tool()

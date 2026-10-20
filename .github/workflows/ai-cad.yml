@@ -63,6 +63,8 @@ jobs:
       - run: python tools/ai-cad/verify_drawings_mcp.py
       - run: python tools/ai-cad/verify_hidden_sheets.py
       - run: python tools/ai-cad/verify_hidden_sheets_mcp.py
+      - run: python tools/ai-cad/verify_sections.py
+      - run: python tools/ai-cad/verify_sections_mcp.py
       - run: python tools/ai-cad/verify_independent_rebuild.py
       - run: python tools/ai-cad/verify_independent_rebuild_mcp.py
       - run: python tools/ai-cad/benchmark_independent_rebuild.py --samples 1
