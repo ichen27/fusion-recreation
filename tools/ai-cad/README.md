@@ -18,6 +18,8 @@ python3 tools/ai-cad/viewer.py --store work/demo.cad.json
 
 Open http://127.0.0.1:8765. You should see width 120, depth 60, thickness 12, corner setback 10, and exact volume **85,800 mm³**. Repeating the two fixture commands returns their receipts without applying them twice. Use a new document path to start an independent demo.
 
+The feature tree keeps **Select solid** and existing-feature **Edit** buttons visible. Open **Modeling actions** on a solid for new operations such as holes, cuts, patterns, mirrors and placement. One menu opens at a time; keyboard Enter/Space toggles its summary.
+
 The viewer can change unlocked dimensions, preview/save, discard, undo, redo, orbit and zoom. It polls for other clients' saved changes, but retains pending form edits/previews and reports revision conflicts. Decimal input is currently expressed as a fraction (`25/2`, not `12.5`). Volume display is rounded; the exact value is in the tooltip and tool result.
 
 To view a mini-hosted service on another computer, forward the loopback port with SSH and open the forwarded URL. Use the same local/remote port (8765) because the host checks its Host/Origin headers. The HTTP server is a local development viewer, not an internet service. It binds only to 127.0.0.1 and has no account system.

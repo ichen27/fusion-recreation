@@ -1,3 +1,4 @@
+import { createFeatureActions } from "/feature-actions.mjs";
 import { installLoftEditor } from "/loft-editor.mjs";
 import { loftCandidates } from "/loft-model.mjs";
 import { edgeVertices } from "/edge-display.mjs";
@@ -26,6 +27,7 @@ import {
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
 import { availableHoleInputs } from "/hole-model.mjs";
+const organizeFeatureActions = createFeatureActions();
 let sketches,
   holes,
   planes,
@@ -1073,6 +1075,7 @@ function render(state) {
         button.addEventListener("click", () => booleans.open(f.id));
         div.append(button);
       }
+      organizeFeatureActions(div, f);
       return div;
     }),
   );

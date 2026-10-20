@@ -608,3 +608,30 @@ dialog p[role="status"] {
 #sketch-profile-only {
   width: auto;
 }
+
+.feature-hint {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #60766c;
+  margin: 18px 0 8px;
+}
+.feature-actions {
+  margin-top: 10px;
+  border-top: 1px solid #d7e2dc;
+  padding-top: 8px;
+}
+.feature-actions summary {
+  cursor: pointer;
+  color: #315c50;
+  padding: 4px 0;
+  font-weight: 600;
+}
+.feature-actions summary:focus-visible {
+  outline: 2px solid #14836f;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.feature-actions button {
+  width: 100%;
+  text-align: left;
+}

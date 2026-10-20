@@ -121,3 +121,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact linear material patterns, source-linked edits and independent unions](linear-pattern/README.md).
 
 [Exact planar mirrors, linked counterparts and oblique reflections](mirror/README.md).
+
+[Compact feature actions, keyboard access and unchanged-document verification](feature-actions/README.md).
