@@ -1,4 +1,4 @@
-//! Request-local reuse of a fully validated, unchanged feature prefix.
+//! Request-local reuse of validated geometry with unchanged dependency ancestry.
 //! Nothing here is persisted or accepted from callers as trusted geometry.
 use crate::{profile, Body, EvaluatedProfile, Model};
 use std::collections::{BTreeMap, BTreeSet};
@@ -12,6 +12,7 @@ pub(super) struct Geometry {
     pub checkpoints: Vec<BTreeSet<String>>,
 }
 impl Geometry {
+    #[cfg(test)]
     pub fn retain_prefix(mut self, before: &Model, after: &Model) -> (Self, usize) {
         let count = before
             .features
@@ -45,6 +46,53 @@ impl Geometry {
             bodies,
             self.profiles.into_values().map(|p| p.output()).collect(),
         )
+    }
+}
+
+pub(super) struct Reuse {
+    previous: Geometry,
+    eligible: BTreeSet<String>,
+}
+impl Reuse {
+    pub fn new(previous: Geometry, before: &Model, after: &Model) -> Self {
+        let mut eligible = BTreeSet::new();
+        for (a, b) in before.features.iter().zip(&after.features) {
+            let links = b.links();
+            if a == b
+                && links
+                    .parameters
+                    .iter()
+                    .all(|id| before.parameters.get(id) == after.parameters.get(id))
+                && links.inputs.iter().all(|id| eligible.contains(id))
+            {
+                eligible.insert(b.id().to_owned());
+            }
+        }
+        Self { previous, eligible }
+    }
+    pub fn restore(
+        &mut self,
+        index: usize,
+        id: &str,
+        evaluated: &mut BTreeMap<String, Body>,
+        profiles: &mut BTreeMap<String, profile::Profile>,
+        consumed: &mut BTreeSet<String>,
+    ) -> bool {
+        // A geometry-equivalent feature can still be invalid after a different
+        // consumer was inserted earlier. Require the complete consumption state
+        // to match before skipping its validation; otherwise evaluate normally.
+        if !self.eligible.contains(id) || self.previous.checkpoints.get(index) != Some(consumed) {
+            return false;
+        }
+        if let Some(body) = self.previous.evaluated.remove(id) {
+            evaluated.insert(id.to_owned(), body);
+        } else if let Some(profile) = self.previous.profiles.remove(id) {
+            profiles.insert(id.to_owned(), profile);
+        } else {
+            return false;
+        }
+        *consumed = self.previous.checkpoints[index + 1].clone();
+        true
     }
 }
 
@@ -218,5 +266,67 @@ mod tests {
         );
         guarded["preserve"] = json!(["a.height"]);
         compare(guarded);
+    }
+
+    #[test]
+    fn independent_suffix_reuses_but_changed_ancestry_and_consumption_do_not() {
+        let before: Model = serde_json::from_value(json!({
+            "parameters":{"a":"10","b":"20","z":"0","shift":"30"},"fixed":{},
+            "features":[
+                {"kind":"block","id":"a","width":"a","depth":"a","height":"a"},
+                {"kind":"block","id":"b","width":"b","depth":"b","height":"b"},
+                {"kind":"translate","id":"placed","input":"b","offset":["shift","z","z"]},
+                {"kind":"instance","id":"linked","source":"a","offset":["shift","z","z"]}
+            ]
+        }))
+        .unwrap();
+        let mut after = before.clone();
+        after.parameters.insert("a".into(), "11".into());
+        let mut reuse = Reuse::new(evaluate_geometry(&before).unwrap(), &before, &after);
+        assert_eq!(
+            reuse.eligible,
+            BTreeSet::from(["b".into(), "placed".into()])
+        );
+        let mut bodies = BTreeMap::new();
+        let mut profiles = BTreeMap::new();
+        let mut consumed = BTreeSet::new();
+        assert!(reuse.restore(1, "b", &mut bodies, &mut profiles, &mut consumed));
+        assert!(reuse.restore(2, "placed", &mut bodies, &mut profiles, &mut consumed));
+        assert_eq!(consumed, BTreeSet::from(["b".into()]));
+        let mut reuse = Reuse::new(evaluate_geometry(&before).unwrap(), &before, &after);
+        assert!(!reuse.restore(2, "placed", &mut bodies, &mut profiles, &mut consumed));
+        assert!(reuse.previous.evaluated.contains_key("placed"));
+        compare(request(
+            &before,
+            json!([{"op":"set_parameter","id":"a","mm":"11"}]),
+        ));
+        // An unchanged consumer becomes invalid when a preceding feature now
+        // consumes the same input. Cached geometry must not mask this error.
+        let mut conflict = before.clone();
+        conflict.features.insert(
+            2,
+            serde_json::from_value(
+                json!({"kind":"translate","id":"early","input":"a","offset":["shift","z","z"]}),
+            )
+            .unwrap(),
+        );
+        let replacement =
+            json!({"kind":"translate","id":"early","input":"b","offset":["shift","z","z"]});
+        let command = request(
+            &conflict,
+            json!([{"op":"replace_feature","id":"early","feature":replacement}]),
+        );
+        let failed = evaluate_with_reuse(serde_json::from_value(command.clone()).unwrap(), true)
+            .unwrap_err();
+        assert_eq!(failed.code, "unsupported_branch");
+        compare(command);
+        // Changed derived driver values must invalidate the independent branch.
+        compare(request(
+            &before,
+            json!([
+                {"op":"set_relation","id":"b","relation":{"offset_mm":"0","terms":{"a":"2"}}},
+                {"op":"set_parameter","id":"a","mm":"11"}
+            ]),
+        ));
     }
 }

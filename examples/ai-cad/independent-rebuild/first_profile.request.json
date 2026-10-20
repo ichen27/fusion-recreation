@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "model": {
+    "parameters": {
+      "p0.a.height": "10",
+      "p0.a.c0": "0",
+      "p0.a.c1": "10",
+      "p0.b.height": "6",
+      "p0.b.c0": "2",
+      "p0.b.c1": "8",
+      "p0.b.zero": "0",
+      "p0.b.z": "2",
+      "p1.a.height": "10",
+      "p1.a.c0": "0",
+      "p1.a.c1": "10",
+      "p1.b.height": "6",
+      "p1.b.c0": "2",
+      "p1.b.c1": "8",
+      "p1.b.zero": "0",
+      "p1.b.z": "2",
+      "p2.a.height": "10",
+      "p2.a.c0": "0",
+      "p2.a.c1": "10",
+      "p2.b.height": "6",
+      "p2.b.c0": "2",
+      "p2.b.c1": "8",
+      "p2.b.zero": "0",
+      "p2.b.z": "2",
+      "p3.a.height": "10",
+      "p3.a.c0": "0",
+      "p3.a.c1": "10",
+      "p3.b.height": "6",
+      "p3.b.c0": "2",
+      "p3.b.c1": "8",
+      "p3.b.zero": "0",
+      "p3.b.z": "2"
+    },
+    "features": [
+      {
+        "kind": "planar_profile",
+        "id": "p0.a.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p0.a.c0",
+            "y": "p0.a.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p0.a.c1",
+            "y": "p0.a.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p0.a.c1",
+            "y": "p0.a.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p0.a.c0",
+            "y": "p0.a.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p0.a",
+        "profile": "p0.a.profile",
+        "height": "p0.a.height"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p0.b.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p0.b.c0",
+            "y": "p0.b.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p0.b.c1",
+            "y": "p0.b.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p0.b.c1",
+            "y": "p0.b.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p0.b.c0",
+            "y": "p0.b.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p0.b",
+        "profile": "p0.b.profile",
+        "height": "p0.b.height"
+      },
+      {
+        "kind": "translate",
+        "id": "p0.b.placed",
+        "input": "p0.b",
+        "offset": [
+          "p0.b.zero",
+          "p0.b.zero",
+          "p0.b.z"
+        ]
+      },
+      {
+        "kind": "boolean",
+        "id": "p0.result",
+        "left": "p0.a",
+        "right": "p0.b.placed",
+        "operation": "difference"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p1.a.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p1.a.c0",
+            "y": "p1.a.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p1.a.c1",
+            "y": "p1.a.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p1.a.c1",
+            "y": "p1.a.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p1.a.c0",
+            "y": "p1.a.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p1.a",
+        "profile": "p1.a.profile",
+        "height": "p1.a.height"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p1.b.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p1.b.c0",
+            "y": "p1.b.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p1.b.c1",
+            "y": "p1.b.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p1.b.c1",
+            "y": "p1.b.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p1.b.c0",
+            "y": "p1.b.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p1.b",
+        "profile": "p1.b.profile",
+        "height": "p1.b.height"
+      },
+      {
+        "kind": "translate",
+        "id": "p1.b.placed",
+        "input": "p1.b",
+        "offset": [
+          "p1.b.zero",
+          "p1.b.zero",
+          "p1.b.z"
+        ]
+      },
+      {
+        "kind": "boolean",
+        "id": "p1.result",
+        "left": "p1.a",
+        "right": "p1.b.placed",
+        "operation": "difference"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p2.a.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p2.a.c0",
+            "y": "p2.a.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p2.a.c1",
+            "y": "p2.a.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p2.a.c1",
+            "y": "p2.a.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p2.a.c0",
+            "y": "p2.a.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p2.a",
+        "profile": "p2.a.profile",
+        "height": "p2.a.height"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p2.b.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p2.b.c0",
+            "y": "p2.b.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p2.b.c1",
+            "y": "p2.b.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p2.b.c1",
+            "y": "p2.b.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p2.b.c0",
+            "y": "p2.b.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p2.b",
+        "profile": "p2.b.profile",
+        "height": "p2.b.height"
+      },
+      {
+        "kind": "translate",
+        "id": "p2.b.placed",
+        "input": "p2.b",
+        "offset": [
+          "p2.b.zero",
+          "p2.b.zero",
+          "p2.b.z"
+        ]
+      },
+      {
+        "kind": "boolean",
+        "id": "p2.result",
+        "left": "p2.a",
+        "right": "p2.b.placed",
+        "operation": "difference"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p3.a.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p3.a.c0",
+            "y": "p3.a.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p3.a.c1",
+            "y": "p3.a.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p3.a.c1",
+            "y": "p3.a.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p3.a.c0",
+            "y": "p3.a.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p3.a",
+        "profile": "p3.a.profile",
+        "height": "p3.a.height"
+      },
+      {
+        "kind": "planar_profile",
+        "id": "p3.b.profile",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "p3.b.c0",
+            "y": "p3.b.c0"
+          },
+          {
+            "id": "v1",
+            "x": "p3.b.c1",
+            "y": "p3.b.c0"
+          },
+          {
+            "id": "v2",
+            "x": "p3.b.c1",
+            "y": "p3.b.c1"
+          },
+          {
+            "id": "v3",
+            "x": "p3.b.c0",
+            "y": "p3.b.c1"
+          }
+        ]
+      },
+      {
+        "kind": "extrude",
+        "id": "p3.b",
+        "profile": "p3.b.profile",
+        "height": "p3.b.height"
+      },
+      {
+        "kind": "translate",
+        "id": "p3.b.placed",
+        "input": "p3.b",
+        "offset": [
+          "p3.b.zero",
+          "p3.b.zero",
+          "p3.b.z"
+        ]
+      },
+      {
+        "kind": "boolean",
+        "id": "p3.result",
+        "left": "p3.a",
+        "right": "p3.b.placed",
+        "operation": "difference"
+      }
+    ],
+    "fixed": {}
+  },
+  "operations": [
+    {
+      "op": "set_parameter",
+      "id": "p0.a.c1",
+      "mm": "11"
+    }
+  ],
+  "preserve": []
+}
