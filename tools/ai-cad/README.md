@@ -4,6 +4,10 @@ A bounded working slice of an original CAD engine. A signed-in Codex or Claude C
 
 **Status:** working model/command contract and tested MCP transport, not a general CAD product. Natural-language reasoning happens in the connected agent client. The viewer has dimension controls, not an embedded AI chat. A live two-turn Codex conversation using ChatGPT sign-in has now created and widened the part through MCP. [Recording, editable snapshots and replay check](../../examples/ai-cad/live-codex/README.md) are included. Claude Code remains transport-compatible but has not been tested with an authenticated session.
 
+## Portable runtime
+
+A [verified private macOS ARM64 bundle](../../examples/ai-cad/runtime-bundle/README.md) contains the built original engine and editable workbench sources. It runs without Rust/Cargo and keeps documents outside the runtime directory. Python3.14+ is still required; MCP uses an optional separately pinned environment. This is a development artifact, not a public product release. The source-checkout workflow follows below.
+
 ## Quickstart
 
 Requires macOS/Linux, Python 3.14, Rust 1.85.1 with Cargo, and a WebGL 2 browser. Run from the repository root. Store your own documents outside the repository (or in ignored `work/`). This host uses POSIX file locks and is not yet supported on Windows.

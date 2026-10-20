@@ -17,7 +17,7 @@ The selected part is a10 mm cube minus a6 mm closed cavity. At Y=5 the area is10
 
 ## Reproduce
 
-Build the Rust engine and install `tools/ai-cad/requirements.txt` using the [host setup](../../../tools/ai-cad/README.md), then run from the repository root:
+Build the Rust engine and install `tools/ai-cad/requirements.lock` using the [host setup](../../../tools/ai-cad/README.md), then run from the repository root:
 
 ```sh
 python tools/ai-cad/verify_sections.py

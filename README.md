@@ -77,3 +77,5 @@ Native CTest and independent Python research checks run in GitHub Actions.
 ### Editable mounting bracket
 
 [Create, resize, reopen and export a flat bracket with analytic round holes](examples/ai-cad/bracket/README.md). Includes native documents, STEP, STL, browser evidence and independent export validation. This is a bounded milestone within the [full platform plan](docs/platform-delivery-plan.md).
+
+A [portable macOS ARM64 development runtime](examples/ai-cad/runtime-bundle/README.md) includes the built original engine, viewer sources, native examples and verification. It requires Python3.14+, with optional MCP dependencies installed separately. Public distribution licensing remains unresolved.

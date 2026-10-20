@@ -1,0 +1,614 @@
+{
+  "files": {
+    "README.md": {
+      "bytes": 4592,
+      "executable": false,
+      "sha256": "5c179a8ea0538b2fb5804b209c4e198da3f98f78d5047708b02abda0f13500dc"
+    },
+    "cad.py": {
+      "bytes": 9026,
+      "executable": false,
+      "sha256": "5c8f93ede4937cf99e5d435e168a05659d4dc1c34ef89c2c871c43430f61a1ba"
+    },
+    "crates/model-engine/target/release/model-engine": {
+      "bytes": 3470720,
+      "executable": true,
+      "sha256": "3c012f4ce875a0db9ed648da3d23d54859e130ba41d97074cf57713ef171a5d9"
+    },
+    "engine-Cargo.lock": {
+      "bytes": 4697,
+      "executable": false,
+      "sha256": "11b518a04ccffb73b5a2bf7351475ba92e4b0fe4590796f6414925eaba176687"
+    },
+    "requirements.lock": {
+      "bytes": 518,
+      "executable": false,
+      "sha256": "3f8c1c497ce4d03dbcf07c82763b54ef8c1ed12e822240e6345accdf464fdc4f"
+    },
+    "samples/cavity.cad.json": {
+      "bytes": 1270,
+      "executable": false,
+      "sha256": "dafab765262f7e0884094c1bcb5fc5f7cbb1d1ff8967dde61794dd12daf93c4c"
+    },
+    "samples/materials.cad.json": {
+      "bytes": 902,
+      "executable": false,
+      "sha256": "6fefa04f1c31abf896a51d6b53f733ca2be649e02ca467bd10a050ab13963346"
+    },
+    "step-requirements.txt": {
+      "bytes": 254,
+      "executable": false,
+      "sha256": "8157b1e25b5e31db49d48f3368d2d787a7f34d053445aeb388bd6d58d2956a03"
+    },
+    "third-party/autocfg-1.5.1/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/autocfg-1.5.1/LICENSE-MIT": {
+      "bytes": 1054,
+      "executable": false,
+      "sha256": "27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac"
+    },
+    "third-party/earcutr-0.4.3/LICENSE": {
+      "bytes": 771,
+      "executable": false,
+      "sha256": "ac0e50e523dd0ea36f077c373833f1ae6c7ad130ea5ac6ff23bfa8d3f402145f"
+    },
+    "third-party/either-1.19.0/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/either-1.19.0/LICENSE-MIT": {
+      "bytes": 1043,
+      "executable": false,
+      "sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545"
+    },
+    "third-party/index.json": {
+      "bytes": 5606,
+      "executable": false,
+      "sha256": "7d5bbe0aa96c81ab01c15d898087954c6b67f4b196ad1b20b3f7e1c96630b4b9"
+    },
+    "third-party/itertools-0.11.0/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/itertools-0.11.0/LICENSE-MIT": {
+      "bytes": 1043,
+      "executable": false,
+      "sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545"
+    },
+    "third-party/itoa-1.0.18/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/itoa-1.0.18/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/memchr-2.8.3/COPYING": {
+      "bytes": 126,
+      "executable": false,
+      "sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f"
+    },
+    "third-party/memchr-2.8.3/LICENSE-MIT": {
+      "bytes": 1081,
+      "executable": false,
+      "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f"
+    },
+    "third-party/num-bigint-0.4.8/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/num-bigint-0.4.8/LICENSE-MIT": {
+      "bytes": 1071,
+      "executable": false,
+      "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    "third-party/num-integer-0.1.47/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/num-integer-0.1.47/LICENSE-MIT": {
+      "bytes": 1071,
+      "executable": false,
+      "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    "third-party/num-rational-0.4.2/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/num-rational-0.4.2/LICENSE-MIT": {
+      "bytes": 1071,
+      "executable": false,
+      "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    "third-party/num-traits-0.2.19/LICENSE-APACHE": {
+      "bytes": 10847,
+      "executable": false,
+      "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    "third-party/num-traits-0.2.19/LICENSE-MIT": {
+      "bytes": 1071,
+      "executable": false,
+      "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    "third-party/proc-macro2-1.0.107/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/proc-macro2-1.0.107/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/quote-1.0.47/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/quote-1.0.47/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/rust/COPYRIGHT": {
+      "bytes": 20759,
+      "executable": false,
+      "sha256": "252b04f034f7383e09401dc700c8b933e3e38818eaa8b2f09dd247542be92292"
+    },
+    "third-party/rust/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/rust/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/serde-1.0.229/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/serde-1.0.229/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/serde_core-1.0.229/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/serde_core-1.0.229/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/serde_derive-1.0.229/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/serde_derive-1.0.229/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/serde_json-1.0.154/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/serde_json-1.0.154/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/syn-3.0.9/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/syn-3.0.9/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/unicode-ident-1.0.27/LICENSE-APACHE": {
+      "bytes": 9723,
+      "executable": false,
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    "third-party/unicode-ident-1.0.27/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "third-party/unicode-ident-1.0.27/LICENSE-UNICODE": {
+      "bytes": 1995,
+      "executable": false,
+      "sha256": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1"
+    },
+    "third-party/zmij-1.0.23/LICENSE-MIT": {
+      "bytes": 1023,
+      "executable": false,
+      "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    "tools/ai-cad/cad.py": {
+      "bytes": 895,
+      "executable": false,
+      "sha256": "f1bff783c37e65e8df29197c79867e54b4ef128ca2925cb0d816299ae8343404"
+    },
+    "tools/ai-cad/clearance.py": {
+      "bytes": 2687,
+      "executable": false,
+      "sha256": "34dda33e0d6e776ef1fe39573d6982413b000805c9c56fd885d0ccdbe9d8920b"
+    },
+    "tools/ai-cad/drawings.py": {
+      "bytes": 12317,
+      "executable": false,
+      "sha256": "03552c330758ddf4fcd8640382fdb00fa16d87c258375098937029ce52b5b0d0"
+    },
+    "tools/ai-cad/edge_measurements.py": {
+      "bytes": 2921,
+      "executable": false,
+      "sha256": "8f7808bf8ada33aa12c270abffccaa7694fa01b5192b284c61645caa49ae44d8"
+    },
+    "tools/ai-cad/engine_transport.py": {
+      "bytes": 5709,
+      "executable": false,
+      "sha256": "d925a724d128cf7b6d25511acdf36421849059b804d2c974fa1c772f9d5a512e"
+    },
+    "tools/ai-cad/exports.py": {
+      "bytes": 7896,
+      "executable": false,
+      "sha256": "2a77dbc4731a727b3faf5f522c4bbf5a0cff49200ac5785c294cf567d33c1103"
+    },
+    "tools/ai-cad/frustum_export.py": {
+      "bytes": 1789,
+      "executable": false,
+      "sha256": "4b27620c41ec57d4ca04f50d86633f5e79eae967ddddc3320540bfff66905598"
+    },
+    "tools/ai-cad/intent.py": {
+      "bytes": 2451,
+      "executable": false,
+      "sha256": "b9e9686db4a5f2d4f8429c27e7473166514b476df7783eddb30443c6944b560f"
+    },
+    "tools/ai-cad/interference.py": {
+      "bytes": 2735,
+      "executable": false,
+      "sha256": "db31354fe7411cd26f43a2152296263179952e2de494942a7b451fb6bb7fdf6d"
+    },
+    "tools/ai-cad/mass_properties.py": {
+      "bytes": 2947,
+      "executable": false,
+      "sha256": "b338f114e85bcde0baf44d8f79ecbbb7a5a45f45776d4ff202654217f6204372"
+    },
+    "tools/ai-cad/materials.py": {
+      "bytes": 3095,
+      "executable": false,
+      "sha256": "26e28bc1b0acdf86d630311b2fabf5b6c3b6b67570bde87da81aa2d7af4dc82c"
+    },
+    "tools/ai-cad/mcp_server.py": {
+      "bytes": 39825,
+      "executable": false,
+      "sha256": "e0e5e355ac559326413c8edd01c27f8dc0c9a469ef71d07fd5d1bd3fc8a43263"
+    },
+    "tools/ai-cad/measurements.py": {
+      "bytes": 3205,
+      "executable": false,
+      "sha256": "51014402112f8dc4d1434f9e6219ff47f08795ee4857982fcdbd2b4ddbd13dae"
+    },
+    "tools/ai-cad/planar_visibility.py": {
+      "bytes": 9437,
+      "executable": false,
+      "sha256": "240e242cbca771c6df7349f14666b34629d66d85822a0726a1243850a519cbe3"
+    },
+    "tools/ai-cad/preview_jobs.py": {
+      "bytes": 9986,
+      "executable": false,
+      "sha256": "26a90ba4538ffcff2988b0f12d98adca740dc5d10761185a40fd6f84e29efda0"
+    },
+    "tools/ai-cad/preview_worker.py": {
+      "bytes": 1621,
+      "executable": false,
+      "sha256": "0b6dce581e25826e64f0624e9f51b6e9aa899f36cf399aeef914216aa2782cb1"
+    },
+    "tools/ai-cad/result_cache.py": {
+      "bytes": 2111,
+      "executable": false,
+      "sha256": "f42c1891d5ad05eb0ff7ee30b66f2a4c3c342c993474ad2fbf32b8e6703a8269"
+    },
+    "tools/ai-cad/revolve_export.py": {
+      "bytes": 2815,
+      "executable": false,
+      "sha256": "400071e08ad8196bbef84cd216971e7bc69dd35d4d839f50a3ed8e7e694b9bf3"
+    },
+    "tools/ai-cad/sections.py": {
+      "bytes": 14249,
+      "executable": false,
+      "sha256": "e431682f7ad7a9c8903f7fdaba14636ab391d65d4adf6e644c820ef5011282a6"
+    },
+    "tools/ai-cad/selection.py": {
+      "bytes": 9317,
+      "executable": false,
+      "sha256": "1c502f538b39b570d1f99eb410ef9973a1840b4acd14a9d605aa2375b379078d"
+    },
+    "tools/ai-cad/step_export.py": {
+      "bytes": 15852,
+      "executable": false,
+      "sha256": "a1e471be2a7573f1c017a07ba3ba12b1e569fd32082c5e7e85a5a046163b69dc"
+    },
+    "tools/ai-cad/store.py": {
+      "bytes": 14070,
+      "executable": false,
+      "sha256": "9445da84ec30360cc174db171822c9606239c26763438ebd04745baa79187f4d"
+    },
+    "tools/ai-cad/topology.py": {
+      "bytes": 2535,
+      "executable": false,
+      "sha256": "6faccdc04f7d6156978bd7fdff14456142e41e2e7249f75a912ac87bc97a06cd"
+    },
+    "tools/ai-cad/topology_step.py": {
+      "bytes": 5904,
+      "executable": false,
+      "sha256": "1b5d055378a7843fc90f8b0b0699cbc2102ca653b37c83b82ad82559d9829404"
+    },
+    "tools/ai-cad/viewer.py": {
+      "bytes": 16086,
+      "executable": false,
+      "sha256": "2008426057c7c12d24d1ef7538c0165725d68ebca3256f07a04b78bbb8e91d5c"
+    },
+    "tools/ai-cad/viewer_server.py": {
+      "bytes": 1592,
+      "executable": false,
+      "sha256": "5cf606e16f3afbefb79bf4d80e053199cc42d56f00aacbfe017d7147459dd3b0"
+    },
+    "tools/ai-cad/web/app.js": {
+      "bytes": 59653,
+      "executable": false,
+      "sha256": "57ca800c49cb9467645341692e96f03c7292c08b958c3a81d089b09e5738858e"
+    },
+    "tools/ai-cad/web/boolean-editor.mjs": {
+      "bytes": 3209,
+      "executable": false,
+      "sha256": "d28882a89a80742147345caf71a270d3aab3c58a3d5d19205894265db13c2933"
+    },
+    "tools/ai-cad/web/boolean-model.mjs": {
+      "bytes": 1835,
+      "executable": false,
+      "sha256": "360d1ed75bd6028c188c8b105a1a30248aec45b20b86507508648355a1480f45"
+    },
+    "tools/ai-cad/web/camera.mjs": {
+      "bytes": 2430,
+      "executable": false,
+      "sha256": "049c13b4ecb42f9fb4494941d972b18988cfb6abf206da301724fa9bc833933a"
+    },
+    "tools/ai-cad/web/dimension-input.mjs": {
+      "bytes": 602,
+      "executable": false,
+      "sha256": "8d6a7f1527d1f8b7df5325004856431fb6fade170a297a518ec5d769a359ed56"
+    },
+    "tools/ai-cad/web/display-data.mjs": {
+      "bytes": 2191,
+      "executable": false,
+      "sha256": "7bc273a2ac18c5ce9d5298f5db774187edae0ede070cac925e4294f77fd8d7b4"
+    },
+    "tools/ai-cad/web/edge-display.mjs": {
+      "bytes": 1467,
+      "executable": false,
+      "sha256": "9c22dc698d5a910f5a946bdc772ee0c472dd9651ef377891995ec88a079c0fc6"
+    },
+    "tools/ai-cad/web/feature-actions.mjs": {
+      "bytes": 1978,
+      "executable": false,
+      "sha256": "b21c4c0b09eeed3037d0720d52e7d25e8657d792bb7b2b2368ac4933ad812f89"
+    },
+    "tools/ai-cad/web/hole-editor.mjs": {
+      "bytes": 11939,
+      "executable": false,
+      "sha256": "81a2e66eb08a454bf37d37ccfc5cab5f77e6ac6d41928f1ecdbd62a71d32f785"
+    },
+    "tools/ai-cad/web/hole-model.mjs": {
+      "bytes": 8300,
+      "executable": false,
+      "sha256": "10a102e88a73c2cce89dd7ced97833482ea1670f25a018af09ba053ced4fbf27"
+    },
+    "tools/ai-cad/web/index.html": {
+      "bytes": 35477,
+      "executable": false,
+      "sha256": "8165e3f2eeefce6611015f31f6cd5b9e947b5b85ed6a1f5666face1cd3c1d3ee"
+    },
+    "tools/ai-cad/web/intersection-editor.mjs": {
+      "bytes": 2912,
+      "executable": false,
+      "sha256": "e0007384dc1c565d1884cbac28d9b6e0378fe90ed5f8346f8a883562816ad4f4"
+    },
+    "tools/ai-cad/web/intersection-model.mjs": {
+      "bytes": 1354,
+      "executable": false,
+      "sha256": "b898ea0040db3e526876daa288a074d1e5a601d04340a310947041bd87852599"
+    },
+    "tools/ai-cad/web/linear-editor.mjs": {
+      "bytes": 6150,
+      "executable": false,
+      "sha256": "7a156646f7782f335d991a5b7bf249f1369f78d68907f7e18353dcf09681ff64"
+    },
+    "tools/ai-cad/web/linear-model.mjs": {
+      "bytes": 1719,
+      "executable": false,
+      "sha256": "18b6641c3754937614819ee0695163ff39fba5139034aa60298f3c9d226031f6"
+    },
+    "tools/ai-cad/web/loft-editor.mjs": {
+      "bytes": 2243,
+      "executable": false,
+      "sha256": "e62fc7206d4b4561945b34a3d0d71f50d337fd56db7f869e544f2d298b8b441d"
+    },
+    "tools/ai-cad/web/loft-model.mjs": {
+      "bytes": 1213,
+      "executable": false,
+      "sha256": "b11acc64695c5b35c497993cceeff83a165d2b9688e5a5523902be3dbc4f9db5"
+    },
+    "tools/ai-cad/web/mass-editor.mjs": {
+      "bytes": 6210,
+      "executable": false,
+      "sha256": "a5f8bc6ba8d961cdcfb02098aa3a7740490e0928d344e3d18de5459773c4257d"
+    },
+    "tools/ai-cad/web/material-editor.mjs": {
+      "bytes": 4073,
+      "executable": false,
+      "sha256": "cf7b800aa7b1aab1fede36e0db6579f34792c5b11302355054ceede082dd16cf"
+    },
+    "tools/ai-cad/web/mirror-editor.mjs": {
+      "bytes": 2313,
+      "executable": false,
+      "sha256": "48d95210659e891db566088219de5131a4caab6c51cd8d9edd9ad36874ba1442"
+    },
+    "tools/ai-cad/web/mirror-model.mjs": {
+      "bytes": 2856,
+      "executable": false,
+      "sha256": "aa940b27f0a0a04511777107bde73cce467028b719d3da9c977052515b92e0fc"
+    },
+    "tools/ai-cad/web/pattern-editor.mjs": {
+      "bytes": 2483,
+      "executable": false,
+      "sha256": "66219305706b783a523f9b83eb6eda53a9ceeeaa229349d46e8edda4ef7a57f5"
+    },
+    "tools/ai-cad/web/pattern-model.mjs": {
+      "bytes": 2412,
+      "executable": false,
+      "sha256": "60efc49cbce3eb9e35e56e322fd842f18adf1c9df1d7a8ddde2cbef54c5720b8"
+    },
+    "tools/ai-cad/web/picking.mjs": {
+      "bytes": 1999,
+      "executable": false,
+      "sha256": "c24b28765aaf2136f8b48cdb8e961660f989d643b256082c3865ab78a82ce739"
+    },
+    "tools/ai-cad/web/plane-editor.mjs": {
+      "bytes": 2121,
+      "executable": false,
+      "sha256": "5429fdc8283b5531be060a6a658582a0dc1649af4e6c7553f49cb1b2a00aa9e9"
+    },
+    "tools/ai-cad/web/plane-model.mjs": {
+      "bytes": 2878,
+      "executable": false,
+      "sha256": "08b2ddab0c5138b18ac02d416e4aeed0d5ba8e27f6ed31369759285a677d0fcc"
+    },
+    "tools/ai-cad/web/preview-client.mjs": {
+      "bytes": 1016,
+      "executable": false,
+      "sha256": "4b8a77051cba1e81e042435c8e5c2a784853cff76363920a2fb8ebb74c985ee2"
+    },
+    "tools/ai-cad/web/revolve-editor.mjs": {
+      "bytes": 2074,
+      "executable": false,
+      "sha256": "9e65add0f06301667940f0c6b2bd3717eba13faec9d499b6a2328760690c2591"
+    },
+    "tools/ai-cad/web/revolve-model.mjs": {
+      "bytes": 1533,
+      "executable": false,
+      "sha256": "91f2796d03afe109c39eb651ce1a0da0022fc4d9319af31e6d9bbd642db9138e"
+    },
+    "tools/ai-cad/web/rotation-editor.mjs": {
+      "bytes": 2630,
+      "executable": false,
+      "sha256": "afe2b6a8f4a16754f95100e6869a003a97080b9ccee2db8543d839144b3b578e"
+    },
+    "tools/ai-cad/web/rotation-model.mjs": {
+      "bytes": 2465,
+      "executable": false,
+      "sha256": "c72c3cbfe62c19c27700aadf08576d555e1a50c5366cb1218ee7b37fc18d1fe2"
+    },
+    "tools/ai-cad/web/shell-editor.mjs": {
+      "bytes": 2288,
+      "executable": false,
+      "sha256": "8ed5656f07a52126deb4fef735381b4d17de589285a558fafee83146538b2d8f"
+    },
+    "tools/ai-cad/web/shell-model.mjs": {
+      "bytes": 2825,
+      "executable": false,
+      "sha256": "5a984bb4db807168ae124ebd984b350072bb18491c14160536f5b0fa5213c623"
+    },
+    "tools/ai-cad/web/sketch-editor.mjs": {
+      "bytes": 10962,
+      "executable": false,
+      "sha256": "4b75c03636f53357a9b46d34c69636f7a4782559cae29f958625dee3eaf28f72"
+    },
+    "tools/ai-cad/web/sketch-model.mjs": {
+      "bytes": 6720,
+      "executable": false,
+      "sha256": "a3f01d7316a39f2d9efa08816cbb9b289f6c3664520c7943881fe45102d06722"
+    },
+    "tools/ai-cad/web/startup.js": {
+      "bytes": 853,
+      "executable": false,
+      "sha256": "c139f25a9e2984c03479a2b5247f5d242e46d2e563fe7dc1ce8ccfcec8acaf92"
+    },
+    "tools/ai-cad/web/stock-editor.mjs": {
+      "bytes": 2711,
+      "executable": false,
+      "sha256": "68300713c89a059cccbca9e2c6f60bfa4896e9d3e73d1cc7432397b2ce7541e0"
+    },
+    "tools/ai-cad/web/stock-model.mjs": {
+      "bytes": 1387,
+      "executable": false,
+      "sha256": "652c5de716b3489f11af1b163f442b394491933992c9d35aa6a5594b510313f6"
+    },
+    "tools/ai-cad/web/style.css": {
+      "bytes": 12283,
+      "executable": false,
+      "sha256": "566b09aa29a11b90c9f9fcc35fae9407e7d45746926b2aecc97033c4756444a5"
+    },
+    "tools/ai-cad/web/sweep-editor.mjs": {
+      "bytes": 2723,
+      "executable": false,
+      "sha256": "38b491e2b651cb93ab2a4fe7240a956af2f670c0aee938b1a798fc6521253815"
+    },
+    "tools/ai-cad/web/sweep-model.mjs": {
+      "bytes": 2529,
+      "executable": false,
+      "sha256": "098e7c0783b1971707ee7eb5c9c2871ca7869306fec3bf35ee1c381c0f4879f8"
+    },
+    "tools/ai-cad/web/topology-view.mjs": {
+      "bytes": 4992,
+      "executable": false,
+      "sha256": "c15548673a5a8a827e8af91fc32ad89ab76170a6afc6b04069bed7779352d2d6"
+    },
+    "tools/ai-cad/web/translate-editor.mjs": {
+      "bytes": 2716,
+      "executable": false,
+      "sha256": "e213fe4df93d5588f89129ea64164862d4308ee7ea8fadf262b2c6f0512d0c3f"
+    },
+    "tools/ai-cad/web/translate-model.mjs": {
+      "bytes": 2236,
+      "executable": false,
+      "sha256": "734d012d1d42768eccdb2a07148b45e4afc6b1a939f793f0b8e9bbd2e4c2c13a"
+    },
+    "tools/ai-cad/web/vector-parameters.mjs": {
+      "bytes": 891,
+      "executable": false,
+      "sha256": "3deffc26b66f28866ba01f22907b37f63b23988227c12204bc839a4bde6fe909"
+    }
+  },
+  "format_version": 1,
+  "platform": {
+    "machine": "arm64",
+    "system": "Darwin",
+    "tested_os": "27.0.1"
+  },
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)",
+  "source_commit": "1de20e4e36d8698787a3943cf06db19d32818886",
+  "source_dirty": false,
+  "source_repository": "https://github.com/ichen27/fusion-recreation"
+}
