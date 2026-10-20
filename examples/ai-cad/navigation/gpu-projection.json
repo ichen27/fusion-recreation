@@ -1,0 +1,10 @@
+{
+  "cases": 63,
+  "glError": 0,
+  "maximumError": 2.574920658915403e-07,
+  "pointsPerCase": 4,
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "tolerance": 2e-06,
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.0.0 Safari/537.36",
+  "vendor": "Google Inc. (Apple)"
+}

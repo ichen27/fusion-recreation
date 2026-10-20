@@ -55,16 +55,32 @@
       </aside>
       <section class="scene">
         <div class="scene-label">
-          <span id="mode">SAVED MODEL</span
-          ><span
-            >Click to select · Drag to orbit · Scroll to zoom
-            <button id="fit-view" type="button">Fit view</button></span
-          >
+          <span id="mode">SAVED MODEL</span>
+          <div class="camera-controls">
+            <label for="view-preset">View</label>
+            <select id="view-preset" aria-label="View orientation">
+              <option value="isometric">Isometric</option>
+              <option value="front">Front</option>
+              <option value="back">Back</option>
+              <option value="right">Right</option>
+              <option value="left">Left</option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="custom" disabled>Custom</option>
+            </select>
+            <button id="fit-view" type="button">Fit view</button>
+          </div>
         </div>
         <canvas
           id="viewport"
+          tabindex="0"
           aria-label="Interactive 3D model viewport"
+          aria-describedby="camera-help"
         ></canvas>
+        <p id="camera-help">
+          Drag to orbit · Shift-drag or middle-drag to pan · Scroll to zoom<br />Keyboard:
+          arrows orbit · Shift+arrows pan · +/− zoom · F fits
+        </p>
         <p id="display-status" role="status"></p>
         <div class="measure">
           <span>Solid volume</span><strong id="volume">—</strong>
