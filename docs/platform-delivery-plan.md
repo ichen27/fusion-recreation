@@ -229,3 +229,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Exact planar separation checkpoint
 
 [Material distance and contact classification](../examples/ai-cad/clearance/README.md) distinguish separated, touching and overlapping planar parts, including cavities and disconnected pieces. Exact squared distances and rational closest points are checked against independent solids; limits reject incomplete searches. Browser/MCP preserve native history. Curved clearance, penetration depth, motion envelopes and tolerance-aware assembly analysis remain open. Next broaden original modeling with hollow planar parts for enclosures.
+
+## Exact planar shell checkpoint
+
+[Parameter-backed hollow parts](../examples/ai-cad/planar-shell/README.md) support convex planar stock, one optional opening and exact uniform inward wall thickness. Browser and typed MCP author/edit the same native feature; invalid thickness preserves saved history. Independent explicit inner solids verify twelve box/tapered/triangular/placed cases, STEP boundaries and moments. Irrational retained-plane offsets, curved/nonconvex shells, multiple openings and variable thickness remain open. Next broaden repeated modeling intent with linked parametric patterns while preserving exact source dependencies and bounded work.

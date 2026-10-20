@@ -13,6 +13,7 @@ import { installIntersectionEditor } from "/intersection-editor.mjs";
 import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
 import { planeCandidate } from "/plane-model.mjs";
+import { installShellEditor } from "/shell-editor.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
 import {
   packVertices,
@@ -26,6 +27,7 @@ import { availableHoleInputs } from "/hole-model.mjs";
 let sketches,
   holes,
   planes,
+  shells,
   stocks,
   intersections,
   lofts,
@@ -831,7 +833,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
+    ".edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -932,6 +934,20 @@ function render(state) {
               ? f.id
               : null,
           ),
+        );
+        div.append(button);
+      }
+      if (
+        f.kind === "planar_shell" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-shell";
+        button.textContent =
+          f.kind === "planar_shell" ? "Edit shell" : "Hollow solid";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          shells.open(f.id, f.kind === "planar_shell" ? f.id : null),
         );
         div.append(button);
       }
@@ -1299,6 +1315,7 @@ const editorCallbacks = (name) => ({
 sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
+shells = installShellEditor(editorCallbacks("Shell"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));
 rotations = installRotationEditor(editorCallbacks("Rotation"));

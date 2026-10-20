@@ -505,6 +505,7 @@ dialog::backdrop {
   text-transform: capitalize;
 }
 
+#shell-dialog,
 #plane-dialog,
 #stock-dialog,
 #intersection-dialog,

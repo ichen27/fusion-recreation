@@ -352,3 +352,13 @@ python tools/ai-cad/verify_clearance_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_clearance_reference.py
 ```
+
+## Hollow planar enclosures
+
+Select **Hollow solid** on terminal planar stock, choose a positive wall thickness and
+an outward normal for the open face, then preview/save. Uncheck **Open one face** for
+a closed cavity. **Edit shell** changes walls or opening while preserving source
+features and history. Exact uniform offsets currently require convex planar stock
+and rational retained-face normal lengths; unsupported curved/nonconvex/irrational
+offsets reject. [Open, closed and tapered examples, editable downloads, STL/STEP and
+verification commands](../../examples/ai-cad/planar-shell/README.md) show the supported scope.

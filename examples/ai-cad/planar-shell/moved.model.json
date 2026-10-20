@@ -1,0 +1,68 @@
+{
+  "parameters": {
+    "part.height": "20",
+    "part.c0": "0",
+    "part.c1": "40",
+    "part.c2": "30",
+    "wall": "2",
+    "move.x": "7",
+    "move.y": "-3",
+    "move.z": "5"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "part.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "part.c0",
+          "y": "part.c0"
+        },
+        {
+          "id": "v1",
+          "x": "part.c1",
+          "y": "part.c0"
+        },
+        {
+          "id": "v2",
+          "x": "part.c1",
+          "y": "part.c2"
+        },
+        {
+          "id": "v3",
+          "x": "part.c0",
+          "y": "part.c2"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "part",
+      "profile": "part.profile",
+      "height": "part.height"
+    },
+    {
+      "kind": "planar_shell",
+      "id": "shell",
+      "input": "part",
+      "thickness": "wall",
+      "opening_normal": [
+        "0",
+        "0",
+        "1"
+      ]
+    },
+    {
+      "kind": "translate",
+      "id": "moved",
+      "input": "shell",
+      "offset": [
+        "move.x",
+        "move.y",
+        "move.z"
+      ]
+    }
+  ]
+}
