@@ -1,0 +1,31 @@
+{
+  "dialogOpen": true,
+  "rankDiagnostic": "linear_underdetermined: Rank 1 for 2 targets; unbound targets: right. Add independent equations or leave these as drivers",
+  "targets": [
+    "left",
+    "right"
+  ],
+  "terms": [
+    "left",
+    "right",
+    "gap",
+    "span"
+  ],
+  "derived": [
+    {
+      "disabled": true,
+      "id": "left",
+      "value": "80"
+    },
+    {
+      "disabled": true,
+      "id": "right",
+      "value": "40"
+    },
+    {
+      "disabled": true,
+      "id": "offset",
+      "value": "90"
+    }
+  ]
+}

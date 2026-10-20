@@ -681,3 +681,52 @@ dialog p[role="status"] {
     top: 100px;
   }
 }
+
+#linear-dialog {
+  max-width: 680px;
+}
+#linear-dialog fieldset {
+  border: 1px solid #cbd8d1;
+  border-radius: 6px;
+  margin: 12px 0;
+  padding: 12px;
+}
+#linear-targets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+#linear-targets label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+}
+#linear-targets input {
+  width: auto;
+  margin: 0;
+}
+.linear-term {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) 38px;
+  gap: 8px;
+  align-items: center;
+}
+.linear-term button {
+  margin: 0;
+  padding: 8px;
+}
+.linear-rhs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.linear-rhs input {
+  width: 120px;
+}
+#linear-feedback {
+  font-size: 14px;
+  line-height: 1.5;
+}

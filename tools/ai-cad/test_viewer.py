@@ -257,6 +257,8 @@ class Viewer(unittest.TestCase):
         for asset in (
             "/sweep-model.mjs",
             "/sweep-editor.mjs",
+            "/linear-model.mjs",
+            "/linear-editor.mjs",
             "/display-data.mjs",
             "/preview-client.mjs",
             "/picking.mjs",

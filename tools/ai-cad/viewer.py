@@ -149,6 +149,8 @@ def handler(store, port):
             files = {
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
+                "/linear-model.mjs": ("linear-model.mjs", "text/javascript"),
+                "/linear-editor.mjs": ("linear-editor.mjs", "text/javascript"),
                 "/startup.js": ("startup.js", "text/javascript"),
                 "/preview-client.mjs": ("preview-client.mjs", "text/javascript"),
                 "/boolean-model.mjs": ("boolean-model.mjs", "text/javascript"),

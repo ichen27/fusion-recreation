@@ -442,7 +442,10 @@ Use the typed `constrain_linear` operation to solve simultaneous linear equaliti
 for named target dimensions. Exact elimination stores equivalent affine formulas,
 so driver edits regenerate parts, positioning and downstream features through the
 existing preview/save/undo workflow. The browser displays solved dimensions as
-read-only derived fields; equation authoring currently uses CLI/MCP.
+read-only derived fields. Use **Constrain dimensions** to author coupled equations
+in the browser, or use the same typed operation through CLI/MCP.
 [Editable two-part example, actual transports and exports](../../examples/ai-cad/linear-constraints/README.md).
 Underdetermined, inconsistent and free-driver-restricting equations reject.
 This is not a nonlinear distance/angle sketch solver.
+
+[Browser constraint authoring and replacement](../../examples/ai-cad/linear-editor/README.md) retain an invalid equation draft for repair and use explicit preview/save/undo. Choose target dimensions before solving; existing target formulas are replaced only when saved.

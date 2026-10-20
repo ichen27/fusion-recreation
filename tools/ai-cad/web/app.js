@@ -1,3 +1,4 @@
+import { installLinearEditor } from "/linear-editor.mjs";
 import { installSweepEditor } from "/sweep-editor.mjs";
 import { sweepCandidates } from "/sweep-model.mjs";
 import { installRevolveEditor } from "/revolve-editor.mjs";
@@ -53,7 +54,8 @@ let sketches,
   sweeps,
   translations,
   rotations,
-  booleans;
+  booleans,
+  linearConstraints;
 const $ = (id) => document.getElementById(id);
 let saved,
   preview,
@@ -877,6 +879,12 @@ function controls() {
   intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("new-linear").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    !Object.keys(saved.model.parameters).length;
   $("new-boolean").disabled =
     busy ||
     !!preview ||
@@ -1434,6 +1442,8 @@ const editorCallbacks = (name) => ({
       `${name} preview valid. Save edit to commit the model.`;
   },
 });
+linearConstraints = installLinearEditor(editorCallbacks("Coupled dimensions"));
+$("new-linear").addEventListener("click", () => linearConstraints.open());
 sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
