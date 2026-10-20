@@ -143,6 +143,63 @@ class Drawings(unittest.TestCase):
             drawing_model(thin, "box", 1)
         self.assertEqual(caught.exception.detail["code"], "drawing_precision")
 
+    def test_hidden_svg_style_preserves_intervals_order_and_cache_separation(self):
+        simple = drawing_model(
+            rectangle("box", 0, 0, 10, 4, 2), "box", 1, "planar_hidden"
+        )
+        self.assertEqual(
+            [(v["visible_segments"], v["hidden_segments"]) for v in simple["views"]],
+            [(4, 0)] * 3,
+        )
+        model = cases()["cavity"][0]
+        result = drawing_model(model, "result", 1, "planar_hidden")
+        self.assertEqual(result["representation"], "orthographic_planar_hidden")
+        for view in ("top", "front", "right"):
+            drawn = paths(result, view)
+            hidden = [p for p in drawn if p.attrib["data-visibility"] == "hidden"]
+            visible = [p for p in drawn if p.attrib["data-visibility"] == "visible"]
+            self.assertTrue(hidden and visible)
+            self.assertEqual(drawn, hidden + visible)
+            self.assertTrue(
+                all(p.attrib.get("stroke-dasharray") == "5 4" for p in hidden)
+            )
+            self.assertTrue(all("stroke-dasharray" not in p.attrib for p in visible))
+            self.assertTrue(
+                all(
+                    F(p.attrib["data-t-start"]) < F(p.attrib["data-t-end"])
+                    for p in drawn
+                )
+            )
+        with tempfile.TemporaryDirectory() as directory:
+            store = Store(Path(directory) / "part.json")
+            store.execute(
+                dict(
+                    action="commit",
+                    expected_revision=0,
+                    transaction_id="create",
+                    operations=operations(model),
+                    preserve=[],
+                )
+            )
+            command = dict(expected_revision=1, feature_id="result")
+            before = store.path.read_bytes()
+            hidden = dispatch_drawing(store, {**command, "style": "planar_hidden"})
+            wire = dispatch_drawing(store, command)
+            self.assertNotEqual(hidden["result"]["svg"], wire["result"]["svg"])
+            self.assertEqual(
+                dispatch_drawing(store, {**command, "style": "all_edges"}), wire
+            )
+            self.assertEqual(
+                dispatch_drawing(store, {**command, "style": "planar_hidden"}), hidden
+            )
+            self.assertEqual(
+                dispatch_drawing(store, {**command, "style": "unknown"})["error"][
+                    "code"
+                ],
+                "invalid_command",
+            )
+            self.assertEqual(store.path.read_bytes(), before)
+
     def test_revision_cache_and_read_only_native_file(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "part.cad.json"

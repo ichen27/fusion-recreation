@@ -9,6 +9,7 @@ import textwrap
 import xml.etree.ElementTree as ET
 from store import BINARY, CadError, Store, encode
 from topology import topology_model
+from planar_visibility import drawing_segments, Budget
 
 NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", NS)
@@ -19,8 +20,14 @@ def number(value):
     return format(float(value), ".12g")
 
 
-def drawing_model(model, feature_id, revision):
+def drawing_model(model, feature_id, revision, style="all_edges"):
+    if style not in ("all_edges", "planar_hidden"):
+        raise CadError(
+            "invalid_command", "Choose all_edges or planar_hidden drawing style"
+        )
+    hidden_style = style == "planar_hidden"
     topology = topology_model(model, feature_id)
+    budget = Budget() if hidden_style else None
     vertices = [[F(v) for v in p] for p in topology["vertices"]]
     bounds = [
         [min(p[i] for p in vertices) for i in range(3)],
@@ -50,6 +57,8 @@ def drawing_model(model, feature_id, revision):
         scale_policy="fit_sheet_not_for_measurement",
         views=[],
     )
+    if hidden_style:
+        info["representation"] = "orthographic_planar_hidden"
     root = ET.Element(
         f"{{{NS}}}svg",
         dict(width="1000", height="760", viewBox="0 0 1000 760", role="img"),
@@ -77,7 +86,11 @@ def drawing_model(model, feature_id, revision):
     element(
         root,
         "desc",
-        text="Top, front and right projections. All native edges are shown, including occluded edges and smooth surface seams. No hidden-line removal. Scale to fit; use exact dimension labels, not page measurements.",
+        text=(
+            "Top, front and right projections with exact planar edge visibility. Hidden segments are dashed. Occlusion uses this selected solid only. Scale to fit; use exact dimension labels, not page measurements."
+            if hidden_style
+            else "Top, front and right projections. All native edges are shown, including occluded edges and smooth surface seams. No hidden-line removal. Scale to fit; use exact dimension labels, not page measurements."
+        ),
     )
     element(root, "rect", dict(x="0", y="0", width="1000", height="760", fill="white"))
     element(
@@ -116,6 +129,50 @@ def drawing_model(model, feature_id, revision):
             arc_edges=0,
             collapsed_edges=0,
         )
+        if hidden_style:
+            segments, collapsed = drawing_segments(
+                topology, h, v, -1 if name == "front" else 1, budget
+            )
+            count["hidden_segments"] = count["visible_segments"] = 0
+            count["collapsed_edges"] = collapsed
+            for index, lo, hi, hidden in segments:
+                edge = topology["edges"][index]
+                a, b = [vertices[i] for i in edge["vertices"]]
+                start = project([a[i] + lo * (b[i] - a[i]) for i in range(3)])
+                end = project([a[i] + hi * (b[i] - a[i]) for i in range(3)])
+                first, last = [list(map(number, point)) for point in (start, end)]
+                if first == last:
+                    raise CadError(
+                        "drawing_precision",
+                        "A visibility segment collapses at SVG display precision",
+                        feature_id,
+                    )
+                attrs = {
+                    "d": f"M {first[0]} {first[1]} L {last[0]} {last[1]}",
+                    "data-edge-index": str(index),
+                    "data-t-start": str(lo),
+                    "data-t-end": str(hi),
+                    "data-visibility": "hidden" if hidden else "visible",
+                }
+                if hidden:
+                    attrs.update(
+                        {
+                            "stroke": "#70848b",
+                            "stroke-width": "1",
+                            "stroke-dasharray": "5 4",
+                        }
+                    )
+                element(group, "path", attrs)
+                count["line_edges"] += 1
+                count["hidden_segments" if hidden else "visible_segments"] += 1
+            text(
+                cx - 180,
+                cy + 116,
+                f"{name.title()}  ·  {'XYZ'[h]} right / {'XYZ'[v]} up",
+                13,
+            )
+            info["views"].append(count)
+            continue
         depth = next(i for i in range(3) if i not in (h, v))
         for index, edge in enumerate(topology["edges"]):
             a, b = [vertices[i] for i in edge["vertices"]]
@@ -169,7 +226,11 @@ def drawing_model(model, feature_id, revision):
     text(
         40,
         688,
-        "All native edges shown, including occluded edges and smooth surface seams. No hidden-line removal.",
+        (
+            "Planar visibility: visible edges solid; hidden segments dashed. Occlusion uses this selected solid only."
+            if hidden_style
+            else "All native edges shown, including occluded edges and smooth surface seams. No hidden-line removal."
+        ),
         12,
     )
     text(
@@ -192,7 +253,9 @@ def dispatch_drawing(store, command):
     try:
         if (
             not isinstance(command, dict)
-            or set(command) != {"expected_revision", "feature_id"}
+            or not {"expected_revision", "feature_id"}.issubset(command)
+            or not set(command).issubset({"expected_revision", "feature_id", "style"})
+            or command.get("style", "all_edges") not in ("all_edges", "planar_hidden")
             or not isinstance(command["feature_id"], str)
         ):
             raise CadError("invalid_command", "Expected revision and feature_id")
@@ -211,11 +274,14 @@ def dispatch_drawing(store, command):
                 revision=state["revision"],
                 drawing_version=1,
             )
+            style = command.get("style", "all_edges")
+            if style != "all_edges":
+                request["style"] = style
             result = store.evaluations.get(
                 BINARY,
                 request,
                 lambda: drawing_model(
-                    state["model"], command["feature_id"], state["revision"]
+                    state["model"], command["feature_id"], state["revision"], style
                 ),
             )
             return {"result": result}
@@ -237,9 +303,13 @@ if __name__ == "__main__":
     parser.add_argument("--revision", type=int, required=True)
     parser.add_argument("--body", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--style", choices=["all_edges", "planar_hidden"], default="all_edges"
+    )
     args = parser.parse_args()
     reply = dispatch_drawing(
-        Store(args.store), dict(expected_revision=args.revision, feature_id=args.body)
+        Store(args.store),
+        dict(expected_revision=args.revision, feature_id=args.body, style=args.style),
     )
     if "error" in reply:
         raise SystemExit(json.dumps(reply))
