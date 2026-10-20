@@ -44,5 +44,6 @@ A pattern or disconnected body is one row/quantity1, not a count of its pieces.
 Consumed features and standalone profiles are excluded. Spatial overlap does not
 merge rows. Material conflicts and missing assignments remain explicit.
 
-The earlier retained runtime archive is pinned to its own source commit and does not
-include this new feature. Build a new runtime from this revision to package it.
+The [current runtime archive](../runtime-bundle/README.md) includes this feature.
+Its manifest pins the exact source commit; source changes after that commit require
+a new build.
