@@ -1,7 +1,7 @@
 {
   "archive": "original-cad-darwin-arm64.tar.gz",
-  "sha256": "14e93ed1a98e6b7ec4e737ca925659a1ec53ad7849c48bb4063fe75e36b95bc0",
-  "bytes": 1483880,
-  "source_commit": "32d95f7aac78ddd3863c92306b9ceed051411a60",
+  "sha256": "fa9880c280af267af1f5b555bff01d290906454c4d77746b0fbbf84005b1e285",
+  "bytes": 1549988,
+  "source_commit": "4bcafdc6b6e26e35f46f1dd4c5f5435d25e8c0cb",
   "source_dirty": false
 }

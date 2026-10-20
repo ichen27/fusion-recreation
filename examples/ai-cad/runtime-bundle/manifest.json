@@ -1,9 +1,9 @@
 {
   "files": {
     "README.md": {
-      "bytes": 4592,
+      "bytes": 5200,
       "executable": false,
-      "sha256": "5c179a8ea0538b2fb5804b209c4e198da3f98f78d5047708b02abda0f13500dc"
+      "sha256": "55e207d3abe9fcc93c446005022c4d2991649c8cd30c61c41b1a9110ac821744"
     },
     "cad.py": {
       "bytes": 9026,
@@ -11,9 +11,9 @@
       "sha256": "5c8f93ede4937cf99e5d435e168a05659d4dc1c34ef89c2c871c43430f61a1ba"
     },
     "crates/model-engine/target/release/model-engine": {
-      "bytes": 3470720,
+      "bytes": 3651792,
       "executable": true,
-      "sha256": "3c012f4ce875a0db9ed648da3d23d54859e130ba41d97074cf57713ef171a5d9"
+      "sha256": "516c72fe2b49fe5ffae71ef9356ba0e78ca3ee66ba23d711c77d025475dbc6af"
     },
     "engine-Cargo.lock": {
       "bytes": 4697,
@@ -30,10 +30,25 @@
       "executable": false,
       "sha256": "dafab765262f7e0884094c1bcb5fc5f7cbb1d1ff8967dde61794dd12daf93c4c"
     },
+    "samples/counterbored-mount.cad.json": {
+      "bytes": 4004,
+      "executable": false,
+      "sha256": "01558db9a7599e91485c9bde6330aed9a55f420f4b9f78fa2c7d36d34c0d817a"
+    },
     "samples/materials.cad.json": {
       "bytes": 902,
       "executable": false,
       "sha256": "6fefa04f1c31abf896a51d6b53f733ca2be649e02ca467bd10a050ab13963346"
+    },
+    "samples/rectangular-plate.cad.json": {
+      "bytes": 2422,
+      "executable": false,
+      "sha256": "87202692e4cada5ec5160cc6fad7eb30ecf252161c54b193441087707bb3387b"
+    },
+    "samples/turned-spacer.cad.json": {
+      "bytes": 1046,
+      "executable": false,
+      "sha256": "7e1cfe739aa58109c58c449eeb3e483c87c62c02e9d35ace9497dc7004832f12"
     },
     "step-requirements.txt": {
       "bytes": 254,
@@ -306,9 +321,9 @@
       "sha256": "26e28bc1b0acdf86d630311b2fabf5b6c3b6b67570bde87da81aa2d7af4dc82c"
     },
     "tools/ai-cad/mcp_server.py": {
-      "bytes": 40902,
+      "bytes": 41896,
       "executable": false,
-      "sha256": "3df3f9e2f773866a032e77db513519f94357c15fd93509c38d50d46bfdc40eb3"
+      "sha256": "38faa9c3e2cc17f170dc516d721165d9789836aab81ae62f108e3e8f342fe837"
     },
     "tools/ai-cad/measurements.py": {
       "bytes": 3205,
@@ -371,9 +386,9 @@
       "sha256": "1b5d055378a7843fc90f8b0b0699cbc2102ca653b37c83b82ad82559d9829404"
     },
     "tools/ai-cad/viewer.py": {
-      "bytes": 16346,
+      "bytes": 16432,
       "executable": false,
-      "sha256": "8fe544462ecd4e0b886ebeaae3a6c155b661f463803a67af8bd89c5358769c17"
+      "sha256": "f72f604d9876eb5703d283b199e62c83602c692c5cde361f52b19aa90e7702f9"
     },
     "tools/ai-cad/viewer_server.py": {
       "bytes": 1592,
@@ -381,9 +396,9 @@
       "sha256": "5cf606e16f3afbefb79bf4d80e053199cc42d56f00aacbfe017d7147459dd3b0"
     },
     "tools/ai-cad/web/app.js": {
-      "bytes": 59927,
+      "bytes": 60290,
       "executable": false,
-      "sha256": "3f484a8508827762cedc8a7479b885400eb116013f6c89990dfe85341c6e66c8"
+      "sha256": "7ca6a8543e07b48f5d6d39243da17036ea4a85ae7dcc5f62368953688829d015"
     },
     "tools/ai-cad/web/boolean-editor.mjs": {
       "bytes": 3209,
@@ -431,9 +446,9 @@
       "sha256": "10a102e88a73c2cce89dd7ced97833482ea1670f25a018af09ba053ced4fbf27"
     },
     "tools/ai-cad/web/index.html": {
-      "bytes": 37214,
+      "bytes": 38609,
       "executable": false,
-      "sha256": "d26dad3c99ad6d96b5aabcea67e609ab1e56539a121af5c9b804c49e1c27ade6"
+      "sha256": "be41b30747b987b08600e8b6fe94f8097529a363ca7f101b8150c608bc7aeed3"
     },
     "tools/ai-cad/web/intersection-editor.mjs": {
       "bytes": 2912,
@@ -520,6 +535,11 @@
       "executable": false,
       "sha256": "4b8a77051cba1e81e042435c8e5c2a784853cff76363920a2fb8ebb74c985ee2"
     },
+    "tools/ai-cad/web/reference-editor.mjs": {
+      "bytes": 6605,
+      "executable": false,
+      "sha256": "e60170092e563c15b35ed49a2242e507c96eae7f7ef30d1c24fd4925e8adddee"
+    },
     "tools/ai-cad/web/revolve-editor.mjs": {
       "bytes": 2074,
       "executable": false,
@@ -551,14 +571,14 @@
       "sha256": "5a984bb4db807168ae124ebd984b350072bb18491c14160536f5b0fa5213c623"
     },
     "tools/ai-cad/web/sketch-editor.mjs": {
-      "bytes": 10962,
+      "bytes": 11658,
       "executable": false,
-      "sha256": "4b75c03636f53357a9b46d34c69636f7a4782559cae29f958625dee3eaf28f72"
+      "sha256": "a30f3d1cae9328dccb3ffc539cd9eb6ee2786db319f920c1eb47e9882fd9d2c0"
     },
     "tools/ai-cad/web/sketch-model.mjs": {
-      "bytes": 6720,
+      "bytes": 8233,
       "executable": false,
-      "sha256": "a3f01d7316a39f2d9efa08816cbb9b289f6c3664520c7943881fe45102d06722"
+      "sha256": "f1ae73d571e30c45ec4705c02af75ec0273709c811dd96c671277ffdcc8f45a1"
     },
     "tools/ai-cad/web/startup.js": {
       "bytes": 853,
@@ -576,9 +596,9 @@
       "sha256": "652c5de716b3489f11af1b163f442b394491933992c9d35aa6a5594b510313f6"
     },
     "tools/ai-cad/web/style.css": {
-      "bytes": 12784,
+      "bytes": 12887,
       "executable": false,
-      "sha256": "d0a0908c4fea18fa1d3371da426947a06d92a13d0172892dc1f99536eaa3bd17"
+      "sha256": "e9f4ff41947c863e9ac2a6eb53cda388ab84fa87a7c53f700fdc326f06ad20e8"
     },
     "tools/ai-cad/web/sweep-editor.mjs": {
       "bytes": 2723,
@@ -618,7 +638,7 @@
     "tested_os": "27.0.1"
   },
   "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)",
-  "source_commit": "32d95f7aac78ddd3863c92306b9ceed051411a60",
+  "source_commit": "4bcafdc6b6e26e35f46f1dd4c5f5435d25e8c0cb",
   "source_dirty": false,
   "source_repository": "https://github.com/ichen27/fusion-recreation"
 }
