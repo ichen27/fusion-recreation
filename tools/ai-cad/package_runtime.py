@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TOOLCHAIN = "1.85.1"
 ENGINE = Path("crates/model-engine/target/release/model-engine")
 # Runtime modules are explicit: never package private documents, caches or test logs.
-MODULES = "cad clearance drawings edge_measurements engine_transport exports interference intent mass_properties materials mcp_server measurements planar_visibility preview_jobs preview_worker result_cache sections selection store topology viewer viewer_server step_export frustum_export revolve_export topology_step".split()
+MODULES = "cad clearance drawings edge_measurements engine_transport exports interference intent inventory mass_properties materials mcp_server measurements planar_visibility preview_jobs preview_worker result_cache sections selection store topology viewer viewer_server step_export frustum_export revolve_export topology_step".split()
 
 
 def run(*args, env=None):

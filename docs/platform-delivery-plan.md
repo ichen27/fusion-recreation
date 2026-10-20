@@ -327,3 +327,12 @@ degrees of freedom remain future work.
 ## Portable runtime checkpoint
 
 [The private runtime bundle](../examples/ai-cad/runtime-bundle/README.md) packages the built original engine, editable host/browser code, pinned optional adapter dependencies, native examples and third-party notices. Isolated core checks run without Python site packages or Rust/Cargo paths, alongside actual HTTP preview/save and MCP reads. Source/file provenance, platform rejection and tamper detection are explicit. This does not resolve public distribution licensing, code signing, installers, automatic updates, Windows support or production support policy.
+
+## Parts inventory checkpoint
+
+[Revision-bound terminal-solid inventories](../examples/ai-cad/inventory/README.md)
+retain individual feature identities, exact volume and saved material status through
+MCP, CLI and downloadable browser tables. Equal-volume parts and linked copies stay
+separate; patterned/disconnected bodies explicitly count as one row. This establishes
+a flat inventory without claiming manufactured-part equivalence. Persistent part
+numbers, reusable component definitions, assembly hierarchy and joints remain open.

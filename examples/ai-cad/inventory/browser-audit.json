@@ -1,0 +1,5 @@
+{
+  "staleDisabled": true,
+  "staleStatus": "revision_conflict: Refresh before reading the inventory",
+  "documents_unchanged_by_reads": true
+}

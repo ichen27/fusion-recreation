@@ -1,2 +1,5 @@
 *.step binary
 deps/licenses/** -whitespace
+
+# Retained CSV exports use RFC-style CRLF; preserve byte-exact download evidence.
+examples/ai-cad/inventory/*.csv -text whitespace=cr-at-eol

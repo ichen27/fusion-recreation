@@ -1,4 +1,5 @@
 import { installMaterialEditor } from "/material-editor.mjs";
+import { installInventory } from "./inventory.mjs";
 import { installMassEditor } from "/mass-editor.mjs";
 import { installLinearEditor } from "/linear-editor.mjs";
 import { installSweepEditor } from "/sweep-editor.mjs";
@@ -926,6 +927,7 @@ function controls() {
   intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("parts-inventory").disabled = busy || !!preview || editPending || !saved;
   $("measure-parts").disabled =
     busy || !!preview || editPending || !saved?.bodies.length;
   $("new-linear").disabled =
@@ -1495,6 +1497,8 @@ const materialEditor = installMaterialEditor(editorCallbacks("Material"));
 $("edit-material").addEventListener("click", () =>
   materialEditor.open(selectedBody),
 );
+const inventory = installInventory(editorCallbacks("Parts inventory"));
+$("parts-inventory").addEventListener("click", () => inventory.open());
 const massEditor = installMassEditor(editorCallbacks("Combined mass"));
 $("measure-parts").addEventListener("click", () => massEditor.open());
 linearConstraints = installLinearEditor(editorCallbacks("Coupled dimensions"));

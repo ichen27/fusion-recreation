@@ -108,6 +108,7 @@
           “Make it 20 mm wider. Keep the thickness and other dimensions.”
         </blockquote>
         <div class="status-dot">Exact Rust geometry · mm</div>
+        <button id="parts-inventory" disabled>Parts inventory</button>
         <button id="measure-parts" disabled>Measure combined mass</button>
         <h2>Selected solid</h2>
         <p id="selection-info" role="status">
@@ -878,6 +879,48 @@
           Preview clearing override
         </button>
       </form>
+    </dialog>
+    <dialog id="inventory-dialog" aria-labelledby="inventory-title">
+      <header class="sketch-heading">
+        <h2 id="inventory-title">Parts inventory</h2>
+        <button id="inventory-close" type="button">Close</button>
+      </header>
+      <p id="inventory-status" role="status"></p>
+      <p>
+        Each saved terminal solid has one row. Linked copies remain separate. A
+        patterned or disconnected body counts as one solid; quantities do not
+        count its separate pieces.
+      </p>
+      <div class="inventory-scroll">
+        <table>
+          <caption>
+            Exact saved geometry and uniform materials
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Solid ID</th>
+              <th scope="col">Feature</th>
+              <th scope="col">Linked source</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Volume · mm³</th>
+              <th scope="col">Material</th>
+              <th scope="col">Density · kg/m³</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-rows"></tbody>
+        </table>
+      </div>
+      <p class="hint">
+        This flat inventory does not assign part numbers or group equivalent
+        parts. Overlapping solids are listed separately. Import exact CSV values
+        as text to prevent spreadsheet conversion; JSON preserves all values and
+        material provenance.
+      </p>
+      <p id="inventory-source" class="hint"></p>
+      <div class="actions">
+        <button id="inventory-csv" disabled>Download CSV</button
+        ><button id="inventory-json" disabled>Download JSON</button>
+      </div>
     </dialog>
     <dialog id="mass-dialog" aria-labelledby="mass-title">
       <form id="mass-form">

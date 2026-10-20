@@ -565,3 +565,21 @@ A direct override wins. Unary solid operations and linked copies inherit. Boolea
 Read-only MCP `cad_material_mass(expected_revision, feature_ids)` and HTTP `POST /api/material-mass` take1..16 distinct terminal solids. The host resolves validated saved materials, rejects missing bodies, `unassigned_material` or `material_conflict`, and delegates exact mass/parallel-axis inertia to the existing native multi-part measurement. Result includes source revision, `material_sources`, `density_policy:"persistent_uniform_feature_materials"` and the established additive mass fields. Each occurrence counts separately, including overlap. No native file changes occur during measurement. Explicit-density `cad_measure` and `cad_mass_properties` retain their earlier scenario semantics and do not implicitly use saved materials.
 
 Native save/reopen/import/undo preserve assignments. STEP/STL currently export geometry without these material properties. Earlier engines reject new material-bearing models via their strict unknown-field validation; no silent downgrade is supported. No shared catalog, certified grades, appearance, anisotropy, temperature dependence or mixed-region densities are included. [Source/history/browser/MCP evidence](../examples/ai-cad/materials/README.md).
+
+## Flat terminal-solid inventory
+
+`cad_inventory(expected_revision)`, HTTP `POST /api/inventory` with only
+`expected_revision`, and `tools/ai-cad/inventory.py` read one locked saved model.
+The reply contains revision, canonical source-model SHA256, units, material counts,
+rows sorted by feature ID and CSV. Every terminal body contributes quantity1 with
+feature kind, exact volume_mm3, direct instance source (otherwise null) and resolved
+material status/provenance. Missing materials stay unassigned and ambiguous ancestry
+stays conflict. Consumed features/profiles are excluded; empty inventories are valid.
+No geometry equivalence, connected-component quantity or union of overlapping solids
+is inferred. This is not a manufacturing BOM or assembly tree.
+
+Reads leave model/history bytes unchanged. Stale or non-integer revisions reject.
+Browser exports re-read at the captured revision before download. CSV includes
+revision/hash per row and uses RFC-style quoted cells; formula-like cells receive an
+apostrophe prefix. JSON preserves exact strings. Import exact numeric CSV columns
+as text to avoid spreadsheet conversion. No new native schema fields are introduced.

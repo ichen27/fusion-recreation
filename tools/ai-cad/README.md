@@ -505,3 +505,17 @@ Select a solid and choose **Edit material**. Enter a name and positive integer/f
 python tools/ai-cad/verify_materials.py
 python tools/ai-cad/verify_materials_mcp.py
 ```
+
+## Parts inventory
+
+Choose **Parts inventory** to read every saved terminal solid, its exact volume and
+resolved material status. Download revision/hash-bound CSV or JSON. Typed MCP
+`cad_inventory(expected_revision)` returns the same rows. CLI:
+
+```sh
+python3 tools/ai-cad/inventory.py --store work/part.cad.json --revision 1 --format csv
+```
+
+Each terminal body is quantity1; copies remain separate, and a disconnected or
+pattern body is not decomposed into a piece count. No part-number equivalence or
+assembly hierarchy is inferred. [Editable examples and actual browser/MCP evidence](../../examples/ai-cad/inventory/README.md).
