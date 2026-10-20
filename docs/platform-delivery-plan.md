@@ -261,3 +261,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Straight profile sweep checkpoint
 
 [Exact straight sweeps](../examples/ai-cad/straight-sweep/README.md) translate convex/concave XY sketches along parameter-backed XYZ vectors, with negative direction, exact moments, downstream planar cuts and source-linked placement. Browser/MCP create/edit/reject/undo and ten independent STEP comparisons verify the bounded operation. Curved paths, twist, varying sections and general curved intersections remain open. The next geometry dependency is exact coaxial intersection of supported analytic radial sections; arbitrary curved intersections still require a broader trimming and numerical policy.
+
+## Coaxial curved intersection checkpoint
+
+[Exact coaxial intersection](../examples/ai-cad/coaxial-intersection/README.md) clips convex radial sections of cylinders, frusta and revolutions, including rings, opposing coordinate-axis directions and source edits. Forty seeded taper pairs match independent piecewise disk integrals; twelve reference intersections match24 STEP readbacks and exact moments. Browser/MCP edit/reject/undo workflows are retained. Continue into bounded radial-section unions/differences and nonconvex sections; general noncoaxial curved trimming remains open.

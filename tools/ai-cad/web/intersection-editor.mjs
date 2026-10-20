@@ -14,6 +14,7 @@ export function installIntersectionEditor({
     pending = false;
   function controls() {
     for (const id of [
+      "intersection-kind",
       "intersection-left",
       "intersection-right",
       "intersection-close",
@@ -39,11 +40,12 @@ export function installIntersectionEditor({
         state,
         $("intersection-left").value,
         $("intersection-right").value,
+        $("intersection-kind").value,
       );
       pending = true;
       controls();
       $("intersection-feedback").textContent =
-        "Checking convexity and common volume…";
+        "Checking the selected geometry and common volume…";
       await onPreview(proposal);
       pending = false;
       dialog.close();
@@ -54,26 +56,37 @@ export function installIntersectionEditor({
       $("intersection-feedback").textContent = error.message;
     }
   });
+  function populate() {
+    const kind = $("intersection-kind").value;
+    const candidates = intersectionCandidates(state, kind);
+    for (const [i, id] of [
+      "intersection-left",
+      "intersection-right",
+    ].entries()) {
+      $(id).replaceChildren(
+        ...candidates.map((body) => {
+          const option = document.createElement("option");
+          option.value = body.feature_id;
+          option.textContent = body.feature_id;
+          return option;
+        }),
+      );
+      $(id).selectedIndex = i;
+    }
+    $("intersection-feedback").textContent =
+      kind === "coaxial_intersection"
+        ? "Keep shared volume of cylinders, frusta or convex radial-profile revolutions on exactly the same axis. Ring sections are supported; nonconvex stepped sections and offset/crossing axes reject. Saving consumes both inputs; undo restores them."
+        : "Keep only the volume shared by two convex planar solids. Saving consumes both inputs; undo restores them.";
+  }
+  $("intersection-kind").addEventListener("change", populate);
   return {
     open() {
       state = structuredClone(getState());
-      const candidates = intersectionCandidates(state);
-      for (const [i, id] of [
-        "intersection-left",
-        "intersection-right",
-      ].entries()) {
-        $(id).replaceChildren(
-          ...candidates.map((body) => {
-            const option = document.createElement("option");
-            option.value = body.feature_id;
-            option.textContent = body.feature_id;
-            return option;
-          }),
-        );
-        $(id).selectedIndex = i;
-      }
-      $("intersection-feedback").textContent =
-        "Keep only the volume shared by both solids. Preview validates convexity; saving replaces both visible inputs with one result. Undo restores them.";
+      $("intersection-kind").value =
+        intersectionCandidates(state).length >= 2
+          ? "intersection"
+          : "coaxial_intersection";
+      populate();
       controls();
       onOpen();
       dialog.showModal();

@@ -539,6 +539,15 @@
         </header>
         <p id="intersection-feedback" role="status"></p>
         <label
+          >Geometry<select
+            id="intersection-kind"
+            aria-label="Intersection geometry"
+          >
+            <option value="intersection">Convex planar solids</option>
+            <option value="coaxial_intersection">Coaxial round solids</option>
+          </select></label
+        >
+        <label
           >First solid<select
             id="intersection-left"
             aria-label="First solid"
@@ -553,8 +562,8 @@
           ></select
         ></label>
         <p class="hint">
-          Convex planar solids only. Circular, perforated and concave shapes are
-          unsupported. Touching faces without shared volume cannot form a solid.
+          Preview checks the chosen geometry mode. Touching surfaces without
+          shared volume cannot form a solid.
         </p>
         <button type="submit" id="intersection-preview" class="primary">
           Preview intersection

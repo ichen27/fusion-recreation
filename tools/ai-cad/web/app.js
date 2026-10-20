@@ -906,7 +906,8 @@ function controls() {
     !!preview ||
     editPending ||
     !saved ||
-    intersectionCandidates(saved).length < 2;
+    (intersectionCandidates(saved).length < 2 &&
+      intersectionCandidates(saved, "coaxial_intersection").length < 2);
   for (const button of document.querySelectorAll(
     ".edit-sweep, .edit-revolve, .edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))

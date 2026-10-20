@@ -50,6 +50,7 @@ impl Feature {
             Self::StraightSweep {
                 profile, offset, ..
             } => (vec![profile], offset.iter().collect()),
+            Self::CoaxialIntersection { left, right, .. } => (vec![left, right], vec![]),
             Self::Revolve { profile, .. } => (vec![profile], vec![]),
             Self::PlanarLoft {
                 bottom,

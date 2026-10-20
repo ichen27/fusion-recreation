@@ -86,3 +86,58 @@ test("consumed sketch stock no longer offers a new hole group", async () => {
     ["b"],
   );
 });
+
+test("coaxial mode authors a typed round-solid intersection and preserves editable controls", async () => {
+  const round = {
+    parameters: { zero: "0", large: "10", small: "5", height: "12" },
+    fixed: {},
+    features: [
+      {
+        kind: "cylinder",
+        id: "a",
+        x: "zero",
+        y: "zero",
+        radius: "large",
+        height: "height",
+      },
+      {
+        kind: "cylinder",
+        id: "b",
+        x: "zero",
+        y: "zero",
+        radius: "small",
+        height: "height",
+      },
+    ],
+  };
+  const state = { revision: 1, ...run(round).result };
+  assert.equal(intersectionCandidates(state).length, 0);
+  assert.equal(intersectionCandidates(state, "coaxial_intersection").length, 2);
+  const proposal = intersectionProposal(
+    state,
+    "a",
+    "b",
+    "coaxial_intersection",
+  );
+  const { expected_revision, ...request } = proposal;
+  const reply = run(round, request);
+  assert.equal(reply.result.bodies[0].volume_mm3, "300*pi");
+  assert.equal(reply.result.bodies[0].feature_id, "coaxial1");
+  const { availableHoleInputs } = await import("./web/hole-model.mjs");
+  assert.deepEqual(availableHoleInputs(reply.result.model), []);
+  assert.throws(
+    () => intersectionProposal(state, "a", "b", "unsupported"),
+    /supported/,
+  );
+  // Input eligibility is a UI filter; exact axis/convex-section checks stay native.
+  round.parameters.other = "1";
+  round.features[1].x = "other";
+  const moved = { revision: 1, ...run(round).result };
+  const { expected_revision: ignored, ...bad } = intersectionProposal(
+    moved,
+    "a",
+    "b",
+    "coaxial_intersection",
+  );
+  assert.equal(run(round, bad).error.code, "unsupported_coaxial");
+});

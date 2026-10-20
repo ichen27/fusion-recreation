@@ -1,0 +1,85 @@
+{
+  "parameters": {
+    "left.height": "1",
+    "left.c0": "3",
+    "left.c1": "0",
+    "left.c2": "10",
+    "left.c3": "12",
+    "right.height": "1",
+    "right.c0": "5",
+    "right.c1": "2",
+    "right.c2": "12",
+    "right.c3": "10"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "left.outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "left.c0",
+          "y": "left.c1"
+        },
+        {
+          "id": "v1",
+          "x": "left.c2",
+          "y": "left.c1"
+        },
+        {
+          "id": "v2",
+          "x": "left.c2",
+          "y": "left.c3"
+        },
+        {
+          "id": "v3",
+          "x": "left.c0",
+          "y": "left.c3"
+        }
+      ]
+    },
+    {
+      "kind": "revolve",
+      "id": "left.revolved",
+      "profile": "left.outline"
+    },
+    {
+      "kind": "planar_profile",
+      "id": "right.outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "right.c0",
+          "y": "right.c1"
+        },
+        {
+          "id": "v1",
+          "x": "right.c2",
+          "y": "right.c1"
+        },
+        {
+          "id": "v2",
+          "x": "right.c2",
+          "y": "right.c3"
+        },
+        {
+          "id": "v3",
+          "x": "right.c0",
+          "y": "right.c3"
+        }
+      ]
+    },
+    {
+      "kind": "revolve",
+      "id": "right.revolved",
+      "profile": "right.outline"
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "common",
+      "left": "left.revolved",
+      "right": "right.revolved"
+    }
+  ]
+}

@@ -7,6 +7,7 @@ use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 pub mod clearance;
+mod coaxial;
 mod dimension;
 pub mod edge_measure;
 mod holes;
@@ -80,6 +81,11 @@ pub enum Feature {
         id: String,
         profile: String,
         height: String,
+    },
+    CoaxialIntersection {
+        id: String,
+        left: String,
+        right: String,
     },
     /// Straight translation of a planar profile along an exact XYZ displacement.
     StraightSweep {
@@ -229,6 +235,7 @@ impl Feature {
             | Self::ConicalFrustum { id, .. }
             | Self::Revolve { id, .. }
             | Self::StraightSweep { id, .. }
+            | Self::CoaxialIntersection { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
             | Self::CountersinkHoles { id, .. }
@@ -895,6 +902,50 @@ fn evaluate_geometry_from(
                     }
                 }
                 evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
+                continue;
+            }
+            Feature::CoaxialIntersection { left, right, .. } => {
+                if left == right {
+                    return Err(error(
+                        "invalid_operands",
+                        id,
+                        "Choose two distinct terminal solids",
+                    ));
+                }
+                let get = |reference: &str| {
+                    evaluated.get(reference).ok_or_else(|| {
+                        error(
+                            "unsupported_reference",
+                            reference,
+                            "Choose an earlier analytic solid",
+                        )
+                    })
+                };
+                let shape = coaxial::intersect(id, get(left)?, get(right)?)?;
+                for input in [left, right] {
+                    if !consumed.insert(input.clone()) {
+                        return Err(error(
+                            "unsupported_branch",
+                            input,
+                            "Choose terminal solids; an input can have only one consuming feature",
+                        ));
+                    }
+                }
+                let volume_mm3 = format!(
+                    "{}*pi",
+                    shape.volume.pi_subtract_mm3.trim_start_matches('-')
+                );
+                evaluated.insert(
+                    id.into(),
+                    Body {
+                        feature_id: id.into(),
+                        components: None,
+                        polyhedral: None,
+                        boundary: None,
+                        analytic: Some(shape),
+                        volume_mm3,
+                    },
+                );
                 continue;
             }
             Feature::StraightSweep {
