@@ -281,6 +281,54 @@
         </div>
       </form>
     </dialog>
+    <dialog id="shell-dialog" aria-labelledby="shell-title">
+      <form id="shell-form">
+        <header class="sketch-heading">
+          <h2 id="shell-title">Hollow solid</h2>
+          <button type="button" id="shell-close">Cancel</button>
+        </header>
+        <p id="shell-feedback" role="status"></p>
+        <label
+          >Wall thickness (mm)<input
+            id="shell-thickness"
+            aria-label="Wall thickness"
+            placeholder="Integer or fraction"
+            required
+        /></label>
+        <label><input type="checkbox" id="shell-open" /> Open one face</label>
+        <p class="hint">
+          For a top opening use (0, 0, 1). Reverse a sign for the opposite face.
+          Uncheck to keep a closed cavity.
+        </p>
+        <div class="plane-normal">
+          <label
+            >Opening normal X<input
+              id="shell-nx"
+              aria-label="Opening normal X"
+              required
+          /></label>
+          <label
+            >Opening normal Y<input
+              id="shell-ny"
+              aria-label="Opening normal Y"
+              required
+          /></label>
+          <label
+            >Opening normal Z<input
+              id="shell-nz"
+              aria-label="Opening normal Z"
+              required
+          /></label>
+        </div>
+        <p class="hint">
+          Convex planar stock only. Wall thickness is perpendicular to each
+          retained face. Curved and unsupported irrational offsets reject.
+        </p>
+        <button type="submit" id="shell-preview" class="primary">
+          Preview shell
+        </button>
+      </form>
+    </dialog>
     <dialog id="plane-dialog" aria-labelledby="plane-title">
       <form id="plane-form">
         <header class="sketch-heading">

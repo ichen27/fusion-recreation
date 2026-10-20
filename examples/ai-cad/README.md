@@ -115,3 +115,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact planar part interference and independent solid comparisons](interference/README.md).
 
 [Exact planar separation, contact and closest-point witnesses](clearance/README.md).
+
+[Exact hollow planar parts, editable shells and independent exports](planar-shell/README.md).

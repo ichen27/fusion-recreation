@@ -17,6 +17,7 @@ pub mod mesh;
 mod mesh_counterbore;
 pub mod polyhedral;
 mod rebuild;
+mod shell;
 pub mod topology;
 pub use polyhedral::Operation as BooleanOperation;
 pub mod placement;
@@ -104,6 +105,14 @@ pub enum Feature {
         input: String,
         normal: [String; 3],
         offset: String,
+    },
+    /// Hollow convex planar stock with exact inward wall thickness.
+    PlanarShell {
+        id: String,
+        input: String,
+        thickness: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        opening_normal: Option<[String; 3]>,
     },
     /// Exact right-handed quarter turns about a parameter-backed pivot.
     RotateQuarter {
@@ -194,6 +203,7 @@ impl Feature {
             | Self::CounterboreHoles { id, .. }
             | Self::CountersinkHoles { id, .. }
             | Self::PlaneCut { id, .. }
+            | Self::PlanarShell { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
             | Self::Instance { id, .. }
@@ -613,6 +623,29 @@ fn evaluate_geometry_from(
                         volume_mm3,
                     },
                 );
+                continue;
+            }
+            Feature::PlanarShell {
+                input,
+                thickness,
+                opening_normal,
+                ..
+            } => {
+                if !consumed.insert(input.clone()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "Choose a terminal solid for hollowing",
+                    ));
+                }
+                let outer = convex_input(m, &profiles, &evaluated, input, "Planar shells")?;
+                let solid =
+                    shell::hollow(id, outer, &positive(m, thickness)?, opening_normal.as_ref())
+                        .map_err(|mut e| {
+                            e.entity = id.into();
+                            e
+                        })?;
+                evaluated.insert(id.into(), polyhedral_body(id, solid));
                 continue;
             }
             Feature::Boolean {
