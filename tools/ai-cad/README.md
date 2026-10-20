@@ -490,3 +490,14 @@ python tools/ai-cad/sections.py --store examples/ai-cad/planar-sections/source.c
 python tools/ai-cad/verify_sections.py
 python tools/ai-cad/verify_sections_mcp.py
 ```
+
+### Saved materials
+
+Select a solid and choose **Edit material**. Enter a name and positive integer/fraction density in kg/m³, preview, then save. Linked copies and subsequent solid edits inherit; a direct override takes precedence. The target selector also permits changing a retained source. Clearing an override restores inheritance. Combinations with different or missing materials require an explicit uniform output assignment; subtraction retains the target material.
+
+**Measure combined mass → Use saved material assignments** uses the persistent values and shows their sources. Temporary density mode remains separate. MCP clients use `set_material`/`clear_material` in ordinary preview/commit operations and `cad_material_mass` for read-only assigned mass. Inspect `resolved_materials` to distinguish assigned, unassigned and conflicting ancestry. [Editable native examples, browser/MCP recordings, inheritance rules and compatibility limits](../../examples/ai-cad/materials/README.md).
+
+```sh
+python tools/ai-cad/verify_materials.py
+python tools/ai-cad/verify_materials_mcp.py
+```

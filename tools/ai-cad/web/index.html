@@ -113,6 +113,8 @@
         <p id="selection-info" role="status">
           Click a solid or select it in the feature list.
         </p>
+        <p id="material-info" role="status"></p>
+        <button id="edit-material" disabled>Edit material</button>
         <button id="explain-selection" disabled>Explain solid</button>
         <div id="intent-info" aria-live="polite"></div>
         <label for="drawing-style">Reference sheet edges</label>
@@ -846,6 +848,37 @@
         </button>
       </form>
     </dialog>
+    <dialog id="material-dialog" aria-labelledby="material-title">
+      <form id="material-form">
+        <header class="sketch-heading">
+          <h2 id="material-title">Saved uniform material</h2>
+          <button type="button" id="material-close">Close</button>
+        </header>
+        <label>Solid feature<select id="material-target"></select></label>
+        <label
+          >Material name<input id="material-name" maxlength="80" required
+        /></label>
+        <label
+          >Density · kg/m³<input
+            id="material-density"
+            maxlength="96"
+            placeholder="Positive integer or fraction"
+            required
+        /></label>
+        <p>
+          Copies and later edits inherit unless overridden. Combinations with
+          different or missing materials need an explicit uniform override;
+          subtractions keep the target material.
+        </p>
+        <p id="material-feedback" role="status"></p>
+        <button id="material-preview" type="submit" class="primary">
+          Preview material
+        </button>
+        <button id="material-clear" type="button">
+          Preview clearing override
+        </button>
+      </form>
+    </dialog>
     <dialog id="mass-dialog" aria-labelledby="mass-title">
       <form id="mass-form">
         <header class="sketch-heading">
@@ -855,12 +888,17 @@
         <p>
           Select up to 16 saved parts and supply each density as a positive
           integer or fraction in kg/m³. Densities are used for this measurement
-          only.
+          only. Choose saved assignments to use the model’s persistent
+          materials.
         </p>
         <p>
           Overlapping parts are counted separately. This calculation does not
           check interference or combine material.
         </p>
+        <label class="mass-mode"
+          ><input id="mass-use-materials" type="checkbox" />Use saved material
+          assignments</label
+        >
         <div id="mass-parts"></div>
         <button id="mass-calculate" type="submit" class="primary">
           Calculate combined mass

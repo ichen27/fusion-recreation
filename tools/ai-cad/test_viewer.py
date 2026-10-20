@@ -81,6 +81,54 @@ class Viewer(unittest.TestCase):
         self.assertEqual(status, 400)
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_material_mass_http_requires_saved_assignments(self):
+        result = self.store.execute(CREATE)
+        feature = result["bodies"][0]["feature_id"]
+        command = dict(expected_revision=1, feature_ids=[feature])
+        headers = {"Content-Type": "application/json"}
+        status, payload = self.request(
+            "POST", "/api/material-mass", json.dumps(command), headers
+        )
+        self.assertEqual(status, 400)
+        self.assertEqual(json.loads(payload)["error"]["code"], "unassigned_material")
+        self.store.execute(
+            dict(
+                action="commit",
+                expected_revision=1,
+                transaction_id="material",
+                operations=[
+                    dict(
+                        op="set_material",
+                        feature_id=feature,
+                        material=dict(name="Test", density_kg_per_m3="1000"),
+                    )
+                ],
+                preserve=[],
+            )
+        )
+        before = self.store.path.read_bytes()
+        status, payload = self.request(
+            "POST",
+            "/api/material-mass",
+            json.dumps({**command, "expected_revision": 2}),
+            headers,
+        )
+        self.assertEqual(status, 200)
+        self.assertEqual(
+            json.loads(payload)["result"]["density_policy"],
+            "persistent_uniform_feature_materials",
+        )
+        self.assertEqual(self.store.path.read_bytes(), before)
+        status, _ = self.request("POST", "/api/material-mass", "x" * 4097, headers)
+        self.assertEqual(status, 413)
+        status, _ = self.request(
+            "POST",
+            "/api/material-mass",
+            json.dumps(command),
+            {**headers, "Origin": "https://example.com"},
+        )
+        self.assertEqual(status, 403)
+
     def test_section_http_saved_revision_and_failures(self):
         result = self.store.execute(CREATE)
         feature = result["bodies"][0]["feature_id"]

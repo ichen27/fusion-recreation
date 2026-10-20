@@ -757,3 +757,15 @@ dialog p[role="status"] {
 #mass-parts fieldset > label + label {
   margin-top: 8px;
 }
+.mass-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mass-mode input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+#mass-parts label[hidden] {
+  display: none;
+}

@@ -319,3 +319,7 @@ degrees of freedom remain future work.
 ## Planar cross-section checkpoint
 
 [Exact planar sections](../examples/ai-cad/planar-sections/README.md) expose cavities, concave/disconnected regions and nested islands through coordinate-plane cuts. Exact area and area-centroid formulas accompany hatched browser/MCP/CLI SVG exports, with source edits and undo. Thirty sloped tetrahedron cases have independent analytic checks. Curved/oblique sections, vertex-coincident cuts, persistent associative drawings and manufacturing annotations remain open.
+
+## Persistent material checkpoint
+
+[Saved uniform materials](../examples/ai-cad/materials/README.md) bind names/densities to solid feature IDs, inherit through edits/copies and report conflicts for unequal or missing combination inputs. Exact mass uses validated saved assignments through browser and MCP. Native preview/history/reopen and explicit override clearing are verified without geometry changes. Shared material catalogs, heterogeneous regions, part numbering, bills of materials, assembly hierarchy and joints remain open.
