@@ -393,6 +393,7 @@ pub(crate) fn measure(id: &str, shape: &AnalyticPrism, volume_text: &str) -> Res
         })
         .collect::<Result<Vec<_>>>()?;
     Ok(Measurements {
+        mass_properties: None,
         feature_id: id.into(),
         volume_mm3: volume_text.into(),
         bounds_mm: bounds.map(|p| p.map(|c| c.to_string())),

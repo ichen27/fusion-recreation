@@ -218,7 +218,7 @@ Use **Linked copy** on a planar solid and **Edit linked copy** on its placement.
 
 ## Exact planar measurements
 
-Select a saved planar part and choose **Measure solid**, or call MCP `cad_measure` with its saved revision and feature ID. Exact world bounds, volume centroid and centroidal volume inertia are shared by both interfaces. [Measurements, retained native input, actual browser/MCP requests and independent references](../../examples/ai-cad/measurements/README.md) explain units and supported geometry. No material density or physical mass is assigned. Run `verify_measurements.py`, optional `verify_measurements_mcp.py` and optional OCCT `verify_measurements_reference.py`.
+Select a saved planar part and choose **Measure solid**, or call MCP `cad_measure` with its saved revision and feature ID. Exact world bounds, volume centroid and centroidal volume inertia are shared by both interfaces. [Measurements, retained native input, actual browser/MCP requests and independent references](../../examples/ai-cad/measurements/README.md) explain units and supported geometry. Optional uniform density now supplies physical mass and inertia as described below. Run `verify_measurements.py`, optional `verify_measurements_mcp.py` and optional OCCT `verify_measurements_reference.py`.
 
 ## Place circular and perforated parts
 
@@ -226,7 +226,7 @@ Select a saved planar part and choose **Measure solid**, or call MCP `cad_measur
 
 ## Measure round and perforated parts
 
-Measure solid and `cad_measure` also support circular stock, through/blind holes and their placements. Centroids and volume inertia remain exact expressions involving π; bounds remain rational. [Editable source/copy depth workflow and fifteen independent references](../../examples/ai-cad/analytic-measurements/README.md) document the format and units. Run `verify_analytic_measurements.py`; optional MCP and reference checks use `verify_analytic_measurements_mcp.py` and `verify_analytic_measurements_reference.py`. No density or physical mass is assigned.
+Measure solid and `cad_measure` also support circular stock, through/blind holes and their placements. Centroids and volume inertia remain exact expressions involving π; bounds remain rational. [Editable source/copy depth workflow and fifteen independent references](../../examples/ai-cad/analytic-measurements/README.md) document the format and units. Run `verify_analytic_measurements.py`; optional MCP and reference checks use `verify_analytic_measurements_mcp.py` and `verify_analytic_measurements_reference.py`. Optional uniform density supplies physical mass and inertia.
 
 [Request-local CPU reuse](../../examples/ai-cad/transaction-reuse/README.md) avoids duplicate rebuilding of a validated unchanged feature prefix. Six baseline-equivalent workloads include 32-feature linked models; measured inspection/late-edit gains are about 1.8–1.9× on the recorded host, while root edits remain unchanged. Run `python3 tools/ai-cad/verify_rebuild.py` for exact retained replies, and Rust tests with `--release` for the full differential corpus. This does not add a persistent worker or cross-request geometry cache.
 
@@ -449,3 +449,9 @@ Underdetermined, inconsistent and free-driver-restricting equations reject.
 This is not a nonlinear distance/angle sketch solver.
 
 [Browser constraint authoring and replacement](../../examples/ai-cad/linear-editor/README.md) retain an invalid equation draft for repair and use explicit preview/save/undo. Choose target dimensions before solving; existing target formulas are replaced only when saved.
+
+### Uniform-density mass measurements
+
+Select a saved solid, enter a positive integer or fraction in **Uniform density · kg/m³**, and choose **Measure solid**. Leave density blank for geometry only. The read-only result includes exact mass in kg and centroidal mass inertia in kg m². It does not assign a material or change the model. AI clients use the optional `density_kg_per_m3` string on `cad_measure`. [Editable input, recorded browser/MCP reads and unit-conversion checks](../../examples/ai-cad/mass/README.md).
+
+Run `python tools/ai-cad/verify_mass.py`; with the MCP dependencies installed, run `python tools/ai-cad/verify_mass_mcp.py`.

@@ -1,0 +1,255 @@
+{
+  "calls": [
+    {
+      "command": {
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "revision": 1,
+          "volume_mm3": "80"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "density_kg_per_m3": "1000",
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "mass_properties": {
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/7500000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "13/18750000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "29/37500000000"
+              ]
+            ],
+            "density_kg_per_m3": "1000",
+            "mass_kg": "1/12500"
+          },
+          "revision": 1,
+          "volume_mm3": "80"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "density_kg_per_m3": "2000",
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "mass_properties": {
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/3750000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "13/9375000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "29/18750000000"
+              ]
+            ],
+            "density_kg_per_m3": "2000",
+            "mass_kg": "1/6250"
+          },
+          "revision": 1,
+          "volume_mm3": "80"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "density_kg_per_m3": "0",
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_density",
+          "entity": "density_kg_per_m3",
+          "message": "Uniform density must be positive"
+        }
+      },
+      "url": "/api/measure"
+    },
+    {
+      "command": {
+        "expected_revision": 1,
+        "feature_id": "box"
+      },
+      "reply": {
+        "result": {
+          "bounds_mm": [
+            [
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "10",
+              "4",
+              "2"
+            ]
+          ],
+          "centroid_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "400/3",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "2080/3",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2320/3"
+            ]
+          ],
+          "feature_id": "box",
+          "revision": 1,
+          "volume_mm3": "80"
+        }
+      },
+      "url": "/api/measure"
+    }
+  ]
+}

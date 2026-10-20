@@ -1,4 +1,4 @@
-//! Exact geometric volume moments of validated planar solids, without density.
+//! Exact volume moments and optional uniform-density mass properties.
 use super::{error, profile, Boundary, Feature, Model, Result, Q};
 use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
@@ -8,6 +8,8 @@ use serde::{Deserialize, Serialize};
 pub struct Request {
     pub model: Model,
     pub feature_id: String,
+    #[serde(default)]
+    pub density_kg_per_m3: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -19,6 +21,15 @@ pub struct Measurements {
     /// Integral (r^2 I - r r^T) dV about centroid, in global XYZ axes.
     /// Multiply by a uniform mass density to obtain a mass inertia tensor.
     pub centroidal_volume_inertia_mm5: [[String; 3]; 3],
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mass_properties: Option<MassProperties>,
+}
+
+#[derive(Serialize)]
+pub struct MassProperties {
+    pub density_kg_per_m3: String,
+    pub mass_kg: String,
+    pub centroidal_inertia_kg_m2: [[String; 3]; 3],
 }
 
 pub(super) fn bounded(q: &Q) -> Result<()> {
@@ -47,6 +58,54 @@ fn q(n: i32) -> Q {
 }
 
 pub fn measure(request: Request) -> Result<Measurements> {
+    let density = request
+        .density_kg_per_m3
+        .as_deref()
+        .map(|text| {
+            let density = super::rational(text, "density_kg_per_m3")?;
+            if !density.is_positive() {
+                return Err(error(
+                    "invalid_density",
+                    "density_kg_per_m3",
+                    "Uniform density must be positive",
+                ));
+            }
+            Ok(density)
+        })
+        .transpose()?;
+    let mut result = geometry(request)?;
+    if let Some(density) = density {
+        // mm³→m³ for mass; mm⁵→m⁵ for mass inertia in kg m².
+        let mass_factor = &density / Q::from_integer(1_000_000_000_i64.into());
+        let inertia_factor = &density / Q::from_integer(1_000_000_000_000_000_i64.into());
+        let mut tensor: [[String; 3]; 3] =
+            std::array::from_fn(|_| std::array::from_fn(|_| String::new()));
+        for (i, row) in tensor.iter_mut().enumerate() {
+            for (j, entry) in row.iter_mut().enumerate() {
+                *entry = scaled(&result.centroidal_volume_inertia_mm5[i][j], &inertia_factor)?;
+            }
+        }
+        result.mass_properties = Some(MassProperties {
+            density_kg_per_m3: density.to_string(),
+            mass_kg: scaled(&result.volume_mm3, &mass_factor)?,
+            centroidal_inertia_kg_m2: tensor,
+        });
+    }
+    Ok(result)
+}
+fn scaled(expression: &str, factor: &Q) -> Result<String> {
+    bounded(factor)?;
+    if let Ok(value) = expression.parse::<Q>() {
+        let value = value * factor;
+        bounded(&value)?;
+        Ok(value.to_string())
+    } else {
+        // Only the validated analytic integrator supplies these expressions.
+        // Preserve its exact rational function of pi without a float conversion.
+        Ok(format!("({expression})*({factor})"))
+    }
+}
+fn geometry(request: Request) -> Result<Measurements> {
     let evaluated = super::evaluate(super::Request {
         schema_version: 1,
         model: request.model,
@@ -169,6 +228,7 @@ fn moments(id: &str, boundary: &Boundary, expected_volume: &Q) -> Result<Measure
         })
     });
     Ok(Measurements {
+        mass_properties: None,
         feature_id: id.into(),
         volume_mm3: volume.to_string(),
         bounds_mm: bounds.map(|p| p.map(|v| v.to_string())),

@@ -371,6 +371,7 @@ function intentControls() {
     intentPending || busy || !!preview || editPending || !selectedBody;
   $("measure-selection").disabled =
     measurementPending || busy || !!preview || editPending || !selectedBody;
+  $("measure-density").disabled = $("measure-selection").disabled;
   $("topology-selection").disabled =
     topologyPending || busy || !!preview || editPending || !selectedBody;
   for (const button of document.querySelectorAll("[data-surface]"))
@@ -460,10 +461,14 @@ $("explain-selection").addEventListener("click", async () => {
     intentControls();
   }
 });
+$("measure-density").addEventListener("input", () => {
+  $("measurement-info").replaceChildren();
+});
 $("measure-selection").addEventListener("click", async () => {
   const revision = saved.revision,
     feature_id = selectedBody,
-    key = `${revision}:${feature_id}`;
+    key = `${revision}:${feature_id}`,
+    density = $("measure-density").value.trim();
   measurementPending = true;
   intentControls();
   $("measurement-info").textContent = "Integrating exact geometry…";
@@ -472,7 +477,11 @@ $("measure-selection").addEventListener("click", async () => {
       await fetch("/api/measure", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ expected_revision: revision, feature_id }),
+        body: JSON.stringify({
+          expected_revision: revision,
+          feature_id,
+          ...(density ? { density_kg_per_m3: density } : {}),
+        }),
       })
     ).json();
     if (intentKey !== key) return;
@@ -484,7 +493,13 @@ $("measure-selection").addEventListener("click", async () => {
       `Bounds mm: (${info.bounds_mm[0].join(", ")}) to (${info.bounds_mm[1].join(", ")}).`,
       `Volume centroid mm: (${info.centroid_mm.join(", ")}).`,
       `Volume: ${info.volume_mm3} mm³.`,
-      "Exact geometry; center of mass assumes uniform density. No material mass assigned.",
+      ...(info.mass_properties
+        ? [
+            `Uniform density: ${info.mass_properties.density_kg_per_m3} kg/m³.`,
+            `Mass: ${info.mass_properties.mass_kg} kg.`,
+            "Center of mass equals the volume centroid. This density is not saved to the model.",
+          ]
+        : ["Exact geometry. Supply a uniform density to calculate mass."]),
     ]) {
       const p = document.createElement("p");
       p.textContent = text;
@@ -499,6 +514,17 @@ $("measure-selection").addEventListener("click", async () => {
       .join("\n");
     details.append(title, tensor);
     container.append(details);
+    if (info.mass_properties) {
+      const massDetails = document.createElement("details"),
+        massTitle = document.createElement("summary"),
+        massTensor = document.createElement("pre");
+      massTitle.textContent = "Centroidal mass inertia · kg m² · global XYZ";
+      massTensor.textContent = info.mass_properties.centroidal_inertia_kg_m2
+        .map((row) => row.join("  "))
+        .join("\n");
+      massDetails.append(massTitle, massTensor);
+      container.append(massDetails);
+    }
   } catch (error) {
     if (intentKey === key) $("measurement-info").textContent = error.message;
   } finally {
