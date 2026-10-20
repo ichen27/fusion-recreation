@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "model": {
+    "parameters": {
+      "left.left.cx": "0",
+      "left.left.cy": "0",
+      "left.left.radius": "10",
+      "left.left.height": "12",
+      "left.right.cx": "0",
+      "left.right.cy": "0",
+      "left.right.radius": "5",
+      "left.right.height": "8",
+      "left.right.move.x": "0",
+      "left.right.move.y": "0",
+      "left.right.move.z": "6",
+      "right.cx": "0",
+      "right.cy": "0",
+      "right.radius": "3",
+      "right.height": "20"
+    },
+    "fixed": {},
+    "features": [
+      {
+        "kind": "cylinder",
+        "id": "left.left.stock",
+        "x": "left.left.cx",
+        "y": "left.left.cy",
+        "radius": "left.left.radius",
+        "height": "left.left.height"
+      },
+      {
+        "kind": "cylinder",
+        "id": "left.right.stock",
+        "x": "left.right.cx",
+        "y": "left.right.cy",
+        "radius": "left.right.radius",
+        "height": "left.right.height"
+      },
+      {
+        "kind": "translate",
+        "id": "left.right.moved",
+        "input": "left.right.stock",
+        "offset": [
+          "left.right.move.x",
+          "left.right.move.y",
+          "left.right.move.z"
+        ]
+      },
+      {
+        "kind": "coaxial_boolean",
+        "id": "left.common",
+        "left": "left.left.stock",
+        "right": "left.right.moved",
+        "operation": "union"
+      },
+      {
+        "kind": "cylinder",
+        "id": "right.stock",
+        "x": "right.cx",
+        "y": "right.cy",
+        "radius": "right.radius",
+        "height": "right.height"
+      },
+      {
+        "kind": "coaxial_boolean",
+        "id": "common",
+        "left": "left.common",
+        "right": "right.stock",
+        "operation": "difference"
+      }
+    ]
+  },
+  "operations": [],
+  "preserve": []
+}

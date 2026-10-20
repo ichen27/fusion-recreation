@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "model": {
+    "parameters": {
+      "left.height": "1",
+      "left.c0": "3",
+      "left.c1": "0",
+      "left.c2": "10",
+      "left.c3": "5",
+      "left.c4": "12",
+      "left.c5": "2",
+      "right.cx": "0",
+      "right.cy": "0",
+      "right.radius": "7",
+      "right.height": "10"
+    },
+    "fixed": {},
+    "features": [
+      {
+        "kind": "planar_profile",
+        "id": "left.outline",
+        "vertices": [
+          {
+            "id": "v0",
+            "x": "left.c0",
+            "y": "left.c1"
+          },
+          {
+            "id": "v1",
+            "x": "left.c2",
+            "y": "left.c1"
+          },
+          {
+            "id": "v2",
+            "x": "left.c3",
+            "y": "left.c4"
+          },
+          {
+            "id": "v3",
+            "x": "left.c5",
+            "y": "left.c4"
+          }
+        ]
+      },
+      {
+        "kind": "revolve",
+        "id": "left.revolved",
+        "profile": "left.outline"
+      },
+      {
+        "kind": "cylinder",
+        "id": "right.stock",
+        "x": "right.cx",
+        "y": "right.cy",
+        "radius": "right.radius",
+        "height": "right.height"
+      },
+      {
+        "kind": "coaxial_intersection",
+        "id": "common",
+        "left": "left.revolved",
+        "right": "right.stock"
+      }
+    ]
+  },
+  "operations": [],
+  "preserve": []
+}

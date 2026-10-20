@@ -269,3 +269,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Coaxial material Boolean checkpoint
 
 [Exact radial-section joins and cuts](../examples/ai-cad/coaxial-booleans/README.md) reuse the original planar-cell engine for convex/concave coaxial analytic sections, including stepped unions, blind recesses and through-bores. Browser/MCP editing, native history and14 independent reference solids/28 STEP readbacks are verified. Results with disconnected regions, contour holes or multiple axis contacts reject explicitly. Continue with CPU/memory/worker measurements on these broader geometry workloads before extending the representation to multiple contours and general curved trimming.
+
+## Curved CPU workload checkpoint
+
+[Isolated CPU/RSS and worker measurements](../examples/ai-cad/curved-runtime/README.md) cover 28 native workloads on Apple M4. Persistent transport reduces simple evaluation below 1 ms, while stepped unions still take about 52 ms. The next measured optimization target is the radial Boolean construction path: replace its temporary 3D cell work with exact 2D section boundaries while retaining independent material, manifold and export validation. No GPU geometry or general curved Boolean claim follows from these timings.
