@@ -28,8 +28,9 @@ leaving **984π mm³**, then rejects a misalignment and undoes that edit.
 Reference names: `blind_cut`, `union`, `intersection`, `through_bore`, `stepped_cut`,
 `stepped_union`, `face_join`, `conical_cut`, `fractional`, `nested`, `axis_x`,
 `opposite`, `translated`, `linked`. STEP exchanges boundary geometry without native
-feature history. Production uses the original exact planar-cell engine on radial
-sections; external solid modeling is confined to independent verification.
+feature history. Production uses original exact segment splitting and material classification on
+radial sections; external solid modeling is confined to independent verification.
+The former 3D cell construction remains an independent regression oracle.
 
 After the [quickstart](../../../tools/ai-cad/README.md), run:
 
@@ -52,7 +53,7 @@ Limits: one exactly shared coordinate-axis line; one connected result region in
 radius/height with no interior contour holes and at most32 simplified corners.
 If it touches the axis, the result needs one connected axis edge with flat ends.
 Disconnected regions, enclosed cavities, multiple axis contacts, nonmanifold joins,
-empty material and construction geometry beyond the existing cell/boundary budgets
+empty material and construction geometry beyond the radial segment/coefficient budgets
 reject. Generated surface references are revision-only. Floating STEP/display
 precision remains stricter than native exact geometry; see the
 [revolution adapter limits](../revolution/README.md). No general noncoaxial curved

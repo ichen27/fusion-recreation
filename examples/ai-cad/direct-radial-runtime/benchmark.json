@@ -1,0 +1,1679 @@
+{
+  "recorded_at": "2026-10-20T02:33:31.001237+00:00",
+  "hardware": {
+    "system": "Darwin",
+    "release": "27.0.0",
+    "architecture": "arm64",
+    "python": "3.14.3",
+    "logical_cpus": 10,
+    "cpu": "Apple M4",
+    "physical_cpus": 10,
+    "memory_bytes": 17179869184
+  },
+  "binary_sha256": "7f5fe871eed8c6140c11ba54774d05b22da38f8c535efb4587c0e7a2f590163e",
+  "samples_per_phase": 7,
+  "models": {
+    "revolution": "revolution/stepped.model.json",
+    "tapered_ring": "revolution/tapered_ring.model.json",
+    "concave_sweep": "straight-sweep/concave.model.json",
+    "curved_intersection": "coaxial-intersection/conical_ring.model.json",
+    "blind_cut": "coaxial-booleans/blind_cut.model.json",
+    "stepped_union": "coaxial-booleans/stepped_union.model.json",
+    "nested_cut": "coaxial-booleans/nested.model.json"
+  },
+  "results": [
+    {
+      "case": "revolution",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "revolution",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            5.196250043809414,
+            4.4839580077677965,
+            3.706042072735727,
+            3.3297919435426593,
+            3.5119589883834124,
+            3.610708983615041,
+            3.202041028998792
+          ],
+          "wall_median_ms": 3.610708983615041,
+          "wall_min_ms": 3.202041028998792,
+          "wall_max_ms": 5.196250043809414,
+          "native_batch_cpu_ms": 21.351,
+          "native_cpu_ms_per_call_including_warmup": 2.668875,
+          "host_batch_cpu_ms": 9.489999999999998,
+          "peak_native_rss_bytes": 3276800,
+          "reply_sha256": "e04c20ecf53def7599b72c13ce6ef76a02b193bb6d4852edc99577659f9e0605",
+          "request_sha256": "b07efc2ebbfc9b1bf570430cc8c2eff895867361fb0e3a482dc18aff5b15d7c0",
+          "response_bytes": 1184
+        },
+        "worker": {
+          "case": "revolution",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.2299170009791851,
+            0.18445798195898533,
+            0.1764589687809348,
+            0.18224993254989386,
+            0.17250003293156624,
+            0.19170797895640135,
+            0.2009579911828041
+          ],
+          "wall_median_ms": 0.18445798195898533,
+          "wall_min_ms": 0.17250003293156624,
+          "wall_max_ms": 0.2299170009791851,
+          "native_batch_cpu_ms": 2.897,
+          "native_cpu_ms_per_call_including_warmup": 0.362125,
+          "host_batch_cpu_ms": 1.8149999999999902,
+          "peak_native_rss_bytes": 3538944,
+          "reply_sha256": "e04c20ecf53def7599b72c13ce6ef76a02b193bb6d4852edc99577659f9e0605",
+          "request_sha256": "b07efc2ebbfc9b1bf570430cc8c2eff895867361fb0e3a482dc18aff5b15d7c0",
+          "response_bytes": 1183
+        }
+      }
+    },
+    {
+      "case": "revolution",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "revolution",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.9699590737000108,
+            0.9770840406417847,
+            0.8771669818088412,
+            0.8466670988127589,
+            0.8642920292913914,
+            0.8162499871104956,
+            0.9559170575812459
+          ],
+          "wall_median_ms": 0.8771669818088412,
+          "wall_min_ms": 0.8162499871104956,
+          "wall_max_ms": 0.9770840406417847,
+          "native_batch_cpu_ms": 5.492,
+          "native_cpu_ms_per_call_including_warmup": 0.6865,
+          "host_batch_cpu_ms": 8.843000000000004,
+          "peak_native_rss_bytes": 4849664,
+          "reply_sha256": "c474d6a9d4b7dbeb4575bf1bb1f3a8cf8ee225f1e0e1f01e958c90510848cd98",
+          "request_sha256": "5548721ba0f90760c2cc7cd326dbb879783eec614ec68577a38247fae20e3486",
+          "response_bytes": 79655
+        },
+        "fresh": {
+          "case": "revolution",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.1339579727500677,
+            3.1610840233042836,
+            2.914584008976817,
+            2.9034590115770698,
+            3.171375021338463,
+            3.0488340416923165,
+            2.7792080072686076
+          ],
+          "wall_median_ms": 3.0488340416923165,
+          "wall_min_ms": 2.7792080072686076,
+          "wall_max_ms": 3.171375021338463,
+          "native_batch_cpu_ms": 16.605,
+          "native_cpu_ms_per_call_including_warmup": 2.075625,
+          "host_batch_cpu_ms": 11.358999999999995,
+          "peak_native_rss_bytes": 4243456,
+          "reply_sha256": "c474d6a9d4b7dbeb4575bf1bb1f3a8cf8ee225f1e0e1f01e958c90510848cd98",
+          "request_sha256": "5548721ba0f90760c2cc7cd326dbb879783eec614ec68577a38247fae20e3486",
+          "response_bytes": 79656
+        }
+      }
+    },
+    {
+      "case": "revolution",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "revolution",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.777916961349547,
+            3.0244580702856183,
+            2.68958299420774,
+            2.998957992531359,
+            2.946708002127707,
+            2.6755420258268714,
+            2.6661669835448265
+          ],
+          "wall_median_ms": 2.777916961349547,
+          "wall_min_ms": 2.6661669835448265,
+          "wall_max_ms": 3.0244580702856183,
+          "native_batch_cpu_ms": 15.687,
+          "native_cpu_ms_per_call_including_warmup": 1.960875,
+          "host_batch_cpu_ms": 5.734999999999997,
+          "peak_native_rss_bytes": 3702784,
+          "reply_sha256": "0d95dcf3ff5d56a3a8e08308223457c4bfbeed9344b0261f78f38d9f31c9223d",
+          "request_sha256": "a3a9ba48b38850d35d9ad56f45527220a5a68138d8f5e98aafd6f1573c823aad",
+          "response_bytes": 5668
+        },
+        "worker": {
+          "case": "revolution",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.8203330216929317,
+            0.6935000419616699,
+            0.6802090210840106,
+            0.6608749972656369,
+            0.6402500439435244,
+            0.6796660600230098,
+            0.6651249714195728
+          ],
+          "wall_median_ms": 0.6796660600230098,
+          "wall_min_ms": 0.6402500439435244,
+          "wall_max_ms": 0.8203330216929317,
+          "native_batch_cpu_ms": 6.402,
+          "native_cpu_ms_per_call_including_warmup": 0.80025,
+          "host_batch_cpu_ms": 1.915,
+          "peak_native_rss_bytes": 4243456,
+          "reply_sha256": "0d95dcf3ff5d56a3a8e08308223457c4bfbeed9344b0261f78f38d9f31c9223d",
+          "request_sha256": "a3a9ba48b38850d35d9ad56f45527220a5a68138d8f5e98aafd6f1573c823aad",
+          "response_bytes": 5667
+        }
+      }
+    },
+    {
+      "case": "revolution",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "revolution",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.3802919527515769,
+            0.31162495724856853,
+            0.39599998854100704,
+            0.2911669434979558,
+            0.27837499510496855,
+            0.2864999696612358,
+            0.2848749281838536
+          ],
+          "wall_median_ms": 0.2911669434979558,
+          "wall_min_ms": 0.27837499510496855,
+          "wall_max_ms": 0.39599998854100704,
+          "native_batch_cpu_ms": 3.904,
+          "native_cpu_ms_per_call_including_warmup": 0.488,
+          "host_batch_cpu_ms": 1.3649999999999982,
+          "peak_native_rss_bytes": 3571712,
+          "reply_sha256": "7e115c5af3212e307242e2137761775b39b6534916ef9c16da27a4709fb77934",
+          "request_sha256": "a3a9ba48b38850d35d9ad56f45527220a5a68138d8f5e98aafd6f1573c823aad",
+          "response_bytes": 255
+        },
+        "fresh": {
+          "case": "revolution",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.5178330251947045,
+            2.5722499703988433,
+            2.3922090185806155,
+            2.307124901562929,
+            2.5137090124189854,
+            2.373916911892593,
+            2.705916063860059
+          ],
+          "wall_median_ms": 2.5137090124189854,
+          "wall_min_ms": 2.307124901562929,
+          "wall_max_ms": 2.705916063860059,
+          "native_batch_cpu_ms": 13.145999999999997,
+          "native_cpu_ms_per_call_including_warmup": 1.6432499999999997,
+          "host_batch_cpu_ms": 5.413999999999995,
+          "peak_native_rss_bytes": 3325952,
+          "reply_sha256": "7e115c5af3212e307242e2137761775b39b6534916ef9c16da27a4709fb77934",
+          "request_sha256": "a3a9ba48b38850d35d9ad56f45527220a5a68138d8f5e98aafd6f1573c823aad",
+          "response_bytes": 256
+        }
+      }
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "tapered_ring",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.492333995178342,
+            2.521833055652678,
+            2.2609999869018793,
+            2.1713749738410115,
+            2.3985840380191803,
+            2.4128330405801535,
+            2.5011670077219605
+          ],
+          "wall_median_ms": 2.4128330405801535,
+          "wall_min_ms": 2.1713749738410115,
+          "wall_max_ms": 2.521833055652678,
+          "native_batch_cpu_ms": 11.841999999999999,
+          "native_cpu_ms_per_call_including_warmup": 1.4802499999999998,
+          "host_batch_cpu_ms": 5.576999999999998,
+          "peak_native_rss_bytes": 3260416,
+          "reply_sha256": "7314f98d8b4dbe65b0d8a1593f7b220a6bd84a5af5884cf531b0bc8bedd06687",
+          "request_sha256": "d83c2329aec3118c0cc837545a9462c3946b893c1543067e2f05f7a377636eaa",
+          "response_bytes": 996
+        },
+        "worker": {
+          "case": "tapered_ring",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.1824169885367155,
+            0.1384160714223981,
+            0.11700007598847151,
+            0.11666701175272465,
+            0.09941705502569675,
+            0.10291696526110172,
+            0.08574989624321461
+          ],
+          "wall_median_ms": 0.11666701175272465,
+          "wall_min_ms": 0.08574989624321461,
+          "wall_max_ms": 0.1824169885367155,
+          "native_batch_cpu_ms": 2.3169999999999997,
+          "native_cpu_ms_per_call_including_warmup": 0.28962499999999997,
+          "host_batch_cpu_ms": 1.5070000000000014,
+          "peak_native_rss_bytes": 3407872,
+          "reply_sha256": "7314f98d8b4dbe65b0d8a1593f7b220a6bd84a5af5884cf531b0bc8bedd06687",
+          "request_sha256": "d83c2329aec3118c0cc837545a9462c3946b893c1543067e2f05f7a377636eaa",
+          "response_bytes": 995
+        }
+      }
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "tapered_ring",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.9924580808728933,
+            0.8430830202996731,
+            0.7642500568181276,
+            0.7724170573055744,
+            0.7485419046133757,
+            0.7476250175386667,
+            0.840791966766119
+          ],
+          "wall_median_ms": 0.7724170573055744,
+          "wall_min_ms": 0.7476250175386667,
+          "wall_max_ms": 0.9924580808728933,
+          "native_batch_cpu_ms": 5.058,
+          "native_cpu_ms_per_call_including_warmup": 0.63225,
+          "host_batch_cpu_ms": 8.641000000000004,
+          "peak_native_rss_bytes": 4833280,
+          "reply_sha256": "9acf6ed281c53022c9d73cc11c098fa6734ec731b0102fea7f04e71db1bf93f9",
+          "request_sha256": "5e25d4e5e0fcfadb949942f1f153b2792cf66d16fa7b46f9423bf588498e9e59",
+          "response_bytes": 80228
+        },
+        "fresh": {
+          "case": "tapered_ring",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.147791954688728,
+            3.1789999920874834,
+            2.97129200771451,
+            3.181666019372642,
+            3.1144169624894857,
+            3.1726249726489186,
+            2.812249935232103
+          ],
+          "wall_median_ms": 3.147791954688728,
+          "wall_min_ms": 2.812249935232103,
+          "wall_max_ms": 3.181666019372642,
+          "native_batch_cpu_ms": 17.126999999999995,
+          "native_cpu_ms_per_call_including_warmup": 2.1408749999999994,
+          "host_batch_cpu_ms": 11.546000000000001,
+          "peak_native_rss_bytes": 4227072,
+          "reply_sha256": "9acf6ed281c53022c9d73cc11c098fa6734ec731b0102fea7f04e71db1bf93f9",
+          "request_sha256": "5e25d4e5e0fcfadb949942f1f153b2792cf66d16fa7b46f9423bf588498e9e59",
+          "response_bytes": 80229
+        }
+      }
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "tapered_ring",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.891667070798576,
+            3.229083027690649,
+            2.9323339695110917,
+            2.7070000069215894,
+            2.7049999916926026,
+            2.679541939869523,
+            2.99520802218467
+          ],
+          "wall_median_ms": 2.891667070798576,
+          "wall_min_ms": 2.679541939869523,
+          "wall_max_ms": 3.229083027690649,
+          "native_batch_cpu_ms": 16.174999999999997,
+          "native_cpu_ms_per_call_including_warmup": 2.0218749999999996,
+          "host_batch_cpu_ms": 5.691000000000002,
+          "peak_native_rss_bytes": 3719168,
+          "reply_sha256": "928f5e57ea3fece5988613df262de7d7a9ca12fa8b9d23ca2b53cbb59314ef67",
+          "request_sha256": "a4320addb6f5d75b9df9f65904fbfbf51969f3e1691af0a6ecd7443410a298e9",
+          "response_bytes": 5515
+        },
+        "worker": {
+          "case": "tapered_ring",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.7517499616369605,
+            0.6825000746175647,
+            0.6353749195113778,
+            0.6435830146074295,
+            0.617082929238677,
+            0.6039160070940852,
+            0.5840410012751818
+          ],
+          "wall_median_ms": 0.6353749195113778,
+          "wall_min_ms": 0.5840410012751818,
+          "wall_max_ms": 0.7517499616369605,
+          "native_batch_cpu_ms": 6.430999999999999,
+          "native_cpu_ms_per_call_including_warmup": 0.8038749999999999,
+          "host_batch_cpu_ms": 1.9419999999999993,
+          "peak_native_rss_bytes": 4259840,
+          "reply_sha256": "928f5e57ea3fece5988613df262de7d7a9ca12fa8b9d23ca2b53cbb59314ef67",
+          "request_sha256": "a4320addb6f5d75b9df9f65904fbfbf51969f3e1691af0a6ecd7443410a298e9",
+          "response_bytes": 5514
+        }
+      }
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "tapered_ring",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.28012506663799286,
+            0.21837500389665365,
+            0.20554091315716505,
+            0.21170801483094692,
+            0.20820798818022013,
+            0.22033392451703548,
+            0.20062504336237907
+          ],
+          "wall_median_ms": 0.21170801483094692,
+          "wall_min_ms": 0.20062504336237907,
+          "wall_max_ms": 0.28012506663799286,
+          "native_batch_cpu_ms": 3.212,
+          "native_cpu_ms_per_call_including_warmup": 0.4015,
+          "host_batch_cpu_ms": 1.1880000000000015,
+          "peak_native_rss_bytes": 3522560,
+          "reply_sha256": "57f4a1a603e2f91a3b444e3d9078713d0006630a3662b5524ae69c9bf6cdbdc2",
+          "request_sha256": "a4320addb6f5d75b9df9f65904fbfbf51969f3e1691af0a6ecd7443410a298e9",
+          "response_bytes": 256
+        },
+        "fresh": {
+          "case": "tapered_ring",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.8867078945040703,
+            2.937625045888126,
+            3.570958971977234,
+            3.2044590916484594,
+            2.7721249498426914,
+            2.543458016589284,
+            2.533665974624455
+          ],
+          "wall_median_ms": 2.8867078945040703,
+          "wall_min_ms": 2.533665974624455,
+          "wall_max_ms": 3.570958971977234,
+          "native_batch_cpu_ms": 15.025,
+          "native_cpu_ms_per_call_including_warmup": 1.878125,
+          "host_batch_cpu_ms": 6.723,
+          "peak_native_rss_bytes": 3325952,
+          "reply_sha256": "57f4a1a603e2f91a3b444e3d9078713d0006630a3662b5524ae69c9bf6cdbdc2",
+          "request_sha256": "a4320addb6f5d75b9df9f65904fbfbf51969f3e1691af0a6ecd7443410a298e9",
+          "response_bytes": 257
+        }
+      }
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "concave_sweep",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            8.68424994405359,
+            8.427791064605117,
+            8.110041031613946,
+            8.35737504530698,
+            8.221124997362494,
+            8.628624957054853,
+            8.163042017258704
+          ],
+          "wall_median_ms": 8.35737504530698,
+          "wall_min_ms": 8.110041031613946,
+          "wall_max_ms": 8.68424994405359,
+          "native_batch_cpu_ms": 59.917,
+          "native_cpu_ms_per_call_including_warmup": 7.489625,
+          "host_batch_cpu_ms": 6.0960000000000045,
+          "peak_native_rss_bytes": 4456448,
+          "reply_sha256": "e269f4f1016e08a54d3a668f1d9837ce71e48afa943beaf1faf2927a6aa10ceb",
+          "request_sha256": "fb9b6e1e7df0b7ef0528154de3a281abccd4c5a82fc688d8b3d49e7cc9e32ea4",
+          "response_bytes": 3258
+        },
+        "worker": {
+          "case": "concave_sweep",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            5.974499974399805,
+            6.06241705827415,
+            5.943833966739476,
+            5.909667001105845,
+            5.962874973192811,
+            5.980583024211228,
+            5.845875013619661
+          ],
+          "wall_median_ms": 5.962874973192811,
+          "wall_min_ms": 5.845875013619661,
+          "wall_max_ms": 6.06241705827415,
+          "native_batch_cpu_ms": 48.520999999999994,
+          "native_cpu_ms_per_call_including_warmup": 6.065124999999999,
+          "host_batch_cpu_ms": 1.8190000000000013,
+          "peak_native_rss_bytes": 4882432,
+          "reply_sha256": "e269f4f1016e08a54d3a668f1d9837ce71e48afa943beaf1faf2927a6aa10ceb",
+          "request_sha256": "fb9b6e1e7df0b7ef0528154de3a281abccd4c5a82fc688d8b3d49e7cc9e32ea4",
+          "response_bytes": 3257
+        }
+      }
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "concave_sweep",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            6.0951251070946455,
+            6.020625005476177,
+            6.030083051882684,
+            6.145833060145378,
+            5.959832924418151,
+            5.816665943711996,
+            6.026457995176315
+          ],
+          "wall_median_ms": 6.026457995176315,
+          "wall_min_ms": 5.816665943711996,
+          "wall_max_ms": 6.145833060145378,
+          "native_batch_cpu_ms": 49.31699999999999,
+          "native_cpu_ms_per_call_including_warmup": 6.164624999999999,
+          "host_batch_cpu_ms": 1.6439999999999997,
+          "peak_native_rss_bytes": 4833280,
+          "reply_sha256": "e1eaf102cf946d85d5c8493cf78e976fa26687d8eb1e1a976e7239fe8e445085",
+          "request_sha256": "6598404d7a60935c00377d6d46400e24e169d945acc88d896d240619695985ef",
+          "response_bytes": 944
+        },
+        "fresh": {
+          "case": "concave_sweep",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            8.807624923065305,
+            8.415624964982271,
+            8.781875018030405,
+            8.718208060599864,
+            8.35287501104176,
+            8.423582999967039,
+            8.69029201567173
+          ],
+          "wall_median_ms": 8.69029201567173,
+          "wall_min_ms": 8.35287501104176,
+          "wall_max_ms": 8.807624923065305,
+          "native_batch_cpu_ms": 60.95099999999999,
+          "native_cpu_ms_per_call_including_warmup": 7.618874999999999,
+          "host_batch_cpu_ms": 6.3460000000000045,
+          "peak_native_rss_bytes": 4440064,
+          "reply_sha256": "e1eaf102cf946d85d5c8493cf78e976fa26687d8eb1e1a976e7239fe8e445085",
+          "request_sha256": "6598404d7a60935c00377d6d46400e24e169d945acc88d896d240619695985ef",
+          "response_bytes": 945
+        }
+      }
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "concave_sweep",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            8.723124978132546,
+            8.75062495470047,
+            8.762374985963106,
+            8.710167021490633,
+            8.77387507352978,
+            8.355083991773427,
+            8.371416013687849
+          ],
+          "wall_median_ms": 8.723124978132546,
+          "wall_min_ms": 8.355083991773427,
+          "wall_max_ms": 8.77387507352978,
+          "native_batch_cpu_ms": 61.457,
+          "native_cpu_ms_per_call_including_warmup": 7.682125,
+          "host_batch_cpu_ms": 6.173999999999999,
+          "peak_native_rss_bytes": 4538368,
+          "reply_sha256": "d4ddf01101a51d8482571246c0d272aa1bea363945fdc8c1d5c7183318359d7d",
+          "request_sha256": "c32c663cbf355e36fed76de8e91b85fe64ecd4d02b0c925626a11c52af718418",
+          "response_bytes": 3438
+        },
+        "worker": {
+          "case": "concave_sweep",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            6.170000066049397,
+            6.19374995585531,
+            6.079624989069998,
+            6.01862499024719,
+            6.165834027342498,
+            6.131165893748403,
+            6.026625051163137
+          ],
+          "wall_median_ms": 6.131165893748403,
+          "wall_min_ms": 6.01862499024719,
+          "wall_max_ms": 6.19374995585531,
+          "native_batch_cpu_ms": 50.15,
+          "native_cpu_ms_per_call_including_warmup": 6.26875,
+          "host_batch_cpu_ms": 2.0080000000000027,
+          "peak_native_rss_bytes": 4947968,
+          "reply_sha256": "d4ddf01101a51d8482571246c0d272aa1bea363945fdc8c1d5c7183318359d7d",
+          "request_sha256": "c32c663cbf355e36fed76de8e91b85fe64ecd4d02b0c925626a11c52af718418",
+          "response_bytes": 3437
+        }
+      }
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "concave_sweep",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            6.482957978732884,
+            6.557416985742748,
+            6.519500049762428,
+            6.314874975942075,
+            6.351500051096082,
+            6.434874958358705,
+            6.47095893509686
+          ],
+          "wall_median_ms": 6.47095893509686,
+          "wall_min_ms": 6.314874975942075,
+          "wall_max_ms": 6.557416985742748,
+          "native_batch_cpu_ms": 52.682,
+          "native_cpu_ms_per_call_including_warmup": 6.58525,
+          "host_batch_cpu_ms": 1.686999999999994,
+          "peak_native_rss_bytes": 4833280,
+          "reply_sha256": "a0ac080d417763fd5887a9a263b1aea53c0c471b74edd31ea9321a70cce765ab",
+          "request_sha256": "c32c663cbf355e36fed76de8e91b85fe64ecd4d02b0c925626a11c52af718418",
+          "response_bytes": 239
+        },
+        "fresh": {
+          "case": "concave_sweep",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            8.82708397693932,
+            8.453582995571196,
+            8.824541000649333,
+            8.640666026622057,
+            9.302624966949224,
+            9.359042043797672,
+            9.04712500050664
+          ],
+          "wall_median_ms": 8.82708397693932,
+          "wall_min_ms": 8.453582995571196,
+          "wall_max_ms": 9.359042043797672,
+          "native_batch_cpu_ms": 63.64099999999999,
+          "native_cpu_ms_per_call_including_warmup": 7.955124999999999,
+          "host_batch_cpu_ms": 5.9490000000000025,
+          "peak_native_rss_bytes": 4472832,
+          "reply_sha256": "a0ac080d417763fd5887a9a263b1aea53c0c471b74edd31ea9321a70cce765ab",
+          "request_sha256": "c32c663cbf355e36fed76de8e91b85fe64ecd4d02b0c925626a11c52af718418",
+          "response_bytes": 240
+        }
+      }
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "curved_intersection",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.908625057898462,
+            2.628499991260469,
+            2.403917023912072,
+            2.3730419343337417,
+            2.289916970767081,
+            2.7574999257922173,
+            2.742583048529923
+          ],
+          "wall_median_ms": 2.628499991260469,
+          "wall_min_ms": 2.289916970767081,
+          "wall_max_ms": 2.908625057898462,
+          "native_batch_cpu_ms": 13.361999999999998,
+          "native_cpu_ms_per_call_including_warmup": 1.6702499999999998,
+          "host_batch_cpu_ms": 5.964999999999998,
+          "peak_native_rss_bytes": 3407872,
+          "reply_sha256": "ec0d6a963ad8d9ad11e55d13b75dbc18ebaaf3c865de557958636926ebe5a252",
+          "request_sha256": "6b09b1fa1029da9a358cad11a6fc8d93fca0e4b3b65d3c2a94627a44b7d84049",
+          "response_bytes": 1465
+        },
+        "worker": {
+          "case": "curved_intersection",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.35279104486107826,
+            0.292167067527771,
+            0.28070900589227676,
+            0.26587501633912325,
+            0.26875000912696123,
+            0.253083067946136,
+            0.24729198776185513
+          ],
+          "wall_median_ms": 0.26875000912696123,
+          "wall_min_ms": 0.24729198776185513,
+          "wall_max_ms": 0.35279104486107826,
+          "native_batch_cpu_ms": 3.432,
+          "native_cpu_ms_per_call_including_warmup": 0.429,
+          "host_batch_cpu_ms": 1.3639999999999972,
+          "peak_native_rss_bytes": 3768320,
+          "reply_sha256": "ec0d6a963ad8d9ad11e55d13b75dbc18ebaaf3c865de557958636926ebe5a252",
+          "request_sha256": "6b09b1fa1029da9a358cad11a6fc8d93fca0e4b3b65d3c2a94627a44b7d84049",
+          "response_bytes": 1464
+        }
+      }
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "curved_intersection",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            2.002333989366889,
+            1.3020000187680125,
+            1.4002909883856773,
+            1.4030840247869492,
+            1.3429999817162752,
+            1.3469579862430692,
+            1.2964579509571195
+          ],
+          "wall_median_ms": 1.3469579862430692,
+          "wall_min_ms": 1.2964579509571195,
+          "wall_max_ms": 2.002333989366889,
+          "native_batch_cpu_ms": 8.301,
+          "native_cpu_ms_per_call_including_warmup": 1.037625,
+          "host_batch_cpu_ms": 10.546,
+          "peak_native_rss_bytes": 5111808,
+          "reply_sha256": "67e696f77f86f4dcfb8eadb84c3877e8fddd38ef31d86909b835cdce2a93763b",
+          "request_sha256": "be7d8a3af275d70a078a2f3cead755dc75ed8f7526b756d30760ff3c6b3ec9c6",
+          "response_bytes": 92872
+        },
+        "fresh": {
+          "case": "curved_intersection",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.947499906644225,
+            3.2501659588888288,
+            3.4376659896224737,
+            3.9016250520944595,
+            3.650124999694526,
+            2.9835000168532133,
+            3.097167005762458
+          ],
+          "wall_median_ms": 3.4376659896224737,
+          "wall_min_ms": 2.9835000168532133,
+          "wall_max_ms": 3.947499906644225,
+          "native_batch_cpu_ms": 19.985999999999997,
+          "native_cpu_ms_per_call_including_warmup": 2.4982499999999996,
+          "host_batch_cpu_ms": 12.574999999999996,
+          "peak_native_rss_bytes": 4603904,
+          "reply_sha256": "67e696f77f86f4dcfb8eadb84c3877e8fddd38ef31d86909b835cdce2a93763b",
+          "request_sha256": "be7d8a3af275d70a078a2f3cead755dc75ed8f7526b756d30760ff3c6b3ec9c6",
+          "response_bytes": 92873
+        }
+      }
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "curved_intersection",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.539583063684404,
+            3.3403750276193023,
+            3.706707968376577,
+            3.6266660317778587,
+            3.8367920788004994,
+            3.35162493865937,
+            3.4414579859003425
+          ],
+          "wall_median_ms": 3.539583063684404,
+          "wall_min_ms": 3.3403750276193023,
+          "wall_max_ms": 3.8367920788004994,
+          "native_batch_cpu_ms": 20.818999999999996,
+          "native_cpu_ms_per_call_including_warmup": 2.6023749999999994,
+          "host_batch_cpu_ms": 6.233000000000002,
+          "peak_native_rss_bytes": 3850240,
+          "reply_sha256": "8bc59fc3dc2ac9fb6cc21756f49d247a1d1accc182243739738ed9b46ef965b1",
+          "request_sha256": "3d6eed6a5c905a380c2df0a47c4df9ab6b62334575afd25afe434969733f9a0f",
+          "response_bytes": 7104
+        },
+        "worker": {
+          "case": "curved_intersection",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            1.2590410187840462,
+            1.2333330232650042,
+            1.2098749866709113,
+            1.1794579913839698,
+            1.1247919173911214,
+            1.1574169620871544,
+            1.1753749568015337
+          ],
+          "wall_median_ms": 1.1794579913839698,
+          "wall_min_ms": 1.1247919173911214,
+          "wall_max_ms": 1.2590410187840462,
+          "native_batch_cpu_ms": 10.45,
+          "native_cpu_ms_per_call_including_warmup": 1.30625,
+          "host_batch_cpu_ms": 1.9790000000000016,
+          "peak_native_rss_bytes": 4423680,
+          "reply_sha256": "8bc59fc3dc2ac9fb6cc21756f49d247a1d1accc182243739738ed9b46ef965b1",
+          "request_sha256": "3d6eed6a5c905a380c2df0a47c4df9ab6b62334575afd25afe434969733f9a0f",
+          "response_bytes": 7103
+        }
+      }
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "curved_intersection",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.6807909812778234,
+            0.5572920199483633,
+            0.5816660122945905,
+            0.5265410291031003,
+            0.5460840184241533,
+            0.5526249296963215,
+            0.5434589693322778
+          ],
+          "wall_median_ms": 0.5526249296963215,
+          "wall_min_ms": 0.5265410291031003,
+          "wall_max_ms": 0.6807909812778234,
+          "native_batch_cpu_ms": 5.898,
+          "native_cpu_ms_per_call_including_warmup": 0.73725,
+          "host_batch_cpu_ms": 1.3729999999999993,
+          "peak_native_rss_bytes": 3768320,
+          "reply_sha256": "a5060d7506d86492f71717924d9d2f8b258bcd345b31883b4db566717cd119f3",
+          "request_sha256": "3d6eed6a5c905a380c2df0a47c4df9ab6b62334575afd25afe434969733f9a0f",
+          "response_bytes": 292
+        },
+        "fresh": {
+          "case": "curved_intersection",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.3342499518767,
+            2.8065829537808895,
+            2.687875065021217,
+            2.692542038857937,
+            2.716834074817598,
+            2.67520803026855,
+            2.924583968706429
+          ],
+          "wall_median_ms": 2.716834074817598,
+          "wall_min_ms": 2.67520803026855,
+          "wall_max_ms": 3.3342499518767,
+          "native_batch_cpu_ms": 15.732,
+          "native_cpu_ms_per_call_including_warmup": 1.9665,
+          "host_batch_cpu_ms": 5.596999999999998,
+          "peak_native_rss_bytes": 3440640,
+          "reply_sha256": "a5060d7506d86492f71717924d9d2f8b258bcd345b31883b4db566717cd119f3",
+          "request_sha256": "3d6eed6a5c905a380c2df0a47c4df9ab6b62334575afd25afe434969733f9a0f",
+          "response_bytes": 293
+        }
+      }
+    },
+    {
+      "case": "blind_cut",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "blind_cut",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.3909579031169415,
+            2.408375032246113,
+            2.452125074341893,
+            2.6947499718517065,
+            2.4596250150352716,
+            2.372374990954995,
+            2.4047920014709234
+          ],
+          "wall_median_ms": 2.408375032246113,
+          "wall_min_ms": 2.372374990954995,
+          "wall_max_ms": 2.6947499718517065,
+          "native_batch_cpu_ms": 13.468999999999998,
+          "native_cpu_ms_per_call_including_warmup": 1.6836249999999997,
+          "host_batch_cpu_ms": 5.432999999999994,
+          "peak_native_rss_bytes": 3522560,
+          "reply_sha256": "9954b162027052c8b0fcfda8de05c7650b010116120646d16803e838ddf96cf8",
+          "request_sha256": "259980f1a102882ab1218b77e02b6dd2981e972d88b23233dfe0147a61cd6fd6",
+          "response_bytes": 1234
+        },
+        "worker": {
+          "case": "blind_cut",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.42154197581112385,
+            0.3474999684840441,
+            0.3362499410286546,
+            0.3057090798392892,
+            0.292791984975338,
+            0.2769579878076911,
+            0.2724590012803674
+          ],
+          "wall_median_ms": 0.3057090798392892,
+          "wall_min_ms": 0.2724590012803674,
+          "wall_max_ms": 0.42154197581112385,
+          "native_batch_cpu_ms": 3.7889999999999997,
+          "native_cpu_ms_per_call_including_warmup": 0.47362499999999996,
+          "host_batch_cpu_ms": 1.6969999999999972,
+          "peak_native_rss_bytes": 3768320,
+          "reply_sha256": "9954b162027052c8b0fcfda8de05c7650b010116120646d16803e838ddf96cf8",
+          "request_sha256": "259980f1a102882ab1218b77e02b6dd2981e972d88b23233dfe0147a61cd6fd6",
+          "response_bytes": 1233
+        }
+      }
+    },
+    {
+      "case": "blind_cut",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "blind_cut",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            1.2227499391883612,
+            1.1200419394299388,
+            1.0902080684900284,
+            1.0586250573396683,
+            1.0800410527735949,
+            1.0604159906506538,
+            1.1758750770241022
+          ],
+          "wall_median_ms": 1.0902080684900284,
+          "wall_min_ms": 1.0586250573396683,
+          "wall_max_ms": 1.2227499391883612,
+          "native_batch_cpu_ms": 7.494,
+          "native_cpu_ms_per_call_including_warmup": 0.93675,
+          "host_batch_cpu_ms": 8.706000000000005,
+          "peak_native_rss_bytes": 5079040,
+          "reply_sha256": "f19c317f1e3e104bd19b73ddbfb1953ef104f752dfcd4e65c653fb369a0e8b1e",
+          "request_sha256": "82a1710771d5ca25a7d55ac56ef72bf104f88ee1b6b86094c721f6413099a14a",
+          "response_bytes": 73966
+        },
+        "fresh": {
+          "case": "blind_cut",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.08345805387944,
+            3.075040993280709,
+            3.2809580443426967,
+            3.55916703119874,
+            3.2034580362960696,
+            3.0040410347282887,
+            3.202916937880218
+          ],
+          "wall_median_ms": 3.202916937880218,
+          "wall_min_ms": 3.0040410347282887,
+          "wall_max_ms": 3.55916703119874,
+          "native_batch_cpu_ms": 18.503,
+          "native_cpu_ms_per_call_including_warmup": 2.312875,
+          "host_batch_cpu_ms": 10.886,
+          "peak_native_rss_bytes": 4374528,
+          "reply_sha256": "f19c317f1e3e104bd19b73ddbfb1953ef104f752dfcd4e65c653fb369a0e8b1e",
+          "request_sha256": "82a1710771d5ca25a7d55ac56ef72bf104f88ee1b6b86094c721f6413099a14a",
+          "response_bytes": 73967
+        }
+      }
+    },
+    {
+      "case": "blind_cut",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "blind_cut",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.298833966255188,
+            3.3315420150756836,
+            3.4034999553114176,
+            2.832166966982186,
+            3.0840840190649033,
+            3.1419169390574098,
+            3.1661669490858912
+          ],
+          "wall_median_ms": 3.1661669490858912,
+          "wall_min_ms": 2.832166966982186,
+          "wall_max_ms": 3.4034999553114176,
+          "native_batch_cpu_ms": 18.357,
+          "native_cpu_ms_per_call_including_warmup": 2.294625,
+          "host_batch_cpu_ms": 5.886999999999996,
+          "peak_native_rss_bytes": 3866624,
+          "reply_sha256": "8e07777ad1fef6d69d93da2151297181f053e29b0de92b0c3361312c7d704de2",
+          "request_sha256": "5154e128a5596468daa2d997947195f29e42163a31d2ad951367407e0fa6fefd",
+          "response_bytes": 5497
+        },
+        "worker": {
+          "case": "blind_cut",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.9356669615954161,
+            0.8658330189064145,
+            1.0117499623447657,
+            0.828874995931983,
+            0.8840829832479358,
+            0.8149999193847179,
+            0.8290419355034828
+          ],
+          "wall_median_ms": 0.8658330189064145,
+          "wall_min_ms": 0.8149999193847179,
+          "wall_max_ms": 1.0117499623447657,
+          "native_batch_cpu_ms": 8.229999999999999,
+          "native_cpu_ms_per_call_including_warmup": 1.0287499999999998,
+          "host_batch_cpu_ms": 1.8480000000000025,
+          "peak_native_rss_bytes": 4440064,
+          "reply_sha256": "8e07777ad1fef6d69d93da2151297181f053e29b0de92b0c3361312c7d704de2",
+          "request_sha256": "5154e128a5596468daa2d997947195f29e42163a31d2ad951367407e0fa6fefd",
+          "response_bytes": 5496
+        }
+      }
+    },
+    {
+      "case": "blind_cut",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "blind_cut",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.6042500026524067,
+            0.5587920313701034,
+            0.48516702372580767,
+            0.4761660238727927,
+            0.467624980956316,
+            0.46195799950510263,
+            0.4544999683275819
+          ],
+          "wall_median_ms": 0.4761660238727927,
+          "wall_min_ms": 0.4544999683275819,
+          "wall_max_ms": 0.6042500026524067,
+          "native_batch_cpu_ms": 5.242999999999999,
+          "native_cpu_ms_per_call_including_warmup": 0.6553749999999999,
+          "host_batch_cpu_ms": 1.2290000000000079,
+          "peak_native_rss_bytes": 3784704,
+          "reply_sha256": "23be51e145b1bcfdcf88c194bd4003c11d0f71d9b7215fea99a883a12195229d",
+          "request_sha256": "5154e128a5596468daa2d997947195f29e42163a31d2ad951367407e0fa6fefd",
+          "response_bytes": 248
+        },
+        "fresh": {
+          "case": "blind_cut",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.936417004093528,
+            2.6895409682765603,
+            2.539083012379706,
+            2.4268750566989183,
+            2.6101249968633056,
+            2.778082969598472,
+            3.1754589872434735
+          ],
+          "wall_median_ms": 2.6895409682765603,
+          "wall_min_ms": 2.4268750566989183,
+          "wall_max_ms": 3.1754589872434735,
+          "native_batch_cpu_ms": 15.213999999999999,
+          "native_cpu_ms_per_call_including_warmup": 1.9017499999999998,
+          "host_batch_cpu_ms": 5.592999999999994,
+          "peak_native_rss_bytes": 3538944,
+          "reply_sha256": "23be51e145b1bcfdcf88c194bd4003c11d0f71d9b7215fea99a883a12195229d",
+          "request_sha256": "5154e128a5596468daa2d997947195f29e42163a31d2ad951367407e0fa6fefd",
+          "response_bytes": 249
+        }
+      }
+    },
+    {
+      "case": "stepped_union",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "stepped_union",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.7520409785211086,
+            2.7068749768659472,
+            2.7027500327676535,
+            2.50925007276237,
+            2.5492910062894225,
+            2.895291894674301,
+            3.1940420158207417
+          ],
+          "wall_median_ms": 2.7068749768659472,
+          "wall_min_ms": 2.50925007276237,
+          "wall_max_ms": 3.1940420158207417,
+          "native_batch_cpu_ms": 14.755999999999998,
+          "native_cpu_ms_per_call_including_warmup": 1.8444999999999998,
+          "host_batch_cpu_ms": 5.693999999999997,
+          "peak_native_rss_bytes": 3522560,
+          "reply_sha256": "96d290d98f117d35b4e484635b163aeb01f60f04d980ed7bc9267c6054edb10a",
+          "request_sha256": "8067f22cc17f611c95e1afa59f4ef58aa49f7c4dbec27bd2abe8a0c36d510787",
+          "response_bytes": 1630
+        },
+        "worker": {
+          "case": "stepped_union",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.5147079937160015,
+            0.4581250250339508,
+            0.42866705916821957,
+            0.42629195377230644,
+            0.4295830149203539,
+            0.50783297047019,
+            0.43054192792624235
+          ],
+          "wall_median_ms": 0.43054192792624235,
+          "wall_min_ms": 0.42629195377230644,
+          "wall_max_ms": 0.5147079937160015,
+          "native_batch_cpu_ms": 4.742999999999999,
+          "native_cpu_ms_per_call_including_warmup": 0.5928749999999999,
+          "host_batch_cpu_ms": 1.6139999999999974,
+          "peak_native_rss_bytes": 3866624,
+          "reply_sha256": "96d290d98f117d35b4e484635b163aeb01f60f04d980ed7bc9267c6054edb10a",
+          "request_sha256": "8067f22cc17f611c95e1afa59f4ef58aa49f7c4dbec27bd2abe8a0c36d510787",
+          "response_bytes": 1629
+        }
+      }
+    },
+    {
+      "case": "stepped_union",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "stepped_union",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            1.3227500021457672,
+            1.3210419565439224,
+            1.2282499810680747,
+            1.1963329743593931,
+            1.2095409911125898,
+            1.2290000449866056,
+            1.414917060174048
+          ],
+          "wall_median_ms": 1.2290000449866056,
+          "wall_min_ms": 1.1963329743593931,
+          "wall_max_ms": 1.414917060174048,
+          "native_batch_cpu_ms": 8.326,
+          "native_cpu_ms_per_call_including_warmup": 1.04075,
+          "host_batch_cpu_ms": 8.980000000000002,
+          "peak_native_rss_bytes": 5144576,
+          "reply_sha256": "b6411309a37bb97b298464ea7ea099951bd2aab866c5d41b936022c3b27b4618",
+          "request_sha256": "fdf97a7d9094bb92d800600b345ce06b2a957871c1a238aebd12d3459f22295d",
+          "response_bytes": 73767
+        },
+        "fresh": {
+          "case": "stepped_union",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.2743329647928476,
+            3.609708044677973,
+            3.6140420706942677,
+            3.191916970536113,
+            3.268208005465567,
+            3.4341251011937857,
+            3.1707079615443945
+          ],
+          "wall_median_ms": 3.2743329647928476,
+          "wall_min_ms": 3.1707079615443945,
+          "wall_max_ms": 3.6140420706942677,
+          "native_batch_cpu_ms": 19.660999999999998,
+          "native_cpu_ms_per_call_including_warmup": 2.4576249999999997,
+          "host_batch_cpu_ms": 11.485999999999997,
+          "peak_native_rss_bytes": 4423680,
+          "reply_sha256": "b6411309a37bb97b298464ea7ea099951bd2aab866c5d41b936022c3b27b4618",
+          "request_sha256": "fdf97a7d9094bb92d800600b345ce06b2a957871c1a238aebd12d3459f22295d",
+          "response_bytes": 73768
+        }
+      }
+    },
+    {
+      "case": "stepped_union",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "stepped_union",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.48229194059968,
+            3.6862919805571437,
+            3.316291025839746,
+            3.3157080179080367,
+            3.1524159712716937,
+            3.3692909637466073,
+            3.514166921377182
+          ],
+          "wall_median_ms": 3.3692909637466073,
+          "wall_min_ms": 3.1524159712716937,
+          "wall_max_ms": 3.6862919805571437,
+          "native_batch_cpu_ms": 19.557,
+          "native_cpu_ms_per_call_including_warmup": 2.444625,
+          "host_batch_cpu_ms": 6.107999999999995,
+          "peak_native_rss_bytes": 3883008,
+          "reply_sha256": "e32f489abcf00cbf0400c2fafffe3dfe9a7243c5c2c69c527d8b7d385a55497f",
+          "request_sha256": "91ec0457d234ac2503e7242747f1072847a5bb87d133dcc546372d18377a07fb",
+          "response_bytes": 5490
+        },
+        "worker": {
+          "case": "stepped_union",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            1.0578749934211373,
+            0.9614999871701002,
+            0.968333100900054,
+            0.9522079490125179,
+            0.9724589763209224,
+            1.0597079526633024,
+            0.9791250340640545
+          ],
+          "wall_median_ms": 0.9724589763209224,
+          "wall_min_ms": 0.9522079490125179,
+          "wall_max_ms": 1.0597079526633024,
+          "native_batch_cpu_ms": 9.054,
+          "native_cpu_ms_per_call_including_warmup": 1.13175,
+          "host_batch_cpu_ms": 1.9590000000000023,
+          "peak_native_rss_bytes": 4489216,
+          "reply_sha256": "e32f489abcf00cbf0400c2fafffe3dfe9a7243c5c2c69c527d8b7d385a55497f",
+          "request_sha256": "91ec0457d234ac2503e7242747f1072847a5bb87d133dcc546372d18377a07fb",
+          "response_bytes": 5489
+        }
+      }
+    },
+    {
+      "case": "stepped_union",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "stepped_union",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.7240830454975367,
+            0.613790936768055,
+            0.5947919562458992,
+            0.5827499553561211,
+            0.571209006011486,
+            0.5900829564779997,
+            0.5764160305261612
+          ],
+          "wall_median_ms": 0.5900829564779997,
+          "wall_min_ms": 0.571209006011486,
+          "wall_max_ms": 0.7240830454975367,
+          "native_batch_cpu_ms": 6.104,
+          "native_cpu_ms_per_call_including_warmup": 0.763,
+          "host_batch_cpu_ms": 1.2790000000000024,
+          "peak_native_rss_bytes": 3883008,
+          "reply_sha256": "f3a38bb9231844a7317859f128f305b1dd223263024e68baa162b9ed249a144b",
+          "request_sha256": "91ec0457d234ac2503e7242747f1072847a5bb87d133dcc546372d18377a07fb",
+          "response_bytes": 252
+        },
+        "fresh": {
+          "case": "stepped_union",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.7539170114323497,
+            2.565208007581532,
+            2.8077909955754876,
+            2.644916996359825,
+            2.8750840574502945,
+            2.779959002509713,
+            2.6832500007003546
+          ],
+          "wall_median_ms": 2.7539170114323497,
+          "wall_min_ms": 2.565208007581532,
+          "wall_max_ms": 2.8750840574502945,
+          "native_batch_cpu_ms": 15.616999999999999,
+          "native_cpu_ms_per_call_including_warmup": 1.9521249999999999,
+          "host_batch_cpu_ms": 4.969000000000001,
+          "peak_native_rss_bytes": 3571712,
+          "reply_sha256": "f3a38bb9231844a7317859f128f305b1dd223263024e68baa162b9ed249a144b",
+          "request_sha256": "91ec0457d234ac2503e7242747f1072847a5bb87d133dcc546372d18377a07fb",
+          "response_bytes": 253
+        }
+      }
+    },
+    {
+      "case": "nested_cut",
+      "operation": "evaluate",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "nested_cut",
+          "operation": "evaluate",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.668582950718701,
+            2.734833979047835,
+            2.8337499825283885,
+            2.775791916064918,
+            2.899583079852164,
+            2.766666002571583,
+            2.8201660607010126
+          ],
+          "wall_median_ms": 2.775791916064918,
+          "wall_min_ms": 2.668582950718701,
+          "wall_max_ms": 2.899583079852164,
+          "native_batch_cpu_ms": 15.545,
+          "native_cpu_ms_per_call_including_warmup": 1.943125,
+          "host_batch_cpu_ms": 5.635000000000002,
+          "peak_native_rss_bytes": 3571712,
+          "reply_sha256": "41d763b25efd813890259cbf6b75fb510c17110af380869e396fb28cdb0e52c2",
+          "request_sha256": "078feaa796168488d39f098420baf4f3dc30c940dd86871f544bcb6651088a13",
+          "response_bytes": 1672
+        },
+        "worker": {
+          "case": "nested_cut",
+          "operation": "evaluate",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.74562500230968,
+            0.6790419574826956,
+            0.6140830228105187,
+            0.6107910303398967,
+            0.5822499515488744,
+            0.5779999773949385,
+            0.5672910483554006
+          ],
+          "wall_median_ms": 0.6107910303398967,
+          "wall_min_ms": 0.5672910483554006,
+          "wall_max_ms": 0.74562500230968,
+          "native_batch_cpu_ms": 6.18,
+          "native_cpu_ms_per_call_including_warmup": 0.7725,
+          "host_batch_cpu_ms": 1.5280000000000016,
+          "peak_native_rss_bytes": 3981312,
+          "reply_sha256": "41d763b25efd813890259cbf6b75fb510c17110af380869e396fb28cdb0e52c2",
+          "request_sha256": "078feaa796168488d39f098420baf4f3dc30c940dd86871f544bcb6651088a13",
+          "response_bytes": 1671
+        }
+      }
+    },
+    {
+      "case": "nested_cut",
+      "operation": "mesh",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "nested_cut",
+          "operation": "mesh",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            2.551582991145551,
+            1.9120419165119529,
+            1.8092499813064933,
+            1.8550000386312604,
+            1.8356249202042818,
+            1.784500083886087,
+            1.7995419912040234
+          ],
+          "wall_median_ms": 1.8356249202042818,
+          "wall_min_ms": 1.784500083886087,
+          "wall_max_ms": 2.551582991145551,
+          "native_batch_cpu_ms": 11.687,
+          "native_cpu_ms_per_call_including_warmup": 1.460875,
+          "host_batch_cpu_ms": 11.837999999999994,
+          "peak_native_rss_bytes": 5439488,
+          "reply_sha256": "87528c20429ecfdac0935384ec8c4255298740d952c96b7038a3c3f170606e82",
+          "request_sha256": "53e7125864dc19d3a16988c24fdedfdc8adbfcbe6c11f548495e8e5a8720e6fd",
+          "response_bytes": 111464
+        },
+        "fresh": {
+          "case": "nested_cut",
+          "operation": "mesh",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            4.003125010058284,
+            4.119707969948649,
+            4.337500082328916,
+            3.795166965574026,
+            4.117207950912416,
+            4.4183749705553055,
+            3.6411660257726908
+          ],
+          "wall_median_ms": 4.117207950912416,
+          "wall_min_ms": 3.6411660257726908,
+          "wall_max_ms": 4.4183749705553055,
+          "native_batch_cpu_ms": 24.46,
+          "native_cpu_ms_per_call_including_warmup": 3.0575,
+          "host_batch_cpu_ms": 14.452,
+          "peak_native_rss_bytes": 4866048,
+          "reply_sha256": "87528c20429ecfdac0935384ec8c4255298740d952c96b7038a3c3f170606e82",
+          "request_sha256": "53e7125864dc19d3a16988c24fdedfdc8adbfcbe6c11f548495e8e5a8720e6fd",
+          "response_bytes": 111465
+        }
+      }
+    },
+    {
+      "case": "nested_cut",
+      "operation": "topology",
+      "exact_replies_equal": true,
+      "transports": {
+        "fresh": {
+          "case": "nested_cut",
+          "operation": "topology",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            3.7682090187445283,
+            3.6548329517245293,
+            3.711374942213297,
+            3.642499912530184,
+            3.58608306851238,
+            3.566499915905297,
+            3.8430829299613833
+          ],
+          "wall_median_ms": 3.6548329517245293,
+          "wall_min_ms": 3.566499915905297,
+          "wall_max_ms": 3.8430829299613833,
+          "native_batch_cpu_ms": 22.75,
+          "native_cpu_ms_per_call_including_warmup": 2.84375,
+          "host_batch_cpu_ms": 6.187999999999999,
+          "peak_native_rss_bytes": 4046848,
+          "reply_sha256": "d35328e260ddc78217ebe3766eb22baced84b67d4bb458ff1ba18c9103a12d40",
+          "request_sha256": "24465e1c3ba7182071ac64912ba72d7ea6a1b2f5b2f36676c89787f9d1beba37",
+          "response_bytes": 7893
+        },
+        "worker": {
+          "case": "nested_cut",
+          "operation": "topology",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            1.5088749350979924,
+            1.4647090574726462,
+            1.4540840638801455,
+            1.5501250745728612,
+            1.4322500210255384,
+            1.3926250394433737,
+            1.4472500188276172
+          ],
+          "wall_median_ms": 1.4540840638801455,
+          "wall_min_ms": 1.3926250394433737,
+          "wall_max_ms": 1.5501250745728612,
+          "native_batch_cpu_ms": 12.818999999999999,
+          "native_cpu_ms_per_call_including_warmup": 1.6023749999999999,
+          "host_batch_cpu_ms": 2.159000000000001,
+          "peak_native_rss_bytes": 4653056,
+          "reply_sha256": "d35328e260ddc78217ebe3766eb22baced84b67d4bb458ff1ba18c9103a12d40",
+          "request_sha256": "24465e1c3ba7182071ac64912ba72d7ea6a1b2f5b2f36676c89787f9d1beba37",
+          "response_bytes": 7892
+        }
+      }
+    },
+    {
+      "case": "nested_cut",
+      "operation": "measure",
+      "exact_replies_equal": true,
+      "transports": {
+        "worker": {
+          "case": "nested_cut",
+          "operation": "measure",
+          "transport": "worker",
+          "native_calls_including_warmup": 8,
+          "native_processes": 1,
+          "wall_samples_ms": [
+            0.897333025932312,
+            0.8132909424602985,
+            0.8021669927984476,
+            0.8027920266613364,
+            0.7949159480631351,
+            0.7991669699549675,
+            0.792041071690619
+          ],
+          "wall_median_ms": 0.8021669927984476,
+          "wall_min_ms": 0.792041071690619,
+          "wall_max_ms": 0.897333025932312,
+          "native_batch_cpu_ms": 7.941999999999999,
+          "native_cpu_ms_per_call_including_warmup": 0.9927499999999999,
+          "host_batch_cpu_ms": 1.353,
+          "peak_native_rss_bytes": 4030464,
+          "reply_sha256": "3acc6a94b0ba8fe7615b23d4b0c13df38f86f682eaf6b6df85eef539b5967658",
+          "request_sha256": "24465e1c3ba7182071ac64912ba72d7ea6a1b2f5b2f36676c89787f9d1beba37",
+          "response_bytes": 258
+        },
+        "fresh": {
+          "case": "nested_cut",
+          "operation": "measure",
+          "transport": "fresh",
+          "native_calls_including_warmup": 8,
+          "native_processes": 8,
+          "wall_samples_ms": [
+            2.9932500328868628,
+            2.736584050580859,
+            2.986583043821156,
+            3.1638750806450844,
+            3.148667048662901,
+            3.159749903716147,
+            3.0446670716628432
+          ],
+          "wall_median_ms": 3.0446670716628432,
+          "wall_min_ms": 2.736584050580859,
+          "wall_max_ms": 3.1638750806450844,
+          "native_batch_cpu_ms": 17.643,
+          "native_cpu_ms_per_call_including_warmup": 2.205375,
+          "host_batch_cpu_ms": 5.381000000000004,
+          "peak_native_rss_bytes": 3588096,
+          "reply_sha256": "3acc6a94b0ba8fe7615b23d4b0c13df38f86f682eaf6b6df85eef539b5967658",
+          "request_sha256": "24465e1c3ba7182071ac64912ba72d7ea6a1b2f5b2f36676c89787f9d1beba37",
+          "response_bytes": 259
+        }
+      }
+    }
+  ],
+  "scope": "Single serial native request at a time. Warm wall samples include process/pipe/JSON transport, excluding the driver's response comparison. Native batch CPU includes one warmup plus timed calls and process startup/shutdown; host batch CPU includes comparisons. Child RSS is the maximum native-process high-water mark for that isolated phase, not total host memory or a per-call allocation. No cross-request geometry cache, GPU compute, rendering, export, model inference, concurrency or timing pass threshold."
+}

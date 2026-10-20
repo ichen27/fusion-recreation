@@ -130,7 +130,7 @@ def hardware():
     return result
 
 
-def benchmark(samples, write):
+def benchmark(samples, write, output_dir):
     rows = []
     for index, (case, operation) in enumerate((c, o) for c in CASES for o in MODES):
         pair = {}
@@ -182,11 +182,11 @@ def benchmark(samples, write):
         scope="Single serial native request at a time. Warm wall samples include process/pipe/JSON transport, excluding the driver's response comparison. Native batch CPU includes one warmup plus timed calls and process startup/shutdown; host batch CPU includes comparisons. Child RSS is the maximum native-process high-water mark for that isolated phase, not total host memory or a per-call allocation. No cross-request geometry cache, GPU compute, rendering, export, model inference, concurrency or timing pass threshold.",
     )
     if write:
-        EXAMPLE.mkdir(parents=True, exist_ok=True)
-        (EXAMPLE / "benchmark.json").write_text(json.dumps(report, indent=2) + "\n")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / "benchmark.json").write_text(json.dumps(report, indent=2) + "\n")
         for case in CASES:
             for operation in MODES:
-                (EXAMPLE / f"{case}-{operation}.request.json").write_text(
+                (output_dir / f"{case}-{operation}.request.json").write_text(
                     json.dumps(request(case, operation), indent=2) + "\n"
                 )
     print(f"PASS: {len(rows)} workloads, isolated phases, exact fresh/worker replies")
@@ -196,6 +196,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--samples", type=int, default=7, choices=range(1, 101))
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--output-dir", type=Path, default=EXAMPLE)
     parser.add_argument("--phase", choices=["fresh", "worker"])
     parser.add_argument("--case", choices=list(CASES))
     parser.add_argument("--operation", choices=list(MODES))
@@ -205,4 +206,4 @@ if __name__ == "__main__":
             parser.error("--phase requires --case and --operation")
         print(json.dumps(phase(args.case, args.operation, args.phase, args.samples)))
     else:
-        benchmark(args.samples, args.write)
+        benchmark(args.samples, args.write, args.output_dir)

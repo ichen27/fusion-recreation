@@ -1,4 +1,4 @@
-//! Exact common radial section for coaxial analytic solids with convex sections.
+//! Exact radial-section operations for coaxial analytic solids.
 use crate::{
     error, holes::AnalyticPrism, placement::Placement, profile, revolution, Body, Result, Q,
 };
@@ -200,16 +200,13 @@ fn finish(id: &str, mut points: Vec<Point>, axis: usize, center: [Q; 3]) -> Resu
     Ok(result)
 }
 
-/// Embed radial sections as exact unit prisms, use the original planar cell
-/// Boolean, then extract its single exposed bottom loop. This is construction
-/// geometry, not a display mesh or an external curved modeling fallback.
+/// Combine exact radial sections directly, without temporary 3D construction cells.
 pub(crate) fn boolean(
     id: &str,
     left: &Body,
     right: &Body,
     operation: crate::polyhedral::Operation,
 ) -> Result<AnalyticPrism> {
-    use crate::polyhedral::Solid;
     let a = section(left, false)?;
     let b = section(right, false)?;
     if a.axis != b.axis || a.center != b.center {
@@ -218,50 +215,14 @@ pub(crate) fn boolean(
             "The solids must share exactly the same coordinate axis line",
         ));
     }
-    let solid = |points: Vec<Point>| -> Result<Solid> {
-        let profile = profile::computed_polygon(id, points)?;
-        if profile::is_convex(&profile) {
-            Solid::from_convex(profile::extrude(&profile, &q(1)))
-        } else {
-            Solid::from_profile(&profile, &q(1))
-        }
-    };
-    let material = solid(a.points)?
-        .combine(&solid(b.points)?, operation)
-        .map_err(|mut e| {
-            e.entity = id.into();
-            e
-        })?;
-    let unsupported = || {
-        error("unsupported_coaxial_result", id, "The result needs one connected radial region without interior contour holes, and one connected flat-ended axis edge when touching the axis")
-    };
-    if material.components.len() != 1 {
-        return Err(unsupported());
-    }
-    let mut bottoms = Vec::new();
-    for face in &material.boundary.faces {
-        if value(&face.normal[0])?.is_zero()
-            && value(&face.normal[1])?.is_zero()
-            && value(&face.normal[2])?.is_negative()
-            && value(&face.offset)?.is_zero()
-        {
-            bottoms.push(face);
-        }
-    }
-    if bottoms.len() != 1 || bottoms[0].loops.len() != 1 {
-        return Err(unsupported());
-    }
-    let points = bottoms[0].loops[0]
-        .iter()
-        .map(|u| {
-            let edge = &material.boundary.edges[u.edge];
-            let v = &material.boundary.vertices[edge.vertices[usize::from(!u.forward)]];
-            Ok([value(&v[0])?, value(&v[1])?])
-        })
-        .collect::<Result<Vec<_>>>()?;
+    let points = crate::section_boolean::combine(id, &a.points, &b.points, operation)?;
     finish(id, points, a.axis, a.center).map_err(|e| {
         if e.code == "unsupported_revolution" {
-            unsupported()
+            error(
+                "unsupported_coaxial_result",
+                id,
+                "The result needs one connected flat-ended axis edge when touching the axis",
+            )
         } else {
             e
         }
