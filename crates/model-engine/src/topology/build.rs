@@ -197,6 +197,7 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
             | Feature::Cylinder { .. }
             | Feature::ConicalFrustum { .. }
             | Feature::CoaxialIntersection { .. }
+            | Feature::CoaxialBoolean { .. }
             | Feature::Revolve { .. } => return Ok((f, holes)),
             _ => return Err(fail("Unsupported analytic source")),
         }

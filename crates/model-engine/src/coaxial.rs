@@ -32,7 +32,7 @@ fn normalize(points: &mut [Point]) {
         points.reverse();
     }
 }
-fn section(body: &Body) -> Result<Section> {
+fn section(body: &Body, convex_only: bool) -> Result<Section> {
     let id = &body.feature_id;
     let shape = body.analytic.as_ref().ok_or_else(|| {
         fail(
@@ -95,13 +95,15 @@ fn section(body: &Body) -> Result<Section> {
     // Convexity is about the radius/axial section, not the three-dimensional solid:
     // a rectangular ring section is valid despite its nonconvex solid material.
     let n = points.len();
-    if !(0..n).all(|i| {
-        (0..n).all(|j| {
-            j == i
-                || j == (i + 1) % n
-                || cross(&points[i], &points[(i + 1) % n], &points[j]).is_positive()
+    if convex_only
+        && !(0..n).all(|i| {
+            (0..n).all(|j| {
+                j == i
+                    || j == (i + 1) % n
+                    || cross(&points[i], &points[(i + 1) % n], &points[j]).is_positive()
+            })
         })
-    }) {
+    {
         return Err(fail(id,"Coaxial intersection currently requires convex radial sections; stepped/undercut nonconvex sections are unsupported"));
     }
     Ok(Section {
@@ -130,8 +132,8 @@ fn clean(points: &mut Vec<Point>) {
     }
 }
 pub(crate) fn intersect(id: &str, left: &Body, right: &Body) -> Result<AnalyticPrism> {
-    let a = section(left)?;
-    let b = section(right)?;
+    let a = section(left, true)?;
+    let b = section(right, true)?;
     if a.axis != b.axis || a.center != b.center {
         return Err(fail(id,"The solids must share exactly the same coordinate axis line; offset or crossing axes are unsupported"));
     }
@@ -160,7 +162,11 @@ pub(crate) fn intersect(id: &str, left: &Body, right: &Body) -> Result<AnalyticP
         }
         clean(&mut points);
     }
+    finish(id, points, a.axis, a.center)
+}
+fn finish(id: &str, mut points: Vec<Point>, axis: usize, center: [Q; 3]) -> Result<AnalyticPrism> {
     clean(&mut points);
+    normalize(&mut points);
     if points.len() < 3 {
         return Err(error(
             "empty_solid",
@@ -172,7 +178,7 @@ pub(crate) fn intersect(id: &str, left: &Body, right: &Body) -> Result<AnalyticP
         return Err(error(
             "coaxial_limit",
             id,
-            "Intersection radial section exceeds 32 corners",
+            "Result radial section exceeds 32 corners",
         ));
     }
     let profile = profile::computed_polygon(id, points)?;
@@ -182,14 +188,82 @@ pub(crate) fn intersect(id: &str, left: &Body, right: &Body) -> Result<AnalyticP
             .map(|i| format!("section/edge/{i}"))
             .collect();
     }
-    let axes = match a.axis {
+    let axes = match axis {
         0 => [[0, 0, 1], [0, 1, 0], [-1, 0, 0]],
         1 => [[1, 0, 0], [0, 0, 1], [0, -1, 0]],
         _ => [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
     };
     result.placement = Some(Placement {
         axes,
-        origin: a.center.map(|v| v.to_string()),
+        origin: center.map(|v| v.to_string()),
     });
     Ok(result)
+}
+
+/// Embed radial sections as exact unit prisms, use the original planar cell
+/// Boolean, then extract its single exposed bottom loop. This is construction
+/// geometry, not a display mesh or an external curved modeling fallback.
+pub(crate) fn boolean(
+    id: &str,
+    left: &Body,
+    right: &Body,
+    operation: crate::polyhedral::Operation,
+) -> Result<AnalyticPrism> {
+    use crate::polyhedral::Solid;
+    let a = section(left, false)?;
+    let b = section(right, false)?;
+    if a.axis != b.axis || a.center != b.center {
+        return Err(fail(
+            id,
+            "The solids must share exactly the same coordinate axis line",
+        ));
+    }
+    let solid = |points: Vec<Point>| -> Result<Solid> {
+        let profile = profile::computed_polygon(id, points)?;
+        if profile::is_convex(&profile) {
+            Solid::from_convex(profile::extrude(&profile, &q(1)))
+        } else {
+            Solid::from_profile(&profile, &q(1))
+        }
+    };
+    let material = solid(a.points)?
+        .combine(&solid(b.points)?, operation)
+        .map_err(|mut e| {
+            e.entity = id.into();
+            e
+        })?;
+    let unsupported = || {
+        error("unsupported_coaxial_result", id, "The result needs one connected radial region without interior contour holes, and one connected flat-ended axis edge when touching the axis")
+    };
+    if material.components.len() != 1 {
+        return Err(unsupported());
+    }
+    let mut bottoms = Vec::new();
+    for face in &material.boundary.faces {
+        if value(&face.normal[0])?.is_zero()
+            && value(&face.normal[1])?.is_zero()
+            && value(&face.normal[2])?.is_negative()
+            && value(&face.offset)?.is_zero()
+        {
+            bottoms.push(face);
+        }
+    }
+    if bottoms.len() != 1 || bottoms[0].loops.len() != 1 {
+        return Err(unsupported());
+    }
+    let points = bottoms[0].loops[0]
+        .iter()
+        .map(|u| {
+            let edge = &material.boundary.edges[u.edge];
+            let v = &material.boundary.vertices[edge.vertices[usize::from(!u.forward)]];
+            Ok([value(&v[0])?, value(&v[1])?])
+        })
+        .collect::<Result<Vec<_>>>()?;
+    finish(id, points, a.axis, a.center).map_err(|e| {
+        if e.code == "unsupported_revolution" {
+            unsupported()
+        } else {
+            e
+        }
+    })
 }

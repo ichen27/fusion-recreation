@@ -1,0 +1,51 @@
+{
+  "parameters": {
+    "left.cx": "0",
+    "left.cy": "0",
+    "left.radius": "10",
+    "left.height": "12",
+    "right.cx": "0",
+    "right.cy": "0",
+    "right.radius": "5",
+    "right.height": "8",
+    "right.move.x": "0",
+    "right.move.y": "0",
+    "right.move.z": "6"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "left.stock",
+      "x": "left.cx",
+      "y": "left.cy",
+      "radius": "left.radius",
+      "height": "left.height"
+    },
+    {
+      "kind": "cylinder",
+      "id": "right.stock",
+      "x": "right.cx",
+      "y": "right.cy",
+      "radius": "right.radius",
+      "height": "right.height"
+    },
+    {
+      "kind": "translate",
+      "id": "right.moved",
+      "input": "right.stock",
+      "offset": [
+        "right.move.x",
+        "right.move.y",
+        "right.move.z"
+      ]
+    },
+    {
+      "kind": "coaxial_boolean",
+      "id": "common",
+      "left": "left.stock",
+      "right": "right.moved",
+      "operation": "difference"
+    }
+  ]
+}

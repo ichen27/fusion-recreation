@@ -420,3 +420,12 @@ translated/quarter-turned and oppositely directed coordinate axes are supported.
 Saving consumes both visible inputs while their dimensions remain editable. Rings
 are supported; nonconvex stepped sections, offset axes and mere contact reject.
 [Examples, native downloads and independent STEP checks](../../examples/ai-cad/coaxial-intersection/README.md).
+
+### Join and cut coaxial round solids
+
+**Combine solids → Coaxial round solids** supports union, difference and intersection
+of analytic radial sections, including stepped parts. Use **Edit difference/union**
+to change an existing operation without replacing its inputs. Blind recesses,
+through-bores and stepped joins retain exact geometry and editable dimensions.
+Disconnected radial regions, enclosed cavities and multiple axis contacts currently
+reject. [Native examples, exports and independent validation](../../examples/ai-cad/coaxial-booleans/README.md).

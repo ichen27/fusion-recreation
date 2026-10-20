@@ -1,0 +1,1458 @@
+[
+  {
+    "case": "blind_cut",
+    "adapter": "stock",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 5.093170329928398e-11,
+    "area_error_mm2": 6.161826604511589e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.4406396076083183e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "39/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "blind_cut",
+    "adapter": "shared",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 1.446096575818956e-10,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.4406396076083183e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "39/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "union",
+    "adapter": "stock",
+    "volume_mm3": 3926.9908169872415,
+    "volume_error_mm3": 3.728928277269006e-11,
+    "area_error_mm2": 5.3432813729159534e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.5133991837501526e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "157/25"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(282487/6)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(282487/6)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60625)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1250*pi"
+    }
+  },
+  {
+    "case": "union",
+    "adapter": "shared",
+    "volume_mm3": 3926.9908169872415,
+    "volume_error_mm3": 1.709850039333105e-10,
+    "area_error_mm2": 5.3660187404602766e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.5133991837501526e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "157/25"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(282487/6)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(282487/6)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60625)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1250*pi"
+    }
+  },
+  {
+    "case": "intersection",
+    "adapter": "stock",
+    "volume_mm3": 471.238898038469,
+    "volume_error_mm3": 5.684341886080802e-14,
+    "area_error_mm2": 1.233502189279534e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 4.2218918438389787e-16,
+    "inertia_error_mm5": 5.3660187404602766e-11,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-5",
+          "-5",
+          "6"
+        ],
+        [
+          "5",
+          "5",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "9"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(2775/2)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(2775/2)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(1875)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "150*pi"
+    }
+  },
+  {
+    "case": "intersection",
+    "adapter": "shared",
+    "volume_mm3": 471.238898038469,
+    "volume_error_mm3": 2.063416104647331e-11,
+    "area_error_mm2": 1.2448708730516955e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 4.2218918438389787e-16,
+    "inertia_error_mm5": 5.3660187404602766e-11,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-5",
+          "-5",
+          "6"
+        ],
+        [
+          "5",
+          "5",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "9"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(2775/2)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(2775/2)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(1875)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "150*pi"
+    }
+  },
+  {
+    "case": "through_bore",
+    "adapter": "stock",
+    "volume_mm3": 2827.4333882308138,
+    "volume_error_mm3": 6.139089236967266e-11,
+    "area_error_mm2": 7.435119186993688e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.3969838619232178e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "6"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(38925)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(38925)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(56250)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "900*pi"
+    }
+  },
+  {
+    "case": "through_bore",
+    "adapter": "shared",
+    "volume_mm3": 2827.4333882308138,
+    "volume_error_mm3": 1.2460077414289117e-10,
+    "area_error_mm2": 7.457856554538012e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.3969838619232178e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "6"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(38925)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(38925)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(56250)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "900*pi"
+    }
+  },
+  {
+    "case": "stepped_cut",
+    "adapter": "stock",
+    "volume_mm3": 565.4866776461624,
+    "volume_error_mm3": 1.2846612662542611e-11,
+    "area_error_mm2": 3.717559593496844e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 4.207117679216517e-16,
+    "inertia_error_mm5": 3.67435859516263e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "5"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "5/2"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(7755)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(7755)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(14760)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "180*pi"
+    }
+  },
+  {
+    "case": "stepped_cut",
+    "adapter": "shared",
+    "volume_mm3": 565.4866776461624,
+    "volume_error_mm3": 2.489741746103391e-11,
+    "area_error_mm2": 3.717559593496844e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 4.207117679216517e-16,
+    "inertia_error_mm5": 3.67435859516263e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "5"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "5/2"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(7755)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(7755)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(14760)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "180*pi"
+    }
+  },
+  {
+    "case": "stepped_union",
+    "adapter": "stock",
+    "volume_mm3": 2978.229835603124,
+    "volume_error_mm3": 4.547473508864641e-13,
+    "area_error_mm2": 4.388311936054379e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.207113439650819e-16,
+    "inertia_error_mm5": 9.604264050722122e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "843/158"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(2452581/79)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(2452581/79)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(39336)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "948*pi"
+    }
+  },
+  {
+    "case": "stepped_union",
+    "adapter": "shared",
+    "volume_mm3": 2978.229835603124,
+    "volume_error_mm3": 1.305124897044152e-10,
+    "area_error_mm2": 4.411049303598702e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.207113439650819e-16,
+    "inertia_error_mm5": 9.604264050722122e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "843/158"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(2452581/79)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(2452581/79)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(39336)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "948*pi"
+    }
+  },
+  {
+    "case": "face_join",
+    "adapter": "stock",
+    "volume_mm3": 4398.229715025711,
+    "volume_error_mm3": 2.7284841053187847e-11,
+    "area_error_mm2": 6.59383658785373e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 1.7763568394002505e-15,
+    "inertia_error_mm5": 1.6007106751203537e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "20"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "52/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(1341050/21)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(1341050/21)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(62500)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1400*pi"
+    }
+  },
+  {
+    "case": "face_join",
+    "adapter": "shared",
+    "volume_mm3": 4398.229715025711,
+    "volume_error_mm3": 1.9281287677586079e-10,
+    "area_error_mm2": 6.59383658785373e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 1.7763568394002505e-15,
+    "inertia_error_mm5": 1.6007106751203537e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "20"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "52/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(1341050/21)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(1341050/21)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(62500)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1400*pi"
+    }
+  },
+  {
+    "case": "conical_cut",
+    "adapter": "stock",
+    "volume_mm3": 1859.822850925157,
+    "volume_error_mm3": 6.86895873514004e-10,
+    "area_error_mm2": 6.139089236967266e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 1,
+    "centroid_error_mm": 1.1308638867425842e-15,
+    "inertia_error_mm5": 7.712515071034431e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "663/148"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(642237/37)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(642237/37)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(22764)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "592*pi"
+    }
+  },
+  {
+    "case": "conical_cut",
+    "adapter": "shared",
+    "volume_mm3": 1859.822850925157,
+    "volume_error_mm3": 6.482423486886546e-10,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 4,
+    "centroid_error_mm": 1.1308638867425842e-15,
+    "inertia_error_mm5": 7.712515071034431e-10,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "663/148"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(642237/37)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(642237/37)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(22764)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "592*pi"
+    }
+  },
+  {
+    "case": "fractional",
+    "adapter": "stock",
+    "volume_mm3": 24.683942278205517,
+    "volume_error_mm3": 2.604139126560767e-12,
+    "area_error_mm2": 2.5508484213787597e-12,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 2.0239893427495108e-16,
+    "inertia_error_mm5": 5.755396159656812e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-7/3",
+          "-7/3",
+          "0"
+        ],
+        [
+          "7/3",
+          "7/3",
+          "11/7"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "11/14"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(40700/3087)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(40700/3087)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(2915/126)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "55/7*pi"
+    }
+  },
+  {
+    "case": "fractional",
+    "adapter": "shared",
+    "volume_mm3": 24.683942278205517,
+    "volume_error_mm3": 2.049915792667889e-12,
+    "area_error_mm2": 2.5508484213787597e-12,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 2.0239893427495108e-16,
+    "inertia_error_mm5": 5.755396159656812e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-7/3",
+          "-7/3",
+          "0"
+        ],
+        [
+          "7/3",
+          "7/3",
+          "11/7"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "11/14"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(40700/3087)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(40700/3087)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(2915/126)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "55/7*pi"
+    }
+  },
+  {
+    "case": "nested",
+    "adapter": "stock",
+    "volume_mm3": 3531.150142634927,
+    "volume_error_mm3": 8.276401786133647e-11,
+    "area_error_mm2": 7.071321306284517e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.4260876923799515e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "1742/281"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(37654303/843)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(37654303/843)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60058)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1124*pi"
+    }
+  },
+  {
+    "case": "nested",
+    "adapter": "shared",
+    "volume_mm3": 3531.150142634927,
+    "volume_error_mm3": 1.546140993013978e-10,
+    "area_error_mm2": 7.139533408917487e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.4260876923799515e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "1742/281"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(37654303/843)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(37654303/843)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60058)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1124*pi"
+    }
+  },
+  {
+    "case": "axis_x",
+    "adapter": "stock",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 5.093170329928398e-11,
+    "area_error_mm2": 6.161826604511589e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.382431946694851e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "-10",
+          "-10"
+        ],
+        [
+          "12",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "39/7",
+        "0",
+        "0"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(58125)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(580575/14)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "axis_x",
+    "adapter": "shared",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 1.446096575818956e-10,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 1.382431946694851e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "-10",
+          "-10"
+        ],
+        [
+          "12",
+          "10",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "39/7",
+        "0",
+        "0"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(58125)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(580575/14)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "opposite",
+    "adapter": "stock",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 5.093170329928398e-11,
+    "area_error_mm2": 6.161826604511589e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 9.877952001478356e-16,
+    "inertia_error_mm5": 1.4115357771515846e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "39/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "opposite",
+    "adapter": "shared",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 1.446096575818956e-10,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 9.877952001478356e-16,
+    "inertia_error_mm5": 1.4115357771515846e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-10",
+          "0"
+        ],
+        [
+          "10",
+          "10",
+          "12"
+        ]
+      ],
+      "centroid_mm": [
+        "0",
+        "0",
+        "39/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "common",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "translated",
+    "adapter": "stock",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 5.093170329928398e-11,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 1.0547118733938987e-15,
+    "inertia_error_mm5": 1.4842953532934189e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-29/3",
+          "-52/5",
+          "7/11"
+        ],
+        [
+          "31/3",
+          "48/5",
+          "139/11"
+        ]
+      ],
+      "centroid_mm": [
+        "1/3",
+        "-2/5",
+        "478/77"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "moved",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "translated",
+    "adapter": "shared",
+    "volume_mm3": 3298.6722862692827,
+    "volume_error_mm3": 1.4551915228366852e-10,
+    "area_error_mm2": 6.207301339600235e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 1.0547118733938987e-15,
+    "inertia_error_mm5": 1.4842953532934189e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-29/3",
+          "-52/5",
+          "7/11"
+        ],
+        [
+          "31/3",
+          "48/5",
+          "139/11"
+        ]
+      ],
+      "centroid_mm": [
+        "1/3",
+        "-2/5",
+        "478/77"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(580575/14)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(580575/14)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(58125)*pi"
+        ]
+      ],
+      "feature_id": "moved",
+      "volume_mm3": "1050*pi"
+    }
+  },
+  {
+    "case": "linked",
+    "adapter": "stock",
+    "volume_mm3": 3926.9908169872406,
+    "volume_error_mm3": 3.865352482534945e-11,
+    "area_error_mm2": 5.3660187404602766e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 3.8708094507455826e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "40",
+          "-10",
+          "0"
+        ],
+        [
+          "60",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "50",
+        "0",
+        "157/25"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(282487/6)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(282487/6)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60625)*pi"
+        ]
+      ],
+      "feature_id": "copy",
+      "volume_mm3": "1250*pi"
+    }
+  },
+  {
+    "case": "linked",
+    "adapter": "shared",
+    "volume_mm3": 3926.9908169872406,
+    "volume_error_mm3": 1.7189449863508344e-10,
+    "area_error_mm2": 5.3660187404602766e-11,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "cone_patches": 0,
+    "centroid_error_mm": 8.881784197001252e-16,
+    "inertia_error_mm5": 3.8708094507455826e-09,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "40",
+          "-10",
+          "0"
+        ],
+        [
+          "60",
+          "10",
+          "14"
+        ]
+      ],
+      "centroid_mm": [
+        "50",
+        "0",
+        "157/25"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "(282487/6)*pi",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "(282487/6)*pi",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "(60625)*pi"
+        ]
+      ],
+      "feature_id": "copy",
+      "volume_mm3": "1250*pi"
+    }
+  }
+]

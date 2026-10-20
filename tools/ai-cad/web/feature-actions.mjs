@@ -16,6 +16,7 @@ const editClasses = {
   instance: "edit-instance",
   rotate_quarter: "edit-rotation",
   boolean: "edit-boolean",
+  coaxial_boolean: "edit-boolean",
 };
 export function createFeatureActions() {
   let expanded = null;

@@ -121,3 +121,60 @@ test("browser moves and rotates a holed Boolean while retaining further Boolean 
   );
   assert.equal(booleanCandidates(state)[0].feature_id, "turn1");
 });
+
+test("coaxial Boolean mode creates a through bore and edits the operation in place", () => {
+  const round = {
+    parameters: { zero: "0", large: "10", small: "5", height: "12" },
+    fixed: {},
+    features: [
+      {
+        kind: "cylinder",
+        id: "a",
+        x: "zero",
+        y: "zero",
+        radius: "large",
+        height: "height",
+      },
+      {
+        kind: "cylinder",
+        id: "b",
+        x: "zero",
+        y: "zero",
+        radius: "small",
+        height: "height",
+      },
+    ],
+  };
+  const state = { revision: 1, ...run(round).result };
+  assert.equal(booleanCandidates(state).length, 0);
+  assert.equal(booleanCandidates(state, "coaxial_boolean").length, 2);
+  const proposal = booleanProposal(
+    state,
+    "a",
+    "b",
+    "difference",
+    null,
+    "coaxial_boolean",
+  );
+  const cut = run(round, proposal).result;
+  assert.equal(cut.bodies[0].volume_mm3, "900*pi");
+  assert.deepEqual(availableHoleInputs(cut.model), []);
+  const saved = { revision: 2, ...cut };
+  const edit = booleanProposal(
+    saved,
+    "a",
+    "b",
+    "union",
+    "radial1",
+    "coaxial_boolean",
+  );
+  assert.equal(edit.operations[0].op, "replace_feature");
+  const joined = run(cut.model, edit).result;
+  assert.equal(joined.bodies[0].volume_mm3, "1200*pi");
+  assert.equal(joined.bodies[0].feature_id, "radial1");
+  assert.throws(
+    () => booleanProposal(saved, "a", "b", "union", "radial1", "boolean"),
+    /retaining/,
+  );
+  assert.throws(() => booleanCandidates(state, "unsupported"), /supported/);
+});

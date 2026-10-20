@@ -213,7 +213,7 @@ def oracle(model):
             shape = BRepBuilderAPI_Transform(
                 shapes[f["input"]], transform, True
             ).Shape()
-        elif f["kind"] == "boolean":
+        elif f["kind"] in ("boolean", "coaxial_boolean"):
             operation = {
                 "union": BRepAlgoAPI_Fuse,
                 "difference": BRepAlgoAPI_Cut,

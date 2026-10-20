@@ -82,6 +82,12 @@ pub enum Feature {
         profile: String,
         height: String,
     },
+    CoaxialBoolean {
+        id: String,
+        left: String,
+        right: String,
+        operation: BooleanOperation,
+    },
     CoaxialIntersection {
         id: String,
         left: String,
@@ -236,6 +242,7 @@ impl Feature {
             | Self::Revolve { id, .. }
             | Self::StraightSweep { id, .. }
             | Self::CoaxialIntersection { id, .. }
+            | Self::CoaxialBoolean { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
             | Self::CountersinkHoles { id, .. }
@@ -904,7 +911,8 @@ fn evaluate_geometry_from(
                 evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
                 continue;
             }
-            Feature::CoaxialIntersection { left, right, .. } => {
+            Feature::CoaxialIntersection { left, right, .. }
+            | Feature::CoaxialBoolean { left, right, .. } => {
                 if left == right {
                     return Err(error(
                         "invalid_operands",
@@ -921,7 +929,11 @@ fn evaluate_geometry_from(
                         )
                     })
                 };
-                let shape = coaxial::intersect(id, get(left)?, get(right)?)?;
+                let shape = if let Feature::CoaxialBoolean { operation, .. } = feature {
+                    coaxial::boolean(id, get(left)?, get(right)?, *operation)?
+                } else {
+                    coaxial::intersect(id, get(left)?, get(right)?)?
+                };
                 for input in [left, right] {
                     if !consumed.insert(input.clone()) {
                         return Err(error(

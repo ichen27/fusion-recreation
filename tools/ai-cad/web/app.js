@@ -882,7 +882,8 @@ function controls() {
     !!preview ||
     editPending ||
     !saved ||
-    booleanCandidates(saved).length < 2;
+    (booleanCandidates(saved).length < 2 &&
+      booleanCandidates(saved, "coaxial_boolean").length < 2);
   $("new-sweep").disabled =
     busy ||
     !!preview ||
@@ -1153,7 +1154,7 @@ function render(state) {
         );
         div.append(button);
       }
-      if (f.kind === "boolean") {
+      if (["boolean", "coaxial_boolean"].includes(f.kind)) {
         const button = document.createElement("button");
         button.className = "edit-boolean";
         button.textContent = `Edit ${f.operation}`;
