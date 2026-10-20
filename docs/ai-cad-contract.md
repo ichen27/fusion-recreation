@@ -450,3 +450,60 @@ The result retains analytic planes, cylinders and frusta, exact polynomial volum
 The native engine splits exact radius/axial polygon segments at crossings and overlap endpoints. It classifies the two open sides of each atomic segment with rational winding and coincident-edge direction, then retains the oriented material boundary for the requested operation. No offset epsilon, sampled mesh, temporary 3D cells or external Boolean engine constructs it. The result must have one connected radial region with one boundary contour, no interior contour holes, and at most32 simplified corners. Axis contact retains the connected flat-ended edge policy. Disconnected sections, enclosed radial holes and multiple axis contacts reject with `unsupported_coaxial_result`; empty material uses `empty_solid`; touching/branching contours use `invalid_polyhedron`. Construction is bounded to4096 atomic segments and1024-bit computed coordinate components (`polyhedral_limit`), followed by the existing profile and analytic topology validation. The former 3D cell count/patch limits no longer constrain this radial construction.
 
 Valid results include stepped unions, blind recesses, through-bores and conical walls. Native surfaces and moments stay analytic; source dimensions, placement, linked copies and further supported coaxial operations remain editable. Generated surface names are revision-only. Browser **Combine solids → Coaxial round solids** and **Edit union/difference/intersection** use the shared preview/save/undo protocol. General curved trimming, disconnected radial bodies and enclosed cavities remain future work. [Native demonstrations,14 reference Booleans and28 STEP readbacks](../examples/ai-cad/coaxial-booleans/README.md).
+
+## Simultaneous exact linear constraints
+
+`constrain_linear` takes `targets` (1..16 existing parameter IDs) and `equations`
+(1..32 objects with `id`, `terms`, `offset_mm`). Each row means
+`sum(terms[parameter] * parameter) = offset_mm`; coefficients are dimensionless,
+parameters and offsets are millimeters. Coefficients/offsets use strict rational
+strings, not dimension-entry units or decimal syntax. Each equation has at most
+8 nonzero terms. Equation IDs and targets must be unique; all named parameters
+must exist.
+
+The original exact solver performs symbolic rational Gaussian elimination in
+sorted target order and supplied equation order. It treats non-target parameters
+as symbolic drivers, rather than substituting their current values. A unique
+solution replaces the target entries in `model.relations` with equivalent affine
+formulas. Existing downstream formulas, feature regeneration, fixed/preserve
+checks, provenance, browser derived controls, native history and undo apply.
+Original equation labels and redundant rows are not retained in the model; the
+compiled formulas are authoritative. To revise the system, submit a complete new
+operation for the intended targets. Targets omitted from a later operation retain
+their existing rules until explicitly replaced or removed.
+
+Example: `left + right + gap = span` and `left - 2*right = 0`, targeting left and
+right, produce `left = 2/3*(span-gap)` and `right = 1/3*(span-gap)`. With span100 and
+gap10, the widths are60 and30. Changing span to130 regenerates widths80 and40.
+The system remains valid for future driver changes; it is not a one-time numerical
+solution. Existing derived inputs are allowed, but final relationship cycles
+still reject. Elimination does not expand pre-existing driver relationships.
+
+Diagnostics:
+
+- `linear_underdetermined`: rank is insufficient for all requested targets;
+  reports the rank and unbound targets instead of choosing arbitrary values.
+- `linear_inconsistent`: elimination yields a nonzero constant contradiction.
+- `linear_driver_constraint`: a residual equation restricts non-target drivers.
+  This rejects even if their current values happen to satisfy it. Add the intended
+  dependent driver to targets or revise the system; the solver never silently
+  fixes or changes free drivers. Already-related drivers are still independent
+  symbols for this compilation check.
+- `invalid_linear_equation`, `linear_limit`, `linear_overflow`: malformed terms,
+  excessive work or a128-bit rational numerator/denominator overflow. Input,
+  intermediate products/sums/divisions and resulting formulas are bounded. Each
+  output formula must fit the existing8-term relationship limit.
+
+Consistent redundant equations are accepted. Conflict row IDs describe elimination
+provenance, not a minimal unsatisfiable subset. All failures are atomic. The
+operation may replace existing target relationships explicitly, but cannot bypass
+fixed constraints, preserve requirements or geometry validation. Direct edits to
+solved targets still return `derived_parameter`; removing a relation freezes its
+current value and deliberately releases that equation's effect.
+
+This additive command introduces no new saved-model field; resulting documents
+use the existing schema-v1 affine representation. Older clients need updated tool
+schemas to author the command. This is linear dimensional constraint compilation,
+not a general nonlinear sketch solver: distances, angles, tangency, inequalities,
+branch selection and automatic degrees-of-freedom choices remain unsupported.
+[Editable coupled-part workflow](../examples/ai-cad/linear-constraints/README.md).

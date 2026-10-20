@@ -1,0 +1,29 @@
+{
+  "derived": [
+    {
+      "disabled": true,
+      "id": "left",
+      "value": "60"
+    },
+    {
+      "disabled": true,
+      "id": "right",
+      "value": "30"
+    },
+    {
+      "disabled": true,
+      "id": "offset",
+      "value": "70"
+    }
+  ],
+  "formulas": [
+    "left = 0 + (-2/3 \u00d7 gap) + (2/3 \u00d7 span)",
+    "offset = 0 + (1 \u00d7 gap) + (1 \u00d7 left)",
+    "right = 0 + (-1/3 \u00d7 gap) + (1/3 \u00d7 span)"
+  ],
+  "invalid": {
+    "diagnostic": "\u25c8\nORIGINAL CAD\nEARLY ENGINE\nRevision 2 \u00b7 Millimeters\n\nEDITABLE MODEL\n\nSolid model\n\nPrecise geometry. Shared intent.\n\nNew sketch / solid New solid stock Combine solids Intersect two solids Sweep profile Revolve profile Loft profiles\n\nSelect a solid to inspect it. Open Modeling actions to shape or arrange it.\n\n\u25c7 left_part \u00b7 block\nSelect solid\nModeling actions\n\u25c7 right_part \u00b7 block\n\u25e9 right_placed \u00b7 translate\nSelect solid\nEdit move\nModeling actions\nDimensions\nmm\nDepth\nGap\nHeight\nLeft\nDERIVED\nleft = 0 + (-2/3 \u00d7 gap) + (2/3 \u00d7 span)\nOffset\nDERIVED\noffset = 0 + (1 \u00d7 gap) + (1 \u00d7 left)\nRight\nDERIVED\nright = 0 + (-1/3 \u00d7 gap) + (1/3 \u00d7 span)\nSpan\nZero\nPreview changes\nUndo\nRedo\n\nFixed dimensions stay locked. Derived dimensions follow their displayed relationships.\n\nSAVED MODEL\nView\nIsometric\nFront\nBack\nRight\nLeft\nTop\nBottom\nCustom\nFit view\n\nDrag to orbit \u00b7 Shift-drag or middle-drag to pan \u00b7 Scroll to zoom\nKeyboard: arrows orbit \u00b7 Shift+arrows pan \u00b7 +/\u2212 zoom \u00b7 F fits\n\nSolid volume\n16,000 mm\u00b3 + 8,000 mm\u00b3\n\nCONNECTED WORKFLOW\n\nYour AI, your engine.\n\nUse the CAD tools in Codex or Claude Code. Committed edits appear here automatically.\n\n\u201cMake it 20 mm wider. Keep the thickness and other dimensions.\u201d\nExact Rust geometry \u00b7 mm\nSelected solid\n\nClick a solid or select it in the feature list.\n\nExplain solid\nMeasure solid\nCompare with another planar solid \nleft_part\nright_placed\n Check volume overlap Measure separation\n\nInspect surfaces\n\nNo saved solid shared with AI tools.\n\nClear selection\nModel feedback\n\ndimension_range: Dimensions must be > 0 and <= 1000000 mm\n\nRefresh model Download saved STLs (ZIP)\nProject files\nDownload editable project Import saved model\u2026\n\nNative downloads keep dimensions, features and undo history. Import previews replacing this workspace\u2019s model as one undoable edit.\n\nSupported geometry",
+    "invalidText": "5",
+    "saved_sha256_unchanged": "c7f31563e89a8b346c53cf6c80cb51c2e7297ea906410eeb31fc50b02198fac7"
+  }
+}

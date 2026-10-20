@@ -9,6 +9,8 @@ use std::collections::{BTreeMap, BTreeSet};
 pub mod clearance;
 mod coaxial;
 mod dimension;
+mod linear;
+pub use linear::LinearEquation;
 pub mod edge_measure;
 mod holes;
 pub mod intent;
@@ -262,17 +264,48 @@ impl Feature {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "op", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Operation {
-    DefineParameter { id: String, mm: String },
-    SetParameter { id: String, mm: String },
-    AdjustParameter { id: String, delta_mm: String },
-    AddFeature { feature: Feature },
-    ReplaceFeature { id: String, feature: Feature },
-    RemoveFeature { id: String },
-    RemoveParameter { id: String },
-    FixParameter { id: String },
-    ReleaseParameter { id: String },
-    SetRelation { id: String, relation: Relation },
-    RemoveRelation { id: String },
+    DefineParameter {
+        id: String,
+        mm: String,
+    },
+    SetParameter {
+        id: String,
+        mm: String,
+    },
+    AdjustParameter {
+        id: String,
+        delta_mm: String,
+    },
+    AddFeature {
+        feature: Feature,
+    },
+    ReplaceFeature {
+        id: String,
+        feature: Feature,
+    },
+    RemoveFeature {
+        id: String,
+    },
+    RemoveParameter {
+        id: String,
+    },
+    FixParameter {
+        id: String,
+    },
+    ReleaseParameter {
+        id: String,
+    },
+    SetRelation {
+        id: String,
+        relation: Relation,
+    },
+    RemoveRelation {
+        id: String,
+    },
+    ConstrainLinear {
+        targets: Vec<String>,
+        equations: Vec<LinearEquation>,
+    },
 }
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -1354,6 +1387,10 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
                         "No fixed constraint exists",
                     ));
                 }
+            }
+            Operation::ConstrainLinear { targets, equations } => {
+                let solved = linear::compile(&model, &targets, &equations)?;
+                model.relations.extend(solved);
             }
             Operation::SetRelation { id, relation } => {
                 parameter(&model, &id)?;

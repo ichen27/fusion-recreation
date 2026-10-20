@@ -52,6 +52,8 @@ jobs:
       - run: python tools/ai-cad/verify_coaxial.py --concave
       - run: python tools/ai-cad/verify_coaxial_mcp.py
       - run: python tools/ai-cad/verify_coaxial_mcp.py --concave
+      - run: python tools/ai-cad/verify_linear_constraints_mcp.py
+      - run: python tools/ai-cad/verify_linear_constraints.py
       - run: python tools/ai-cad/verify_straight_sweep.py
       - run: python tools/ai-cad/verify_straight_sweep_mcp.py
       - run: python tools/ai-cad/verify_revolution.py

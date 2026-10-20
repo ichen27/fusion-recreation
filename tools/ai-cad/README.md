@@ -20,7 +20,7 @@ Open http://127.0.0.1:8765. You should see width 120, depth 60, thickness 12, co
 
 The feature tree keeps **Select solid** and existing-feature **Edit** buttons visible. Open **Modeling actions** on a solid for new operations such as holes, cuts, patterns, mirrors and placement. One menu opens at a time; keyboard Enter/Space toggles its summary.
 
-The viewer can change unlocked dimensions, preview/save, discard, undo, redo, orbit and zoom. It polls for other clients' saved changes, but retains pending form edits/previews and reports revision conflicts. Decimal input is currently expressed as a fraction (`25/2`, not `12.5`). Volume display is rounded; the exact value is in the tooltip and tool result.
+The viewer can change unlocked dimensions, preview/save, discard, undo, redo, orbit and zoom. It polls for other clients' saved changes, but retains pending form edits/previews and reports revision conflicts. Dimension edits accept exact decimal/fraction values and optional units (for example `12.5`, `1/2 in`, or `2.54 cm`). Volume display is rounded; the exact value is in the tooltip and tool result.
 
 To view a mini-hosted service on another computer, forward the loopback port with SSH and open the forwarded URL. Use the same local/remote port (8765) because the host checks its Host/Origin headers. The HTTP server is a local development viewer, not an internet service. It binds only to 127.0.0.1 and has no account system.
 
@@ -435,3 +435,14 @@ reject. [Native examples, exports and independent validation](../../examples/ai-
 ## Integrated geometry performance
 
 [Curved workload CPU/RSS measurements](../../examples/ai-cad/curved-runtime/README.md) compare fresh processes and the native worker on seven editable geometry models. Run `python3 tools/ai-cad/benchmark_curved_runtime.py --samples 7` after building the release binary. Every workload checks exact response equivalence; timings are observations, not CI thresholds.
+
+## Coupled dimensional constraints
+
+Use the typed `constrain_linear` operation to solve simultaneous linear equalities
+for named target dimensions. Exact elimination stores equivalent affine formulas,
+so driver edits regenerate parts, positioning and downstream features through the
+existing preview/save/undo workflow. The browser displays solved dimensions as
+read-only derived fields; equation authoring currently uses CLI/MCP.
+[Editable two-part example, actual transports and exports](../../examples/ai-cad/linear-constraints/README.md).
+Underdetermined, inconsistent and free-driver-restricting equations reject.
+This is not a nonlinear distance/angle sketch solver.
