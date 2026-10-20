@@ -730,3 +730,30 @@ dialog p[role="status"] {
   font-size: 14px;
   line-height: 1.5;
 }
+
+#mass-dialog {
+  max-width: 680px;
+}
+#mass-parts fieldset {
+  border: 1px solid #cbd8d1;
+  border-radius: 6px;
+  margin: 12px 0;
+  padding: 12px;
+}
+#mass-parts input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+#mass-result {
+  overflow-wrap: anywhere;
+}
+#mass-result pre {
+  overflow-x: auto;
+}
+
+#mass-parts fieldset > label {
+  display: block;
+}
+#mass-parts fieldset > label + label {
+  margin-top: 8px;
+}

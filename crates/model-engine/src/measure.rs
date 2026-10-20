@@ -73,7 +73,9 @@ pub fn measure(request: Request) -> Result<Measurements> {
             Ok(density)
         })
         .transpose()?;
-    let mut result = geometry(request)?;
+    with_density(geometry(request)?, density)
+}
+pub(crate) fn with_density(mut result: Measurements, density: Option<Q>) -> Result<Measurements> {
     if let Some(density) = density {
         // mm³→m³ for mass; mm⁵→m⁵ for mass inertia in kg m².
         let mass_factor = &density / Q::from_integer(1_000_000_000_i64.into());
@@ -112,11 +114,13 @@ fn geometry(request: Request) -> Result<Measurements> {
         operations: vec![],
         preserve: vec![],
     })?;
-    let id = &request.feature_id;
+    from_evaluation(&evaluated, &request.feature_id)
+}
+pub(crate) fn from_evaluation(evaluated: &super::Evaluation, id: &str) -> Result<Measurements> {
     let body = evaluated
         .bodies
-        .into_iter()
-        .find(|b| &b.feature_id == id)
+        .iter()
+        .find(|b| b.feature_id == id)
         .ok_or_else(|| error("missing_body", id, "Select a terminal solid"))?;
     if let Some(shape) = &body.analytic {
         if shape.revolution.is_some()
@@ -127,8 +131,8 @@ fn geometry(request: Request) -> Result<Measurements> {
             return crate::measure_curved::measure(id, shape, &body.volume_mm3);
         }
     }
-    let boundary = if let Some(boundary) = body.boundary {
-        boundary
+    let boundary = if let Some(boundary) = &body.boundary {
+        boundary.clone()
     } else {
         // Validated simple source prisms need no floating triangulation or cell split.
         let model = &evaluated.model;

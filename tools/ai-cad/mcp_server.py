@@ -8,6 +8,7 @@ from mcp.server import MCPServer
 from selection import dispatch_selection
 from intent import dispatch_explain
 from measurements import dispatch_measure
+from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
@@ -341,6 +342,12 @@ Operation = Annotated[
 ]
 
 
+class MassPart(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    feature_id: str
+    density_kg_per_m3: str
+
+
 def server(path):
     store = Store(path)
     mcp = MCPServer("Original CAD engine")
@@ -350,6 +357,17 @@ def server(path):
         """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
         return dispatch_explain(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_mass_properties(expected_revision: int, parts: list[MassPart]) -> dict:
+        """Read additive mass, center of mass in mm and centroidal inertia in kg m² for 1..16 distinct terminal solids. Each part supplies feature_id and a positive rational density_kg_per_m3 string. Every selected occurrence is counted separately, including spatial overlaps; this does not Boolean-union material or detect collisions. Exact rational/pi expressions, global XYZ axes, read-only and revision-bound. Materials are not persisted. Use each occurrence once; source and linked copies are distinct occurrences. Includes per-part measurements and explicit overlap_policy."""
+        return dispatch_mass_set(
+            store,
+            {
+                "expected_revision": expected_revision,
+                "parts": [part.model_dump() for part in parts],
+            },
         )
 
     @mcp.tool()

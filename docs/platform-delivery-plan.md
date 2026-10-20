@@ -299,3 +299,7 @@ degrees of freedom remain future work.
 ## Uniform-density mass checkpoint
 
 [Exact mass and centroidal mass inertia](../examples/ai-cad/mass/README.md) now accept an optional positive rational density through native, browser and MCP measurements. SI conversion is verified against independent box/cylinder formulas, including placements, holes and cavities. This read-only scenario leaves native bytes unchanged; persistent materials and mixed-density assembly mass remain open.
+
+## Combined occurrence mass checkpoint
+
+[Multi-part mass and centroidal inertia](../examples/ai-cad/combined-mass/README.md) combine explicit per-part densities through native, browser and typed MCP interfaces. Exact seeded parallel-axis comparisons, mixed planar/curved parts, translated sets and 16 linked occurrences validate the engineering calculation. Overlapping selected occurrences count separately; density assignments remain read-only. Assembly hierarchy, joints, persistent materials and external part references remain open.

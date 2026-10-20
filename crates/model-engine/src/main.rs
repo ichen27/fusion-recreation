@@ -5,7 +5,17 @@ fn failure(code: &str, message: &str) -> serde_json::Value {
     serde_json::json!({"error":{"code":code,"entity":"request","message":message}})
 }
 fn dispatch(mode: Option<&str>, input: &str) -> serde_json::Value {
-    if mode == Some("--clearance") {
+    if mode == Some("--mass-set") {
+        match serde_json::from_str::<model_engine::mass_set::Request>(input) {
+            Ok(request) => match model_engine::mass_set::measure(request) {
+                Ok(value) => serde_json::json!({"result":value}),
+                Err(error) => serde_json::json!({"error":error}),
+            },
+            Err(e) => {
+                serde_json::json!({"error":{"code":"invalid_request","entity":"mass_set","message":e.to_string()}})
+            }
+        }
+    } else if mode == Some("--clearance") {
         match serde_json::from_str::<model_engine::clearance::Request>(input) {
             Ok(request) => match model_engine::clearance::inspect(request) {
                 Ok(value) => serde_json::json!({"result":value}),
@@ -118,6 +128,7 @@ fn worker() -> io::Result<()> {
                 5 => dispatch(Some("--edge"), text),
                 6 => dispatch(Some("--interference"), text),
                 7 => dispatch(Some("--clearance"), text),
+                8 => dispatch(Some("--mass-set"), text),
                 _ => failure("invalid_request", "Unknown worker operation"),
             },
         };

@@ -1,0 +1,670 @@
+{
+  "calls": [
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          },
+          {
+            "feature_id": "copy",
+            "density_kg_per_m3": "2000"
+          }
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "center_of_mass_mm": [
+            "55/3",
+            "22",
+            "83/3"
+          ],
+          "centroidal_inertia_kg_m2": [
+            [
+              "1003/7500000000",
+              "-1/31250000",
+              "-1/23437500"
+            ],
+            [
+              "-1/31250000",
+              "2039/18750000000",
+              "-1/15625000"
+            ],
+            [
+              "-1/23437500",
+              "-1/15625000",
+              "2687/37500000000"
+            ]
+          ],
+          "mass_kg": "3/12500",
+          "overlap_policy": "count_each_selected_occurrence",
+          "parts": [
+            {
+              "bounds_mm": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "10",
+                  "4",
+                  "2"
+                ]
+              ],
+              "centroid_mm": [
+                "5",
+                "2",
+                "1"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "box",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/7500000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/18750000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/37500000000"
+                  ]
+                ],
+                "density_kg_per_m3": "1000",
+                "mass_kg": "1/12500"
+              },
+              "volume_mm3": "80"
+            },
+            {
+              "bounds_mm": [
+                [
+                  "20",
+                  "30",
+                  "40"
+                ],
+                [
+                  "30",
+                  "34",
+                  "42"
+                ]
+              ],
+              "centroid_mm": [
+                "25",
+                "32",
+                "41"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "copy",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/3750000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/9375000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/18750000000"
+                  ]
+                ],
+                "density_kg_per_m3": "2000",
+                "mass_kg": "1/6250"
+              },
+              "volume_mm3": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "copy",
+            "density_kg_per_m3": "2000"
+          },
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          }
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "center_of_mass_mm": [
+            "55/3",
+            "22",
+            "83/3"
+          ],
+          "centroidal_inertia_kg_m2": [
+            [
+              "1003/7500000000",
+              "-1/31250000",
+              "-1/23437500"
+            ],
+            [
+              "-1/31250000",
+              "2039/18750000000",
+              "-1/15625000"
+            ],
+            [
+              "-1/23437500",
+              "-1/15625000",
+              "2687/37500000000"
+            ]
+          ],
+          "mass_kg": "3/12500",
+          "overlap_policy": "count_each_selected_occurrence",
+          "parts": [
+            {
+              "bounds_mm": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "10",
+                  "4",
+                  "2"
+                ]
+              ],
+              "centroid_mm": [
+                "5",
+                "2",
+                "1"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "box",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/7500000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/18750000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/37500000000"
+                  ]
+                ],
+                "density_kg_per_m3": "1000",
+                "mass_kg": "1/12500"
+              },
+              "volume_mm3": "80"
+            },
+            {
+              "bounds_mm": [
+                [
+                  "20",
+                  "30",
+                  "40"
+                ],
+                [
+                  "30",
+                  "34",
+                  "42"
+                ]
+              ],
+              "centroid_mm": [
+                "25",
+                "32",
+                "41"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "copy",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/3750000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/9375000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/18750000000"
+                  ]
+                ],
+                "density_kg_per_m3": "2000",
+                "mass_kg": "1/6250"
+              },
+              "volume_mm3": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "2000"
+          },
+          {
+            "feature_id": "copy",
+            "density_kg_per_m3": "4000"
+          }
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "center_of_mass_mm": [
+            "55/3",
+            "22",
+            "83/3"
+          ],
+          "centroidal_inertia_kg_m2": [
+            [
+              "1003/3750000000",
+              "-1/15625000",
+              "-1/11718750"
+            ],
+            [
+              "-1/15625000",
+              "2039/9375000000",
+              "-1/7812500"
+            ],
+            [
+              "-1/11718750",
+              "-1/7812500",
+              "2687/18750000000"
+            ]
+          ],
+          "mass_kg": "3/6250",
+          "overlap_policy": "count_each_selected_occurrence",
+          "parts": [
+            {
+              "bounds_mm": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "10",
+                  "4",
+                  "2"
+                ]
+              ],
+              "centroid_mm": [
+                "5",
+                "2",
+                "1"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "box",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/3750000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/9375000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/18750000000"
+                  ]
+                ],
+                "density_kg_per_m3": "2000",
+                "mass_kg": "1/6250"
+              },
+              "volume_mm3": "80"
+            },
+            {
+              "bounds_mm": [
+                [
+                  "20",
+                  "30",
+                  "40"
+                ],
+                [
+                  "30",
+                  "34",
+                  "42"
+                ]
+              ],
+              "centroid_mm": [
+                "25",
+                "32",
+                "41"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "copy",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/1875000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/4687500000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/9375000000"
+                  ]
+                ],
+                "density_kg_per_m3": "4000",
+                "mass_kg": "1/3125"
+              },
+              "volume_mm3": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          }
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "center_of_mass_mm": [
+            "5",
+            "2",
+            "1"
+          ],
+          "centroidal_inertia_kg_m2": [
+            [
+              "1/7500000000",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "13/18750000000",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "29/37500000000"
+            ]
+          ],
+          "mass_kg": "1/12500",
+          "overlap_policy": "count_each_selected_occurrence",
+          "parts": [
+            {
+              "bounds_mm": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "10",
+                  "4",
+                  "2"
+                ]
+              ],
+              "centroid_mm": [
+                "5",
+                "2",
+                "1"
+              ],
+              "centroidal_volume_inertia_mm5": [
+                [
+                  "400/3",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "2080/3",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "2320/3"
+                ]
+              ],
+              "feature_id": "box",
+              "mass_properties": {
+                "centroidal_inertia_kg_m2": [
+                  [
+                    "1/7500000000",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "13/18750000000",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "29/37500000000"
+                  ]
+                ],
+                "density_kg_per_m3": "1000",
+                "mass_kg": "1/12500"
+              },
+              "volume_mm3": "80"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "0"
+          },
+          {
+            "feature_id": "copy",
+            "density_kg_per_m3": "2000"
+          }
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_density",
+          "message": "Uniform density must be positive",
+          "entity": "box"
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 1,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          },
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          }
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "duplicate_id",
+          "message": "Select each occurrence only once",
+          "entity": "box"
+        }
+      }
+    },
+    {
+      "tool": "cad_mass_properties",
+      "arguments": {
+        "expected_revision": 0,
+        "parts": [
+          {
+            "feature_id": "box",
+            "density_kg_per_m3": "1000"
+          },
+          {
+            "feature_id": "copy",
+            "density_kg_per_m3": "2000"
+          }
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Refresh before checking these bodies",
+          "entity": "document"
+        }
+      }
+    }
+  ]
+}

@@ -25,6 +25,7 @@ MODES = {
     "--edge": 5,
     "--interference": 6,
     "--clearance": 7,
+    "--mass-set": 8,
 }
 
 

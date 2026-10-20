@@ -1,3 +1,4 @@
+import { installMassEditor } from "/mass-editor.mjs";
 import { installLinearEditor } from "/linear-editor.mjs";
 import { installSweepEditor } from "/sweep-editor.mjs";
 import { sweepCandidates } from "/sweep-model.mjs";
@@ -905,6 +906,8 @@ function controls() {
   intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("measure-parts").disabled =
+    busy || !!preview || editPending || !saved?.bodies.length;
   $("new-linear").disabled =
     busy ||
     !!preview ||
@@ -1468,6 +1471,8 @@ const editorCallbacks = (name) => ({
       `${name} preview valid. Save edit to commit the model.`;
   },
 });
+const massEditor = installMassEditor(editorCallbacks("Combined mass"));
+$("measure-parts").addEventListener("click", () => massEditor.open());
 linearConstraints = installLinearEditor(editorCallbacks("Coupled dimensions"));
 $("new-linear").addEventListener("click", () => linearConstraints.open());
 sketches = installSketchEditor(editorCallbacks("Sketch"));
