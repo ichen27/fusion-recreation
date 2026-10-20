@@ -74,7 +74,7 @@ test("Rust rejects breakout, overlap, bad radius and invalid numeric edits witho
     ["x", "40", "hole_clearance"],
     ["radius", "10", "hole_clearance"],
     ["radius", "0", "dimension_range"],
-    ["radius", "2.5", "invalid_number"],
+    ["radius", "2.5.1", "invalid_number"],
   ]) {
     const d = draftHoles(result.model, null, "holes1");
     setHoleValue(d, 0, axis, value);
@@ -373,4 +373,14 @@ test("individual blind depths create, edit, reconnect and remove without changin
       .bodies[0].volume_mm3,
     "12000 - (36)*pi",
   );
+});
+
+test("hole fields retain unit text until native conversion", () => {
+  const { result } = create();
+  const draft = draftHoles(result.model, null, "holes1");
+  setHoleValue(draft, 0, "radius", ".25 cm");
+  const proposal = holeProposal({ model: result.model, revision: 1 }, draft);
+  assert.ok(proposal.operations.some((op) => op.mm === ".25 cm"));
+  const changed = run(result.model, proposal).result;
+  assert.equal(changed.model.parameters["holes1.h1.radius"], "5/2");
 });

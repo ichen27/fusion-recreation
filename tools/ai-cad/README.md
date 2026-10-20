@@ -383,3 +383,7 @@ source to create a separately selectable linked counterpart, or clear the checkb
 to replace it with its reflection. **Edit mirror** changes the plane/retention.
 [Editable examples, oblique reflections and export verification](../../examples/ai-cad/mirror/README.md)
 cover cavities and disconnected pieces. Curved analytic stock is not supported yet.
+
+### Exact decimal and unit entry
+
+User dimension operations accept `12.5`, `1/2 in` and `2.54 cm`, with exact rational millimeter storage. Bare values are mm; supported suffixes are mm, cm, m, in and ft. See [the command contract](../../docs/ai-cad-contract.md#exact-dimension-entry) for grammar and limits. Native model and dimensionless/relationship literals remain integer/fraction strings. Browser draft drawings are approximate; saved geometry is exact. [Retained dimension-entry demonstration](../../examples/ai-cad/dimensions/README.md).

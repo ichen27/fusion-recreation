@@ -78,7 +78,7 @@ export function installStockEditor({ getState, onOpen, onClose, onPreview }) {
       }))
         $(`stock-${field}`).value = value;
       $("stock-feedback").textContent =
-        "Dimensions are in millimeters. Use integers or fractions. A block starts at the origin; circular stock uses the specified XY center. All extend upward from z=0. Tapered stock requires two positive, differing radii.";
+        "Bare dimensions are millimeters. Decimals, fractions and units (mm, cm, m, in, ft) are accepted. A block starts at the origin; circular stock uses the specified XY center. All extend upward from z=0. Tapered stock requires two positive, differing radii.";
       controls();
       onOpen();
       dialog.showModal();

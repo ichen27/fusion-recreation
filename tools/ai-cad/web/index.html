@@ -296,7 +296,7 @@
           >Wall thickness (mm)<input
             id="shell-thickness"
             aria-label="Wall thickness"
-            placeholder="Integer or fraction"
+            placeholder="12.5 or 1/2 in"
             required
         /></label>
         <label><input type="checkbox" id="shell-open" /> Open one face</label>
@@ -359,7 +359,7 @@
           >Plane offset (mm)<input
             id="mirror-offset"
             aria-label="Plane offset"
-            placeholder="Integer or fraction"
+            placeholder="12.5 or 1/2 in"
             required
         /></label>
         <p class="hint">
@@ -395,7 +395,7 @@
           >Plane offset (mm)<input
             id="plane-offset"
             aria-label="Plane offset"
-            placeholder="Integer or fraction"
+            placeholder="12.5 or 1/2 in"
             required
         /></label>
         <p class="hint">
@@ -631,9 +631,9 @@
         /></label>
         <p class="hint">
           Planar, circular and tapered stock, including round holes, cavities
-          and separate pieces. Offsets are signed integers or fractions, up to
-          ±1,000,000 mm per axis. Circles and cylinders retain their exact
-          analytic shape.
+          and separate pieces. Offsets accept signed decimals, fractions and
+          units, up to ±1,000,000 mm per axis. Circles and cylinders retain
+          their exact analytic shape.
         </p>
         <button type="submit" id="translate-preview" class="primary">
           Preview move

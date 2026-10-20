@@ -1,3 +1,4 @@
+import { dimensionNumber as number } from "./dimension-input.mjs";
 import {
   draftSketch,
   nextSketchPrefix,
@@ -11,10 +12,6 @@ import {
   draftRelation,
 } from "./sketch-model.mjs";
 const $ = (id) => document.getElementById(id);
-const number = (s) => {
-  const p = s.split("/").map(Number);
-  return p.length === 2 ? p[0] / p[1] : p[0];
-};
 const svgElement = (name, attrs) => {
   const e = document.createElementNS("http://www.w3.org/2000/svg", name);
   for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
@@ -269,7 +266,7 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
         setCoordinate(draft, dragging, axis, value);
     render();
     message(
-      "Draft changed. Dragging snaps to 1 mm; coordinate fields accept exact fractions.",
+      "Draft changed. Dragging snaps to 1 mm; coordinate fields accept decimals, fractions and units (mm, cm, m, in, ft).",
     );
   });
   for (const event of ["pointerup", "pointercancel"])
