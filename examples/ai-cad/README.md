@@ -113,3 +113,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Measured-edge viewport highlighting and GPU lifecycle evidence](edge-highlight/README.md).
 
 [Exact planar part interference and independent solid comparisons](interference/README.md).
+
+[Exact planar separation, contact and closest-point witnesses](clearance/README.md).

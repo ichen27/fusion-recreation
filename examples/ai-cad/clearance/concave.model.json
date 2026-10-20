@@ -1,0 +1,88 @@
+{
+  "parameters": {
+    "left.height": "2",
+    "left.c0": "0",
+    "left.c1": "4",
+    "left.c2": "1",
+    "right.height": "2",
+    "right.c0": "1/2",
+    "right.c1": "7/2"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "left.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "left.c0",
+          "y": "left.c0"
+        },
+        {
+          "id": "v1",
+          "x": "left.c1",
+          "y": "left.c0"
+        },
+        {
+          "id": "v2",
+          "x": "left.c1",
+          "y": "left.c2"
+        },
+        {
+          "id": "v3",
+          "x": "left.c2",
+          "y": "left.c2"
+        },
+        {
+          "id": "v4",
+          "x": "left.c2",
+          "y": "left.c1"
+        },
+        {
+          "id": "v5",
+          "x": "left.c0",
+          "y": "left.c1"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "left",
+      "profile": "left.profile",
+      "height": "left.height"
+    },
+    {
+      "kind": "planar_profile",
+      "id": "right.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "right.c0",
+          "y": "right.c0"
+        },
+        {
+          "id": "v1",
+          "x": "right.c1",
+          "y": "right.c0"
+        },
+        {
+          "id": "v2",
+          "x": "right.c1",
+          "y": "right.c1"
+        },
+        {
+          "id": "v3",
+          "x": "right.c0",
+          "y": "right.c1"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "right",
+      "profile": "right.profile",
+      "height": "right.height"
+    }
+  ]
+}

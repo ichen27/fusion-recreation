@@ -78,6 +78,18 @@ class EngineTransport(unittest.TestCase):
             self.assertEqual(json.loads(worker.stdout), json.loads(fresh.stdout))
         self.assertEqual(self.worker.starts, 1)
 
+    def test_clearance_worker_matches_single_request_and_error(self):
+        model, left, right, _ = examples()["inside_cavity"]
+        for other in (right, left, "missing"):
+            data = encode(dict(model=model, left=left, right=other))
+            fresh = subprocess.run(
+                [str(BINARY), "--clearance"], input=data, capture_output=True
+            )
+            worker = self.worker.run(BINARY, "--clearance", data)
+            self.assertEqual(worker.returncode, fresh.returncode)
+            self.assertEqual(json.loads(worker.stdout), json.loads(fresh.stdout))
+        self.assertEqual(self.worker.starts, 1)
+
     def test_threads_serialize_distinct_requests_and_killed_worker_restarts(self):
         requests = [self.payload(model=loft(height=str(i + 1))) for i in range(12)]
         with ThreadPoolExecutor(max_workers=6) as pool:

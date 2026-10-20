@@ -14,6 +14,7 @@ from measurements import dispatch_measure
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
+from clearance import dispatch_clearance
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from preview_jobs import PreviewJobs
@@ -204,6 +205,7 @@ def handler(store, port):
                 "/api/topology",
                 "/api/measure-edge",
                 "/api/interference",
+                "/api/clearance",
                 "/api/preview-jobs",
             ):
                 return self.reply(404, b"{}")
@@ -239,7 +241,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_interference(store, command)
+                    dispatch_clearance(store, command)
+                    if self.path == "/api/clearance"
+                    else dispatch_interference(store, command)
                     if self.path == "/api/interference"
                     else dispatch_edge_measure(store, command)
                     if self.path == "/api/measure-edge"

@@ -1,0 +1,338 @@
+[
+  {
+    "case": "overlap",
+    "native": {
+      "closest_points_mm": null,
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "part",
+      "relation": "overlapping",
+      "right": "copy"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": []
+  },
+  {
+    "case": "face_contact",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "0",
+          "0"
+        ]
+      ],
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "part",
+      "relation": "touching",
+      "right": "copy"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "edge_contact",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "4",
+          "0"
+        ],
+        [
+          "10",
+          "4",
+          "0"
+        ]
+      ],
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "part",
+      "relation": "touching",
+      "right": "copy"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "point_contact",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "4",
+          "2"
+        ],
+        [
+          "10",
+          "4",
+          "2"
+        ]
+      ],
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "part",
+      "relation": "touching",
+      "right": "copy"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "inside_cavity",
+    "native": {
+      "closest_points_mm": [
+        [
+          "3",
+          "7",
+          "2"
+        ],
+        [
+          "3",
+          "7",
+          "3"
+        ]
+      ],
+      "distance_approx_mm": 1.0,
+      "distance_mm": "1",
+      "distance_squared_mm2": "1",
+      "left": "result",
+      "relation": "separated",
+      "right": "probe.placed"
+    },
+    "independent_distance_mm": 1.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "cavity_contact",
+    "native": {
+      "closest_points_mm": [
+        [
+          "2",
+          "8",
+          "2"
+        ],
+        [
+          "2",
+          "8",
+          "2"
+        ]
+      ],
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "result",
+      "relation": "touching",
+      "right": "probe.placed"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "cavity_wall",
+    "native": {
+      "closest_points_mm": null,
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "result",
+      "relation": "overlapping",
+      "right": "probe.placed"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": []
+  },
+  {
+    "case": "separate_pieces",
+    "native": {
+      "closest_points_mm": null,
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "result",
+      "relation": "overlapping",
+      "right": "probe"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": []
+  },
+  {
+    "case": "concave",
+    "native": {
+      "closest_points_mm": null,
+      "distance_approx_mm": 0.0,
+      "distance_mm": "0",
+      "distance_squared_mm2": "0",
+      "left": "left",
+      "relation": "overlapping",
+      "right": "right"
+    },
+    "independent_distance_mm": 0.0,
+    "witness_membership_error_mm": []
+  },
+  {
+    "case": "disjoint_with_overlapping_bounds",
+    "native": {
+      "closest_points_mm": [
+        [
+          "1/4",
+          "7/4",
+          "0"
+        ],
+        [
+          "1/2",
+          "2",
+          "0"
+        ]
+      ],
+      "distance_approx_mm": 0.3535533905932738,
+      "distance_mm": "sqrt(1/8)",
+      "distance_squared_mm2": "1/8",
+      "left": "left",
+      "relation": "separated",
+      "right": "right"
+    },
+    "independent_distance_mm": 0.3535533905932738,
+    "witness_membership_error_mm": [
+      6.280369834735101e-16,
+      0.0
+    ]
+  },
+  {
+    "case": "gap_345",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "4",
+          "2"
+        ],
+        [
+          "13",
+          "8",
+          "2"
+        ]
+      ],
+      "distance_approx_mm": 5.0,
+      "distance_mm": "5",
+      "distance_squared_mm2": "25",
+      "left": "part",
+      "relation": "separated",
+      "right": "copy"
+    },
+    "independent_distance_mm": 5.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "irrational_gap",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "4",
+          "2"
+        ],
+        [
+          "11",
+          "5",
+          "3"
+        ]
+      ],
+      "distance_approx_mm": 1.7320508075688772,
+      "distance_mm": "sqrt(3)",
+      "distance_squared_mm2": "3",
+      "left": "part",
+      "relation": "separated",
+      "right": "copy"
+    },
+    "independent_distance_mm": 1.7320508075688772,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "fractional_gap",
+    "native": {
+      "closest_points_mm": [
+        [
+          "10",
+          "4",
+          "2"
+        ],
+        [
+          "31/3",
+          "13/3",
+          "7/3"
+        ]
+      ],
+      "distance_approx_mm": 0.5773502691896257,
+      "distance_mm": "sqrt(1/3)",
+      "distance_squared_mm2": "1/3",
+      "left": "part",
+      "relation": "separated",
+      "right": "copy"
+    },
+    "independent_distance_mm": 0.577350269189626,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "case": "loft_gap",
+    "native": {
+      "closest_points_mm": [
+        [
+          "40",
+          "20",
+          "0"
+        ],
+        [
+          "50",
+          "20",
+          "0"
+        ]
+      ],
+      "distance_approx_mm": 10.0,
+      "distance_mm": "10",
+      "distance_squared_mm2": "100",
+      "left": "part",
+      "relation": "separated",
+      "right": "copy"
+    },
+    "independent_distance_mm": 10.0,
+    "witness_membership_error_mm": [
+      0.0,
+      0.0
+    ]
+  }
+]

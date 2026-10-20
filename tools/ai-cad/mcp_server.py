@@ -11,6 +11,7 @@ from measurements import dispatch_measure
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
+from clearance import dispatch_clearance
 from store import Store, dispatch
 
 
@@ -277,6 +278,14 @@ def server(path):
         """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_clearance(expected_revision: int, left: str, right: str) -> dict:
+        """Measure exact minimum material separation between distinct saved terminal planar bodies. Same supported planar stock, cuts, Booleans, cavities, disconnected pieces and placements as cad_interference; curved analytic stock rejects unsupported_clearance. relation is separated, touching or overlapping. distance_squared_mm2 is rational and distance_mm is rational or sqrt(rational); approximation is display-only. Separated/touching results provide one exact rational closest-point pair, ordered left/right; ties need not return the same pair after edits or reversed input order. Overlapping material has zero separation and null closest_points_mm: no penetration depth is measured. This is straight Euclidean material distance, including cavity walls, not an assembly fit/tolerance/motion guarantee. Read-only and revision-bound; refresh on stale references. Resource-limit errors never represent a partial clearance answer."""
+        return dispatch_clearance(
+            store,
+            {"expected_revision": expected_revision, "left": left, "right": right},
         )
 
     @mcp.tool()

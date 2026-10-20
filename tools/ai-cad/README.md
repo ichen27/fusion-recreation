@@ -341,3 +341,14 @@ python tools/ai-cad/verify_interference_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_interference_reference.py
 ```
+
+### Exact planar separation
+
+Use the same two-body selector and choose **Measure separation** to distinguish a positive gap, touching and overlapping material. Results include exact distance and closest-point coordinates for separated/touching planar parts. Overlap reports zero separation without a penetration-depth estimate. AI clients use `cad_clearance`; all reads remain bound to the saved revision. [Examples, browser/MCP records and independent checks](../../examples/ai-cad/clearance/README.md).
+
+```sh
+python tools/ai-cad/verify_clearance.py
+python tools/ai-cad/verify_clearance_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_clearance_reference.py
+```

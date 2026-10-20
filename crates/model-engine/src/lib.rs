@@ -6,6 +6,7 @@ use num_rational::BigRational as Q;
 use num_traits::{Signed, Zero};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
+pub mod clearance;
 pub mod edge_measure;
 mod holes;
 pub mod intent;

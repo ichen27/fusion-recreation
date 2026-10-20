@@ -5,7 +5,17 @@ fn failure(code: &str, message: &str) -> serde_json::Value {
     serde_json::json!({"error":{"code":code,"entity":"request","message":message}})
 }
 fn dispatch(mode: Option<&str>, input: &str) -> serde_json::Value {
-    if mode == Some("--interference") {
+    if mode == Some("--clearance") {
+        match serde_json::from_str::<model_engine::clearance::Request>(input) {
+            Ok(request) => match model_engine::clearance::inspect(request) {
+                Ok(value) => serde_json::json!({"result":value}),
+                Err(error) => serde_json::json!({"error":error}),
+            },
+            Err(e) => {
+                serde_json::json!({"error":{"code":"invalid_request","entity":"clearance","message":e.to_string()}})
+            }
+        }
+    } else if mode == Some("--interference") {
         match serde_json::from_str::<model_engine::interference::Request>(input) {
             Ok(request) => match model_engine::interference::inspect(request) {
                 Ok(value) => serde_json::json!({"result":value}),
@@ -107,6 +117,7 @@ fn worker() -> io::Result<()> {
                 4 => dispatch(Some("--topology"), text),
                 5 => dispatch(Some("--edge"), text),
                 6 => dispatch(Some("--interference"), text),
+                7 => dispatch(Some("--clearance"), text),
                 _ => failure("invalid_request", "Unknown worker operation"),
             },
         };

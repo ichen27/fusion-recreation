@@ -1,0 +1,407 @@
+{
+  "stages": [
+    {
+      "native": "source.cad.json",
+      "runtime": "browser-source-runtime.json",
+      "calls": [
+        {
+          "command": {
+            "action": "select",
+            "expected_revision": 1,
+            "feature_id": "part"
+          },
+          "reply": {
+            "result": {
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "id": "copy",
+                    "kind": "instance",
+                    "offset": [
+                      "copy.x",
+                      "copy.y",
+                      "copy.z"
+                    ],
+                    "source": "part"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "copy.x": "13",
+                  "copy.y": "8",
+                  "copy.z": "2",
+                  "part.c0": "0",
+                  "part.c1": "10",
+                  "part.c2": "4",
+                  "part.height": "2"
+                }
+              },
+              "revision": 1,
+              "selected_body": {
+                "analytic": {
+                  "height": "2",
+                  "holes": [],
+                  "kind": "polygon_prism",
+                  "outer": [
+                    [
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "4"
+                    ],
+                    [
+                      "0",
+                      "4"
+                    ]
+                  ],
+                  "volume": {
+                    "constant_mm3": "80",
+                    "pi_subtract_mm3": "0"
+                  }
+                },
+                "feature_id": "part",
+                "volume_mm3": "80"
+              },
+              "selection_status": "current"
+            }
+          },
+          "url": "/api/selection"
+        },
+        {
+          "command": {
+            "expected_revision": 1,
+            "left": "part",
+            "right": "copy"
+          },
+          "reply": {
+            "result": {
+              "closest_points_mm": [
+                [
+                  "10",
+                  "4",
+                  "2"
+                ],
+                [
+                  "13",
+                  "8",
+                  "2"
+                ]
+              ],
+              "distance_approx_mm": 5,
+              "distance_mm": "5",
+              "distance_squared_mm2": "25",
+              "left": "part",
+              "relation": "separated",
+              "revision": 1,
+              "right": "copy"
+            }
+          },
+          "url": "/api/clearance"
+        }
+      ]
+    },
+    {
+      "native": "contact.cad.json",
+      "runtime": "browser-contact-runtime.json",
+      "calls": [
+        {
+          "command": {
+            "action": "select",
+            "expected_revision": 2,
+            "feature_id": "part"
+          },
+          "reply": {
+            "result": {
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "id": "copy",
+                    "kind": "instance",
+                    "offset": [
+                      "copy.x",
+                      "copy.y",
+                      "copy.z"
+                    ],
+                    "source": "part"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "copy.x": "10",
+                  "copy.y": "0",
+                  "copy.z": "0",
+                  "part.c0": "0",
+                  "part.c1": "10",
+                  "part.c2": "4",
+                  "part.height": "2"
+                }
+              },
+              "revision": 2,
+              "selected_body": {
+                "analytic": {
+                  "height": "2",
+                  "holes": [],
+                  "kind": "polygon_prism",
+                  "outer": [
+                    [
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "4"
+                    ],
+                    [
+                      "0",
+                      "4"
+                    ]
+                  ],
+                  "volume": {
+                    "constant_mm3": "80",
+                    "pi_subtract_mm3": "0"
+                  }
+                },
+                "feature_id": "part",
+                "volume_mm3": "80"
+              },
+              "selection_status": "current"
+            }
+          },
+          "url": "/api/selection"
+        },
+        {
+          "command": {
+            "expected_revision": 2,
+            "left": "part",
+            "right": "copy"
+          },
+          "reply": {
+            "result": {
+              "closest_points_mm": [
+                [
+                  "10",
+                  "0",
+                  "0"
+                ],
+                [
+                  "10",
+                  "0",
+                  "0"
+                ]
+              ],
+              "distance_approx_mm": 0,
+              "distance_mm": "0",
+              "distance_squared_mm2": "0",
+              "left": "part",
+              "relation": "touching",
+              "revision": 2,
+              "right": "copy"
+            }
+          },
+          "url": "/api/clearance"
+        }
+      ]
+    },
+    {
+      "native": "overlap.cad.json",
+      "runtime": "browser-overlap-runtime.json",
+      "calls": [
+        {
+          "command": {
+            "action": "select",
+            "expected_revision": 3,
+            "feature_id": "part"
+          },
+          "reply": {
+            "result": {
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "id": "copy",
+                    "kind": "instance",
+                    "offset": [
+                      "copy.x",
+                      "copy.y",
+                      "copy.z"
+                    ],
+                    "source": "part"
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "copy.x": "5",
+                  "copy.y": "0",
+                  "copy.z": "0",
+                  "part.c0": "0",
+                  "part.c1": "10",
+                  "part.c2": "4",
+                  "part.height": "2"
+                }
+              },
+              "revision": 3,
+              "selected_body": {
+                "analytic": {
+                  "height": "2",
+                  "holes": [],
+                  "kind": "polygon_prism",
+                  "outer": [
+                    [
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "4"
+                    ],
+                    [
+                      "0",
+                      "4"
+                    ]
+                  ],
+                  "volume": {
+                    "constant_mm3": "80",
+                    "pi_subtract_mm3": "0"
+                  }
+                },
+                "feature_id": "part",
+                "volume_mm3": "80"
+              },
+              "selection_status": "current"
+            }
+          },
+          "url": "/api/selection"
+        },
+        {
+          "command": {
+            "expected_revision": 3,
+            "left": "part",
+            "right": "copy"
+          },
+          "reply": {
+            "result": {
+              "closest_points_mm": null,
+              "distance_approx_mm": 0,
+              "distance_mm": "0",
+              "distance_squared_mm2": "0",
+              "left": "part",
+              "relation": "overlapping",
+              "revision": 3,
+              "right": "copy"
+            }
+          },
+          "url": "/api/clearance"
+        }
+      ]
+    }
+  ]
+}

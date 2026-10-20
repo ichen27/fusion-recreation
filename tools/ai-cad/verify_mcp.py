@@ -32,6 +32,7 @@ async def main():
                     "cad_measure",
                     "cad_measure_edge",
                     "cad_interference",
+                    "cad_clearance",
                     "cad_topology",
                     "cad_select_surface",
                     "cad_preview",
