@@ -16,6 +16,7 @@ mod holes;
 pub mod intent;
 pub mod interference;
 pub mod mass_set;
+pub mod materials;
 pub mod measure;
 mod measure_curved;
 pub mod mesh;
@@ -59,6 +60,8 @@ pub struct Model {
     pub fixed: BTreeMap<String, String>,
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub relations: BTreeMap<String, Relation>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub materials: BTreeMap<String, materials::Material>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -265,6 +268,13 @@ impl Feature {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "op", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Operation {
+    SetMaterial {
+        feature_id: String,
+        material: materials::Material,
+    },
+    ClearMaterial {
+        feature_id: String,
+    },
     DefineParameter {
         id: String,
         mm: String,
@@ -339,6 +349,8 @@ pub struct Evaluation {
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub profiles: Vec<EvaluatedProfile>,
     pub changed_parameters: Vec<String>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub resolved_materials: BTreeMap<String, materials::Resolved>,
 }
 fn identifier(s: &str) -> Result<()> {
     if s.is_empty()
@@ -595,6 +607,7 @@ fn evaluate_geometry_from(
             "Maximum 64 parameters, 32 features, 64 fixed values",
         ));
     }
+    materials::validate(m)?;
     for (id, value) in &m.parameters {
         identifier(id)?;
         rational(value, id)?;
@@ -1312,6 +1325,24 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
     let mut model = before.clone();
     for op in request.operations {
         match op {
+            Operation::SetMaterial {
+                feature_id,
+                material,
+            } => {
+                identifier(&feature_id)?;
+                model
+                    .materials
+                    .insert(feature_id.clone(), material.normalized(&feature_id)?);
+            }
+            Operation::ClearMaterial { feature_id } => {
+                if model.materials.remove(&feature_id).is_none() {
+                    return Err(error(
+                        "missing_material",
+                        &feature_id,
+                        "No direct material override exists on this feature",
+                    ));
+                }
+            }
             Operation::DefineParameter { id, mm } => {
                 identifier(&id)?;
                 if model.parameters.contains_key(&id) {
@@ -1443,7 +1474,14 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
         .filter(|id| before.parameters.get(*id) != model.parameters.get(*id))
         .cloned()
         .collect();
+    let mut resolved_materials = if model.materials.is_empty() {
+        BTreeMap::new()
+    } else {
+        materials::resolve(&model)?
+    };
+    resolved_materials.retain(|id, _| bodies.iter().any(|body| &body.feature_id == id));
     Ok(Evaluation {
+        resolved_materials,
         schema_version: 1,
         units: "mm",
         model,

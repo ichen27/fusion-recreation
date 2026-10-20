@@ -11,6 +11,7 @@ from drawings import dispatch_drawing
 from sections import dispatch_section
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
+from materials import dispatch_material_mass
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
@@ -326,6 +327,22 @@ class Constraint(Strict):
     id: str
 
 
+class Material(Strict):
+    name: str
+    density_kg_per_m3: str
+
+
+class SetMaterial(Strict):
+    op: Literal["set_material"]
+    feature_id: str
+    material: Material
+
+
+class ClearMaterial(Strict):
+    op: Literal["clear_material"]
+    feature_id: str
+
+
 Operation = Annotated[
     Union[
         Define,
@@ -339,6 +356,8 @@ Operation = Annotated[
         SetRelation,
         RemoveRelation,
         ConstrainLinear,
+        SetMaterial,
+        ClearMaterial,
     ],
     Field(discriminator="op"),
 ]
@@ -359,6 +378,13 @@ def server(path):
         """Explain a selected or retained feature's source chain, controlling dimensions, fixed/derived status and potential edit impact. Returns exact values, affine relations, root driving parameters, affected parameters/features and terminal bodies across the whole model. Dependency reachability is conservative: it does not prove a numeric edit changes geometry or succeeds. Use preview to validate proposed edits and preserve intended dimensions. Fixed drivers still require explicit user intent before release. Read-only and revision-bound; inspect/replan on conflicts."""
         return dispatch_explain(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_material_mass(expected_revision: int, feature_ids: list[str]) -> dict:
+        """Read combined mass, center and inertia for1..16 distinct saved terminal solids using their persistent uniform materials. Inspect resolved_materials first. Missing or conflicting material ancestry rejects; do not invent a density. Set or replace a feature override through cad_preview/cad_commit with {op:'set_material',feature_id,material:{name,density_kg_per_m3}}. Positive rational density is kg/m³; name is1..80 non-control characters without outer whitespace. Unary edits and linked copies inherit; Boolean difference takes the left target's material. Other combinations require identical names and densities on every input or report conflict. An explicit output override resolves it as a uniform whole solid, not mixed internal regions. clear_material removes a direct override and restores inheritance; clear overrides explicitly before deleting their feature. Native geometry and explicit-density measurements are unchanged. Every selected occurrence counts separately, including overlap."""
+        return dispatch_material_mass(
+            store, dict(expected_revision=expected_revision, feature_ids=feature_ids)
         )
 
     @mcp.tool()

@@ -127,3 +127,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Planar hidden-line reference sheets, exact rational segmentation and source edit/undo](hidden-line-sheets/README.md).
 
 [Exact planar sections, hatched SVGs and area/centroid edit/undo](planar-sections/README.md).
+
+[Saved materials, explicit inheritance/conflicts and exact assigned mass](materials/README.md).

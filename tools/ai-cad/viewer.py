@@ -14,6 +14,7 @@ from drawings import dispatch_drawing
 from sections import dispatch_section
 from measurements import dispatch_measure
 from mass_properties import dispatch_mass_set
+from materials import dispatch_material_mass
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
@@ -178,6 +179,7 @@ def handler(store, port):
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
                 "/linear-model.mjs": ("linear-model.mjs", "text/javascript"),
+                "/material-editor.mjs": ("material-editor.mjs", "text/javascript"),
                 "/mass-editor.mjs": ("mass-editor.mjs", "text/javascript"),
                 "/linear-editor.mjs": ("linear-editor.mjs", "text/javascript"),
                 "/startup.js": ("startup.js", "text/javascript"),
@@ -248,6 +250,7 @@ def handler(store, port):
                 "/api/measure",
                 "/api/mass-set",
                 "/api/section",
+                "/api/material-mass",
                 "/api/topology",
                 "/api/measure-edge",
                 "/api/interference",
@@ -287,7 +290,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_section(store, command)
+                    dispatch_material_mass(store, command)
+                    if self.path == "/api/material-mass"
+                    else dispatch_section(store, command)
                     if self.path == "/api/section"
                     else dispatch_mass_set(store, command)
                     if self.path == "/api/mass-set"

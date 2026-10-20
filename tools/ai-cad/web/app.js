@@ -1,3 +1,4 @@
+import { installMaterialEditor } from "/material-editor.mjs";
 import { installMassEditor } from "/mass-editor.mjs";
 import { installLinearEditor } from "/linear-editor.mjs";
 import { installSweepEditor } from "/sweep-editor.mjs";
@@ -375,6 +376,20 @@ function intentControls() {
   $("export-drawing").disabled =
     busy || !!preview || editPending || !selectedBody;
   $("drawing-style").disabled = $("export-drawing").disabled;
+  $("edit-material").disabled = $("export-drawing").disabled;
+  const materialState = (preview ?? saved)?.resolved_materials;
+  const material =
+    materialState && Object.hasOwn(materialState, selectedBody)
+      ? materialState[selectedBody]
+      : null;
+  $("material-info").textContent = !selectedBody
+    ? ""
+    : (preview ? "Preview material: " : "Saved material: ") +
+      (material?.status === "assigned"
+        ? `${material.material.name} · ${material.material.density_kg_per_m3} kg/m³ · from ${material.source_features.join(", ")}.`
+        : material?.status === "conflict"
+          ? "Conflicting or missing input materials; assign an explicit uniform override."
+          : "Unassigned.");
   for (const id of ["section-axis", "section-offset", "export-section"])
     $(id).disabled = $("export-drawing").disabled;
   $("measure-density").disabled = $("measure-selection").disabled;
@@ -1476,6 +1491,10 @@ const editorCallbacks = (name) => ({
       `${name} preview valid. Save edit to commit the model.`;
   },
 });
+const materialEditor = installMaterialEditor(editorCallbacks("Material"));
+$("edit-material").addEventListener("click", () =>
+  materialEditor.open(selectedBody),
+);
 const massEditor = installMassEditor(editorCallbacks("Combined mass"));
 $("measure-parts").addEventListener("click", () => massEditor.open());
 linearConstraints = installLinearEditor(editorCallbacks("Coupled dimensions"));

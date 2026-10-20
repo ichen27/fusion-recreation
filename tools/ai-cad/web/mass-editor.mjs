@@ -1,6 +1,6 @@
 const $ = (id) => document.getElementById(id);
 
-export function massRequest(state, entries) {
+export function massRequest(state, entries, useMaterials = false) {
   if (!entries.length || entries.length > 16)
     throw Error("Select between 1 and 16 parts.");
   const ids = new Set();
@@ -11,11 +11,17 @@ export function massRequest(state, entries) {
     )
       throw Error("Select each saved solid once.");
     ids.add(feature_id);
+    if (useMaterials) return { feature_id };
     if (typeof density !== "string" || !density.trim())
       throw Error(`Enter a density for ${feature_id}.`);
     return { feature_id, density_kg_per_m3: density.trim() };
   });
-  return { expected_revision: state.revision, parts };
+  return useMaterials
+    ? {
+        expected_revision: state.revision,
+        feature_ids: parts.map((p) => p.feature_id),
+      }
+    : { expected_revision: state.revision, parts };
 }
 
 export function installMassEditor({ getState, onOpen, onClose }) {
@@ -26,8 +32,11 @@ export function installMassEditor({ getState, onOpen, onClose }) {
   function controls() {
     for (const node of dialog.querySelectorAll("button,input"))
       node.disabled = pending;
-    for (const row of rows)
-      row.density.disabled = pending || !row.select.checked;
+    for (const row of rows) {
+      row.density.parentElement.hidden = $("mass-use-materials").checked;
+      row.density.disabled =
+        pending || !row.select.checked || $("mass-use-materials").checked;
+    }
   }
   function clear() {
     $("mass-result").replaceChildren();
@@ -38,6 +47,7 @@ export function installMassEditor({ getState, onOpen, onClose }) {
     dialog.close();
     onClose();
   }
+  $("mass-use-materials").addEventListener("change", clear);
   $("mass-close").addEventListener("click", close);
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
@@ -53,16 +63,22 @@ export function installMassEditor({ getState, onOpen, onClose }) {
         rows
           .filter((r) => r.select.checked)
           .map((r) => ({ feature_id: r.id, density: r.density.value })),
+        $("mass-use-materials").checked,
       );
       pending = true;
       controls();
       result.textContent = "Calculating exact mass properties…";
       const reply = await (
-        await fetch("/api/mass-set", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(command),
-        })
+        await fetch(
+          $("mass-use-materials").checked
+            ? "/api/material-mass"
+            : "/api/mass-set",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(command),
+          },
+        )
       ).json();
       if (getState().revision !== state.revision)
         throw Error(
@@ -74,6 +90,9 @@ export function installMassEditor({ getState, onOpen, onClose }) {
       result.replaceChildren();
       for (const text of [
         `Saved revision: ${info.revision}.`,
+        info.density_policy
+          ? "Densities come from saved material assignments."
+          : "Densities apply only to this measurement.",
         `Combined mass: ${info.mass_kg} kg.`,
         `Center of mass mm: (${info.center_of_mass_mm.join(", ")}).`,
         "Each selected occurrence is counted separately, including any overlap.",
@@ -81,6 +100,11 @@ export function installMassEditor({ getState, onOpen, onClose }) {
         const p = document.createElement("p");
         p.textContent = text;
         result.append(p);
+      }
+      for (const [id, source] of Object.entries(info.material_sources ?? {})) {
+        const line = document.createElement("p");
+        line.textContent = `${id}: ${source.material.name} · ${source.material.density_kg_per_m3} kg/m³ · from ${source.source_features.join(", ")}.`;
+        result.append(line);
       }
       const details = document.createElement("details"),
         title = document.createElement("summary"),
@@ -102,6 +126,7 @@ export function installMassEditor({ getState, onOpen, onClose }) {
     open() {
       state = structuredClone(getState());
       rows = [];
+      $("mass-use-materials").checked = false;
       const list = $("mass-parts");
       list.replaceChildren();
       for (const body of state.bodies) {
@@ -123,7 +148,20 @@ export function installMassEditor({ getState, onOpen, onClose }) {
         );
         select.addEventListener("change", clear);
         density.addEventListener("input", clear);
-        field.append(label, densityLabel);
+        const savedMaterial = document.createElement("p");
+        const material = Object.hasOwn(
+          state.resolved_materials ?? {},
+          body.feature_id,
+        )
+          ? state.resolved_materials[body.feature_id]
+          : null;
+        savedMaterial.textContent =
+          material?.status === "assigned"
+            ? `Saved: ${material.material.name} · ${material.material.density_kg_per_m3} kg/m³`
+            : material?.status === "conflict"
+              ? "Saved material: conflicting or missing inputs"
+              : "Saved material: unassigned";
+        field.append(label, savedMaterial, densityLabel);
         list.append(field);
         rows.push({ id: body.feature_id, select, density });
       }
