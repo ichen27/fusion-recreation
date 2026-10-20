@@ -1,5 +1,6 @@
 // Keep selection and editing visible; disclose new modeling actions on demand.
 const editClasses = {
+  revolve: "edit-revolve",
   polygon_profile: "edit-sketch",
   planar_profile: "edit-sketch",
   through_holes: "edit-holes",

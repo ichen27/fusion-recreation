@@ -391,3 +391,13 @@ User dimension operations accept `12.5`, `1/2 in` and `2.54 cm`, with exact rati
 ### Viewport navigation
 
 Choose an orthographic view from the View control. Drag to orbit; Shift-drag or middle-drag pans; scroll zooms at the cursor. Focus the viewport for arrow-key orbit, Shift+arrow pan, +/− zoom and F to fit. Named views fit automatically; Fit view preserves orientation. These controls update disposable camera state only. [Navigation evidence and limits](../../examples/ai-cad/navigation/README.md).
+
+### Turned parts from editable profiles
+
+**Revolve profile** turns an earlier polygon sketch through 360° around Z. Sketch X
+is radius and Y is axial height. Edit the source sketch/dimensions to reshape the
+part, or **Edit revolution** to select another earlier profile. Stepped shafts,
+rings and tapered undercuts retain exact analytic geometry, measurements and surface
+selection. Axis contact needs one connected edge with flat ends; apexes, partial
+turns and general curved Booleans are unsupported. [Examples, native downloads,
+STL/STEP and verification](../../examples/ai-cad/revolution/README.md).

@@ -1,0 +1,6 @@
+{
+  "worker_starts": 1,
+  "worker_requests": 9,
+  "native_sha256_before": "9406130f063c1f565a7723f26ee5c230dba361819b3430c55e4d90ab27cf8380",
+  "native_sha256_after": "f7045c3af6e3d593adba42bf3208be47d8716f441d18f0607e095039bc8775aa"
+}

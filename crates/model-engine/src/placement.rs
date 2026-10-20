@@ -35,7 +35,11 @@ pub(crate) fn analytic(
         return Ok(None);
     };
     // Preserve the established boundary route for ordinary polygon prisms.
-    if shape.outer_circle.is_none() && shape.holes.is_empty() && shape.placement.is_none() {
+    if shape.revolution.is_none()
+        && shape.outer_circle.is_none()
+        && shape.holes.is_empty()
+        && shape.placement.is_none()
+    {
         return Ok(None);
     }
     let mut shape = shape.clone();

@@ -162,6 +162,8 @@ def handler(store, port):
                     "text/javascript",
                 ),
                 "/stock-model.mjs": ("stock-model.mjs", "text/javascript"),
+                "/revolve-model.mjs": ("revolve-model.mjs", "text/javascript"),
+                "/revolve-editor.mjs": ("revolve-editor.mjs", "text/javascript"),
                 "/loft-model.mjs": ("loft-model.mjs", "text/javascript"),
                 "/loft-editor.mjs": ("loft-editor.mjs", "text/javascript"),
                 "/stock-editor.mjs": ("stock-editor.mjs", "text/javascript"),

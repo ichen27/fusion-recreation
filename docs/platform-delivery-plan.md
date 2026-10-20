@@ -253,3 +253,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Viewport navigation checkpoint
 
 [Standard views, pan and anchored zoom](../examples/ai-cad/navigation/README.md) add named orthographic views, pointer/keyboard navigation and consistent outside-face picking. Seven actual selections and63 WebGL/CPU projection configurations validate depth/coordinate agreement; camera changes reuse geometry buffers, while context restoration uploads once. No native model or exact geometry changes. CI remains blocked by account billing/spending limits; this checkpoint is reviewable work, not a merged release. Continue the next geometry dependency: full revolutions of planar radial profiles for turned parts, with an explicit supported-profile policy and independent validation. Preserve the open PR dependency chain.
+
+## Full radial revolution checkpoint
+
+[Editable profile revolutions](../examples/ai-cad/revolution/README.md) add full turns of rational radius/Z polygons, exact integral moments, analytic shared surfaces, browser/MCP edits and independent STEP comparisons. Axis-connected flat-ended parts and positive-radius rings support concave undercuts, translation, coordinate quarter-turns and linked instances. Partial turns, pointed apexes, arbitrary axes and curved Boolean intersections remain open. Continue into bounded swept-profile solids and broader sketch/assembly workflows; this checkpoint does not complete the platform.

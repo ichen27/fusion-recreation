@@ -47,6 +47,7 @@ impl Feature {
             Self::Extrude {
                 profile, height, ..
             } => (vec![profile], vec![height]),
+            Self::Revolve { profile, .. } => (vec![profile], vec![]),
             Self::PlanarLoft {
                 bottom,
                 top,

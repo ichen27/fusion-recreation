@@ -31,6 +31,7 @@
         <button id="new-intersection" type="button" disabled>
           Intersect two solids
         </button>
+        <button id="new-revolve" type="button" disabled>Revolve profile</button>
         <button id="new-loft" type="button" disabled>Loft profiles</button>
         <p class="feature-hint">
           Select a solid to inspect it. Open Modeling actions to shape or
@@ -556,6 +557,32 @@
         </p>
         <button type="submit" id="intersection-preview" class="primary">
           Preview intersection
+        </button>
+      </form>
+    </dialog>
+    <dialog id="revolve-dialog" aria-labelledby="revolve-title">
+      <form id="revolve-form">
+        <div class="dialog-heading">
+          <h2 id="revolve-title">Revolve profile</h2>
+          <button id="revolve-close" type="button">Cancel</button>
+        </div>
+        <p id="revolve-feedback" role="status"></p>
+        <label
+          >Radial profile<select
+            id="revolve-profile"
+            aria-label="Radial profile"
+            required
+          ></select
+        ></label>
+        <p class="hint">
+          Use a simple outline with nonnegative X coordinates. The outline may
+          stay entirely away from the axis for a hollow ring. To meet the axis,
+          use one straight axis edge with flat ends; pointed tips and multiple
+          axis contacts are not supported. Cylindrical and conical faces remain
+          exact. This creates a separate solid and retains the source sketch.
+        </p>
+        <button id="revolve-preview" type="submit" class="primary">
+          Preview revolution
         </button>
       </form>
     </dialog>

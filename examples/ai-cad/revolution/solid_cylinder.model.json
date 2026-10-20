@@ -1,0 +1,42 @@
+{
+  "parameters": {
+    "height": "1",
+    "c0": "0",
+    "c1": "10",
+    "c2": "12"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "c0",
+          "y": "c0"
+        },
+        {
+          "id": "v1",
+          "x": "c1",
+          "y": "c0"
+        },
+        {
+          "id": "v2",
+          "x": "c1",
+          "y": "c2"
+        },
+        {
+          "id": "v3",
+          "x": "c0",
+          "y": "c2"
+        }
+      ]
+    },
+    {
+      "kind": "revolve",
+      "id": "revolved",
+      "profile": "outline"
+    }
+  ]
+}

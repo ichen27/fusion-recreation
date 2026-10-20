@@ -14,6 +14,7 @@ from OCP.BRepBuilderAPI import (
 )
 from OCP.BRepPrimAPI import (
     BRepPrimAPI_MakePrism,
+    BRepPrimAPI_MakeRevol,
     BRepPrimAPI_MakeHalfSpace,
     BRepPrimAPI_MakeCylinder,
     BRepPrimAPI_MakeCone,
@@ -47,6 +48,18 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "revolve":
+            profile = next(p for p in model["features"] if p["id"] == f["profile"])
+            polygon = BRepBuilderAPI_MakePolygon()
+            for vertex in profile["vertices"]:
+                polygon.Add(gp_Pnt(values[vertex["x"]], 0, values[vertex["y"]]))
+            polygon.Close()
+            face = BRepBuilderAPI_MakeFace(polygon.Wire(), True).Face()
+            builder = BRepPrimAPI_MakeRevol(
+                face, gp_Ax1(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)), math.tau, True
+            )
+            assert builder.IsDone()
+            shape = builder.Shape()
         elif f["kind"] == "mirror_plane":
             normal = [number(v) for v in f["normal"]]
             squared = sum(v * v for v in normal)
