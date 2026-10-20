@@ -281,3 +281,13 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Concave coaxial intersection checkpoint
 
 [Stepped and undercut common volume](../examples/ai-cad/concave-coaxial/README.md) extends the dedicated intersection feature through the direct exact radial engine, preserving the convex clipping path and recordings. Browser/MCP create, edit, invalid draft, undo and native/STL downloads agree; eight independent references and16 STEP readbacks cover concave pairs, conical walls, opposite axes and nested results. Separate radial regions and contour holes remain explicit limits.
+
+## Coupled linear dimensions checkpoint
+
+[Exact simultaneous linear constraints](../examples/ai-cad/linear-constraints/README.md)
+compile coupled equalities into persistent affine relationships over explicit target
+dimensions. Symbolic driver dependence survives ordinary edits, native reopen and
+undo. Rank deficiency, contradictions and residual restrictions on free drivers
+reject explicitly. The two-part browser/MCP workflow preserves a gap while solving
+both widths and placement. Nonlinear sketch constraints and automatic choice of
+degrees of freedom remain future work.

@@ -1,0 +1,119 @@
+{
+  "action": "commit",
+  "transaction_id": "linear-example",
+  "expected_revision": 0,
+  "operations": [
+    {
+      "op": "define_parameter",
+      "id": "depth",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "gap",
+      "mm": "10"
+    },
+    {
+      "op": "define_parameter",
+      "id": "height",
+      "mm": "20"
+    },
+    {
+      "op": "define_parameter",
+      "id": "left",
+      "mm": "60"
+    },
+    {
+      "op": "define_parameter",
+      "id": "offset",
+      "mm": "70"
+    },
+    {
+      "op": "define_parameter",
+      "id": "right",
+      "mm": "30"
+    },
+    {
+      "op": "define_parameter",
+      "id": "span",
+      "mm": "100"
+    },
+    {
+      "op": "define_parameter",
+      "id": "zero",
+      "mm": "0"
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "depth": "depth",
+        "height": "height",
+        "id": "left_part",
+        "kind": "block",
+        "width": "left"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "depth": "depth",
+        "height": "height",
+        "id": "right_part",
+        "kind": "block",
+        "width": "right"
+      }
+    },
+    {
+      "op": "add_feature",
+      "feature": {
+        "id": "right_placed",
+        "input": "right_part",
+        "kind": "translate",
+        "offset": [
+          "offset",
+          "zero",
+          "zero"
+        ]
+      }
+    },
+    {
+      "op": "set_relation",
+      "id": "offset",
+      "relation": {
+        "offset_mm": "0",
+        "terms": {
+          "gap": "1",
+          "left": "1"
+        }
+      }
+    },
+    {
+      "op": "constrain_linear",
+      "targets": [
+        "left",
+        "right"
+      ],
+      "equations": [
+        {
+          "id": "span",
+          "terms": {
+            "left": "1",
+            "right": "1",
+            "gap": "1",
+            "span": "-1"
+          },
+          "offset_mm": "0"
+        },
+        {
+          "id": "ratio",
+          "terms": {
+            "left": "1",
+            "right": "-2"
+          },
+          "offset_mm": "0"
+        }
+      ]
+    }
+  ],
+  "preserve": []
+}
