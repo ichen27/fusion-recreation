@@ -115,15 +115,17 @@ def handler(store, port):
             if urlsplit(self.path).path == "/api/export.svg":
                 try:
                     query = parse_qs(urlsplit(self.path).query, strict_parsing=True)
-                    if set(query) != {"revision", "body"} or any(
-                        len(v) != 1 for v in query.values()
-                    ):
+                    if (
+                        not {"revision", "body"}.issubset(query)
+                        or not set(query).issubset({"revision", "body", "style"})
+                    ) or any(len(v) != 1 for v in query.values()):
                         raise ValueError("Expected one revision and body")
                     reply = dispatch_drawing(
                         store,
                         {
                             "expected_revision": int(query["revision"][0]),
                             "feature_id": query["body"][0],
+                            "style": query.get("style", ["all_edges"])[0],
                         },
                     )
                     if "error" in reply:

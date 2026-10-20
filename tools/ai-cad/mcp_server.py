@@ -361,10 +361,19 @@ def server(path):
         )
 
     @mcp.tool()
-    def cad_reference_sheet(expected_revision: int, feature_id: str) -> dict:
-        """Read a revision-bound SVG orthographic reference sheet for one saved terminal solid. Returns SVG text, exact XYZ bounds/extents in mm, source-model SHA-256 and top/front/right projection counts. All native edges are shown, including occluded edges and smooth surface seams. Circular edges remain SVG arcs where face-on, and project to lines edge-on. No hidden-line removal, section views, tolerances or manufacturing annotations; common fit-to-sheet scale must not be used to measure dimensions. Native model and history remain unchanged."""
+    def cad_reference_sheet(
+        expected_revision: int,
+        feature_id: str,
+        style: Literal["all_edges", "planar_hidden"] = "all_edges",
+    ) -> dict:
+        """Read a revision-bound SVG orthographic reference sheet for one saved terminal solid. Returns SVG text, exact XYZ bounds/extents in mm, source-model SHA-256 and top/front/right projection counts. Default all_edges shows all native edges, including occluded edges and smooth surface seams. Optional planar_hidden classifies exact visible/hidden segments for planar solids only and draws hidden segments dashed; curved solids reject this style. Occlusion uses the selected solid only. Circular edges remain SVG arcs where face-on, and project to lines edge-on. No curved hidden-line classification, section views, tolerances or manufacturing annotations; common fit-to-sheet scale must not be used to measure dimensions. Native model and history remain unchanged."""
         return dispatch_drawing(
-            store, {"expected_revision": expected_revision, "feature_id": feature_id}
+            store,
+            {
+                "expected_revision": expected_revision,
+                "feature_id": feature_id,
+                "style": style,
+            },
         )
 
     @mcp.tool()

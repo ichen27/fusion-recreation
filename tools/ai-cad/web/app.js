@@ -374,6 +374,7 @@ function intentControls() {
     measurementPending || busy || !!preview || editPending || !selectedBody;
   $("export-drawing").disabled =
     busy || !!preview || editPending || !selectedBody;
+  $("drawing-style").disabled = $("export-drawing").disabled;
   $("measure-density").disabled = $("measure-selection").disabled;
   $("topology-selection").disabled =
     topologyPending || busy || !!preview || editPending || !selectedBody;
@@ -1502,21 +1503,26 @@ setInterval(() => refresh(), 2000);
 $("export-drawing").addEventListener("click", async () => {
   if (busy || preview || editPending || !selectedBody) return;
   const revision = saved.revision,
-    feature = selectedBody;
+    feature = selectedBody,
+    style = $("drawing-style").value;
   busy = true;
   controls();
   try {
-    const query = new URLSearchParams({ revision, body: feature });
+    const query = new URLSearchParams({
+      revision,
+      body: feature,
+      ...(style === "all_edges" ? {} : { style }),
+    });
     const response = await fetch(`/api/export.svg?${query}`);
     if (!response.ok) throw Error((await response.json()).error.message);
     const url = URL.createObjectURL(await response.blob()),
       a = document.createElement("a");
     a.href = url;
-    a.download = `${feature}-r${revision}-reference.svg`;
+    a.download = `${feature}-r${revision}-${style === "all_edges" ? "reference" : "hidden-lines"}.svg`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     $("status").textContent =
-      `Exported reference sheet for ${feature} at revision ${revision}. All edges shown; no hidden-line removal. Use labeled dimensions, not page measurements.`;
+      `Exported reference sheet for ${feature} at revision ${revision}. ${style === "all_edges" ? "All edges shown; no hidden-line removal." : "Planar hidden segments dashed; selected solid only."} Use labeled dimensions, not page measurements.`;
   } catch (error) {
     $("status").textContent = error.message;
   } finally {

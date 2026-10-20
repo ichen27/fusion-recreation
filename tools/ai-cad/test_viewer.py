@@ -132,13 +132,21 @@ class Viewer(unittest.TestCase):
             (f"revision=1&body={feature}&body={feature}", 400),
             ("revision=1&body=missing", 400),
             ("body=x", 400),
+            (f"revision=1&body={feature}&style=planar_hidden", 200),
+            (f"revision=1&body={feature}&style=unknown", 400),
+            (f"revision=1&body={feature}&style=all_edges&style=all_edges", 400),
         ]:
             status, payload = self.request("GET", "/api/export.svg?" + query)
             self.assertEqual(status, expected_status)
             if status == 200:
                 root = ET.fromstring(payload)
                 self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
-                self.assertIn("No hidden-line removal", payload.decode())
+                self.assertIn(
+                    "Planar visibility"
+                    if "planar_hidden" in query
+                    else "No hidden-line removal",
+                    payload.decode(),
+                )
         self.assertEqual(self.store.path.read_bytes(), before)
 
     def test_mass_set_http_read_only_revision_and_validation(self):

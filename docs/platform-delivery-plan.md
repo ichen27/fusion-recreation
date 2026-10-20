@@ -311,3 +311,7 @@ degrees of freedom remain future work.
 ## Orthographic reference-sheet checkpoint
 
 [Native-topology SVG reference sheets](../examples/ai-cad/reference-sheets/README.md) provide revision/hash-bound top, front and right views with exact overall dimensions. Circles remain vector arcs; the browser download matches typed MCP output. Source edits and undo regenerate matching view geometry and native fingerprints. These sheets explicitly show all edges and seams; hidden-line removal, section views, tolerances and persistent associative annotations remain open.
+
+## Planar drawing visibility checkpoint
+
+[Exact planar hidden-line sheets](../examples/ai-cad/hidden-line-sheets/README.md) classify rational native-edge intervals against planar faces, preserve openings and merge coincident ink with visible segments taking precedence. Browser/MCP exports, source edits and undo retain exact source fingerprints. Curved visibility, section views, persistent associative annotations, tolerances and manufacturing drawing completeness remain open.

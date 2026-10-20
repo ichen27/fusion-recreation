@@ -466,7 +466,7 @@ An edit to one branch can now reuse unchanged features later in the history, inc
 
 ### Orthographic SVG reference sheets
 
-Select a saved solid and choose **Download reference sheet (SVG)**. Open the SVG in a browser or vector editor. Top/front/right views retain native circles as arcs, and labels report exact overall dimensions in millimeters. All edges and surface seams are shown; hidden-line removal and manufacturing annotations are not included. The scale fits the page, so use dimension labels rather than measuring the page. [Editable sources, SVG exports and verification](../../examples/ai-cad/reference-sheets/README.md).
+Select a saved solid and choose **Download reference sheet (SVG)**. Open the SVG in a browser or vector editor. Top/front/right views retain native circles as arcs, and labels report exact overall dimensions in millimeters. The default shows all native edges and surface seams. Choose **Hidden lines dashed (planar solids)** to classify and merge exact projected segments; curves explicitly reject this style. Manufacturing annotations are not included. The scale fits the page, so use dimension labels rather than measuring the page. [Editable sources, SVG exports and verification](../../examples/ai-cad/reference-sheets/README.md).
 
 AI clients use `cad_reference_sheet` with the saved revision and feature ID. CLI export:
 
@@ -476,3 +476,5 @@ python tools/ai-cad/verify_drawings.py
 # With MCP dependencies installed:
 python tools/ai-cad/verify_drawings_mcp.py
 ```
+
+Optional planar visibility: pass `style="planar_hidden"` to `cad_reference_sheet`, or add `--style planar_hidden` to the CLI. Top/front/right observers look from +Z/−Y/+X. Only the selected solid occludes its edges; other parts do not. Coincident projected linework is merged with visible coverage taking precedence. Exact split intervals remain attached to representative native edges. [Native stages, SVGs, browser screenshot and validation](../../examples/ai-cad/hidden-line-sheets/README.md).

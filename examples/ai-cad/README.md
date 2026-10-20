@@ -123,3 +123,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact planar mirrors, linked counterparts and oblique reflections](mirror/README.md).
 
 [Compact feature actions, keyboard access and unchanged-document verification](feature-actions/README.md).
+
+[Planar hidden-line reference sheets, exact rational segmentation and source edit/undo](hidden-line-sheets/README.md).
