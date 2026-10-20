@@ -1,27 +1,14 @@
 {
-  "inventoryStatus": "Saved revision 1 \u00b7 2 solids \u00b7 Materials: 2 assigned, 0 unassigned, 0 conflicting.",
-  "rows": [
-    [
-      "copy",
-      "instance",
-      "part",
-      "1",
-      "80",
-      "Test material",
-      "1000"
-    ],
-    [
-      "part",
-      "extrude",
-      "\u2014",
-      "1",
-      "80",
-      "Test material",
-      "1000"
-    ]
-  ],
-  "title": "Original CAD \u00b7 Model workspace",
+  "source_commit": "4bcafdc6b6e26e35f46f1dd4c5f5435d25e8c0cb",
   "webgl2": true,
-  "document_unchanged": true,
-  "archive_sha256": "14e93ed1a98e6b7ec4e737ca925659a1ec53ad7849c48bb4063fe75e36b95bc0"
+  "document": "counterbored-mount.cad.json",
+  "native_bytes_unchanged": true,
+  "selected_surface": "feature/part/hole/left/shoulder",
+  "surface_offset_mm": "3",
+  "named_reference": "seat",
+  "sample_names": [
+    "rectangular-plate",
+    "counterbored-mount",
+    "turned-spacer"
+  ]
 }

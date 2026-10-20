@@ -108,6 +108,7 @@
           “Make it 20 mm wider. Keep the thickness and other dimensions.”
         </blockquote>
         <div class="status-dot">Exact Rust geometry · mm</div>
+        <button id="named-references" disabled>Named references</button>
         <button id="parts-inventory" disabled>Parts inventory</button>
         <button id="measure-parts" disabled>Measure combined mass</button>
         <h2>Selected solid</h2>
@@ -283,7 +284,7 @@
             </svg>
             <div class="actions">
               <button type="button" id="sketch-rectangle">
-                Start rectangle</button
+                Constrained rectangle</button
               ><button type="button" id="sketch-remove">
                 Remove last point</button
               ><button type="button" id="sketch-fit">Fit view</button>
@@ -846,6 +847,35 @@
         </p>
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation
+        </button>
+      </form>
+    </dialog>
+    <dialog id="reference-dialog" aria-labelledby="reference-title">
+      <form id="reference-form">
+        <header class="sketch-heading">
+          <h2 id="reference-title">Named references</h2>
+          <button type="button" id="reference-close">Close</button>
+        </header>
+        <label>Saved reference<select id="reference-saved"></select></label>
+        <label>Name<input id="reference-name" maxlength="64" required /></label>
+        <label>Solid<select id="reference-body"></select></label>
+        <label
+          >Target<select id="reference-kind">
+            <option value="surface">Surface</option>
+            <option value="edge_chain">Edge chain between surfaces</option>
+          </select></label
+        >
+        <label>Authored surface<select id="reference-first"></select></label>
+        <label id="reference-second-label"
+          >Adjacent surface<select id="reference-second"></select
+        ></label>
+        <p id="reference-feedback" role="status"></p>
+        <button id="reference-preview" type="submit" class="primary">
+          Preview binding
+        </button>
+        <button id="reference-remove" type="button">Preview removal</button>
+        <button id="reference-select" type="button">
+          Select saved surface
         </button>
       </form>
     </dialog>

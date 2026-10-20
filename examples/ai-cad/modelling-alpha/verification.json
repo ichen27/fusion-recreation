@@ -1,0 +1,44 @@
+[
+  {
+    "part": "rectangular-plate",
+    "calls": 9,
+    "initial_volume_mm3": "36000",
+    "edited_volume_mm3": "43200",
+    "triangles": 12,
+    "mesh_volume_mm3": 43200.0,
+    "native_reopen": true,
+    "preview_readonly": true,
+    "stale_and_invalid_edits_rejected": true,
+    "undo_redo": true,
+    "stl_closed": true,
+    "reference_sheet": true
+  },
+  {
+    "part": "counterbored-mount",
+    "calls": 11,
+    "initial_volume_mm3": "36000 - (172)*pi",
+    "edited_volume_mm3": "36000 - (204)*pi",
+    "triangles": 2068,
+    "mesh_volume_mm3": 35359.37244398109,
+    "native_reopen": true,
+    "preview_readonly": true,
+    "stale_and_invalid_edits_rejected": true,
+    "undo_redo": true,
+    "stl_closed": true,
+    "reference_sheet": true
+  },
+  {
+    "part": "turned-spacer",
+    "calls": 9,
+    "initial_volume_mm3": "1092*pi",
+    "edited_volume_mm3": "1365*pi",
+    "triangles": 1024,
+    "mesh_volume_mm3": 4286.552029243169,
+    "native_reopen": true,
+    "preview_readonly": true,
+    "stale_and_invalid_edits_rejected": true,
+    "undo_redo": true,
+    "stl_closed": true,
+    "reference_sheet": true
+  }
+]

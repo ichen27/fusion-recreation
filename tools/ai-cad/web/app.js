@@ -1,3 +1,4 @@
+import { installReferenceEditor } from "/reference-editor.mjs";
 import { installMaterialEditor } from "/material-editor.mjs";
 import { installInventory } from "./inventory.mjs";
 import { installMassEditor } from "/mass-editor.mjs";
@@ -927,6 +928,8 @@ function controls() {
   intentControls();
   $("new-sketch").disabled = busy || !!preview || editPending || !saved;
   $("new-stock").disabled = busy || !!preview || editPending || !saved;
+  $("named-references").disabled =
+    busy || !!preview || editPending || !saved?.bodies.length;
   $("parts-inventory").disabled = busy || !!preview || editPending || !saved;
   $("measure-parts").disabled =
     busy || !!preview || editPending || !saved?.bodies.length;
@@ -1493,6 +1496,11 @@ const editorCallbacks = (name) => ({
       `${name} preview valid. Save edit to commit the model.`;
   },
 });
+const referenceEditor = installReferenceEditor({
+  ...editorCallbacks("Named reference"),
+  onSelect: shareSelection,
+});
+$("named-references").addEventListener("click", () => referenceEditor.open());
 const materialEditor = installMaterialEditor(editorCallbacks("Material"));
 $("edit-material").addEventListener("click", () =>
   materialEditor.open(selectedBody),

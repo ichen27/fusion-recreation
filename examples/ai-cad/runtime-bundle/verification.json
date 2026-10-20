@@ -1,8 +1,8 @@
 {
-  "archive_sha256": "14e93ed1a98e6b7ec4e737ca925659a1ec53ad7849c48bb4063fe75e36b95bc0",
-  "archive_bytes": 1483880,
+  "archive_sha256": "fa9880c280af267af1f5b555bff01d290906454c4d77746b0fbbf84005b1e285",
+  "archive_bytes": 1549988,
   "doctor": {
-    "source_commit": "32d95f7aac78ddd3863c92306b9ceed051411a60",
+    "source_commit": "4bcafdc6b6e26e35f46f1dd4c5f5435d25e8c0cb",
     "source_dirty": false,
     "platform": {
       "machine": "arm64",
@@ -10,7 +10,7 @@
       "tested_os": "27.0.1"
     },
     "python": "3.14.3",
-    "files_verified": 122,
+    "files_verified": 126,
     "saved_solids": 2,
     "preview_save_reopen_undo": "passed",
     "assigned_mass_kg": "1/6250",
@@ -81,6 +81,7 @@
     "/plane-editor.mjs",
     "/plane-model.mjs",
     "/preview-client.mjs",
+    "/reference-editor.mjs",
     "/revolve-editor.mjs",
     "/revolve-model.mjs",
     "/rotation-editor.mjs",
@@ -99,6 +100,11 @@
     "/translate-editor.mjs",
     "/translate-model.mjs",
     "/vector-parameters.mjs"
+  ],
+  "alpha_samples": [
+    "rectangular-plate",
+    "counterbored-mount",
+    "turned-spacer"
   ],
   "http_preview_save": "passed",
   "core_site_packages_disabled": true,

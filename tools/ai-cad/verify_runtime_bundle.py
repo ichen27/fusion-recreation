@@ -101,6 +101,23 @@ def verify(archive, mcp_python=None, report=None):
             )
 
         health = json.loads(launch("doctor").stdout)
+        alpha_samples = []
+        for name, volume in [
+            ("rectangular-plate", "43200"),
+            ("counterbored-mount", "36000 - (204)*pi"),
+            ("turned-spacer", "1365*pi"),
+        ]:
+            sample = destination / f"{name}.cad.json"
+            shutil.copyfile(root / f"samples/{name}.cad.json", sample)
+            loaded = json.loads(
+                launch(
+                    "command", "--store", str(sample), input='{"action":"inspect"}'
+                ).stdout
+            )["result"]
+            assert loaded["bodies"][0]["volume_mm3"] == volume
+            if name == "counterbored-mount":
+                assert len(loaded["resolved_references"]["rim"]["edge_indices"]) == 4
+            alpha_samples.append(name)
         document = destination / "editable document.cad.json"
         shutil.copyfile(root / "samples/materials.cad.json", document)
         inspect = json.loads(
@@ -259,6 +276,7 @@ def verify(archive, mcp_python=None, report=None):
             archive_bytes=archive.stat().st_size,
             doctor=health,
             http_assets=assets,
+            alpha_samples=alpha_samples,
             http_preview_save="passed",
             core_site_packages_disabled=True,
             core_toolchain_path_removed=True,

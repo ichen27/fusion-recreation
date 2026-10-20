@@ -107,10 +107,62 @@ export function setCoordinate(draft, index, axis, value) {
     throw Error(`${ref} is fixed or derived; edit its controlling parameter`);
   draft.values[ref] = String(value);
 }
+// Root dimensions controlling this outline, including dimensions outside its vertices.
+export function sketchDrivers(draft) {
+  const roots = new Set(),
+    seen = new Set();
+  function visit(id) {
+    if (seen.has(id)) return;
+    seen.add(id);
+    const relation = draftRelation(draft, id);
+    if (relation) Object.keys(relation.terms).forEach(visit);
+    else roots.add(id);
+  }
+  draft.vertices.forEach((v) => {
+    visit(v.x);
+    visit(v.y);
+  });
+  const coordinates = new Set(draft.vertices.flatMap((v) => [v.x, v.y]));
+  return [...roots].filter((id) => !coordinates.has(id));
+}
+export function startRectangle(draft, width = "100", depth = "60") {
+  if (draft.featureId)
+    throw Error("Create a new sketch for a rectangle preset");
+  draft.vertices = [];
+  draft.relationEdits = {};
+  const w = `${draft.prefix}.width`,
+    d = `${draft.prefix}.depth`;
+  if (w in draft.model.parameters || d in draft.model.parameters)
+    throw Error("Rectangle dimension IDs already exist; reopen the editor");
+  draft.values[w] = width;
+  draft.values[d] = depth;
+  for (const [x, y] of [
+    ["0", "0"],
+    [width, "0"],
+    [width, depth],
+    ["0", depth],
+  ])
+    addPoint(draft, x, y);
+  draft.vertices.forEach((v, i) => {
+    draft.relationEdits[v.x] = {
+      offset_mm: "0",
+      terms: i === 1 || i === 2 ? { [w]: "1" } : {},
+    };
+    draft.relationEdits[v.y] = {
+      offset_mm: "0",
+      terms: i >= 2 ? { [d]: "1" } : {},
+    };
+  });
+}
 export function sketchOperations(draft) {
   if (draft.vertices.length < 3)
     throw Error("Add at least three points around a simple outline");
-  const refs = [...new Set(draft.vertices.flatMap((v) => [v.x, v.y]))];
+  const refs = [
+    ...new Set([
+      ...draft.vertices.flatMap((v) => [v.x, v.y]),
+      ...sketchDrivers(draft),
+    ]),
+  ];
   if (draft.featureId) {
     const rules = relationOperations(draft);
     const changed = refs.filter(

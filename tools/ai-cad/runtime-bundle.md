@@ -1,6 +1,6 @@
 # Original CAD runtime — private development build
 
-This bundle contains the built original Rust engine, editable Python host/viewer sources, browser assets and sample native documents. No Rust toolchain is needed to run it. It is a bounded development workbench, not a completed general CAD product. The project distribution license has not been selected; this archive is for private development validation. Existing third-party notices are included under `third-party/`.
+This bundle contains the built original Rust engine, editable Python host/viewer sources, browser assets and sample native documents. No Rust toolchain is needed to run it. It is a bounded development workbench, not a completed general CAD product. The project distribution license has not been selected; this archive is a development-validation build, without a new redistribution license grant. Existing third-party notices are included under `third-party/`.
 
 Requires Python3.14+, macOS/Linux matching the archive's operating system and CPU architecture, and a WebGL2 browser. The manifest records the tested OS; compatibility with other OS releases is not established. Windows is unsupported because the host uses POSIX locking. The geometry runs on the host CPU; the browser GPU displays disposable meshes.
 
@@ -14,6 +14,8 @@ python3 cad.py viewer --store ../my-part.cad.json
 ```
 
 Open http://127.0.0.1:8765 and use **New sketch / solid** or **New solid stock**. An empty path starts a new document; an existing native file reopens it. Documents must live outside the bundle so replacing the runtime does not overwrite your work.
+
+To try the modelling alpha, copy one of `samples/rectangular-plate.cad.json`, `samples/counterbored-mount.cad.json` or `samples/turned-spacer.cad.json` outside the bundle and pass its path to `viewer --store`. The rectangle keeps its width/depth relationships; the mount includes a named shoulder and rim. **New sketch / solid → Constrained rectangle** creates a new dimension-driven outline. **Named references** manages authored analytic surfaces and connected edge chains; these survive dimension edits and reject structural changes until explicitly rebound or removed.
 
 To explore the included material example:
 
@@ -50,6 +52,6 @@ The host binds loopback only. For a remote computation host, forward the viewer 
 
 ## Provenance and updates
 
-`manifest.json` records the exact source commit, whether it was dirty, build platform/compiler and every bundled file hash. A development-marked archive is not a release artifact. Editable implementation and full geometry tests are in the private source repository linked there. `engine-Cargo.lock` and `third-party/index.json` record native dependencies and their copied notices; Python dependencies remain in `requirements.lock`.
+`manifest.json` records the exact source commit, whether it was dirty, build platform/compiler and every bundled file hash. A development-marked archive is not a release artifact. Editable implementation and full geometry tests are in the source repository linked there. `engine-Cargo.lock` and `third-party/index.json` record native dependencies and their copied notices; Python dependencies remain in `requirements.lock`.
 
 To update, unpack a new verified bundle alongside the old one and point viewer/MCP commands to it while retaining external document files. Restart both clients. New material-bearing files require a material-aware engine; older engines reject them rather than silently discarding assignments. No automatic downgrade or document migration is performed.

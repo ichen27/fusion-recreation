@@ -1,0 +1,23 @@
+[
+  {
+    "part": "rectangular-plate",
+    "valid": true,
+    "solids": 1,
+    "expected_volume_mm3": 43200,
+    "step_volume_mm3": 43200.0
+  },
+  {
+    "part": "counterbored-mount",
+    "valid": true,
+    "solids": 1,
+    "expected_volume_mm3": 35359.11509866768,
+    "step_volume_mm3": 35359.11509866767
+  },
+  {
+    "part": "turned-spacer",
+    "valid": true,
+    "solids": 1,
+    "expected_volume_mm3": 4288.2739721500675,
+    "step_volume_mm3": 4288.273972150162
+  }
+]

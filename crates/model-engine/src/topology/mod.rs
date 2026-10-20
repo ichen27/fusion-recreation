@@ -182,6 +182,14 @@ pub(crate) fn mesh_surfaces(model: &Model, body: &crate::Body) -> Result<BTreeMa
     Ok(names)
 }
 
+pub(crate) fn for_body(model: &Model, body: &crate::Body) -> Result<Topology> {
+    let mut topology = build::body(model, body)?;
+    let (shells, euler) = validate::check(&topology)?;
+    topology.shells = shells;
+    topology.shell_euler = euler;
+    Ok(topology)
+}
+
 pub(super) fn reverse(ring: &[Use]) -> Vec<Use> {
     ring.iter()
         .rev()

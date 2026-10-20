@@ -180,6 +180,7 @@ def handler(store, port):
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
                 "/linear-model.mjs": ("linear-model.mjs", "text/javascript"),
+                "/reference-editor.mjs": ("reference-editor.mjs", "text/javascript"),
                 "/material-editor.mjs": ("material-editor.mjs", "text/javascript"),
                 "/inventory.mjs": ("inventory.mjs", "text/javascript"),
                 "/mass-editor.mjs": ("mass-editor.mjs", "text/javascript"),

@@ -293,3 +293,31 @@ test("standalone sketches feed a named planar loft and upstream edits rebuild it
     "loft2",
   );
 });
+
+test("rectangle dimensions control all corners and remain editable after reopening", async () => {
+  const { startRectangle, sketchDrivers } = await import(
+    "./web/sketch-model.mjs"
+  );
+  const model = { parameters: {}, features: [], fixed: {} };
+  const draft = draftSketch(model, "sketch1");
+  startRectangle(draft, "100", "60");
+  assert.deepEqual(sketchDrivers(draft), ["sketch1.width", "sketch1.depth"]);
+  draft.values["sketch1.width"] = "120";
+  const ops = sketchOperations(draft);
+  assert.equal(ops.filter((o) => o.op === "set_relation").length, 8);
+  assert.equal(ops.find((o) => o.id === "sketch1.width").mm, "120");
+  const actual = evaluate(model, ops).result;
+  assert.equal(actual.bodies[0].volume_mm3, "43200");
+  assert.equal(actual.model.parameters["sketch1.v3.x"], "120");
+  const source = { parameters: {}, features: [], fixed: {}, relations: {} };
+  for (const op of ops) {
+    if (op.op === "define_parameter") source.parameters[op.id] = op.mm;
+    if (op.op === "set_relation") source.relations[op.id] = op.relation;
+    if (op.op === "add_feature") source.features.push(op.feature);
+  }
+  const reopened = draftSketch(source, "sketch2", "sketch1.profile");
+  reopened.values["sketch1.width"] = "140";
+  assert.deepEqual(sketchOperations(reopened), [
+    { op: "set_parameter", id: "sketch1.width", mm: "140" },
+  ]);
+});
