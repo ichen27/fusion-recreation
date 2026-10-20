@@ -21,6 +21,8 @@ jobs:
       - run: ruff check tools/ai-cad && ruff format --check tools/ai-cad
       - run: python -m unittest discover -s tools/ai-cad -p 'test_*.py' -v
       - run: python tools/ai-cad/verify_rebuild.py
+      - run: python tools/ai-cad/verify_native_worker.py
+      - run: python tools/ai-cad/benchmark_native_worker.py --samples 3
       - run: python tools/ai-cad/verify_mcp.py
       - run: python tools/ai-cad/verify_boolean_mcp.py
       - run: python tools/ai-cad/verify_polyhedral_transform_mcp.py

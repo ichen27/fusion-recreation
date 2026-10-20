@@ -308,3 +308,12 @@ python tools/ai-cad/verify_planar_loft_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_planar_loft_export.py
 ```
+
+### Native worker runtime
+
+The host reuses one serial Rust worker for native operations, reducing process-start overhead while preserving request-local validation and atomic saving. Requests/replies and lock/pipe deadlines are bounded; failed calls are not automatically retried. Rebuild the current engine after updating host code. The single-request CLI remains available. [Measurements, failure tests and runtime evidence](../../examples/ai-cad/native-worker/README.md).
+
+```sh
+python tools/ai-cad/verify_native_worker.py
+python tools/ai-cad/benchmark_native_worker.py --samples 15
+```

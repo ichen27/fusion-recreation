@@ -2,6 +2,7 @@
 
 import json
 import subprocess
+from engine_transport import run as engine_run
 from store import BINARY, CadError, encode
 
 
@@ -10,9 +11,7 @@ def measure_model(model, feature_id):
     if len(request) > 1_048_576:
         raise CadError("request_limit", "Measurement request exceeds 1 MiB")
     try:
-        process = subprocess.run(
-            [str(BINARY), "--measure"], input=request, capture_output=True, timeout=20
-        )
+        process = engine_run(BINARY, "--measure", request)
         reply = json.loads(process.stdout)
     except FileNotFoundError as exc:
         raise CadError("engine_unavailable", "Build the model engine first") from exc

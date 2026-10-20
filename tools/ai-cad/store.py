@@ -14,6 +14,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 from result_cache import ResultCache
+from engine_transport import run as engine_run
 
 ROOT = Path(__file__).resolve().parents[2]
 BINARY = ROOT / "crates/model-engine/target/release/model-engine"
@@ -44,9 +45,7 @@ def evaluate(model, operations=None, preserve=None):
     if len(data) > 1_048_576:
         raise CadError("request_limit", "Model request exceeds 1 MiB")
     try:
-        process = subprocess.run(
-            [str(BINARY)], input=data, capture_output=True, timeout=20
-        )
+        process = engine_run(BINARY, None, data)
     except FileNotFoundError as exc:
         raise CadError(
             "engine_unavailable", "Build crates/model-engine in release mode first"
@@ -55,6 +54,8 @@ def evaluate(model, operations=None, preserve=None):
         raise CadError(
             "engine_timeout", "Geometry evaluation exceeded 20 seconds"
         ) from exc
+    except ValueError as exc:
+        raise CadError("engine_failure", str(exc)) from exc
     try:
         reply = json.loads(process.stdout)
     except ValueError as exc:
