@@ -323,3 +323,7 @@ degrees of freedom remain future work.
 ## Persistent material checkpoint
 
 [Saved uniform materials](../examples/ai-cad/materials/README.md) bind names/densities to solid feature IDs, inherit through edits/copies and report conflicts for unequal or missing combination inputs. Exact mass uses validated saved assignments through browser and MCP. Native preview/history/reopen and explicit override clearing are verified without geometry changes. Shared material catalogs, heterogeneous regions, part numbering, bills of materials, assembly hierarchy and joints remain open.
+
+## Portable runtime checkpoint
+
+[The private runtime bundle](../examples/ai-cad/runtime-bundle/README.md) packages the built original engine, editable host/browser code, pinned optional adapter dependencies, native examples and third-party notices. Isolated core checks run without Python site packages or Rust/Cargo paths, alongside actual HTTP preview/save and MCP reads. Source/file provenance, platform rejection and tamper detection are explicit. This does not resolve public distribution licensing, code signing, installers, automatic updates, Windows support or production support policy.

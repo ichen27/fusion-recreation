@@ -16,7 +16,7 @@ A 10 mm cube contains a closed 6 mm cavity. The optional planar style shows its 
 
 ## Reproduce
 
-From a clean checkout, build the Rust model engine and install `tools/ai-cad/requirements.txt` as described in the [host setup](../../../tools/ai-cad/README.md).
+From a clean checkout, build the Rust model engine and install `tools/ai-cad/requirements.lock` as described in the [host setup](../../../tools/ai-cad/README.md).
 
 ```sh
 python tools/ai-cad/verify_hidden_sheets.py

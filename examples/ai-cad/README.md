@@ -129,3 +129,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact planar sections, hatched SVGs and area/centroid edit/undo](planar-sections/README.md).
 
 [Saved materials, explicit inheritance/conflicts and exact assigned mass](materials/README.md).
+
+[Portable development runtime, built engine and isolated validation](runtime-bundle/README.md).
