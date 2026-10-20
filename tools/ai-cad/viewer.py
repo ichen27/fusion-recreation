@@ -171,6 +171,7 @@ def handler(store, port):
                 "/translate-model.mjs": ("translate-model.mjs", "text/javascript"),
                 "/translate-editor.mjs": ("translate-editor.mjs", "text/javascript"),
                 "/picking.mjs": ("picking.mjs", "text/javascript"),
+                "/edge-display.mjs": ("edge-display.mjs", "text/javascript"),
                 "/topology-view.mjs": ("topology-view.mjs", "text/javascript"),
                 "/display-data.mjs": ("display-data.mjs", "text/javascript"),
                 "/sketch-editor.mjs": ("sketch-editor.mjs", "text/javascript"),

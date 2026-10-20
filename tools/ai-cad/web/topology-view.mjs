@@ -19,7 +19,13 @@ function label(reference) {
   };
   return `Hole ${role[1]} · ${names[role[2]] ?? role[2]}`;
 }
-export function renderTopology(container, info, onSelect, onMeasureEdge) {
+export function renderTopology(
+  container,
+  info,
+  onSelect,
+  onMeasureEdge,
+  onClearEdge,
+) {
   container.replaceChildren();
   const summary = document.createElement("p");
   summary.textContent = `${Object.keys(info.surfaces).length} surfaces · ${info.shells.length} closed shell${info.shells.length === 1 ? "" : "s"} · ${info.components.length} material component${info.components.length === 1 ? "" : "s"}.`;
@@ -53,15 +59,17 @@ export function renderTopology(container, info, onSelect, onMeasureEdge) {
       "Edge numbers apply to this saved revision. Some edges are smooth surface seams.";
     select.addEventListener("change", () => {
       output.textContent = "";
+      onClearEdge?.();
     });
     button.addEventListener("click", async () => {
+      onClearEdge?.();
       const index = Number(select.value);
       button.disabled = true;
       select.disabled = true;
       output.textContent = "Measuring…";
       try {
         const result = await onMeasureEdge(index);
-        output.textContent = `Edge ${index + 1}: ${result.length_mm} mm (exact); approximately ${result.length_approx_mm.toPrecision(8)} mm. Chord: ${result.chord_mm} mm. ${result.patch_seam ? "Smooth surface seam" : "Boundary between surfaces"}. Endpoints: (${result.endpoints_mm[0].join(", ")}) → (${result.endpoints_mm[1].join(", ")}) mm.`;
+        output.textContent = `Edge ${index + 1}: ${result.length_mm} mm (exact); approximately ${result.length_approx_mm.toPrecision(8)} mm. Chord: ${result.chord_mm} mm. ${result.patch_seam ? "Smooth surface seam" : "Boundary between surfaces"}. Endpoints: (${result.endpoints_mm[0].join(", ")}) → (${result.endpoints_mm[1].join(", ")}) mm. ${result.highlighted ? "Highlighted in purple; orbit to see hidden portions." : "Viewport highlight unavailable."}`;
       } catch (error) {
         output.textContent = error.message;
       } finally {

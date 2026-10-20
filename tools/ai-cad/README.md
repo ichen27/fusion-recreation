@@ -328,3 +328,5 @@ python tools/ai-cad/verify_edge_measurements_mcp.py
 # Optional comparison environment:
 python tools/ai-cad/verify_edge_measurements_reference.py
 ```
+
+A successful edge measurement now [highlights its viewport location](../../examples/ai-cad/edge-highlight/README.md) in purple with endpoint markers. Orbit to see occluded portions. Changing the edge/selection or starting an edit clears the old highlight; display sampling does not change exact length.
