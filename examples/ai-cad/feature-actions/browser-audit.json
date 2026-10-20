@@ -1,0 +1,35 @@
+{
+  "accordion": {
+    "open": [
+      "copy"
+    ],
+    "uploads": 0
+  },
+  "afterDiscard": {
+    "enabled": true,
+    "open": [
+      "copy"
+    ]
+  },
+  "afterRefresh": {
+    "open": [
+      "copy"
+    ],
+    "uploads": 1
+  },
+  "initial": {
+    "featureHeight": 656,
+    "menus": 3,
+    "visibleButtons": 8
+  },
+  "keyboardClosed": true,
+  "keyboardOpened": true,
+  "previewControls": {
+    "disabled": true,
+    "previewVisible": true
+  },
+  "before": {
+    "featureHeight": 1230,
+    "visibleButtons": 28
+  }
+}

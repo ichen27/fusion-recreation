@@ -241,3 +241,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Exact planar mirror checkpoint
 
 [Reflection across rational planes](../examples/ai-cad/mirror/README.md) supports oblique symmetry, optional linked source retention and exact dependent edits. Native boundary orientation, double-reflection recovery, browser/MCP history and nine independent STEP/moment comparisons are verified. Curved reflections, arbitrary-angle rotations and persistent face naming remain open. The expanding feature list now needs a more compact action layout so existing capabilities stay discoverable without overwhelming the tree.
+
+## Feature-tree usability checkpoint
+
+[Compact modeling actions](../examples/ai-cad/feature-actions/README.md) keep selection and existing-feature edits visible while disclosing new operations per solid. An actual three-part comparison reduced the tree from 1230 to 656 px and visible buttons from 28 to 8, with keyboard/accordion/redraw/preview-discard checks and unchanged native bytes. Menu-only interaction uploaded no GPU buffers; explicit full refresh uploaded once. This improves access to the existing bounded platform without changing model semantics.
