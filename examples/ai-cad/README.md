@@ -111,3 +111,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Exact edge lengths, arc/chord distinction and smooth seams](edge-measurements/README.md).
 
 [Measured-edge viewport highlighting and GPU lifecycle evidence](edge-highlight/README.md).
+
+[Exact planar part interference and independent solid comparisons](interference/README.md).

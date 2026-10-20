@@ -15,6 +15,7 @@ from engine_transport import NativeWorker, MAX_REQUEST, MAX_RESPONSE
 from store import BINARY, encode
 from test_planar_loft import loft
 from test_individual_depths import individual
+from test_interference import examples
 
 
 class EngineTransport(unittest.TestCase):
@@ -64,6 +65,18 @@ class EngineTransport(unittest.TestCase):
         self.assertEqual(self.worker.run(BINARY, None, self.payload()).returncode, 0)
         self.assertEqual(self.worker.starts, 1)
         self.assertEqual(self.worker.requests, 15)
+
+    def test_interference_worker_matches_single_request_success_and_error(self):
+        model, left, right, _ = examples()["overlap"]
+        for other in (right, left, "missing"):
+            data = encode(dict(model=model, left=left, right=other))
+            fresh = subprocess.run(
+                [str(BINARY), "--interference"], input=data, capture_output=True
+            )
+            worker = self.worker.run(BINARY, "--interference", data)
+            self.assertEqual(worker.returncode, fresh.returncode)
+            self.assertEqual(json.loads(worker.stdout), json.loads(fresh.stdout))
+        self.assertEqual(self.worker.starts, 1)
 
     def test_threads_serialize_distinct_requests_and_killed_worker_restarts(self):
         requests = [self.payload(model=loft(height=str(i + 1))) for i in range(12)]

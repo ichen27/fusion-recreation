@@ -1,0 +1,122 @@
+[
+  {
+    "case": "overlap",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "40",
+      "positive_volume_overlap": true,
+      "right": "copy"
+    },
+    "independent_overlap_volume_mm3": 39.99999999999999
+  },
+  {
+    "case": "face_contact",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "copy"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "edge_contact",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "copy"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "point_contact",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "copy"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "inside_cavity",
+    "native": {
+      "left": "result",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "probe.placed"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "cavity_contact",
+    "native": {
+      "left": "result",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "probe.placed"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "cavity_wall",
+    "native": {
+      "left": "result",
+      "overlap_volume_mm3": "7",
+      "positive_volume_overlap": true,
+      "right": "probe.placed"
+    },
+    "independent_overlap_volume_mm3": 7.0
+  },
+  {
+    "case": "separate_pieces",
+    "native": {
+      "left": "result",
+      "overlap_volume_mm3": "1000",
+      "positive_volume_overlap": true,
+      "right": "probe"
+    },
+    "independent_overlap_volume_mm3": 999.9999999999998
+  },
+  {
+    "case": "concave",
+    "native": {
+      "left": "left",
+      "overlap_volume_mm3": "11/2",
+      "positive_volume_overlap": true,
+      "right": "right"
+    },
+    "independent_overlap_volume_mm3": 5.5
+  },
+  {
+    "case": "disjoint_with_overlapping_bounds",
+    "native": {
+      "left": "left",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "right"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  },
+  {
+    "case": "loft_copy",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "5500",
+      "positive_volume_overlap": true,
+      "right": "copy"
+    },
+    "independent_overlap_volume_mm3": 5500.000000000177
+  },
+  {
+    "case": "turned_loft",
+    "native": {
+      "left": "part",
+      "overlap_volume_mm3": "0",
+      "positive_volume_overlap": false,
+      "right": "turned"
+    },
+    "independent_overlap_volume_mm3": 0.0
+  }
+]
