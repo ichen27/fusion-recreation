@@ -40,6 +40,9 @@
         </p>
         <div id="features"></div>
         <h2>Dimensions <span>mm</span></h2>
+        <button id="new-linear" type="button" disabled>
+          Constrain dimensions
+        </button>
         <form id="dimensions">
           <div id="parameters"></div>
           <button type="submit" class="primary" disabled>
@@ -165,6 +168,38 @@
         </details>
       </aside>
     </main>
+    <dialog id="linear-dialog" aria-labelledby="linear-title">
+      <form id="linear-form">
+        <header class="sketch-heading">
+          <h2 id="linear-title">Coupled dimensions</h2>
+          <button id="linear-close" type="button">Cancel</button>
+        </header>
+        <p>
+          Choose the dimensions these equations should determine. Other
+          dimensions remain drivers. Saving replaces existing formulas for the
+          selected targets.
+        </p>
+        <fieldset>
+          <legend>Solve for</legend>
+          <div id="linear-targets"></div>
+        </fieldset>
+        <p class="hint">
+          Each term is a coefficient × dimension. Add negative terms to
+          subtract. Use integers or fractions such as 1/2. For example, left +
+          right − span = 0 uses coefficients 1, 1 and −1.
+        </p>
+        <div id="linear-equations"></div>
+        <button id="linear-add-equation" type="button">+ Equation</button>
+        <p class="hint">
+          Saved formulas preserve the equations' effect. Original row labels and
+          redundant equations are not retained.
+        </p>
+        <p id="linear-feedback" role="status"></p>
+        <button id="linear-preview" type="submit" class="primary">
+          Preview constraints
+        </button>
+      </form>
+    </dialog>
     <dialog id="sketch-dialog" aria-labelledby="sketch-title">
       <form id="sketch-form">
         <header class="sketch-heading">

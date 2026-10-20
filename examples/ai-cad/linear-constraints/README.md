@@ -14,9 +14,9 @@ relationship places the second part at `offset = left + gap`.
 
 ![Widened parts with the gap retained](coupled-parts.png)
 
-With span100 and gap10 mm, widths are60 and30 mm. Change span to130: widths become
-80 and40, and the second part moves from X=70 to90, retaining the10 mm gap. Both
-parts have depth10 and height20 mm, so volumes change from12000/6000 to16000/8000
+With span 100 and gap 10 mm, widths are60 and30 mm. Change span to 130: widths become
+80 and40, and the second part moves from X=70 to90, retaining the 10 mm gap. Both
+parts have depth 10 and height 20 mm, so volumes change from 12000/6000 to 16000/8000
 mm³. A span of5 mm would produce negative widths and rejects without saving.
 Undo restores the initial dimensions and formulas.
 
@@ -28,7 +28,8 @@ python3 tools/ai-cad/viewer.py --store work/coupled.cad.json
 ```
 
 Edit **Span** in the browser; Left, Right and Offset are derived/read-only. Equation
-authoring uses CLI/MCP. `create.json` retains the original rows; the saved model
+authoring is available through **Constrain dimensions** or CLI/MCP; see the
+[browser editor example](../linear-editor/README.md). `create.json` retains the original rows; the saved model
 stores their equivalent affine formulas, without row labels or redundant rows.
 Use `constrain_linear` again to replace target formulas, or explicitly remove a
 relationship to release its effect. Other existing relationships remain intact.
@@ -49,14 +50,14 @@ python3 tools/ai-cad/verify_linear_constraints_mcp.py
 
 The MCP check needs the optional locked MCP environment and accepts `--write`.
 The replay verifies recorded responses, exact native histories, derived controls,
-STL volumes/manifold orientation and X bounds0..80 /90..130. Forty seeded symbolic
+STL volumes/manifold orientation and X bounds 0..80 /90..130. Forty seeded symbolic
 systems satisfy every original equation before and after rational driver edits;
 fixed/preserve, cycles, consistent redundancy, rank deficiency, contradictions,
 free-driver restrictions, arithmetic limits and atomic failure are covered.
 
-The bounded solver uses exact rational elimination:1..16 targets,1..32 equations,
-at most8 nonzero terms per row and128-bit input/intermediate/result components.
-Each resulting formula must fit8 driver terms. Driver-only residual constraints
+The bounded solver uses exact rational elimination: 1..16 targets,1..32 equations,
+at most8 nonzero terms per row and 128-bit input/intermediate/result components.
+Each resulting formula must fit 8 driver terms. Driver-only residual constraints
 reject even if today's values satisfy them; the solver does not silently fix
 free dimensions. Error provenance names involved rows, not a minimal conflict set.
 No nonlinear distance, angle, tangency or inequality solving is provided. See the

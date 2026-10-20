@@ -291,3 +291,7 @@ undo. Rank deficiency, contradictions and residual restrictions on free drivers
 reject explicitly. The two-part browser/MCP workflow preserves a gap while solving
 both widths and placement. Nonlinear sketch constraints and automatic choice of
 degrees of freedom remain future work.
+
+## Human constraint-authoring checkpoint
+
+[Browser-authored coupled dimensions](../examples/ai-cad/linear-editor/README.md) expose explicit targets and structured equation terms through the shared native command. A failed rank check retains the draft for repair; saved formulas support driver edits, replacement and undo. Twelve actual requests, native snapshots and placed STL exports verify the workflow. General nonlinear sketch solving, persistent original constraint-row metadata and automatic target choice remain open.
