@@ -30,6 +30,7 @@ async def main():
                     "cad_context",
                     "cad_explain",
                     "cad_measure",
+                    "cad_mass_properties",
                     "cad_measure_edge",
                     "cad_interference",
                     "cad_clearance",
