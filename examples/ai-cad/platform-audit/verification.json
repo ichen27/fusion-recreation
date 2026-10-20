@@ -1,0 +1,771 @@
+{
+  "source_commit": "5a449785c59c3351f2080ab4d4c6390473f2d738",
+  "platform": "macOS ARM64",
+  "checks": [
+    {
+      "command": "python tools/ai-cad/verify_rebuild.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.39
+    },
+    {
+      "command": "python tools/ai-cad/verify_native_worker.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_edge_measurements.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04
+    },
+    {
+      "command": "python tools/ai-cad/verify_edge_highlight.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_interference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_clearance.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_clearance_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.96
+    },
+    {
+      "command": "python tools/ai-cad/verify_interference_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_edge_measurements_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.71
+    },
+    {
+      "command": "python tools/ai-cad/verify_mcp.py",
+      "exit_code": 1,
+      "elapsed_seconds": 0.7
+    },
+    {
+      "command": "python tools/ai-cad/verify_boolean_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.83
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_transform_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.03
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_cut_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.0
+    },
+    {
+      "command": "python tools/ai-cad/verify_concave_operations_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.86
+    },
+    {
+      "command": "python tools/ai-cad/verify_instances_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.79
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_placement_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.71
+    },
+    {
+      "command": "python tools/ai-cad/verify_measurements_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.77
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_measurements_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.72
+    },
+    {
+      "command": "python tools/ai-cad/verify_counterbores_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_frustum_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.72
+    },
+    {
+      "command": "python tools/ai-cad/verify_countersinks_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_individual_depths_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_mirror_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "command": "python tools/ai-cad/verify_revolution_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_boolean.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_boolean_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial.py --concave",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.72
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_mcp.py --concave",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_constraints_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.75
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_constraints.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.1
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_editor.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09
+    },
+    {
+      "command": "python tools/ai-cad/verify_mass.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04
+    },
+    {
+      "command": "python tools/ai-cad/verify_mass_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_mass_set.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "command": "python tools/ai-cad/verify_mass_set_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "command": "python tools/ai-cad/verify_drawings.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_drawings_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_hidden_sheets.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.38
+    },
+    {
+      "command": "python tools/ai-cad/verify_hidden_sheets_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.94
+    },
+    {
+      "command": "python tools/ai-cad/verify_sections.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.41
+    },
+    {
+      "command": "python tools/ai-cad/verify_sections_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.95
+    },
+    {
+      "command": "python tools/ai-cad/verify_inventory.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_inventory_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_materials.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.12
+    },
+    {
+      "command": "python tools/ai-cad/verify_materials_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.75
+    },
+    {
+      "command": "python tools/ai-cad/verify_independent_rebuild.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.5
+    },
+    {
+      "command": "python tools/ai-cad/verify_independent_rebuild_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.28
+    },
+    {
+      "command": "python tools/ai-cad/verify_straight_sweep.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.12
+    },
+    {
+      "command": "python tools/ai-cad/verify_straight_sweep_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.75
+    },
+    {
+      "command": "python tools/ai-cad/verify_revolution.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_navigation.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04
+    },
+    {
+      "command": "python tools/ai-cad/verify_dimensions.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.59
+    },
+    {
+      "command": "python tools/ai-cad/verify_dimensions_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_feature_actions.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.34
+    },
+    {
+      "command": "python tools/ai-cad/verify_mirror.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_pattern_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.91
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_pattern.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.79
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_shell_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_shell.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.87
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_loft_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "command": "python tools/ai-cad/verify_topology_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.75
+    },
+    {
+      "command": "python tools/ai-cad/verify_surface_context_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_selection_guard_mcp.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_codex_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_profile_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_relationship_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_bracket_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_concave_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_round_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_blind_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_plane_example.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_stock_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09
+    },
+    {
+      "command": "python tools/ai-cad/verify_native_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_sketch_plane.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "command": "python tools/ai-cad/verify_booleans.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.42
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_transforms.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.76
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_cuts.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.67
+    },
+    {
+      "command": "python tools/ai-cad/verify_concave_operations.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.37
+    },
+    {
+      "command": "python tools/ai-cad/verify_instances.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.29
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_placement.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07
+    },
+    {
+      "command": "python tools/ai-cad/verify_measurements.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_measurements.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_counterbores.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_frustum.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_countersinks.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_individual_depths.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_loft.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_topology_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_surface_context_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_selection_guard_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_surface_picking.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_intersection.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11
+    },
+    {
+      "command": "python tools/ai-cad/verify_preview_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.23
+    },
+    {
+      "command": "python tools/ai-cad/verify_intent_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_selection_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.15
+    },
+    {
+      "command": "python tools/ai-cad/verify_rotation.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.13
+    },
+    {
+      "command": "python tools/ai-cad/verify_translation.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.15
+    },
+    {
+      "command": "python tools/ai-cad/verify_step_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 2.75
+    },
+    {
+      "command": "python tools/ai-cad/verify_concave_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.62
+    },
+    {
+      "command": "python tools/ai-cad/verify_round_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.61
+    },
+    {
+      "command": "python tools/ai-cad/verify_blind_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.59
+    },
+    {
+      "command": "python tools/ai-cad/verify_plane_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.56
+    },
+    {
+      "command": "python tools/ai-cad/verify_sketch_plane_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.55
+    },
+    {
+      "command": "python tools/ai-cad/verify_boolean_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.84
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_transform_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.68
+    },
+    {
+      "command": "python tools/ai-cad/verify_polyhedral_cut_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.87
+    },
+    {
+      "command": "python tools/ai-cad/verify_concave_operations_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.77
+    },
+    {
+      "command": "python tools/ai-cad/verify_instances_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.68
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_placement_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.63
+    },
+    {
+      "command": "python tools/ai-cad/verify_measurements_reference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.71
+    },
+    {
+      "command": "python tools/ai-cad/verify_analytic_measurements_reference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.59
+    },
+    {
+      "command": "python tools/ai-cad/verify_counterbores_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.73
+    },
+    {
+      "command": "python tools/ai-cad/verify_frustum_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.69
+    },
+    {
+      "command": "python tools/ai-cad/verify_countersinks_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.62
+    },
+    {
+      "command": "python tools/ai-cad/verify_individual_depths_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.0
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_boolean_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.23
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.0
+    },
+    {
+      "command": "python tools/ai-cad/verify_coaxial_export.py --concave",
+      "exit_code": 0,
+      "elapsed_seconds": 0.85
+    },
+    {
+      "command": "python tools/ai-cad/verify_straight_sweep_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.79
+    },
+    {
+      "command": "python tools/ai-cad/verify_revolution_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.83
+    },
+    {
+      "command": "python tools/ai-cad/verify_mirror_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.96
+    },
+    {
+      "command": "python tools/ai-cad/verify_linear_pattern_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 2.76
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_shell_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 2.37
+    },
+    {
+      "command": "python tools/ai-cad/verify_planar_loft_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 1.17
+    },
+    {
+      "command": "python tools/ai-cad/verify_edge_measurements_reference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.85
+    },
+    {
+      "command": "python tools/ai-cad/verify_interference_reference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.81
+    },
+    {
+      "command": "python tools/ai-cad/verify_clearance_reference.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.74
+    },
+    {
+      "command": "python tools/ai-cad/verify_topology_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.82
+    },
+    {
+      "command": "python tools/ai-cad/verify_intersection_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.61
+    },
+    {
+      "command": "python tools/ai-cad/verify_rotation_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.64
+    },
+    {
+      "command": "python tools/ai-cad/verify_translation_export.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.67
+    },
+    {
+      "command": "python tools/ai-cad/verify_sketch_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    },
+    {
+      "command": "python tools/ai-cad/verify_hole_recording.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08
+    },
+    {
+      "command": "python tools/ai-cad/verify_feature_edits.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06
+    },
+    {
+      "command": "python tools/ai-cad/verify_sketch_relationships.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05
+    }
+  ],
+  "resolution": {
+    "initial_passed": 136,
+    "initial_failed": 1,
+    "failure": "verify_mcp expected the pre-extension tool list",
+    "repair": "Keep exact tool-set equality and add the intended tools on each introducing branch; merge the fixes forward without rewriting shared history.",
+    "retested_branches": [
+      {
+        "pull_request": 71,
+        "branch": "feat/combined-mass-properties",
+        "before": "ccc63c5a1332b5c24d73b762aabf6602601a27cc",
+        "after": "9f3231616fb2d1f3516d69091d9eeb5ebf24f167",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 72,
+        "branch": "perf/independent-feature-rebuild",
+        "before": "61317d503b9a0b94f94dc68b21696df69e6b1671",
+        "after": "cf85c8b2c2fd733ad2ffd2887e5a3aaf36650ea5",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 73,
+        "branch": "feat/orthographic-reference-sheets",
+        "before": "09fc8e3917d2ed08b615a7f96e810790d666b649",
+        "after": "b1b156513f3c7ee49028325f247c5dea1489ed98",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 74,
+        "branch": "feat/planar-hidden-line-sheets",
+        "before": "2bc16e03ee9b35f7bce2425cc5ad08556ebd2c0c",
+        "after": "073803e25a9a0388a30a3d3c2794dc27672f4e9e",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 75,
+        "branch": "feat/planar-section-views",
+        "before": "d4f5188f17a73f3a76c5493299ebdbcad05a5706",
+        "after": "c7fcbdabc885399c22d8a099c256d235ebd293cd",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 76,
+        "branch": "feat/persistent-materials",
+        "before": "520fdbbbd259a5eeb460e3bc2dec3fa6231928d3",
+        "after": "d14e65f7af4d399c9bc476d224a30798df514156",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 77,
+        "branch": "feat/portable-cad-runtime",
+        "before": "3d00409f437077983cc763f10898411a0a9ab02b",
+        "after": "3d48f229f2fc87a60396895d98299564f7b0b405",
+        "mcp_negotiation": "passed"
+      },
+      {
+        "pull_request": 78,
+        "branch": "feat/parts-inventory",
+        "before": "5a449785c59c3351f2080ab4d4c6390473f2d738",
+        "after": "03bc35e63250738de82eed802cefa43465fb0b34",
+        "mcp_negotiation": "passed"
+      }
+    ],
+    "production_code_changes_from_audit": "none; negotiation expectations, runtime verification and documentation only",
+    "effective_verification_commands_passed": 137
+  },
+  "additional_checks": {
+    "python_host_tests": 307,
+    "node_tests": 85,
+    "rust_model_tests": 28,
+    "research_python_tests": 104,
+    "research_python_suites": 5,
+    "native_ctest": 11,
+    "native_scenario": "passed",
+    "rust_fmt": "passed",
+    "rust_clippy": "passed",
+    "ruff": "passed",
+    "modified_browser_prettier": "passed",
+    "hosted_ci": "not executed: account billing/spending limit"
+  }
+}

@@ -290,6 +290,11 @@
       "executable": false,
       "sha256": "db31354fe7411cd26f43a2152296263179952e2de494942a7b451fb6bb7fdf6d"
     },
+    "tools/ai-cad/inventory.py": {
+      "bytes": 4839,
+      "executable": false,
+      "sha256": "6f2a53a1fd7809dffba80a1b32aab84e45ac0eefdbfdc82c7e2f74e877305096"
+    },
     "tools/ai-cad/mass_properties.py": {
       "bytes": 2947,
       "executable": false,
@@ -301,9 +306,9 @@
       "sha256": "26e28bc1b0acdf86d630311b2fabf5b6c3b6b67570bde87da81aa2d7af4dc82c"
     },
     "tools/ai-cad/mcp_server.py": {
-      "bytes": 39825,
+      "bytes": 40902,
       "executable": false,
-      "sha256": "e0e5e355ac559326413c8edd01c27f8dc0c9a469ef71d07fd5d1bd3fc8a43263"
+      "sha256": "3df3f9e2f773866a032e77db513519f94357c15fd93509c38d50d46bfdc40eb3"
     },
     "tools/ai-cad/measurements.py": {
       "bytes": 3205,
@@ -366,9 +371,9 @@
       "sha256": "1b5d055378a7843fc90f8b0b0699cbc2102ca653b37c83b82ad82559d9829404"
     },
     "tools/ai-cad/viewer.py": {
-      "bytes": 16086,
+      "bytes": 16346,
       "executable": false,
-      "sha256": "2008426057c7c12d24d1ef7538c0165725d68ebca3256f07a04b78bbb8e91d5c"
+      "sha256": "8fe544462ecd4e0b886ebeaae3a6c155b661f463803a67af8bd89c5358769c17"
     },
     "tools/ai-cad/viewer_server.py": {
       "bytes": 1592,
@@ -376,9 +381,9 @@
       "sha256": "5cf606e16f3afbefb79bf4d80e053199cc42d56f00aacbfe017d7147459dd3b0"
     },
     "tools/ai-cad/web/app.js": {
-      "bytes": 59653,
+      "bytes": 59927,
       "executable": false,
-      "sha256": "57ca800c49cb9467645341692e96f03c7292c08b958c3a81d089b09e5738858e"
+      "sha256": "3f484a8508827762cedc8a7479b885400eb116013f6c89990dfe85341c6e66c8"
     },
     "tools/ai-cad/web/boolean-editor.mjs": {
       "bytes": 3209,
@@ -426,9 +431,9 @@
       "sha256": "10a102e88a73c2cce89dd7ced97833482ea1670f25a018af09ba053ced4fbf27"
     },
     "tools/ai-cad/web/index.html": {
-      "bytes": 35477,
+      "bytes": 37214,
       "executable": false,
-      "sha256": "8165e3f2eeefce6611015f31f6cd5b9e947b5b85ed6a1f5666face1cd3c1d3ee"
+      "sha256": "d26dad3c99ad6d96b5aabcea67e609ab1e56539a121af5c9b804c49e1c27ade6"
     },
     "tools/ai-cad/web/intersection-editor.mjs": {
       "bytes": 2912,
@@ -439,6 +444,11 @@
       "bytes": 1354,
       "executable": false,
       "sha256": "b898ea0040db3e526876daa288a074d1e5a601d04340a310947041bd87852599"
+    },
+    "tools/ai-cad/web/inventory.mjs": {
+      "bytes": 4213,
+      "executable": false,
+      "sha256": "919bc8c72c3ae218383bf7f9214b906468660c20063680febb3b18ec2006fc6b"
     },
     "tools/ai-cad/web/linear-editor.mjs": {
       "bytes": 6150,
@@ -566,9 +576,9 @@
       "sha256": "652c5de716b3489f11af1b163f442b394491933992c9d35aa6a5594b510313f6"
     },
     "tools/ai-cad/web/style.css": {
-      "bytes": 12283,
+      "bytes": 12784,
       "executable": false,
-      "sha256": "566b09aa29a11b90c9f9fcc35fae9407e7d45746926b2aecc97033c4756444a5"
+      "sha256": "d0a0908c4fea18fa1d3371da426947a06d92a13d0172892dc1f99536eaa3bd17"
     },
     "tools/ai-cad/web/sweep-editor.mjs": {
       "bytes": 2723,
@@ -608,7 +618,7 @@
     "tested_os": "27.0.1"
   },
   "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)",
-  "source_commit": "1de20e4e36d8698787a3943cf06db19d32818886",
+  "source_commit": "32d95f7aac78ddd3863c92306b9ceed051411a60",
   "source_dirty": false,
   "source_repository": "https://github.com/ichen27/fusion-recreation"
 }
