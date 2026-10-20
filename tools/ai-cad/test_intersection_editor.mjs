@@ -1,4 +1,5 @@
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -140,4 +141,25 @@ test("coaxial mode authors a typed round-solid intersection and preserves editab
     "coaxial_intersection",
   );
   assert.equal(run(round, bad).error.code, "unsupported_coaxial");
+});
+
+test("coaxial intersection accepts concave source profiles through the browser proposal", () => {
+  const source = JSON.parse(
+    readFileSync(
+      `${root}/examples/ai-cad/concave-coaxial/browser-source.cad.json`,
+      "utf8",
+    ),
+  ).state.model;
+  const state = { revision: 1, ...run(source).result };
+  const proposal = intersectionProposal(
+    state,
+    "left.revolved",
+    "right.moved",
+    "coaxial_intersection",
+  );
+  const { expected_revision, ...request } = proposal;
+  assert.equal(expected_revision, 1);
+  const result = run(source, request).result;
+  assert.equal(result.bodies[0].volume_mm3, "572*pi");
+  assert.equal(result.model.features.at(-1).kind, "coaxial_intersection");
 });

@@ -415,10 +415,12 @@ show the scope; curved paths, twist and changing cross-sections remain unsupport
 ### Intersect coaxial round parts
 
 Choose **Intersect two solids → Coaxial round solids** to retain common volume of
-cylinders, frusta or revolved convex radial sections. The axes must coincide exactly;
+cylinders, frusta or revolved simple radial sections. The axes must coincide exactly;
 translated/quarter-turned and oppositely directed coordinate axes are supported.
 Saving consumes both visible inputs while their dimensions remain editable. Rings
-are supported; nonconvex stepped sections, offset axes and mere contact reject.
+are supported, including stepped and undercut profiles. Separate result regions,
+contour holes, offset axes and mere contact reject.
+[Concave profile examples](../../examples/ai-cad/concave-coaxial/README.md).
 [Examples, native downloads and independent STEP checks](../../examples/ai-cad/coaxial-intersection/README.md).
 
 ### Join and cut coaxial round solids

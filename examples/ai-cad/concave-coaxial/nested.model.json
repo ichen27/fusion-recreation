@@ -1,0 +1,102 @@
+{
+  "parameters": {
+    "left.left.height": "1",
+    "left.left.c0": "2",
+    "left.left.c1": "0",
+    "left.left.c2": "8",
+    "left.left.c3": "3",
+    "left.left.c4": "5",
+    "left.left.c5": "7",
+    "left.left.c6": "10",
+    "left.right.cx": "0",
+    "left.right.cy": "0",
+    "left.right.radius": "7",
+    "left.right.height": "10",
+    "right.cx": "0",
+    "right.cy": "0",
+    "right.radius": "6",
+    "right.height": "10"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "left.left.outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "left.left.c0",
+          "y": "left.left.c1"
+        },
+        {
+          "id": "v1",
+          "x": "left.left.c2",
+          "y": "left.left.c1"
+        },
+        {
+          "id": "v2",
+          "x": "left.left.c2",
+          "y": "left.left.c3"
+        },
+        {
+          "id": "v3",
+          "x": "left.left.c4",
+          "y": "left.left.c3"
+        },
+        {
+          "id": "v4",
+          "x": "left.left.c4",
+          "y": "left.left.c5"
+        },
+        {
+          "id": "v5",
+          "x": "left.left.c2",
+          "y": "left.left.c5"
+        },
+        {
+          "id": "v6",
+          "x": "left.left.c2",
+          "y": "left.left.c6"
+        },
+        {
+          "id": "v7",
+          "x": "left.left.c0",
+          "y": "left.left.c6"
+        }
+      ]
+    },
+    {
+      "kind": "revolve",
+      "id": "left.left.revolved",
+      "profile": "left.left.outline"
+    },
+    {
+      "kind": "cylinder",
+      "id": "left.right.stock",
+      "x": "left.right.cx",
+      "y": "left.right.cy",
+      "radius": "left.right.radius",
+      "height": "left.right.height"
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "left.common",
+      "left": "left.left.revolved",
+      "right": "left.right.stock"
+    },
+    {
+      "kind": "cylinder",
+      "id": "right.stock",
+      "x": "right.cx",
+      "y": "right.cy",
+      "radius": "right.radius",
+      "height": "right.height"
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "common",
+      "left": "left.common",
+      "right": "right.stock"
+    }
+  ]
+}

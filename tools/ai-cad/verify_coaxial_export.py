@@ -65,10 +65,35 @@ def scenarios():
     )
 
 
-def main(write=False):
+def concave_scenarios():
+    stepped = intersect(revolved(), cylinder(radius="8", height="12"))
+    undercut = revolved(
+        [(2, 0), (8, 0), (8, 3), (5, 3), (5, 7), (8, 7), (8, 10), (2, 10)]
+    )
+    ring = intersect(undercut, cylinder(radius="7", height="10"))
+    return dict(
+        stepped=stepped,
+        undercut=ring,
+        both_concave=intersect(
+            revolved(), revolved([(0, 0), (8, 0), (8, 7), (4, 7), (4, 12), (0, 12)])
+        ),
+        conical=intersect(revolved(), frustum("9", "3", "12")),
+        opposite=intersect(
+            revolved(),
+            moved(turned(cylinder(radius="8", height="12"), "x", 2), (0, 0, 12)),
+        ),
+        nested=intersect(ring, cylinder(radius="6", height="10")),
+        axis_x=turned(moved(stepped, (F(1, 3), F(-2, 5), F(7, 11))), "y", 1),
+        linked=instance(ring, offset=(50, 0, 0)),
+    )
+
+
+def main(write=False, concave=False):
+    cases = concave_scenarios() if concave else scenarios()
+    example = ROOT / "examples/ai-cad/concave-coaxial" if concave else EXAMPLE
     rows = []
     with tempfile.TemporaryDirectory() as directory:
-        for name, model in scenarios().items():
+        for name, model in cases.items():
             id = model["features"][-1]["id"]
             body = next(b for b in evaluate(model)["bodies"] if b["feature_id"] == id)
             topology = topology_model(model, id)
@@ -150,22 +175,24 @@ def main(write=False):
                     )
                 )
                 if write:
-                    EXAMPLE.mkdir(parents=True, exist_ok=True)
-                    (EXAMPLE / path.name).write_bytes(path.read_bytes())
+                    example.mkdir(parents=True, exist_ok=True)
+                    (example / path.name).write_bytes(path.read_bytes())
             if write:
-                (EXAMPLE / (name + ".model.json")).write_text(
+                (example / (name + ".model.json")).write_text(
                     json.dumps(model, indent=2) + "\n"
                 )
     if write:
-        (EXAMPLE / "independent-comparison.json").write_text(
+        (example / "independent-comparison.json").write_text(
             json.dumps(rows, indent=2) + "\n"
         )
     print(
-        "PASS: twelve independent coaxial intersections, twenty-four STEP readbacks, directed residuals, analytic supports and exact moments"
+        f"PASS: {len(cases)} independent coaxial intersections, {len(rows)} STEP readbacks, directed residuals, analytic supports and exact moments"
     )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
-    main(parser.parse_args().write)
+    parser.add_argument("--concave", action="store_true")
+    args = parser.parse_args()
+    main(args.write, args.concave)

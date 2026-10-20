@@ -1,5 +1,6 @@
 """Replay coaxial-intersection transport evidence and check native history/exports."""
 
+import argparse
 import json
 from pathlib import Path
 import tempfile
@@ -36,17 +37,20 @@ def same_reply(actual, recorded):
     compare(actual, recorded)
 
 
-def main():
+def main(concave=False):
+    example = ROOT / "examples/ai-cad/concave-coaxial" if concave else EXAMPLE
+    before_volume = "572*pi" if concave else "150*pi"
+    edited_coefficient = 657 if concave else 216
     counts = {}
     with tempfile.TemporaryDirectory() as directory:
         for transport in ("browser", "mcp"):
             path = Path(directory) / (transport + ".json")
             if transport == "browser":
-                path.write_bytes((EXAMPLE / "browser-source.cad.json").read_bytes())
+                path.write_bytes((example / "browser-source.cad.json").read_bytes())
             store = Store(path)
             commits = 0
             rejected = 0
-            rows = json.loads((EXAMPLE / (transport + "-recording.json")).read_text())[
+            rows = json.loads((example / (transport + "-recording.json")).read_text())[
                 "calls"
             ]
             counts[transport] = len(rows)
@@ -101,22 +105,22 @@ def main():
                             stage = "undo"
                         assert json.loads(path.read_text()) == json.loads(
                             (
-                                EXAMPLE / (transport + "-" + stage + ".cad.json")
+                                example / (transport + "-" + stage + ".cad.json")
                             ).read_text()
                         )
                         continue
                 assert (path.read_bytes() if path.exists() else None) == before
             assert commits == 2 and rejected >= 1
             state = store.execute(dict(action="inspect"))
-            assert state["bodies"][0]["volume_mm3"] == "150*pi"
+            assert state["bodies"][0]["volume_mm3"] == before_volume
 
-    downloaded = json.loads((EXAMPLE / "browser-download.cad.json").read_text())
-    assert downloaded == json.loads((EXAMPLE / "browser-edited.cad.json").read_text())
-    triangles = read_stl((EXAMPLE / "browser-edited.stl").read_bytes())
+    downloaded = json.loads((example / "browser-download.cad.json").read_text())
+    assert downloaded == json.loads((example / "browser-edited.cad.json").read_text())
+    triangles = read_stl((example / "browser-edited.stl").read_bytes())
     volume = audit_triangles(triangles, 0)
-    expected = 216 * 128 * math.sin(math.tau / 128) / 2
+    expected = edited_coefficient * 128 * math.sin(math.tau / 128) / 2
     assert abs(volume - expected) < 1e-7
-    audit = json.loads((EXAMPLE / "browser-audit.json").read_text())
+    audit = json.loads((example / "browser-audit.json").read_text())
     assert audit["invalid"]["invalidText"] == "20"
     assert "empty_solid" in audit["invalid"]["diagnostic"]
     print(
@@ -125,4 +129,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--concave", action="store_true")
+    main(parser.parse_args().concave)

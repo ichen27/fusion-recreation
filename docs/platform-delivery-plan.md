@@ -277,3 +277,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Direct radial CPU optimization checkpoint
 
 [Exact 2D section boundaries](../examples/ai-cad/direct-radial-runtime/README.md) replace temporary 3D construction cells in coaxial Booleans. On the same Apple M4, stepped-union evaluation changed from51.37 to0.43ms and nested cuts from46.32 to0.61ms; all28 benchmark replies remain identical. Independent cell boundaries, STEP material comparisons and saved browser/MCP/native workflows validate the change. General curved intersections and richer sketch/assembly constraints remain open.
+
+## Concave coaxial intersection checkpoint
+
+[Stepped and undercut common volume](../examples/ai-cad/concave-coaxial/README.md) extends the dedicated intersection feature through the direct exact radial engine, preserving the convex clipping path and recordings. Browser/MCP create, edit, invalid draft, undo and native/STL downloads agree; eight independent references and16 STEP readbacks cover concave pairs, conical walls, opposite axes and nested results. Separate radial regions and contour holes remain explicit limits.

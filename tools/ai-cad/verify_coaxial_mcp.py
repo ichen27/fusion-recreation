@@ -11,12 +11,24 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from store import ROOT, Store
 from test_coaxial import intersect
+from test_revolution import revolved
+from test_round_stock import cylinder
+from test_polyhedral_transforms import moved
 from test_intersection import operations
 
 EXAMPLE = ROOT / "examples/ai-cad/coaxial-intersection"
 
 
-async def main(write=False):
+async def main(write=False, concave=False):
+    example = ROOT / "examples/ai-cad/concave-coaxial" if concave else EXAMPLE
+    model = (
+        intersect(revolved(), moved(cylinder(radius="8", height="12"), (0, 0, 0)))
+        if concave
+        else intersect()
+    )
+    before_volume, after_volume = (
+        ("572*pi", "657*pi") if concave else ("150*pi", "216*pi")
+    )
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "part.json"
         calls = []
@@ -44,13 +56,13 @@ async def main(write=False):
 
                 create = dict(
                     expected_revision=0,
-                    operations=operations(intersect()),
+                    operations=operations(model),
                     preserve=[],
                 )
                 assert "result" in await call("cad_preview", create)
                 assert not path.exists()
                 made = await call("cad_commit", {**create, "transaction_id": "create"})
-                assert made["result"]["bodies"][0]["volume_mm3"] == "150*pi"
+                assert made["result"]["bodies"][0]["volume_mm3"] == before_volume
                 original = path.read_bytes()
                 assert "result" in await call(
                     "cad_measure", dict(expected_revision=1, feature_id="common")
@@ -71,14 +83,20 @@ async def main(write=False):
                 edit = dict(
                     expected_revision=1,
                     selection_guard=dict(feature_id="common", surface_id=surface),
-                    operations=[dict(op="set_parameter", id="right.radius", mm="6")],
+                    operations=[
+                        dict(
+                            op="set_parameter",
+                            id="right.radius",
+                            mm="9" if concave else "6",
+                        )
+                    ],
                     preserve=[],
                 )
-                assert "result" in await call("cad_preview", edit)
+                preview = await call("cad_preview", edit)
+                assert preview["result"]["bodies"][0]["volume_mm3"] == after_volume
                 assert path.read_bytes() == original
-                assert "result" in await call(
-                    "cad_commit", {**edit, "transaction_id": "deeper"}
-                )
+                edited = await call("cad_commit", {**edit, "transaction_id": "deeper"})
+                assert edited["result"]["bodies"][0]["volume_mm3"] == after_volume
                 deeper = path.read_bytes()
                 bad = await call(
                     "cad_preview",
@@ -98,20 +116,20 @@ async def main(write=False):
                     "cad_history",
                     dict(action="undo", expected_revision=2, transaction_id="undo"),
                 )
-                assert undone["result"]["bodies"][0]["volume_mm3"] == "150*pi"
+                assert undone["result"]["bodies"][0]["volume_mm3"] == before_volume
                 assert "result" in await call(
                     "cad_measure", dict(expected_revision=3, feature_id="common")
                 )
                 assert Store(path).execute(dict(action="inspect"))["revision"] == 3
         if write:
-            EXAMPLE.mkdir(parents=True, exist_ok=True)
+            example.mkdir(parents=True, exist_ok=True)
             for name, data in [
                 ("mcp-created.cad.json", original),
                 ("mcp-edited.cad.json", deeper),
                 ("mcp-undo.cad.json", path.read_bytes()),
             ]:
-                (EXAMPLE / name).write_bytes(data)
-            (EXAMPLE / "mcp-recording.json").write_text(
+                (example / name).write_bytes(data)
+            (example / "mcp-recording.json").write_text(
                 json.dumps(dict(calls=calls), indent=2) + "\n"
             )
     print(
@@ -122,4 +140,6 @@ async def main(write=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
-    asyncio.run(main(parser.parse_args().write))
+    parser.add_argument("--concave", action="store_true")
+    args = parser.parse_args()
+    asyncio.run(main(args.write, args.concave))

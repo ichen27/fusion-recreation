@@ -1,0 +1,74 @@
+{
+  "parameters": {
+    "left.height": "1",
+    "left.c0": "0",
+    "left.c1": "10",
+    "left.c2": "5",
+    "left.c3": "6",
+    "left.c4": "12",
+    "right.x": "0",
+    "right.y": "0",
+    "right.bottom": "9",
+    "right.top": "3",
+    "right.height": "12"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "left.outline",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "left.c0",
+          "y": "left.c0"
+        },
+        {
+          "id": "v1",
+          "x": "left.c1",
+          "y": "left.c0"
+        },
+        {
+          "id": "v2",
+          "x": "left.c1",
+          "y": "left.c2"
+        },
+        {
+          "id": "v3",
+          "x": "left.c3",
+          "y": "left.c2"
+        },
+        {
+          "id": "v4",
+          "x": "left.c3",
+          "y": "left.c4"
+        },
+        {
+          "id": "v5",
+          "x": "left.c0",
+          "y": "left.c4"
+        }
+      ]
+    },
+    {
+      "kind": "revolve",
+      "id": "left.revolved",
+      "profile": "left.outline"
+    },
+    {
+      "kind": "conical_frustum",
+      "id": "right.taper",
+      "x": "right.x",
+      "y": "right.y",
+      "bottom_radius": "right.bottom",
+      "top_radius": "right.top",
+      "height": "right.height"
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "common",
+      "left": "left.revolved",
+      "right": "right.taper"
+    }
+  ]
+}
