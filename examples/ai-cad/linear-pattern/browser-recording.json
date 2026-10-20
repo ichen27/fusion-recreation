@@ -1,0 +1,6407 @@
+{
+  "calls": [
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "pattern1.x",
+            "mm": "50",
+            "op": "define_parameter"
+          },
+          {
+            "id": "pattern1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "pattern1.z",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "count": 3,
+              "id": "pattern1",
+              "input": "part",
+              "kind": "linear_pattern",
+              "step": [
+                "pattern1.x",
+                "pattern1.y",
+                "pattern1.z"
+              ]
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c1",
+          "part.c2",
+          "part.height"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "3fa3001a-bace-4354-986c-15ac882ac5de",
+          "revision": 1,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "3fa3001a-bace-4354-986c-15ac882ac5de",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "boundary": {
+                    "edges": [
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          2
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          4
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          10
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          10,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          14
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          12
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          16,
+                          18
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          18,
+                          22
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          20,
+                          22
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          16,
+                          20
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          3,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          9,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          13,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          11,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          9,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          17,
+                          21
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          21,
+                          23
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          19,
+                          23
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          17,
+                          19
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          1
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          12,
+                          13
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          8,
+                          9
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          20,
+                          21
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          16,
+                          17
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          10,
+                          11
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          14,
+                          15
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          18,
+                          19
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          22,
+                          23
+                        ]
+                      }
+                    ],
+                    "faces": [
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 0,
+                              "forward": true
+                            },
+                            {
+                              "edge": 1,
+                              "forward": true
+                            },
+                            {
+                              "edge": 2,
+                              "forward": false
+                            },
+                            {
+                              "edge": 3,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 4,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": false
+                            },
+                            {
+                              "edge": 7,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 8,
+                              "forward": true
+                            },
+                            {
+                              "edge": 9,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": false
+                            },
+                            {
+                              "edge": 11,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 12,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": false
+                            },
+                            {
+                              "edge": 15,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "20"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 16,
+                              "forward": true
+                            },
+                            {
+                              "edge": 17,
+                              "forward": true
+                            },
+                            {
+                              "edge": 18,
+                              "forward": false
+                            },
+                            {
+                              "edge": 19,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "20"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 20,
+                              "forward": true
+                            },
+                            {
+                              "edge": 21,
+                              "forward": true
+                            },
+                            {
+                              "edge": 22,
+                              "forward": false
+                            },
+                            {
+                              "edge": 23,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "20"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 3,
+                              "forward": true
+                            },
+                            {
+                              "edge": 24,
+                              "forward": true
+                            },
+                            {
+                              "edge": 12,
+                              "forward": false
+                            },
+                            {
+                              "edge": 25,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 7,
+                              "forward": true
+                            },
+                            {
+                              "edge": 26,
+                              "forward": true
+                            },
+                            {
+                              "edge": 16,
+                              "forward": false
+                            },
+                            {
+                              "edge": 27,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 11,
+                              "forward": true
+                            },
+                            {
+                              "edge": 28,
+                              "forward": true
+                            },
+                            {
+                              "edge": 20,
+                              "forward": false
+                            },
+                            {
+                              "edge": 29,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 30,
+                              "forward": true
+                            },
+                            {
+                              "edge": 14,
+                              "forward": true
+                            },
+                            {
+                              "edge": 31,
+                              "forward": false
+                            },
+                            {
+                              "edge": 1,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "30"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 32,
+                              "forward": true
+                            },
+                            {
+                              "edge": 18,
+                              "forward": true
+                            },
+                            {
+                              "edge": 33,
+                              "forward": false
+                            },
+                            {
+                              "edge": 5,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "30"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 34,
+                              "forward": true
+                            },
+                            {
+                              "edge": 22,
+                              "forward": true
+                            },
+                            {
+                              "edge": 35,
+                              "forward": false
+                            },
+                            {
+                              "edge": 9,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "30"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 25,
+                              "forward": true
+                            },
+                            {
+                              "edge": 15,
+                              "forward": true
+                            },
+                            {
+                              "edge": 30,
+                              "forward": false
+                            },
+                            {
+                              "edge": 0,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 2,
+                              "forward": true
+                            },
+                            {
+                              "edge": 31,
+                              "forward": true
+                            },
+                            {
+                              "edge": 13,
+                              "forward": false
+                            },
+                            {
+                              "edge": 24,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "40"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 27,
+                              "forward": true
+                            },
+                            {
+                              "edge": 19,
+                              "forward": true
+                            },
+                            {
+                              "edge": 32,
+                              "forward": false
+                            },
+                            {
+                              "edge": 4,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "-50"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 6,
+                              "forward": true
+                            },
+                            {
+                              "edge": 33,
+                              "forward": true
+                            },
+                            {
+                              "edge": 17,
+                              "forward": false
+                            },
+                            {
+                              "edge": 26,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "90"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 29,
+                              "forward": true
+                            },
+                            {
+                              "edge": 23,
+                              "forward": true
+                            },
+                            {
+                              "edge": 34,
+                              "forward": false
+                            },
+                            {
+                              "edge": 8,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "-100"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 10,
+                              "forward": true
+                            },
+                            {
+                              "edge": 35,
+                              "forward": true
+                            },
+                            {
+                              "edge": 21,
+                              "forward": false
+                            },
+                            {
+                              "edge": 28,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "140"
+                      }
+                    ],
+                    "vertices": [
+                      [
+                        "0",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "40",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "40",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "40",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "40",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "50",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "50",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "50",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "50",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "90",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "90",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "90",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "90",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "100",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "100",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "100",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "140",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "140",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "140",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "140",
+                        "30",
+                        "20"
+                      ]
+                    ]
+                  },
+                  "components": [
+                    [
+                      0,
+                      3,
+                      6,
+                      9,
+                      12,
+                      13
+                    ],
+                    [
+                      1,
+                      4,
+                      7,
+                      10,
+                      14,
+                      15
+                    ],
+                    [
+                      2,
+                      5,
+                      8,
+                      11,
+                      16,
+                      17
+                    ]
+                  ],
+                  "display_mesh": {
+                    "edges": [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        2,
+                        6
+                      ],
+                      [
+                        4,
+                        6
+                      ],
+                      [
+                        0,
+                        4
+                      ],
+                      [
+                        8,
+                        10
+                      ],
+                      [
+                        10,
+                        14
+                      ],
+                      [
+                        12,
+                        14
+                      ],
+                      [
+                        8,
+                        12
+                      ],
+                      [
+                        16,
+                        18
+                      ],
+                      [
+                        18,
+                        22
+                      ],
+                      [
+                        20,
+                        22
+                      ],
+                      [
+                        16,
+                        20
+                      ],
+                      [
+                        1,
+                        5
+                      ],
+                      [
+                        5,
+                        7
+                      ],
+                      [
+                        3,
+                        7
+                      ],
+                      [
+                        1,
+                        3
+                      ],
+                      [
+                        9,
+                        13
+                      ],
+                      [
+                        13,
+                        15
+                      ],
+                      [
+                        11,
+                        15
+                      ],
+                      [
+                        9,
+                        11
+                      ],
+                      [
+                        17,
+                        21
+                      ],
+                      [
+                        21,
+                        23
+                      ],
+                      [
+                        19,
+                        23
+                      ],
+                      [
+                        17,
+                        19
+                      ],
+                      [
+                        4,
+                        5
+                      ],
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        12,
+                        13
+                      ],
+                      [
+                        8,
+                        9
+                      ],
+                      [
+                        20,
+                        21
+                      ],
+                      [
+                        16,
+                        17
+                      ],
+                      [
+                        2,
+                        3
+                      ],
+                      [
+                        6,
+                        7
+                      ],
+                      [
+                        10,
+                        11
+                      ],
+                      [
+                        14,
+                        15
+                      ],
+                      [
+                        18,
+                        19
+                      ],
+                      [
+                        22,
+                        23
+                      ]
+                    ],
+                    "max_radial_error_mm": 0,
+                    "triangle_surfaces": [
+                      "evaluated/face/0",
+                      "evaluated/face/0",
+                      "evaluated/face/1",
+                      "evaluated/face/1",
+                      "evaluated/face/2",
+                      "evaluated/face/2",
+                      "evaluated/face/3",
+                      "evaluated/face/3",
+                      "evaluated/face/4",
+                      "evaluated/face/4",
+                      "evaluated/face/5",
+                      "evaluated/face/5",
+                      "evaluated/face/6",
+                      "evaluated/face/6",
+                      "evaluated/face/7",
+                      "evaluated/face/7",
+                      "evaluated/face/8",
+                      "evaluated/face/8",
+                      "evaluated/face/9",
+                      "evaluated/face/9",
+                      "evaluated/face/10",
+                      "evaluated/face/10",
+                      "evaluated/face/11",
+                      "evaluated/face/11",
+                      "evaluated/face/12",
+                      "evaluated/face/12",
+                      "evaluated/face/13",
+                      "evaluated/face/13",
+                      "evaluated/face/14",
+                      "evaluated/face/14",
+                      "evaluated/face/15",
+                      "evaluated/face/15",
+                      "evaluated/face/16",
+                      "evaluated/face/16",
+                      "evaluated/face/17",
+                      "evaluated/face/17"
+                    ],
+                    "triangles": [
+                      [
+                        2,
+                        4,
+                        0
+                      ],
+                      [
+                        4,
+                        2,
+                        6
+                      ],
+                      [
+                        10,
+                        12,
+                        8
+                      ],
+                      [
+                        12,
+                        10,
+                        14
+                      ],
+                      [
+                        18,
+                        20,
+                        16
+                      ],
+                      [
+                        20,
+                        18,
+                        22
+                      ],
+                      [
+                        7,
+                        3,
+                        1
+                      ],
+                      [
+                        1,
+                        5,
+                        7
+                      ],
+                      [
+                        15,
+                        11,
+                        9
+                      ],
+                      [
+                        9,
+                        13,
+                        15
+                      ],
+                      [
+                        23,
+                        19,
+                        17
+                      ],
+                      [
+                        17,
+                        21,
+                        23
+                      ],
+                      [
+                        4,
+                        1,
+                        0
+                      ],
+                      [
+                        1,
+                        4,
+                        5
+                      ],
+                      [
+                        12,
+                        9,
+                        8
+                      ],
+                      [
+                        9,
+                        12,
+                        13
+                      ],
+                      [
+                        20,
+                        17,
+                        16
+                      ],
+                      [
+                        17,
+                        20,
+                        21
+                      ],
+                      [
+                        7,
+                        6,
+                        2
+                      ],
+                      [
+                        2,
+                        3,
+                        7
+                      ],
+                      [
+                        15,
+                        14,
+                        10
+                      ],
+                      [
+                        10,
+                        11,
+                        15
+                      ],
+                      [
+                        23,
+                        22,
+                        18
+                      ],
+                      [
+                        18,
+                        19,
+                        23
+                      ],
+                      [
+                        1,
+                        2,
+                        0
+                      ],
+                      [
+                        2,
+                        1,
+                        3
+                      ],
+                      [
+                        7,
+                        5,
+                        4
+                      ],
+                      [
+                        4,
+                        6,
+                        7
+                      ],
+                      [
+                        9,
+                        10,
+                        8
+                      ],
+                      [
+                        10,
+                        9,
+                        11
+                      ],
+                      [
+                        15,
+                        13,
+                        12
+                      ],
+                      [
+                        12,
+                        14,
+                        15
+                      ],
+                      [
+                        17,
+                        18,
+                        16
+                      ],
+                      [
+                        18,
+                        17,
+                        19
+                      ],
+                      [
+                        23,
+                        21,
+                        20
+                      ],
+                      [
+                        20,
+                        22,
+                        23
+                      ]
+                    ],
+                    "vertices": [
+                      [
+                        0,
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        0,
+                        20
+                      ],
+                      [
+                        0,
+                        30,
+                        0
+                      ],
+                      [
+                        0,
+                        30,
+                        20
+                      ],
+                      [
+                        40,
+                        0,
+                        0
+                      ],
+                      [
+                        40,
+                        0,
+                        20
+                      ],
+                      [
+                        40,
+                        30,
+                        0
+                      ],
+                      [
+                        40,
+                        30,
+                        20
+                      ],
+                      [
+                        50,
+                        0,
+                        0
+                      ],
+                      [
+                        50,
+                        0,
+                        20
+                      ],
+                      [
+                        50,
+                        30,
+                        0
+                      ],
+                      [
+                        50,
+                        30,
+                        20
+                      ],
+                      [
+                        90,
+                        0,
+                        0
+                      ],
+                      [
+                        90,
+                        0,
+                        20
+                      ],
+                      [
+                        90,
+                        30,
+                        0
+                      ],
+                      [
+                        90,
+                        30,
+                        20
+                      ],
+                      [
+                        100,
+                        0,
+                        0
+                      ],
+                      [
+                        100,
+                        0,
+                        20
+                      ],
+                      [
+                        100,
+                        30,
+                        0
+                      ],
+                      [
+                        100,
+                        30,
+                        20
+                      ],
+                      [
+                        140,
+                        0,
+                        0
+                      ],
+                      [
+                        140,
+                        0,
+                        20
+                      ],
+                      [
+                        140,
+                        30,
+                        0
+                      ],
+                      [
+                        140,
+                        30,
+                        20
+                      ]
+                    ]
+                  },
+                  "feature_id": "pattern1",
+                  "volume_mm3": "72000"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "pattern1.x",
+                "pattern1.y",
+                "pattern1.z"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "count": 3,
+                    "id": "pattern1",
+                    "input": "part",
+                    "kind": "linear_pattern",
+                    "step": [
+                      "pattern1.x",
+                      "pattern1.y",
+                      "pattern1.z"
+                    ]
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "part.c0": "0",
+                  "part.c1": "40",
+                  "part.c2": "30",
+                  "part.height": "20",
+                  "pattern1.x": "50",
+                  "pattern1.y": "0",
+                  "pattern1.z": "0"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "1200",
+                  "feature_id": "part.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "40",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "40",
+                        "30",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "30",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 1,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 1,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=3fa3001a-bace-4354-986c-15ac882ac5de"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 1,
+        "operations": [
+          {
+            "id": "pattern1.x",
+            "mm": "50",
+            "op": "define_parameter"
+          },
+          {
+            "id": "pattern1.y",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "id": "pattern1.z",
+            "mm": "0",
+            "op": "define_parameter"
+          },
+          {
+            "feature": {
+              "count": 3,
+              "id": "pattern1",
+              "input": "part",
+              "kind": "linear_pattern",
+              "step": [
+                "pattern1.x",
+                "pattern1.y",
+                "pattern1.z"
+              ]
+            },
+            "op": "add_feature"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c1",
+          "part.c2",
+          "part.height"
+        ],
+        "transaction_id": "71273cc0-a9fa-4e66-9822-042b2299adef"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      10
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      10,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      14
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      12
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      16,
+                      18
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      18,
+                      22
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      20,
+                      22
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      16,
+                      20
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      9,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      13,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      11,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      9,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      17,
+                      21
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      21,
+                      23
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      19,
+                      23
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      17,
+                      19
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      12,
+                      13
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      20,
+                      21
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      16,
+                      17
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      10,
+                      11
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      14,
+                      15
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      18,
+                      19
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      22,
+                      23
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 12,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": false
+                        },
+                        {
+                          "edge": 15,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 16,
+                          "forward": true
+                        },
+                        {
+                          "edge": 17,
+                          "forward": true
+                        },
+                        {
+                          "edge": 18,
+                          "forward": false
+                        },
+                        {
+                          "edge": 19,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 20,
+                          "forward": true
+                        },
+                        {
+                          "edge": 21,
+                          "forward": true
+                        },
+                        {
+                          "edge": 22,
+                          "forward": false
+                        },
+                        {
+                          "edge": 23,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 24,
+                          "forward": true
+                        },
+                        {
+                          "edge": 12,
+                          "forward": false
+                        },
+                        {
+                          "edge": 25,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 26,
+                          "forward": true
+                        },
+                        {
+                          "edge": 16,
+                          "forward": false
+                        },
+                        {
+                          "edge": 27,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 28,
+                          "forward": true
+                        },
+                        {
+                          "edge": 20,
+                          "forward": false
+                        },
+                        {
+                          "edge": 29,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 30,
+                          "forward": true
+                        },
+                        {
+                          "edge": 14,
+                          "forward": true
+                        },
+                        {
+                          "edge": 31,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 32,
+                          "forward": true
+                        },
+                        {
+                          "edge": 18,
+                          "forward": true
+                        },
+                        {
+                          "edge": 33,
+                          "forward": false
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 34,
+                          "forward": true
+                        },
+                        {
+                          "edge": 22,
+                          "forward": true
+                        },
+                        {
+                          "edge": 35,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 25,
+                          "forward": true
+                        },
+                        {
+                          "edge": 15,
+                          "forward": true
+                        },
+                        {
+                          "edge": 30,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 31,
+                          "forward": true
+                        },
+                        {
+                          "edge": 13,
+                          "forward": false
+                        },
+                        {
+                          "edge": 24,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "40"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 27,
+                          "forward": true
+                        },
+                        {
+                          "edge": 19,
+                          "forward": true
+                        },
+                        {
+                          "edge": 32,
+                          "forward": false
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-50"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 33,
+                          "forward": true
+                        },
+                        {
+                          "edge": 17,
+                          "forward": false
+                        },
+                        {
+                          "edge": 26,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "90"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 29,
+                          "forward": true
+                        },
+                        {
+                          "edge": 23,
+                          "forward": true
+                        },
+                        {
+                          "edge": 34,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "-100"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 35,
+                          "forward": true
+                        },
+                        {
+                          "edge": 21,
+                          "forward": false
+                        },
+                        {
+                          "edge": 28,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "140"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "40",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "40",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "40",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "40",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "50",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "50",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "50",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "50",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "90",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "90",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "90",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "90",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "100",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "100",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "140",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "140",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "140",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "140",
+                    "30",
+                    "20"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  3,
+                  6,
+                  9,
+                  12,
+                  13
+                ],
+                [
+                  1,
+                  4,
+                  7,
+                  10,
+                  14,
+                  15
+                ],
+                [
+                  2,
+                  5,
+                  8,
+                  11,
+                  16,
+                  17
+                ]
+              ],
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    8,
+                    10
+                  ],
+                  [
+                    10,
+                    14
+                  ],
+                  [
+                    12,
+                    14
+                  ],
+                  [
+                    8,
+                    12
+                  ],
+                  [
+                    16,
+                    18
+                  ],
+                  [
+                    18,
+                    22
+                  ],
+                  [
+                    20,
+                    22
+                  ],
+                  [
+                    16,
+                    20
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    9,
+                    13
+                  ],
+                  [
+                    13,
+                    15
+                  ],
+                  [
+                    11,
+                    15
+                  ],
+                  [
+                    9,
+                    11
+                  ],
+                  [
+                    17,
+                    21
+                  ],
+                  [
+                    21,
+                    23
+                  ],
+                  [
+                    19,
+                    23
+                  ],
+                  [
+                    17,
+                    19
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    12,
+                    13
+                  ],
+                  [
+                    8,
+                    9
+                  ],
+                  [
+                    20,
+                    21
+                  ],
+                  [
+                    16,
+                    17
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    10,
+                    11
+                  ],
+                  [
+                    14,
+                    15
+                  ],
+                  [
+                    18,
+                    19
+                  ],
+                  [
+                    22,
+                    23
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangle_surfaces": [
+                  "evaluated/face/0",
+                  "evaluated/face/0",
+                  "evaluated/face/1",
+                  "evaluated/face/1",
+                  "evaluated/face/2",
+                  "evaluated/face/2",
+                  "evaluated/face/3",
+                  "evaluated/face/3",
+                  "evaluated/face/4",
+                  "evaluated/face/4",
+                  "evaluated/face/5",
+                  "evaluated/face/5",
+                  "evaluated/face/6",
+                  "evaluated/face/6",
+                  "evaluated/face/7",
+                  "evaluated/face/7",
+                  "evaluated/face/8",
+                  "evaluated/face/8",
+                  "evaluated/face/9",
+                  "evaluated/face/9",
+                  "evaluated/face/10",
+                  "evaluated/face/10",
+                  "evaluated/face/11",
+                  "evaluated/face/11",
+                  "evaluated/face/12",
+                  "evaluated/face/12",
+                  "evaluated/face/13",
+                  "evaluated/face/13",
+                  "evaluated/face/14",
+                  "evaluated/face/14",
+                  "evaluated/face/15",
+                  "evaluated/face/15",
+                  "evaluated/face/16",
+                  "evaluated/face/16",
+                  "evaluated/face/17",
+                  "evaluated/face/17"
+                ],
+                "triangles": [
+                  [
+                    2,
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2,
+                    6
+                  ],
+                  [
+                    10,
+                    12,
+                    8
+                  ],
+                  [
+                    12,
+                    10,
+                    14
+                  ],
+                  [
+                    18,
+                    20,
+                    16
+                  ],
+                  [
+                    20,
+                    18,
+                    22
+                  ],
+                  [
+                    7,
+                    3,
+                    1
+                  ],
+                  [
+                    1,
+                    5,
+                    7
+                  ],
+                  [
+                    15,
+                    11,
+                    9
+                  ],
+                  [
+                    9,
+                    13,
+                    15
+                  ],
+                  [
+                    23,
+                    19,
+                    17
+                  ],
+                  [
+                    17,
+                    21,
+                    23
+                  ],
+                  [
+                    4,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    4,
+                    5
+                  ],
+                  [
+                    12,
+                    9,
+                    8
+                  ],
+                  [
+                    9,
+                    12,
+                    13
+                  ],
+                  [
+                    20,
+                    17,
+                    16
+                  ],
+                  [
+                    17,
+                    20,
+                    21
+                  ],
+                  [
+                    7,
+                    6,
+                    2
+                  ],
+                  [
+                    2,
+                    3,
+                    7
+                  ],
+                  [
+                    15,
+                    14,
+                    10
+                  ],
+                  [
+                    10,
+                    11,
+                    15
+                  ],
+                  [
+                    23,
+                    22,
+                    18
+                  ],
+                  [
+                    18,
+                    19,
+                    23
+                  ],
+                  [
+                    1,
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1,
+                    3
+                  ],
+                  [
+                    7,
+                    5,
+                    4
+                  ],
+                  [
+                    4,
+                    6,
+                    7
+                  ],
+                  [
+                    9,
+                    10,
+                    8
+                  ],
+                  [
+                    10,
+                    9,
+                    11
+                  ],
+                  [
+                    15,
+                    13,
+                    12
+                  ],
+                  [
+                    12,
+                    14,
+                    15
+                  ],
+                  [
+                    17,
+                    18,
+                    16
+                  ],
+                  [
+                    18,
+                    17,
+                    19
+                  ],
+                  [
+                    23,
+                    21,
+                    20
+                  ],
+                  [
+                    20,
+                    22,
+                    23
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    20
+                  ],
+                  [
+                    0,
+                    30,
+                    0
+                  ],
+                  [
+                    0,
+                    30,
+                    20
+                  ],
+                  [
+                    40,
+                    0,
+                    0
+                  ],
+                  [
+                    40,
+                    0,
+                    20
+                  ],
+                  [
+                    40,
+                    30,
+                    0
+                  ],
+                  [
+                    40,
+                    30,
+                    20
+                  ],
+                  [
+                    50,
+                    0,
+                    0
+                  ],
+                  [
+                    50,
+                    0,
+                    20
+                  ],
+                  [
+                    50,
+                    30,
+                    0
+                  ],
+                  [
+                    50,
+                    30,
+                    20
+                  ],
+                  [
+                    90,
+                    0,
+                    0
+                  ],
+                  [
+                    90,
+                    0,
+                    20
+                  ],
+                  [
+                    90,
+                    30,
+                    0
+                  ],
+                  [
+                    90,
+                    30,
+                    20
+                  ],
+                  [
+                    100,
+                    0,
+                    0
+                  ],
+                  [
+                    100,
+                    0,
+                    20
+                  ],
+                  [
+                    100,
+                    30,
+                    0
+                  ],
+                  [
+                    100,
+                    30,
+                    20
+                  ],
+                  [
+                    140,
+                    0,
+                    0
+                  ],
+                  [
+                    140,
+                    0,
+                    20
+                  ],
+                  [
+                    140,
+                    30,
+                    0
+                  ],
+                  [
+                    140,
+                    30,
+                    20
+                  ]
+                ]
+              },
+              "feature_id": "pattern1",
+              "volume_mm3": "72000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "pattern1.x",
+            "pattern1.y",
+            "pattern1.z"
+          ],
+          "committed_revision": 2,
+          "model": {
+            "features": [
+              {
+                "id": "part.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "part.c0",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "part.c1",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "part.c1",
+                    "y": "part.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "part.c0",
+                    "y": "part.c2"
+                  }
+                ]
+              },
+              {
+                "height": "part.height",
+                "id": "part",
+                "kind": "extrude",
+                "profile": "part.profile"
+              },
+              {
+                "count": 3,
+                "id": "pattern1",
+                "input": "part",
+                "kind": "linear_pattern",
+                "step": [
+                  "pattern1.x",
+                  "pattern1.y",
+                  "pattern1.z"
+                ]
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "part.c0": "0",
+              "part.c1": "40",
+              "part.c2": "30",
+              "part.height": "20",
+              "pattern1.x": "50",
+              "pattern1.y": "0",
+              "pattern1.z": "0"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "1200",
+              "feature_id": "part.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "40",
+                    "30",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "30",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 2,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "pattern1.x",
+            "mm": "40",
+            "op": "set_parameter"
+          },
+          {
+            "feature": {
+              "count": 4,
+              "id": "pattern1",
+              "input": "part",
+              "kind": "linear_pattern",
+              "step": [
+                "pattern1.x",
+                "pattern1.y",
+                "pattern1.z"
+              ]
+            },
+            "id": "pattern1",
+            "op": "replace_feature"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c1",
+          "part.c2",
+          "part.height"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "7da1f7b6-d72f-415e-b763-9211da7ef16a",
+          "revision": 2,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "7da1f7b6-d72f-415e-b763-9211da7ef16a",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "boundary": {
+                    "edges": [
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          2
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          4
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          3,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          1
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          7
+                        ]
+                      }
+                    ],
+                    "faces": [
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 0,
+                              "forward": true
+                            },
+                            {
+                              "edge": 1,
+                              "forward": true
+                            },
+                            {
+                              "edge": 2,
+                              "forward": false
+                            },
+                            {
+                              "edge": 3,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 4,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": false
+                            },
+                            {
+                              "edge": 7,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "20"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 3,
+                              "forward": true
+                            },
+                            {
+                              "edge": 8,
+                              "forward": true
+                            },
+                            {
+                              "edge": 4,
+                              "forward": false
+                            },
+                            {
+                              "edge": 9,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 10,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": false
+                            },
+                            {
+                              "edge": 1,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "30"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 9,
+                              "forward": true
+                            },
+                            {
+                              "edge": 7,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": false
+                            },
+                            {
+                              "edge": 0,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 2,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": false
+                            },
+                            {
+                              "edge": 8,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "160"
+                      }
+                    ],
+                    "vertices": [
+                      [
+                        "0",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "160",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "160",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "160",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "160",
+                        "30",
+                        "20"
+                      ]
+                    ]
+                  },
+                  "components": [
+                    [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ]
+                  ],
+                  "display_mesh": {
+                    "edges": [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        2,
+                        6
+                      ],
+                      [
+                        4,
+                        6
+                      ],
+                      [
+                        0,
+                        4
+                      ],
+                      [
+                        1,
+                        5
+                      ],
+                      [
+                        5,
+                        7
+                      ],
+                      [
+                        3,
+                        7
+                      ],
+                      [
+                        1,
+                        3
+                      ],
+                      [
+                        4,
+                        5
+                      ],
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        2,
+                        3
+                      ],
+                      [
+                        6,
+                        7
+                      ]
+                    ],
+                    "max_radial_error_mm": 0,
+                    "triangle_surfaces": [
+                      "evaluated/face/0",
+                      "evaluated/face/0",
+                      "evaluated/face/1",
+                      "evaluated/face/1",
+                      "evaluated/face/2",
+                      "evaluated/face/2",
+                      "evaluated/face/3",
+                      "evaluated/face/3",
+                      "evaluated/face/4",
+                      "evaluated/face/4",
+                      "evaluated/face/5",
+                      "evaluated/face/5"
+                    ],
+                    "triangles": [
+                      [
+                        2,
+                        4,
+                        0
+                      ],
+                      [
+                        4,
+                        2,
+                        6
+                      ],
+                      [
+                        7,
+                        3,
+                        1
+                      ],
+                      [
+                        1,
+                        5,
+                        7
+                      ],
+                      [
+                        4,
+                        1,
+                        0
+                      ],
+                      [
+                        1,
+                        4,
+                        5
+                      ],
+                      [
+                        7,
+                        6,
+                        2
+                      ],
+                      [
+                        2,
+                        3,
+                        7
+                      ],
+                      [
+                        1,
+                        2,
+                        0
+                      ],
+                      [
+                        2,
+                        1,
+                        3
+                      ],
+                      [
+                        7,
+                        5,
+                        4
+                      ],
+                      [
+                        4,
+                        6,
+                        7
+                      ]
+                    ],
+                    "vertices": [
+                      [
+                        0,
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        0,
+                        20
+                      ],
+                      [
+                        0,
+                        30,
+                        0
+                      ],
+                      [
+                        0,
+                        30,
+                        20
+                      ],
+                      [
+                        160,
+                        0,
+                        0
+                      ],
+                      [
+                        160,
+                        0,
+                        20
+                      ],
+                      [
+                        160,
+                        30,
+                        0
+                      ],
+                      [
+                        160,
+                        30,
+                        20
+                      ]
+                    ]
+                  },
+                  "feature_id": "pattern1",
+                  "volume_mm3": "96000"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "pattern1.x"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "count": 4,
+                    "id": "pattern1",
+                    "input": "part",
+                    "kind": "linear_pattern",
+                    "step": [
+                      "pattern1.x",
+                      "pattern1.y",
+                      "pattern1.z"
+                    ]
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "part.c0": "0",
+                  "part.c1": "40",
+                  "part.c2": "30",
+                  "part.height": "20",
+                  "pattern1.x": "40",
+                  "pattern1.y": "0",
+                  "pattern1.z": "0"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "1200",
+                  "feature_id": "part.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "40",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "40",
+                        "30",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "30",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 2,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 2,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=7da1f7b6-d72f-415e-b763-9211da7ef16a"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 2,
+        "operations": [
+          {
+            "id": "pattern1.x",
+            "mm": "40",
+            "op": "set_parameter"
+          },
+          {
+            "feature": {
+              "count": 4,
+              "id": "pattern1",
+              "input": "part",
+              "kind": "linear_pattern",
+              "step": [
+                "pattern1.x",
+                "pattern1.y",
+                "pattern1.z"
+              ]
+            },
+            "id": "pattern1",
+            "op": "replace_feature"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c1",
+          "part.c2",
+          "part.height"
+        ],
+        "transaction_id": "c4b5f7c7-7b91-4120-bb94-90f2d0f13033"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "160"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "160",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "160",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "160",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "160",
+                    "30",
+                    "20"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              ],
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    6,
+                    7
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangle_surfaces": [
+                  "evaluated/face/0",
+                  "evaluated/face/0",
+                  "evaluated/face/1",
+                  "evaluated/face/1",
+                  "evaluated/face/2",
+                  "evaluated/face/2",
+                  "evaluated/face/3",
+                  "evaluated/face/3",
+                  "evaluated/face/4",
+                  "evaluated/face/4",
+                  "evaluated/face/5",
+                  "evaluated/face/5"
+                ],
+                "triangles": [
+                  [
+                    2,
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2,
+                    6
+                  ],
+                  [
+                    7,
+                    3,
+                    1
+                  ],
+                  [
+                    1,
+                    5,
+                    7
+                  ],
+                  [
+                    4,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    4,
+                    5
+                  ],
+                  [
+                    7,
+                    6,
+                    2
+                  ],
+                  [
+                    2,
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1,
+                    3
+                  ],
+                  [
+                    7,
+                    5,
+                    4
+                  ],
+                  [
+                    4,
+                    6,
+                    7
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    20
+                  ],
+                  [
+                    0,
+                    30,
+                    0
+                  ],
+                  [
+                    0,
+                    30,
+                    20
+                  ],
+                  [
+                    160,
+                    0,
+                    0
+                  ],
+                  [
+                    160,
+                    0,
+                    20
+                  ],
+                  [
+                    160,
+                    30,
+                    0
+                  ],
+                  [
+                    160,
+                    30,
+                    20
+                  ]
+                ]
+              },
+              "feature_id": "pattern1",
+              "volume_mm3": "96000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "pattern1.x"
+          ],
+          "committed_revision": 3,
+          "model": {
+            "features": [
+              {
+                "id": "part.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "part.c0",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "part.c1",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "part.c1",
+                    "y": "part.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "part.c0",
+                    "y": "part.c2"
+                  }
+                ]
+              },
+              {
+                "height": "part.height",
+                "id": "part",
+                "kind": "extrude",
+                "profile": "part.profile"
+              },
+              {
+                "count": 4,
+                "id": "pattern1",
+                "input": "part",
+                "kind": "linear_pattern",
+                "step": [
+                  "pattern1.x",
+                  "pattern1.y",
+                  "pattern1.z"
+                ]
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "part.c0": "0",
+              "part.c1": "40",
+              "part.c2": "30",
+              "part.height": "20",
+              "pattern1.x": "40",
+              "pattern1.y": "0",
+              "pattern1.z": "0"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "1200",
+              "feature_id": "part.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "40",
+                    "30",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "30",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 3,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "part.c1",
+            "mm": "50",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c2",
+          "part.height",
+          "pattern1.x",
+          "pattern1.y",
+          "pattern1.z"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "25c6ef6a-2d5e-4518-a636-af7e3bf46c87",
+          "revision": 3,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "25c6ef6a-2d5e-4518-a636-af7e3bf46c87",
+          "reply": {
+            "result": {
+              "bodies": [
+                {
+                  "boundary": {
+                    "edges": [
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          2
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          6
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          4
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          5,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          3,
+                          7
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          1,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          4,
+                          5
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          0,
+                          1
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          2,
+                          3
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "vertices": [
+                          6,
+                          7
+                        ]
+                      }
+                    ],
+                    "faces": [
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 0,
+                              "forward": true
+                            },
+                            {
+                              "edge": 1,
+                              "forward": true
+                            },
+                            {
+                              "edge": 2,
+                              "forward": false
+                            },
+                            {
+                              "edge": 3,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "-1"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 4,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": false
+                            },
+                            {
+                              "edge": 7,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "0",
+                          "1"
+                        ],
+                        "offset": "20"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 3,
+                              "forward": true
+                            },
+                            {
+                              "edge": 8,
+                              "forward": true
+                            },
+                            {
+                              "edge": 4,
+                              "forward": false
+                            },
+                            {
+                              "edge": 9,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "-1",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 10,
+                              "forward": true
+                            },
+                            {
+                              "edge": 6,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": false
+                            },
+                            {
+                              "edge": 1,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "0",
+                          "1",
+                          "0"
+                        ],
+                        "offset": "30"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 9,
+                              "forward": true
+                            },
+                            {
+                              "edge": 7,
+                              "forward": true
+                            },
+                            {
+                              "edge": 10,
+                              "forward": false
+                            },
+                            {
+                              "edge": 0,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "-1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "0"
+                      },
+                      {
+                        "kind": "plane",
+                        "loops": [
+                          [
+                            {
+                              "edge": 2,
+                              "forward": true
+                            },
+                            {
+                              "edge": 11,
+                              "forward": true
+                            },
+                            {
+                              "edge": 5,
+                              "forward": false
+                            },
+                            {
+                              "edge": 8,
+                              "forward": false
+                            }
+                          ]
+                        ],
+                        "normal": [
+                          "1",
+                          "0",
+                          "0"
+                        ],
+                        "offset": "170"
+                      }
+                    ],
+                    "vertices": [
+                      [
+                        "0",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "0",
+                        "30",
+                        "20"
+                      ],
+                      [
+                        "170",
+                        "0",
+                        "0"
+                      ],
+                      [
+                        "170",
+                        "0",
+                        "20"
+                      ],
+                      [
+                        "170",
+                        "30",
+                        "0"
+                      ],
+                      [
+                        "170",
+                        "30",
+                        "20"
+                      ]
+                    ]
+                  },
+                  "components": [
+                    [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ]
+                  ],
+                  "display_mesh": {
+                    "edges": [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        2,
+                        6
+                      ],
+                      [
+                        4,
+                        6
+                      ],
+                      [
+                        0,
+                        4
+                      ],
+                      [
+                        1,
+                        5
+                      ],
+                      [
+                        5,
+                        7
+                      ],
+                      [
+                        3,
+                        7
+                      ],
+                      [
+                        1,
+                        3
+                      ],
+                      [
+                        4,
+                        5
+                      ],
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        2,
+                        3
+                      ],
+                      [
+                        6,
+                        7
+                      ]
+                    ],
+                    "max_radial_error_mm": 0,
+                    "triangle_surfaces": [
+                      "evaluated/face/0",
+                      "evaluated/face/0",
+                      "evaluated/face/1",
+                      "evaluated/face/1",
+                      "evaluated/face/2",
+                      "evaluated/face/2",
+                      "evaluated/face/3",
+                      "evaluated/face/3",
+                      "evaluated/face/4",
+                      "evaluated/face/4",
+                      "evaluated/face/5",
+                      "evaluated/face/5"
+                    ],
+                    "triangles": [
+                      [
+                        2,
+                        4,
+                        0
+                      ],
+                      [
+                        4,
+                        2,
+                        6
+                      ],
+                      [
+                        7,
+                        3,
+                        1
+                      ],
+                      [
+                        1,
+                        5,
+                        7
+                      ],
+                      [
+                        4,
+                        1,
+                        0
+                      ],
+                      [
+                        1,
+                        4,
+                        5
+                      ],
+                      [
+                        7,
+                        6,
+                        2
+                      ],
+                      [
+                        2,
+                        3,
+                        7
+                      ],
+                      [
+                        1,
+                        2,
+                        0
+                      ],
+                      [
+                        2,
+                        1,
+                        3
+                      ],
+                      [
+                        7,
+                        5,
+                        4
+                      ],
+                      [
+                        4,
+                        6,
+                        7
+                      ]
+                    ],
+                    "vertices": [
+                      [
+                        0,
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        0,
+                        20
+                      ],
+                      [
+                        0,
+                        30,
+                        0
+                      ],
+                      [
+                        0,
+                        30,
+                        20
+                      ],
+                      [
+                        170,
+                        0,
+                        0
+                      ],
+                      [
+                        170,
+                        0,
+                        20
+                      ],
+                      [
+                        170,
+                        30,
+                        0
+                      ],
+                      [
+                        170,
+                        30,
+                        20
+                      ]
+                    ]
+                  },
+                  "feature_id": "pattern1",
+                  "volume_mm3": "102000"
+                }
+              ],
+              "can_redo": false,
+              "can_undo": true,
+              "changed_parameters": [
+                "part.c1"
+              ],
+              "model": {
+                "features": [
+                  {
+                    "id": "part.profile",
+                    "kind": "planar_profile",
+                    "vertices": [
+                      {
+                        "id": "v0",
+                        "x": "part.c0",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v1",
+                        "x": "part.c1",
+                        "y": "part.c0"
+                      },
+                      {
+                        "id": "v2",
+                        "x": "part.c1",
+                        "y": "part.c2"
+                      },
+                      {
+                        "id": "v3",
+                        "x": "part.c0",
+                        "y": "part.c2"
+                      }
+                    ]
+                  },
+                  {
+                    "height": "part.height",
+                    "id": "part",
+                    "kind": "extrude",
+                    "profile": "part.profile"
+                  },
+                  {
+                    "count": 4,
+                    "id": "pattern1",
+                    "input": "part",
+                    "kind": "linear_pattern",
+                    "step": [
+                      "pattern1.x",
+                      "pattern1.y",
+                      "pattern1.z"
+                    ]
+                  }
+                ],
+                "fixed": {},
+                "parameters": {
+                  "part.c0": "0",
+                  "part.c1": "50",
+                  "part.c2": "30",
+                  "part.height": "20",
+                  "pattern1.x": "40",
+                  "pattern1.y": "0",
+                  "pattern1.z": "0"
+                }
+              },
+              "preview": true,
+              "profiles": [
+                {
+                  "area_mm2": "1500",
+                  "feature_id": "part.profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "position": [
+                        "0",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v1",
+                      "position": [
+                        "50",
+                        "0",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v2",
+                      "position": [
+                        "50",
+                        "30",
+                        "0"
+                      ]
+                    },
+                    {
+                      "id": "v3",
+                      "position": [
+                        "0",
+                        "30",
+                        "0"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "revision": 3,
+              "schema_version": 1,
+              "units": "mm"
+            }
+          },
+          "revision": 3,
+          "status": "succeeded"
+        }
+      },
+      "url": "/api/preview-jobs?id=25c6ef6a-2d5e-4518-a636-af7e3bf46c87"
+    },
+    {
+      "command": {
+        "action": "commit",
+        "expected_revision": 3,
+        "operations": [
+          {
+            "id": "part.c1",
+            "mm": "50",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c2",
+          "part.height",
+          "pattern1.x",
+          "pattern1.y",
+          "pattern1.z"
+        ],
+        "transaction_id": "66c4423a-8d36-491c-a2fb-06470409d50f"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "170"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "170",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "170",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "170",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "170",
+                    "30",
+                    "20"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              ],
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    6,
+                    7
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangle_surfaces": [
+                  "evaluated/face/0",
+                  "evaluated/face/0",
+                  "evaluated/face/1",
+                  "evaluated/face/1",
+                  "evaluated/face/2",
+                  "evaluated/face/2",
+                  "evaluated/face/3",
+                  "evaluated/face/3",
+                  "evaluated/face/4",
+                  "evaluated/face/4",
+                  "evaluated/face/5",
+                  "evaluated/face/5"
+                ],
+                "triangles": [
+                  [
+                    2,
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2,
+                    6
+                  ],
+                  [
+                    7,
+                    3,
+                    1
+                  ],
+                  [
+                    1,
+                    5,
+                    7
+                  ],
+                  [
+                    4,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    4,
+                    5
+                  ],
+                  [
+                    7,
+                    6,
+                    2
+                  ],
+                  [
+                    2,
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1,
+                    3
+                  ],
+                  [
+                    7,
+                    5,
+                    4
+                  ],
+                  [
+                    4,
+                    6,
+                    7
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    20
+                  ],
+                  [
+                    0,
+                    30,
+                    0
+                  ],
+                  [
+                    0,
+                    30,
+                    20
+                  ],
+                  [
+                    170,
+                    0,
+                    0
+                  ],
+                  [
+                    170,
+                    0,
+                    20
+                  ],
+                  [
+                    170,
+                    30,
+                    0
+                  ],
+                  [
+                    170,
+                    30,
+                    20
+                  ]
+                ]
+              },
+              "feature_id": "pattern1",
+              "volume_mm3": "102000"
+            }
+          ],
+          "can_redo": false,
+          "can_undo": true,
+          "changed_parameters": [
+            "part.c1"
+          ],
+          "committed_revision": 4,
+          "model": {
+            "features": [
+              {
+                "id": "part.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "part.c0",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "part.c1",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "part.c1",
+                    "y": "part.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "part.c0",
+                    "y": "part.c2"
+                  }
+                ]
+              },
+              {
+                "height": "part.height",
+                "id": "part",
+                "kind": "extrude",
+                "profile": "part.profile"
+              },
+              {
+                "count": 4,
+                "id": "pattern1",
+                "input": "part",
+                "kind": "linear_pattern",
+                "step": [
+                  "pattern1.x",
+                  "pattern1.y",
+                  "pattern1.z"
+                ]
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "part.c0": "0",
+              "part.c1": "50",
+              "part.c2": "30",
+              "part.height": "20",
+              "pattern1.x": "40",
+              "pattern1.y": "0",
+              "pattern1.z": "0"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "1500",
+              "feature_id": "part.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "50",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "50",
+                    "30",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "30",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 4,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    },
+    {
+      "command": {
+        "action": "preview",
+        "expected_revision": 4,
+        "operations": [
+          {
+            "id": "pattern1.x",
+            "mm": "0",
+            "op": "set_parameter"
+          }
+        ],
+        "preserve": [
+          "part.c0",
+          "part.c1",
+          "part.c2",
+          "part.height"
+        ]
+      },
+      "reply": {
+        "result": {
+          "job_id": "a59b7434-1b41-4c85-8bd6-12a64dbe2b2a",
+          "revision": 4,
+          "status": "queued"
+        }
+      },
+      "url": "/api/preview-jobs"
+    },
+    {
+      "command": null,
+      "reply": {
+        "result": {
+          "job_id": "a59b7434-1b41-4c85-8bd6-12a64dbe2b2a",
+          "reply": {
+            "error": {
+              "code": "pattern_step",
+              "entity": "pattern1",
+              "message": "Repeated copies need a nonzero step vector"
+            }
+          },
+          "revision": 4,
+          "status": "failed"
+        }
+      },
+      "url": "/api/preview-jobs?id=a59b7434-1b41-4c85-8bd6-12a64dbe2b2a"
+    },
+    {
+      "command": {
+        "action": "undo",
+        "expected_revision": 4,
+        "transaction_id": "2c6e4c7b-96a5-4a55-9898-5c58d2dadf3f"
+      },
+      "reply": {
+        "result": {
+          "bodies": [
+            {
+              "boundary": {
+                "edges": [
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      6
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      4
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      5,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      3,
+                      7
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      1,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      4,
+                      5
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      2,
+                      3
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "vertices": [
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "faces": [
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 0,
+                          "forward": true
+                        },
+                        {
+                          "edge": 1,
+                          "forward": true
+                        },
+                        {
+                          "edge": 2,
+                          "forward": false
+                        },
+                        {
+                          "edge": 3,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "-1"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 4,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": false
+                        },
+                        {
+                          "edge": 7,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "0",
+                      "1"
+                    ],
+                    "offset": "20"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 3,
+                          "forward": true
+                        },
+                        {
+                          "edge": 8,
+                          "forward": true
+                        },
+                        {
+                          "edge": 4,
+                          "forward": false
+                        },
+                        {
+                          "edge": 9,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "-1",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 10,
+                          "forward": true
+                        },
+                        {
+                          "edge": 6,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": false
+                        },
+                        {
+                          "edge": 1,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    "offset": "30"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 9,
+                          "forward": true
+                        },
+                        {
+                          "edge": 7,
+                          "forward": true
+                        },
+                        {
+                          "edge": 10,
+                          "forward": false
+                        },
+                        {
+                          "edge": 0,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "-1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "0"
+                  },
+                  {
+                    "kind": "plane",
+                    "loops": [
+                      [
+                        {
+                          "edge": 2,
+                          "forward": true
+                        },
+                        {
+                          "edge": 11,
+                          "forward": true
+                        },
+                        {
+                          "edge": 5,
+                          "forward": false
+                        },
+                        {
+                          "edge": 8,
+                          "forward": false
+                        }
+                      ]
+                    ],
+                    "normal": [
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    "offset": "160"
+                  }
+                ],
+                "vertices": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "30",
+                    "20"
+                  ],
+                  [
+                    "160",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "160",
+                    "0",
+                    "20"
+                  ],
+                  [
+                    "160",
+                    "30",
+                    "0"
+                  ],
+                  [
+                    "160",
+                    "30",
+                    "20"
+                  ]
+                ]
+              },
+              "components": [
+                [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              ],
+              "display_mesh": {
+                "edges": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    6,
+                    7
+                  ]
+                ],
+                "max_radial_error_mm": 0,
+                "triangle_surfaces": [
+                  "evaluated/face/0",
+                  "evaluated/face/0",
+                  "evaluated/face/1",
+                  "evaluated/face/1",
+                  "evaluated/face/2",
+                  "evaluated/face/2",
+                  "evaluated/face/3",
+                  "evaluated/face/3",
+                  "evaluated/face/4",
+                  "evaluated/face/4",
+                  "evaluated/face/5",
+                  "evaluated/face/5"
+                ],
+                "triangles": [
+                  [
+                    2,
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2,
+                    6
+                  ],
+                  [
+                    7,
+                    3,
+                    1
+                  ],
+                  [
+                    1,
+                    5,
+                    7
+                  ],
+                  [
+                    4,
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    4,
+                    5
+                  ],
+                  [
+                    7,
+                    6,
+                    2
+                  ],
+                  [
+                    2,
+                    3,
+                    7
+                  ],
+                  [
+                    1,
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1,
+                    3
+                  ],
+                  [
+                    7,
+                    5,
+                    4
+                  ],
+                  [
+                    4,
+                    6,
+                    7
+                  ]
+                ],
+                "vertices": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    20
+                  ],
+                  [
+                    0,
+                    30,
+                    0
+                  ],
+                  [
+                    0,
+                    30,
+                    20
+                  ],
+                  [
+                    160,
+                    0,
+                    0
+                  ],
+                  [
+                    160,
+                    0,
+                    20
+                  ],
+                  [
+                    160,
+                    30,
+                    0
+                  ],
+                  [
+                    160,
+                    30,
+                    20
+                  ]
+                ]
+              },
+              "feature_id": "pattern1",
+              "volume_mm3": "96000"
+            }
+          ],
+          "can_redo": true,
+          "can_undo": true,
+          "changed_parameters": [],
+          "committed_revision": 5,
+          "model": {
+            "features": [
+              {
+                "id": "part.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "part.c0",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "part.c1",
+                    "y": "part.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "part.c1",
+                    "y": "part.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "part.c0",
+                    "y": "part.c2"
+                  }
+                ]
+              },
+              {
+                "height": "part.height",
+                "id": "part",
+                "kind": "extrude",
+                "profile": "part.profile"
+              },
+              {
+                "count": 4,
+                "id": "pattern1",
+                "input": "part",
+                "kind": "linear_pattern",
+                "step": [
+                  "pattern1.x",
+                  "pattern1.y",
+                  "pattern1.z"
+                ]
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "part.c0": "0",
+              "part.c1": "40",
+              "part.c2": "30",
+              "part.height": "20",
+              "pattern1.x": "40",
+              "pattern1.y": "0",
+              "pattern1.z": "0"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "1200",
+              "feature_id": "part.profile",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "40",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "40",
+                    "30",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "0",
+                    "30",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "replayed": false,
+          "revision": 5,
+          "schema_version": 1,
+          "units": "mm"
+        }
+      },
+      "url": "/api/command"
+    }
+  ]
+}

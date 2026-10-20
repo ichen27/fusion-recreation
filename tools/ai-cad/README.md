@@ -362,3 +362,13 @@ features and history. Exact uniform offsets currently require convex planar stoc
 and rational retained-face normal lengths; unsupported curved/nonconvex/irrational
 offsets reject. [Open, closed and tapered examples, editable downloads, STL/STEP and
 verification commands](../../examples/ai-cad/planar-shell/README.md) show the supported scope.
+
+## Linear material patterns
+
+**Linear pattern** repeats planar material at an exact global step. Count includes the
+source; preview/save retains its dimensions as dependencies. **Edit pattern** changes
+count or spacing. Overlaps and face joins combine into one result; disconnected pieces
+remain components of that result. Use **Linked copy** for independent parts. Curved
+stock, edge/point-only joins and patterns beyond the native geometry budget reject.
+[Examples and verification](../../examples/ai-cad/linear-pattern/README.md) include
+source edits, negative/fractional spacing and exact exported unions.

@@ -15,6 +15,7 @@ pub mod measure;
 mod measure_curved;
 pub mod mesh;
 mod mesh_counterbore;
+mod pattern;
 pub mod polyhedral;
 mod rebuild;
 mod shell;
@@ -114,6 +115,13 @@ pub enum Feature {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         opening_normal: Option<[String; 3]>,
     },
+    /// Repeated planar material, including the original, combined as an exact union.
+    LinearPattern {
+        id: String,
+        input: String,
+        count: usize,
+        step: [String; 3],
+    },
     /// Exact right-handed quarter turns about a parameter-backed pivot.
     RotateQuarter {
         id: String,
@@ -204,6 +212,7 @@ impl Feature {
             | Self::CountersinkHoles { id, .. }
             | Self::PlaneCut { id, .. }
             | Self::PlanarShell { id, .. }
+            | Self::LinearPattern { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
             | Self::Instance { id, .. }
@@ -645,6 +654,38 @@ fn evaluate_geometry_from(
                             e.entity = id.into();
                             e
                         })?;
+                evaluated.insert(id.into(), polyhedral_body(id, solid));
+                continue;
+            }
+            Feature::LinearPattern {
+                input, count, step, ..
+            } => {
+                if !consumed.insert(input.clone()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "Choose a terminal solid for a material pattern",
+                    ));
+                }
+                let source = match polyhedral_input(m, &profiles, &evaluated, input)? {
+                    Some(solid) => solid,
+                    None => polyhedral::Solid::from_convex(convex_input(
+                        m,
+                        &profiles,
+                        &evaluated,
+                        input,
+                        "Planar patterns",
+                    )?)?,
+                };
+                let delta = [
+                    parameter(m, &step[0])?,
+                    parameter(m, &step[1])?,
+                    parameter(m, &step[2])?,
+                ];
+                let solid = pattern::linear(id, source, *count, &delta).map_err(|mut e| {
+                    e.entity = id.into();
+                    e
+                })?;
                 evaluated.insert(id.into(), polyhedral_body(id, solid));
                 continue;
             }
