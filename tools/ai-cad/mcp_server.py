@@ -10,6 +10,7 @@ from intent import dispatch_explain
 from measurements import dispatch_measure
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
+from interference import dispatch_interference
 from store import Store, dispatch
 
 
@@ -276,6 +277,14 @@ def server(path):
         """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_interference(expected_revision: int, left: str, right: str) -> dict:
+        """Check exact positive-volume overlap between two distinct terminal planar bodies at the saved revision. Supports unperforated polygon extrusions, planar lofts, cuts, Booleans, cavities, disconnected pieces and their supported placements/instances. overlap_volume_mm3 is exact rational; positive_volume_overlap indicates strictly positive shared material volume. Zero does NOT prove clearance or absence of face/edge/point contact. Curved/perforated analytic stock rejects unsupported_interference; never interpret rejection as no collision. This read-only check creates/consumes no features and changes no native history. Inspect/replan on stale revisions. No contact geometry, distance, motion or assembly-joint analysis is provided."""
+        return dispatch_interference(
+            store,
+            {"expected_revision": expected_revision, "left": left, "right": right},
         )
 
     @mcp.tool()

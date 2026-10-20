@@ -330,3 +330,14 @@ python tools/ai-cad/verify_edge_measurements_reference.py
 ```
 
 A successful edge measurement now [highlights its viewport location](../../examples/ai-cad/edge-highlight/README.md) in purple with endpoint markers. Orbit to see occluded portions. Changing the edge/selection or starting an edit clears the old highlight; display sampling does not change exact length.
+
+### Planar part overlap
+
+Select a saved planar solid, choose another body in **Compare with another planar solid**, then **Check volume overlap**. The exact common volume respects cavities and disconnected material. A zero result may still mean the parts touch; this does not measure clearance. AI clients use `cad_interference` at the current revision. Curved stock is explicitly unsupported. [Examples and independent comparisons](../../examples/ai-cad/interference/README.md).
+
+```sh
+python tools/ai-cad/verify_interference.py
+python tools/ai-cad/verify_interference_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_interference_reference.py
+```

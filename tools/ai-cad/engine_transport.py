@@ -23,6 +23,7 @@ MODES = {
     "--measure": 3,
     "--topology": 4,
     "--edge": 5,
+    "--interference": 6,
 }
 
 

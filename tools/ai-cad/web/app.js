@@ -341,7 +341,9 @@ canvas.addEventListener("webglcontextrestored", () => {
 let intentKey = null,
   intentPending = false,
   measurementPending = false,
-  topologyPending = false;
+  topologyPending = false,
+  interferencePending = false,
+  interferenceEpoch = 0;
 function intentControls() {
   $("explain-selection").disabled =
     intentPending || busy || !!preview || editPending || !selectedBody;
@@ -351,8 +353,20 @@ function intentControls() {
     topologyPending || busy || !!preview || editPending || !selectedBody;
   for (const button of document.querySelectorAll("[data-surface]"))
     button.disabled = busy || !!preview || editPending || !selectedBody;
+  const canCompare =
+    saved?.bodies.some(
+      (b) => b.feature_id === selectedBody && planeCandidate(b),
+    ) && $("interference-other").value;
+  $("check-interference").disabled =
+    interferencePending || busy || !!preview || editPending || !canCompare;
+  $("interference-other").disabled =
+    interferencePending || busy || !!preview || editPending || !canCompare;
   const key = saved && !preview ? `${saved.revision}:${selectedBody}` : null;
-  if (busy || preview || editPending || intentKey !== key) clearMeasuredEdge();
+  if (busy || preview || editPending || intentKey !== key) {
+    clearMeasuredEdge();
+    interferenceEpoch += 1;
+    $("interference-info").textContent = "";
+  }
   if (intentKey !== key) {
     $("intent-info").replaceChildren();
     $("measurement-info").replaceChildren();
@@ -468,6 +482,48 @@ $("measure-selection").addEventListener("click", async () => {
     intentControls();
   }
 });
+$("interference-other").addEventListener("change", () => {
+  interferenceEpoch += 1;
+  $("interference-info").textContent = "";
+});
+$("check-interference").addEventListener("click", async () => {
+  const expected_revision = saved.revision,
+    left = selectedBody,
+    right = $("interference-other").value,
+    key = `${expected_revision}:${left}`,
+    epoch = interferenceEpoch;
+  const current = () =>
+    !busy &&
+    !preview &&
+    !editPending &&
+    intentKey === key &&
+    interferenceEpoch === epoch &&
+    $("interference-other").value === right &&
+    saved.revision === expected_revision;
+  interferencePending = true;
+  intentControls();
+  $("interference-info").textContent = "Checking exact shared material volume…";
+  try {
+    const reply = await (
+      await fetch("/api/interference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision, left, right }),
+      })
+    ).json();
+    if (!current()) return;
+    if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
+    const value = reply.result;
+    $("interference-info").textContent = value.positive_volume_overlap
+      ? `${left} and ${right} overlap by ${value.overlap_volume_mm3} mm³ (exact).`
+      : `${left} and ${right} have no positive-volume overlap. They may still touch; clearance has not been measured.`;
+  } catch (error) {
+    if (current()) $("interference-info").textContent = error.message;
+  } finally {
+    interferencePending = false;
+    intentControls();
+  }
+});
 $("topology-selection").addEventListener("click", async () => {
   const expected_revision = saved.revision,
     feature_id = selectedBody,
@@ -540,6 +596,23 @@ function updateSelection() {
     ? `${body.feature_id} · ${body.volume_mm3} mm³ (exact)`
     : "Click a solid or select it in the feature list.";
   $("clear-selection").disabled = !saved;
+  const select = $("interference-other"),
+    candidates = (saved?.bodies ?? [])
+      .filter((b) => b.feature_id !== selectedBody && planeCandidate(b))
+      .map((b) => b.feature_id),
+    signature = JSON.stringify(candidates);
+  if (select.dataset.candidates !== signature) {
+    const previous = select.value;
+    select.replaceChildren();
+    for (const id of candidates) {
+      const option = document.createElement("option");
+      option.value = id;
+      option.textContent = id;
+      select.append(option);
+    }
+    if (candidates.includes(previous)) select.value = previous;
+    select.dataset.candidates = signature;
+  }
   intentControls();
   for (const button of document.querySelectorAll(".select-body")) {
     const active = button.dataset.body === selectedBody;

@@ -221,3 +221,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Measured-edge highlight checkpoint
 
 [A separate GPU overlay](../examples/ai-cad/edge-highlight/README.md) locates a measured line/arc with endpoint markers and depth occlusion. Body geometry stays resident while edge buffers are bounded to the sampled curve. Browser evidence covers orbit without uploads, context recovery, stale replies and draft clearing; native history remains unchanged. Shared edge context and direct edge picking remain open.
+
+## Planar interference checkpoint
+
+[Exact positive-volume overlap checks](../examples/ai-cad/interference/README.md) inspect pairs of saved planar parts without consuming geometry. Backing cells preserve cavities, concavity and disconnected material; native CPU half-space checks avoid display approximations. Browser/MCP results distinguish positive common volume from unresolved contact and explicitly reject curved stock. General contact/clearance, curved intersections, all-pairs scheduling and assembly joints remain open.
