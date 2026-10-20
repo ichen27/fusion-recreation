@@ -21,6 +21,7 @@ mod pattern;
 pub mod polyhedral;
 mod rebuild;
 mod revolution;
+mod section_boolean;
 mod shell;
 mod sweep;
 pub mod topology;

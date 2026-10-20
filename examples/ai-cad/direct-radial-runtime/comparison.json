@@ -1,0 +1,258 @@
+{
+  "before_binary_sha256": "204e1bde95500b887e7f2442fdc906bad0a2bd638452a8f9465ab4b665eab15a",
+  "after_binary_sha256": "7f5fe871eed8c6140c11ba54774d05b22da38f8c535efb4587c0e7a2f590163e",
+  "results": [
+    {
+      "case": "revolution",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.15312491450458765,
+      "after_wall_median_ms": 0.18445798195898533,
+      "before_native_cpu_ms": 0.31775,
+      "after_native_cpu_ms": 0.362125
+    },
+    {
+      "case": "revolution",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.9090829407796264,
+      "after_wall_median_ms": 0.8771669818088412,
+      "before_native_cpu_ms": 0.72925,
+      "after_native_cpu_ms": 0.6865
+    },
+    {
+      "case": "revolution",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.7016670424491167,
+      "after_wall_median_ms": 0.6796660600230098,
+      "before_native_cpu_ms": 0.823125,
+      "after_native_cpu_ms": 0.80025
+    },
+    {
+      "case": "revolution",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.29795803129673004,
+      "after_wall_median_ms": 0.2911669434979558,
+      "before_native_cpu_ms": 0.499625,
+      "after_native_cpu_ms": 0.488
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.1178329112008214,
+      "after_wall_median_ms": 0.11666701175272465,
+      "before_native_cpu_ms": 0.284875,
+      "after_native_cpu_ms": 0.28962499999999997
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.799833913333714,
+      "after_wall_median_ms": 0.7724170573055744,
+      "before_native_cpu_ms": 0.6525,
+      "after_native_cpu_ms": 0.63225
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.6895000115036964,
+      "after_wall_median_ms": 0.6353749195113778,
+      "before_native_cpu_ms": 0.8234999999999999,
+      "after_native_cpu_ms": 0.8038749999999999
+    },
+    {
+      "case": "tapered_ring",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.22537505719810724,
+      "after_wall_median_ms": 0.21170801483094692,
+      "before_native_cpu_ms": 0.39899999999999997,
+      "after_native_cpu_ms": 0.4015
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 5.789750022813678,
+      "after_wall_median_ms": 5.962874973192811,
+      "before_native_cpu_ms": 5.952249999999999,
+      "after_native_cpu_ms": 6.065124999999999
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 5.917250062339008,
+      "after_wall_median_ms": 6.026457995176315,
+      "before_native_cpu_ms": 5.9955,
+      "after_native_cpu_ms": 6.164624999999999
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 5.983124952763319,
+      "after_wall_median_ms": 6.131165893748403,
+      "before_native_cpu_ms": 6.175999999999999,
+      "after_native_cpu_ms": 6.26875
+    },
+    {
+      "case": "concave_sweep",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 6.33545801974833,
+      "after_wall_median_ms": 6.47095893509686,
+      "before_native_cpu_ms": 6.49325,
+      "after_native_cpu_ms": 6.58525
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.28525001835078,
+      "after_wall_median_ms": 0.26875000912696123,
+      "before_native_cpu_ms": 0.44737499999999997,
+      "after_native_cpu_ms": 0.429
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 1.2699159560725093,
+      "after_wall_median_ms": 1.3469579862430692,
+      "before_native_cpu_ms": 0.9814999999999999,
+      "after_native_cpu_ms": 1.037625
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 1.2427499750629067,
+      "after_wall_median_ms": 1.1794579913839698,
+      "before_native_cpu_ms": 1.387875,
+      "after_native_cpu_ms": 1.30625
+    },
+    {
+      "case": "curved_intersection",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 0.5281250923871994,
+      "after_wall_median_ms": 0.5526249296963215,
+      "before_native_cpu_ms": 0.7102499999999999,
+      "after_native_cpu_ms": 0.73725
+    },
+    {
+      "case": "blind_cut",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 11.787915951572359,
+      "after_wall_median_ms": 0.3057090798392892,
+      "before_native_cpu_ms": 11.903749999999999,
+      "after_native_cpu_ms": 0.47362499999999996
+    },
+    {
+      "case": "blind_cut",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 12.763125007040799,
+      "after_wall_median_ms": 1.0902080684900284,
+      "before_native_cpu_ms": 12.524000000000001,
+      "after_native_cpu_ms": 0.93675
+    },
+    {
+      "case": "blind_cut",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 12.487250030972064,
+      "after_wall_median_ms": 0.8658330189064145,
+      "before_native_cpu_ms": 12.612125,
+      "after_native_cpu_ms": 1.0287499999999998
+    },
+    {
+      "case": "blind_cut",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 12.050875113345683,
+      "after_wall_median_ms": 0.4761660238727927,
+      "before_native_cpu_ms": 12.152375,
+      "after_native_cpu_ms": 0.6553749999999999
+    },
+    {
+      "case": "stepped_union",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 51.36679206043482,
+      "after_wall_median_ms": 0.43054192792624235,
+      "before_native_cpu_ms": 51.45825,
+      "after_native_cpu_ms": 0.5928749999999999
+    },
+    {
+      "case": "stepped_union",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 51.99758289381862,
+      "after_wall_median_ms": 1.2290000449866056,
+      "before_native_cpu_ms": 51.65749999999999,
+      "after_native_cpu_ms": 1.04075
+    },
+    {
+      "case": "stepped_union",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 52.76904092170298,
+      "after_wall_median_ms": 0.9724589763209224,
+      "before_native_cpu_ms": 52.93837499999999,
+      "after_native_cpu_ms": 1.13175
+    },
+    {
+      "case": "stepped_union",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 51.821083994582295,
+      "after_wall_median_ms": 0.5900829564779997,
+      "before_native_cpu_ms": 52.051874999999995,
+      "after_native_cpu_ms": 0.763
+    },
+    {
+      "case": "nested_cut",
+      "operation": "evaluate",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 46.32175003644079,
+      "after_wall_median_ms": 0.6107910303398967,
+      "before_native_cpu_ms": 46.424749999999996,
+      "after_native_cpu_ms": 0.7725
+    },
+    {
+      "case": "nested_cut",
+      "operation": "mesh",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 47.66241600736976,
+      "after_wall_median_ms": 1.8356249202042818,
+      "before_native_cpu_ms": 47.175,
+      "after_native_cpu_ms": 1.460875
+    },
+    {
+      "case": "nested_cut",
+      "operation": "topology",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 47.6703749736771,
+      "after_wall_median_ms": 1.4540840638801455,
+      "before_native_cpu_ms": 47.730125,
+      "after_native_cpu_ms": 1.6023749999999999
+    },
+    {
+      "case": "nested_cut",
+      "operation": "measure",
+      "exact_request_and_reply_match": true,
+      "before_wall_median_ms": 47.40370891522616,
+      "after_wall_median_ms": 0.8021669927984476,
+      "before_native_cpu_ms": 47.411125,
+      "after_native_cpu_ms": 0.9927499999999999
+    }
+  ]
+}

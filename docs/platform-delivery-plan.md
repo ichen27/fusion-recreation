@@ -273,3 +273,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Curved CPU workload checkpoint
 
 [Isolated CPU/RSS and worker measurements](../examples/ai-cad/curved-runtime/README.md) cover 28 native workloads on Apple M4. Persistent transport reduces simple evaluation below 1 ms, while stepped unions still take about 52 ms. The next measured optimization target is the radial Boolean construction path: replace its temporary 3D cell work with exact 2D section boundaries while retaining independent material, manifold and export validation. No GPU geometry or general curved Boolean claim follows from these timings.
+
+## Direct radial CPU optimization checkpoint
+
+[Exact 2D section boundaries](../examples/ai-cad/direct-radial-runtime/README.md) replace temporary 3D construction cells in coaxial Booleans. On the same Apple M4, stepped-union evaluation changed from51.37 to0.43ms and nested cuts from46.32 to0.61ms; all28 benchmark replies remain identical. Independent cell boundaries, STEP material comparisons and saved browser/MCP/native workflows validate the change. General curved intersections and richer sketch/assembly constraints remain open.
