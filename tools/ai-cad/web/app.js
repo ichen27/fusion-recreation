@@ -375,6 +375,8 @@ function intentControls() {
   $("export-drawing").disabled =
     busy || !!preview || editPending || !selectedBody;
   $("drawing-style").disabled = $("export-drawing").disabled;
+  for (const id of ["section-axis", "section-offset", "export-section"])
+    $(id).disabled = $("export-drawing").disabled;
   $("measure-density").disabled = $("measure-selection").disabled;
   $("topology-selection").disabled =
     topologyPending || busy || !!preview || editPending || !selectedBody;
@@ -1603,3 +1605,41 @@ $("native-file").addEventListener("change", () => {
 
 booleans = installBooleanEditor(editorCallbacks("Boolean"));
 $("new-boolean").addEventListener("click", () => booleans.open());
+
+$("export-section").addEventListener("click", async () => {
+  if (busy || preview || editPending || !selectedBody) return;
+  const command = {
+    expected_revision: saved.revision,
+    feature_id: selectedBody,
+    axis: $("section-axis").value,
+    offset_mm: $("section-offset").value.trim(),
+  };
+  busy = true;
+  controls();
+  try {
+    const response = await fetch("/api/section", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(command),
+    });
+    const reply = await response.json();
+    if (!response.ok || reply.error)
+      throw Error(reply.error?.message || "Section export failed");
+    const result = reply.result,
+      url = URL.createObjectURL(
+        new Blob([result.svg], { type: "image/svg+xml" }),
+      ),
+      anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `${command.feature_id}-r${command.expected_revision}-section-${command.axis}.svg`;
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $("status").textContent =
+      `Exported ${command.axis} = ${result.offset_mm} mm section of ${command.feature_id} at revision ${result.revision}. Area ${result.area_mm2} mm²; ${result.material_regions} material region(s). Hatching marks cut material.`;
+  } catch (error) {
+    $("status").textContent = error.message;
+  } finally {
+    busy = false;
+    controls();
+  }
+});

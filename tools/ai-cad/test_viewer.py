@@ -81,6 +81,40 @@ class Viewer(unittest.TestCase):
         self.assertEqual(status, 400)
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_section_http_saved_revision_and_failures(self):
+        result = self.store.execute(CREATE)
+        feature = result["bodies"][0]["feature_id"]
+        before = self.store.path.read_bytes()
+        command = dict(expected_revision=1, feature_id=feature, axis="Z", offset_mm="1")
+        headers = {"Content-Type": "application/json"}
+        status, payload = self.request(
+            "POST", "/api/section", json.dumps(command), headers
+        )
+        self.assertEqual(status, 200)
+        self.assertEqual(
+            json.loads(payload)["result"]["representation"], "planar_cross_section"
+        )
+        for extra in [
+            {"expected_revision": 0},
+            {"axis": "Q"},
+            {"offset_mm": "0"},
+            {"extra": True},
+        ]:
+            status, _ = self.request(
+                "POST", "/api/section", json.dumps({**command, **extra}), headers
+            )
+            self.assertEqual(status, 400)
+        status, _ = self.request("POST", "/api/section", "x" * 4097, headers)
+        self.assertEqual(status, 413)
+        status, _ = self.request(
+            "POST",
+            "/api/section",
+            json.dumps(command),
+            {**headers, "Origin": "https://example.com"},
+        )
+        self.assertEqual(status, 403)
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_explanation_http_is_read_only_and_revision_bound(self):
         result = self.store.execute(CREATE)
         before = self.store.path.read_bytes()

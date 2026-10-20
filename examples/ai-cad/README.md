@@ -125,3 +125,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 [Compact feature actions, keyboard access and unchanged-document verification](feature-actions/README.md).
 
 [Planar hidden-line reference sheets, exact rational segmentation and source edit/undo](hidden-line-sheets/README.md).
+
+[Exact planar sections, hatched SVGs and area/centroid edit/undo](planar-sections/README.md).

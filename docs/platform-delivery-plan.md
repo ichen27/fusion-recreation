@@ -315,3 +315,7 @@ degrees of freedom remain future work.
 ## Planar drawing visibility checkpoint
 
 [Exact planar hidden-line sheets](../examples/ai-cad/hidden-line-sheets/README.md) classify rational native-edge intervals against planar faces, preserve openings and merge coincident ink with visible segments taking precedence. Browser/MCP exports, source edits and undo retain exact source fingerprints. Curved visibility, section views, persistent associative annotations, tolerances and manufacturing drawing completeness remain open.
+
+## Planar cross-section checkpoint
+
+[Exact planar sections](../examples/ai-cad/planar-sections/README.md) expose cavities, concave/disconnected regions and nested islands through coordinate-plane cuts. Exact area and area-centroid formulas accompany hatched browser/MCP/CLI SVG exports, with source edits and undo. Thirty sloped tetrahedron cases have independent analytic checks. Curved/oblique sections, vertex-coincident cuts, persistent associative drawings and manufacturing annotations remain open.

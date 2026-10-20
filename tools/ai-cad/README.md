@@ -478,3 +478,15 @@ python tools/ai-cad/verify_drawings_mcp.py
 ```
 
 Optional planar visibility: pass `style="planar_hidden"` to `cad_reference_sheet`, or add `--style planar_hidden` to the CLI. Top/front/right observers look from +Z/−Y/+X. Only the selected solid occludes its edges; other parts do not. Coincident projected linework is merged with visible coverage taking precedence. Exact split intervals remain attached to representative native edges. [Native stages, SVGs, browser screenshot and validation](../../examples/ai-cad/hidden-line-sheets/README.md).
+
+### Exact planar sections
+
+Select a saved solid, expand **Section through solid**, choose a world coordinate axis and integer/fraction offset in millimeters, then **Download section (SVG)**. Hatching identifies material; white openings identify cavities. The sheet includes exact area and area centroid. Only the selected solid participates. Curved solids, empty cuts and planes passing through any native vertex reject explicitly; choose another exact offset for the latter. Nothing is committed to the model.
+
+AI clients use `cad_section(expected_revision, feature_id, axis, offset_mm)`; HTTP clients use `POST /api/section`. [Editable source/edit/undo stages, actual calls and finished SVGs](../../examples/ai-cad/planar-sections/README.md).
+
+```sh
+python tools/ai-cad/sections.py --store examples/ai-cad/planar-sections/source.cad.json --revision 1 --body result --axis Y --offset 5 --output section.svg
+python tools/ai-cad/verify_sections.py
+python tools/ai-cad/verify_sections_mcp.py
+```
