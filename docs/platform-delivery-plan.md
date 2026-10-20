@@ -303,3 +303,7 @@ degrees of freedom remain future work.
 ## Combined occurrence mass checkpoint
 
 [Multi-part mass and centroidal inertia](../examples/ai-cad/combined-mass/README.md) combine explicit per-part densities through native, browser and typed MCP interfaces. Exact seeded parallel-axis comparisons, mixed planar/curved parts, translated sets and 16 linked occurrences validate the engineering calculation. Overlapping selected occurrences count separately; density assignments remain read-only. Assembly hierarchy, joints, persistent materials and external part references remain open.
+
+## Independent feature CPU rebuild checkpoint
+
+[Dependency-aware transaction reuse](../examples/ai-cad/independent-rebuild/README.md) preserves independent features after the first changed feature, subject to exact feature/parameter/ancestry and consumption-state checks. On the declared Apple M4 workload, editing the first of four cavity branches changed from165.19 to101.57ms, while editing the last branch stayed near103ms. Exact baseline/current/fresh/worker replies match. Original-model validation still runs in full; cross-request geometry caching, parallel execution and larger-document scheduling remain open.

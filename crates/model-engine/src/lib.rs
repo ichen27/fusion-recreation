@@ -582,12 +582,11 @@ pub fn validate(m: &Model) -> Result<Vec<Body>> {
     Ok(evaluate_geometry(m)?.into_parts().0)
 }
 fn evaluate_geometry(m: &Model) -> Result<rebuild::Geometry> {
-    evaluate_geometry_from(m, rebuild::Geometry::default(), 0)
+    evaluate_geometry_from(m, None)
 }
 fn evaluate_geometry_from(
     m: &Model,
-    state: rebuild::Geometry,
-    start: usize,
+    mut reuse: Option<rebuild::Reuse>,
 ) -> Result<rebuild::Geometry> {
     if m.parameters.len() > 64 || m.features.len() > 32 || m.fixed.len() > 64 {
         return Err(error(
@@ -615,14 +614,19 @@ fn evaluate_geometry_from(
         mut profiles,
         mut consumed,
         mut checkpoints,
-    } = state;
-    let mut ids: BTreeSet<_> = m.features[..start].iter().map(Feature::id).collect();
-    for feature in &m.features[start..] {
+    } = rebuild::Geometry::default();
+    let mut ids = BTreeSet::new();
+    for (index, feature) in m.features.iter().enumerate() {
         checkpoints.push(consumed.clone());
         let id = feature.id();
         identifier(id)?;
         if !ids.insert(id) {
             return Err(error("duplicate_id", id, "Feature ID already exists"));
+        }
+        if let Some(cache) = &mut reuse {
+            if cache.restore(index, id, &mut evaluated, &mut profiles, &mut consumed) {
+                continue;
+            }
         }
         let (boundary, plane) = match feature {
             Feature::ThroughHoles { input, holes, .. }
@@ -1424,8 +1428,8 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
     // A fixed value can only change if explicitly released in the transaction.
     // Re-fixing without releasing must not overwrite an existing invariant.
     let next = if reuse {
-        let (state, start) = previous.retain_prefix(&before, &model);
-        evaluate_geometry_from(&model, state, start)?
+        let cache = rebuild::Reuse::new(previous, &before, &model);
+        evaluate_geometry_from(&model, Some(cache))?
     } else {
         evaluate_geometry(&model)?
     };

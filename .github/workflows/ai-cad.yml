@@ -59,6 +59,9 @@ jobs:
       - run: python tools/ai-cad/verify_mass_mcp.py
       - run: python tools/ai-cad/verify_mass_set.py
       - run: python tools/ai-cad/verify_mass_set_mcp.py
+      - run: python tools/ai-cad/verify_independent_rebuild.py
+      - run: python tools/ai-cad/verify_independent_rebuild_mcp.py
+      - run: python tools/ai-cad/benchmark_independent_rebuild.py --samples 1
       - run: python tools/ai-cad/verify_straight_sweep.py
       - run: python tools/ai-cad/verify_straight_sweep_mcp.py
       - run: python tools/ai-cad/verify_revolution.py
