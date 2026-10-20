@@ -79,6 +79,20 @@ class Coaxial(unittest.TestCase):
             self.verify(intersect(a, b), 600, 1)["centroid_mm"], ["0", "0", "6"]
         )
 
+    def test_concave_stepped_and_undercut_sections(self):
+        self.verify(intersect(revolved(), cylinder(radius="8", height="12")), 572)
+        undercut = revolved(
+            [(2, 0), (8, 0), (8, 3), (5, 3), (5, 7), (8, 7), (8, 10), (2, 10)]
+        )
+        m = intersect(undercut, cylinder(radius="7", height="10"))
+        self.verify(m, 354, 1)
+        self.verify(turned(moved(m, (2, 3, 4)), "y", 1), 354, 1)
+        self.verify(intersect(m, cylinder(radius="6", height="10")), 276, 1)
+        split = intersect(undercut, revolved([(6, 0), (7, 0), (7, 10), (6, 10)]))
+        with self.assertRaises(CadError) as caught:
+            evaluate(split)
+        self.assertEqual(caught.exception.detail["code"], "unsupported_coaxial_result")
+
     def test_antiparallel_axes_and_every_coordinate_orientation(self):
         a = cylinder(radius="10", height="12")
         b = moved(turned(cylinder(radius="5", height="8"), "x", 2), (0, 0, 14))
@@ -92,7 +106,7 @@ class Coaxial(unittest.TestCase):
                 )
                 self.verify(intersect(left, right), 150)
 
-    def test_contact_disjoint_misaligned_nonconvex_and_perforated_rejection(self):
+    def test_contact_disjoint_misaligned_and_perforated_rejection(self):
         cases = [
             (
                 intersect(b=moved(cylinder(radius="5", height="8"), (0, 0, 12))),
@@ -114,7 +128,6 @@ class Coaxial(unittest.TestCase):
                 intersect(b=turned(cylinder(radius="5", height="8"), "x", 1)),
                 "unsupported_coaxial",
             ),
-            (intersect(b=revolved()), "unsupported_coaxial"),
             (intersect(b=flange()), "unsupported_coaxial"),
             (
                 intersect(b=revolved([(10, 0), (12, 0), (12, 12), (10, 12)])),

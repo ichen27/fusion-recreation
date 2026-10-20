@@ -1,0 +1,2726 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "left.height",
+            "mm": "1"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c1",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c2",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c3",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c4",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.cx",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.cy",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.radius",
+            "mm": "8"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.height",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.z",
+            "mm": "0"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "left.c0",
+                  "y": "left.c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "left.c1",
+                  "y": "left.c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "left.c1",
+                  "y": "left.c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "left.c3",
+                  "y": "left.c2"
+                },
+                {
+                  "id": "v4",
+                  "x": "left.c3",
+                  "y": "left.c4"
+                },
+                {
+                  "id": "v5",
+                  "x": "left.c0",
+                  "y": "left.c4"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "revolve",
+              "id": "left.revolved",
+              "profile": "left.outline"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "cylinder",
+              "id": "right.stock",
+              "x": "right.cx",
+              "y": "right.cy",
+              "radius": "right.radius",
+              "height": "right.height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "translate",
+              "id": "right.moved",
+              "input": "right.stock",
+              "offset": [
+                "right.move.x",
+                "right.move.y",
+                "right.move.z"
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "coaxial_intersection",
+              "id": "common",
+              "left": "left.revolved",
+              "right": "right.moved"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                "revolution": {
+                  "axis_contact": true,
+                  "points": [
+                    [
+                      "8",
+                      "0"
+                    ],
+                    [
+                      "8",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "0"
+                    ]
+                  ],
+                  "roles": [
+                    "section/edge/0",
+                    "section/edge/1",
+                    "section/edge/2",
+                    "section/edge/3",
+                    "section/edge/4",
+                    "section/edge/5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-572"
+                }
+              },
+              "feature_id": "common",
+              "volume_mm3": "572*pi"
+            }
+          ],
+          "changed_parameters": [
+            "left.c0",
+            "left.c1",
+            "left.c2",
+            "left.c3",
+            "left.c4",
+            "left.height",
+            "right.cx",
+            "right.cy",
+            "right.height",
+            "right.move.x",
+            "right.move.y",
+            "right.move.z",
+            "right.radius"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "8"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "92",
+              "feature_id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "6",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "6",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "0",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "left.height",
+            "mm": "1"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c0",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c1",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c2",
+            "mm": "5"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c3",
+            "mm": "6"
+          },
+          {
+            "op": "define_parameter",
+            "id": "left.c4",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.cx",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.cy",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.radius",
+            "mm": "8"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.height",
+            "mm": "12"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "right.move.z",
+            "mm": "0"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "left.c0",
+                  "y": "left.c0"
+                },
+                {
+                  "id": "v1",
+                  "x": "left.c1",
+                  "y": "left.c0"
+                },
+                {
+                  "id": "v2",
+                  "x": "left.c1",
+                  "y": "left.c2"
+                },
+                {
+                  "id": "v3",
+                  "x": "left.c3",
+                  "y": "left.c2"
+                },
+                {
+                  "id": "v4",
+                  "x": "left.c3",
+                  "y": "left.c4"
+                },
+                {
+                  "id": "v5",
+                  "x": "left.c0",
+                  "y": "left.c4"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "revolve",
+              "id": "left.revolved",
+              "profile": "left.outline"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "cylinder",
+              "id": "right.stock",
+              "x": "right.cx",
+              "y": "right.cy",
+              "radius": "right.radius",
+              "height": "right.height"
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "translate",
+              "id": "right.moved",
+              "input": "right.stock",
+              "offset": [
+                "right.move.x",
+                "right.move.y",
+                "right.move.z"
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "coaxial_intersection",
+              "id": "common",
+              "left": "left.revolved",
+              "right": "right.moved"
+            }
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                "revolution": {
+                  "axis_contact": true,
+                  "points": [
+                    [
+                      "8",
+                      "0"
+                    ],
+                    [
+                      "8",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "0"
+                    ]
+                  ],
+                  "roles": [
+                    "section/edge/0",
+                    "section/edge/1",
+                    "section/edge/2",
+                    "section/edge/3",
+                    "section/edge/4",
+                    "section/edge/5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-572"
+                }
+              },
+              "feature_id": "common",
+              "volume_mm3": "572*pi"
+            }
+          ],
+          "changed_parameters": [
+            "left.c0",
+            "left.c1",
+            "left.c2",
+            "left.c3",
+            "left.c4",
+            "left.height",
+            "right.cx",
+            "right.cy",
+            "right.height",
+            "right.move.x",
+            "right.move.y",
+            "right.move.z",
+            "right.radius"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "8"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "92",
+              "feature_id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "6",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "6",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "0",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "common"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "bounds_mm": [
+            [
+              "-8",
+              "-8",
+              "0"
+            ],
+            [
+              "8",
+              "8",
+              "12"
+            ]
+          ],
+          "centroid_mm": [
+            "0",
+            "0",
+            "1471/286"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(6074173/429)*pi",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(6074173/429)*pi",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "(14776)*pi"
+            ]
+          ],
+          "feature_id": "common",
+          "volume_mm3": "572*pi"
+        }
+      }
+    },
+    {
+      "tool": "cad_topology",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "common"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "components": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ]
+          ],
+          "edges": [
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                0,
+                1
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                1,
+                2
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                2,
+                3
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                3,
+                0
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                4,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                5,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                6,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "8"
+              },
+              "vertices": [
+                7,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                8,
+                9
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                9,
+                10
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                10,
+                11
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "5"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                11,
+                8
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                12,
+                13
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                13,
+                14
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                14,
+                15
+              ]
+            },
+            {
+              "curve": {
+                "axis": [
+                  0,
+                  0,
+                  1
+                ],
+                "center": [
+                  "0",
+                  "0",
+                  "12"
+                ],
+                "kind": "quarter_circle",
+                "radius": "6"
+              },
+              "vertices": [
+                15,
+                12
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                0,
+                4
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                1,
+                5
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                2,
+                6
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                3,
+                7
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                8,
+                12
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                9,
+                13
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                10,
+                14
+              ]
+            },
+            {
+              "curve": {
+                "kind": "line"
+              },
+              "vertices": [
+                11,
+                15
+              ]
+            }
+          ],
+          "faces": [
+            {
+              "id": "feature/common/section/edge/0/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 0,
+                    "forward": true
+                  },
+                  {
+                    "edge": 17,
+                    "forward": true
+                  },
+                  {
+                    "edge": 4,
+                    "forward": false
+                  },
+                  {
+                    "edge": 16,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/0"
+            },
+            {
+              "id": "feature/common/section/edge/0/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 1,
+                    "forward": true
+                  },
+                  {
+                    "edge": 18,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": false
+                  },
+                  {
+                    "edge": 17,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/0"
+            },
+            {
+              "id": "feature/common/section/edge/0/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 2,
+                    "forward": true
+                  },
+                  {
+                    "edge": 19,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": false
+                  },
+                  {
+                    "edge": 18,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/0"
+            },
+            {
+              "id": "feature/common/section/edge/0/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": true
+                  },
+                  {
+                    "edge": 16,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": false
+                  },
+                  {
+                    "edge": 19,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/0"
+            },
+            {
+              "id": "feature/common/section/edge/1",
+              "loops": [
+                [
+                  {
+                    "edge": 4,
+                    "forward": true
+                  },
+                  {
+                    "edge": 5,
+                    "forward": true
+                  },
+                  {
+                    "edge": 6,
+                    "forward": true
+                  },
+                  {
+                    "edge": 7,
+                    "forward": true
+                  }
+                ],
+                [
+                  {
+                    "edge": 11,
+                    "forward": false
+                  },
+                  {
+                    "edge": 10,
+                    "forward": false
+                  },
+                  {
+                    "edge": 9,
+                    "forward": false
+                  },
+                  {
+                    "edge": 8,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/1"
+            },
+            {
+              "id": "feature/common/section/edge/2/patch/0",
+              "loops": [
+                [
+                  {
+                    "edge": 8,
+                    "forward": true
+                  },
+                  {
+                    "edge": 21,
+                    "forward": true
+                  },
+                  {
+                    "edge": 12,
+                    "forward": false
+                  },
+                  {
+                    "edge": 20,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/2"
+            },
+            {
+              "id": "feature/common/section/edge/2/patch/1",
+              "loops": [
+                [
+                  {
+                    "edge": 9,
+                    "forward": true
+                  },
+                  {
+                    "edge": 22,
+                    "forward": true
+                  },
+                  {
+                    "edge": 13,
+                    "forward": false
+                  },
+                  {
+                    "edge": 21,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/2"
+            },
+            {
+              "id": "feature/common/section/edge/2/patch/2",
+              "loops": [
+                [
+                  {
+                    "edge": 10,
+                    "forward": true
+                  },
+                  {
+                    "edge": 23,
+                    "forward": true
+                  },
+                  {
+                    "edge": 14,
+                    "forward": false
+                  },
+                  {
+                    "edge": 22,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/2"
+            },
+            {
+              "id": "feature/common/section/edge/2/patch/3",
+              "loops": [
+                [
+                  {
+                    "edge": 11,
+                    "forward": true
+                  },
+                  {
+                    "edge": 20,
+                    "forward": true
+                  },
+                  {
+                    "edge": 15,
+                    "forward": false
+                  },
+                  {
+                    "edge": 23,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/2"
+            },
+            {
+              "id": "feature/common/section/edge/3",
+              "loops": [
+                [
+                  {
+                    "edge": 12,
+                    "forward": true
+                  },
+                  {
+                    "edge": 13,
+                    "forward": true
+                  },
+                  {
+                    "edge": 14,
+                    "forward": true
+                  },
+                  {
+                    "edge": 15,
+                    "forward": true
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/3"
+            },
+            {
+              "id": "feature/common/section/edge/5",
+              "loops": [
+                [
+                  {
+                    "edge": 3,
+                    "forward": false
+                  },
+                  {
+                    "edge": 2,
+                    "forward": false
+                  },
+                  {
+                    "edge": 1,
+                    "forward": false
+                  },
+                  {
+                    "edge": 0,
+                    "forward": false
+                  }
+                ]
+              ],
+              "surface": "feature/common/section/edge/5"
+            }
+          ],
+          "feature_id": "common",
+          "naming": "revision_only",
+          "shell_euler": [
+            2
+          ],
+          "shells": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ]
+          ],
+          "surfaces": {
+            "feature/common/section/edge/0": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "inward": false,
+              "kind": "cylinder",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "common",
+              "radius": "8"
+            },
+            "feature/common/section/edge/1": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "5",
+              "owner_feature": "common"
+            },
+            "feature/common/section/edge/2": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "inward": false,
+              "kind": "cylinder",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "common",
+              "radius": "6"
+            },
+            "feature/common/section/edge/3": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "1"
+              ],
+              "offset": "12",
+              "owner_feature": "common"
+            },
+            "feature/common/section/edge/5": {
+              "kind": "plane",
+              "normal": [
+                "0",
+                "0",
+                "-1"
+              ],
+              "offset": "0",
+              "owner_feature": "common"
+            }
+          },
+          "vertices": [
+            [
+              "8",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "8",
+              "0"
+            ],
+            [
+              "-8",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "-8",
+              "0"
+            ],
+            [
+              "8",
+              "0",
+              "5"
+            ],
+            [
+              "0",
+              "8",
+              "5"
+            ],
+            [
+              "-8",
+              "0",
+              "5"
+            ],
+            [
+              "0",
+              "-8",
+              "5"
+            ],
+            [
+              "6",
+              "0",
+              "5"
+            ],
+            [
+              "0",
+              "6",
+              "5"
+            ],
+            [
+              "-6",
+              "0",
+              "5"
+            ],
+            [
+              "0",
+              "-6",
+              "5"
+            ],
+            [
+              "6",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "6",
+              "12"
+            ],
+            [
+              "-6",
+              "0",
+              "12"
+            ],
+            [
+              "0",
+              "-6",
+              "12"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "tool": "cad_select_surface",
+      "arguments": {
+        "expected_revision": 1,
+        "feature_id": "common",
+        "surface_id": "feature/common/section/edge/0"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "selection_status": "current",
+          "selected_body": {
+            "analytic": {
+              "height": "12",
+              "holes": [],
+              "kind": "revolved_profile",
+              "placement": {
+                "axes": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "origin": [
+                  "0",
+                  "0",
+                  "0"
+                ]
+              },
+              "revolution": {
+                "axis_contact": true,
+                "points": [
+                  [
+                    "8",
+                    "0"
+                  ],
+                  [
+                    "8",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "5"
+                  ],
+                  [
+                    "6",
+                    "12"
+                  ],
+                  [
+                    "0",
+                    "12"
+                  ],
+                  [
+                    "0",
+                    "0"
+                  ]
+                ],
+                "roles": [
+                  "section/edge/0",
+                  "section/edge/1",
+                  "section/edge/2",
+                  "section/edge/3",
+                  "section/edge/4",
+                  "section/edge/5"
+                ]
+              },
+              "volume": {
+                "constant_mm3": "0",
+                "pi_subtract_mm3": "-572"
+              }
+            },
+            "feature_id": "common",
+            "volume_mm3": "572*pi"
+          },
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "8"
+            }
+          },
+          "selected_surface": {
+            "reference": "feature/common/section/edge/0",
+            "naming": "revision_only",
+            "support": {
+              "axis": [
+                0,
+                0,
+                1
+              ],
+              "inward": false,
+              "kind": "cylinder",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "owner_feature": "common",
+              "radius": "8"
+            },
+            "faces": [
+              "feature/common/section/edge/0/patch/0",
+              "feature/common/section/edge/0/patch/1",
+              "feature/common/section/edge/0/patch/2",
+              "feature/common/section/edge/0/patch/3"
+            ],
+            "source_feature": {
+              "id": "common",
+              "kind": "coaxial_intersection",
+              "left": "left.revolved",
+              "right": "right.moved"
+            }
+          }
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "common",
+          "surface_id": "feature/common/section/edge/0"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "right.radius",
+            "mm": "9"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                "revolution": {
+                  "axis_contact": true,
+                  "points": [
+                    [
+                      "9",
+                      "0"
+                    ],
+                    [
+                      "9",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "0"
+                    ]
+                  ],
+                  "roles": [
+                    "section/edge/0",
+                    "section/edge/1",
+                    "section/edge/2",
+                    "section/edge/3",
+                    "section/edge/4",
+                    "section/edge/5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-657"
+                }
+              },
+              "feature_id": "common",
+              "volume_mm3": "657*pi"
+            }
+          ],
+          "changed_parameters": [
+            "right.radius"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "9"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "92",
+              "feature_id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "6",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "6",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "0",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "selection_guard": {
+          "feature_id": "common",
+          "surface_id": "feature/common/section/edge/0"
+        },
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "right.radius",
+            "mm": "9"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "deeper"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                "revolution": {
+                  "axis_contact": true,
+                  "points": [
+                    [
+                      "9",
+                      "0"
+                    ],
+                    [
+                      "9",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "0"
+                    ]
+                  ],
+                  "roles": [
+                    "section/edge/0",
+                    "section/edge/1",
+                    "section/edge/2",
+                    "section/edge/3",
+                    "section/edge/4",
+                    "section/edge/5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-657"
+                }
+              },
+              "feature_id": "common",
+              "volume_mm3": "657*pi"
+            }
+          ],
+          "changed_parameters": [
+            "right.radius"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "9"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "92",
+              "feature_id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "6",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "6",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "0",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "right.move.z",
+            "mm": "20"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "empty_solid",
+          "message": "Coaxial operation leaves no positive volume",
+          "entity": "common"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "placement": {
+                  "axes": [
+                    [
+                      1,
+                      0,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "origin": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                "revolution": {
+                  "axis_contact": true,
+                  "points": [
+                    [
+                      "8",
+                      "0"
+                    ],
+                    [
+                      "8",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "5"
+                    ],
+                    [
+                      "6",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "12"
+                    ],
+                    [
+                      "0",
+                      "0"
+                    ]
+                  ],
+                  "roles": [
+                    "section/edge/0",
+                    "section/edge/1",
+                    "section/edge/2",
+                    "section/edge/3",
+                    "section/edge/4",
+                    "section/edge/5"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-572"
+                }
+              },
+              "feature_id": "common",
+              "volume_mm3": "572*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "left.outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "left.c0",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "left.c1",
+                    "y": "left.c0"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "left.c1",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "left.c3",
+                    "y": "left.c2"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "left.c3",
+                    "y": "left.c4"
+                  },
+                  {
+                    "id": "v5",
+                    "x": "left.c0",
+                    "y": "left.c4"
+                  }
+                ]
+              },
+              {
+                "id": "left.revolved",
+                "kind": "revolve",
+                "profile": "left.outline"
+              },
+              {
+                "height": "right.height",
+                "id": "right.stock",
+                "kind": "cylinder",
+                "radius": "right.radius",
+                "x": "right.cx",
+                "y": "right.cy"
+              },
+              {
+                "id": "right.moved",
+                "input": "right.stock",
+                "kind": "translate",
+                "offset": [
+                  "right.move.x",
+                  "right.move.y",
+                  "right.move.z"
+                ]
+              },
+              {
+                "id": "common",
+                "kind": "coaxial_intersection",
+                "left": "left.revolved",
+                "right": "right.moved"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "left.c0": "0",
+              "left.c1": "10",
+              "left.c2": "5",
+              "left.c3": "6",
+              "left.c4": "12",
+              "left.height": "1",
+              "right.cx": "0",
+              "right.cy": "0",
+              "right.height": "12",
+              "right.move.x": "0",
+              "right.move.y": "0",
+              "right.move.z": "0",
+              "right.radius": "8"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "92",
+              "feature_id": "left.outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "6",
+                    "5",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "6",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v5",
+                  "position": [
+                    "0",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_measure",
+      "arguments": {
+        "expected_revision": 3,
+        "feature_id": "common"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "bounds_mm": [
+            [
+              "-8",
+              "-8",
+              "0"
+            ],
+            [
+              "8",
+              "8",
+              "12"
+            ]
+          ],
+          "centroid_mm": [
+            "0",
+            "0",
+            "1471/286"
+          ],
+          "centroidal_volume_inertia_mm5": [
+            [
+              "(6074173/429)*pi",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "(6074173/429)*pi",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "(14776)*pi"
+            ]
+          ],
+          "feature_id": "common",
+          "volume_mm3": "572*pi"
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # Exact coaxial curved-solid intersections
 
 Keep common volume of round parts that share exactly the same axis. Cylinders,
-frusta and convex radius/axial profile sections retain exact analytic surfaces
+frusta and simple radius/axial profile sections retain exact analytic surfaces
 and moments. Hollow ring sections, translations, coordinate quarter-turns and
 opposite axial directions are supported.
 
@@ -48,10 +48,12 @@ The 128-segment STL has volume `216 × 128 × sin(2π/128) / 2`, rather than exa
 Forty seeded taper pairs also compare against independent piecewise disk integrals,
 with both operand orders, in the native tests.
 
-Limits: strictly convex radial polygons and exactly coincident coordinate-axis
-lines. Nonconvex stepped/undercut sections, perforated stock, offset/crossing axes,
+Limits: simple radial polygons and exactly coincident coordinate-axis lines.
+Perforated stock, offset/crossing axes, separate result regions, contour holes,
 zero-volume contact and results beyond32 corners reject. Axis contact retains the
 single connected edge/flat-end policy. Generated surface IDs are revision-only
 references. Arbitrary curved union/difference and noncoaxial intersections are not
 implemented here. Floating STEP/display adapters retain stricter precision limits
 than exact native geometry; see the [revolution adapter limits](../revolution/README.md).
+
+Simple concave radial sections are now supported by the dedicated intersection feature; see [stepped and undercut examples](../concave-coaxial/README.md). The original convex corpus and its output ordering remain unchanged.

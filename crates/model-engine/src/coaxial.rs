@@ -32,12 +32,12 @@ fn normalize(points: &mut [Point]) {
         points.reverse();
     }
 }
-fn section(body: &Body, convex_only: bool) -> Result<Section> {
+fn section(body: &Body) -> Result<Section> {
     let id = &body.feature_id;
     let shape = body.analytic.as_ref().ok_or_else(|| {
         fail(
             id,
-            "Choose cylinders, frusta or convex radial-profile revolutions",
+            "Choose cylinders, frusta or simple radial-profile revolutions",
         )
     })?;
     if !shape.holes.is_empty() {
@@ -68,7 +68,7 @@ fn section(body: &Body, convex_only: bool) -> Result<Section> {
     } else {
         return Err(fail(
             id,
-            "Choose cylinders, frusta or convex radial-profile revolutions",
+            "Choose cylinders, frusta or simple radial-profile revolutions",
         ));
     };
     let identity = Placement {
@@ -92,24 +92,21 @@ fn section(body: &Body, convex_only: bool) -> Result<Section> {
     }
     world[axis] = q(0);
     normalize(&mut points);
-    // Convexity is about the radius/axial section, not the three-dimensional solid:
-    // a rectangular ring section is valid despite its nonconvex solid material.
-    let n = points.len();
-    if convex_only
-        && !(0..n).all(|i| {
-            (0..n).all(|j| {
-                j == i
-                    || j == (i + 1) % n
-                    || cross(&points[i], &points[(i + 1) % n], &points[j]).is_positive()
-            })
-        })
-    {
-        return Err(fail(id,"Coaxial intersection currently requires convex radial sections; stepped/undercut nonconvex sections are unsupported"));
-    }
     Ok(Section {
         points,
         axis,
         center: world,
+    })
+}
+// Convex inputs retain their established clipping order and surface references.
+fn convex(points: &[Point]) -> bool {
+    let n = points.len();
+    (0..n).all(|i| {
+        (0..n).all(|j| {
+            j == i
+                || j == (i + 1) % n
+                || cross(&points[i], &points[(i + 1) % n], &points[j]).is_positive()
+        })
     })
 }
 fn clean(points: &mut Vec<Point>) {
@@ -132,10 +129,19 @@ fn clean(points: &mut Vec<Point>) {
     }
 }
 pub(crate) fn intersect(id: &str, left: &Body, right: &Body) -> Result<AnalyticPrism> {
-    let a = section(left, true)?;
-    let b = section(right, true)?;
+    let a = section(left)?;
+    let b = section(right)?;
     if a.axis != b.axis || a.center != b.center {
         return Err(fail(id,"The solids must share exactly the same coordinate axis line; offset or crossing axes are unsupported"));
+    }
+    if !convex(&a.points) || !convex(&b.points) {
+        let points = crate::section_boolean::combine(
+            id,
+            &a.points,
+            &b.points,
+            crate::polyhedral::Operation::Intersection,
+        )?;
+        return finish_section(id, points, a.axis, a.center);
     }
     let mut points = a.points;
     for i in 0..b.points.len() {
@@ -207,8 +213,8 @@ pub(crate) fn boolean(
     right: &Body,
     operation: crate::polyhedral::Operation,
 ) -> Result<AnalyticPrism> {
-    let a = section(left, false)?;
-    let b = section(right, false)?;
+    let a = section(left)?;
+    let b = section(right)?;
     if a.axis != b.axis || a.center != b.center {
         return Err(fail(
             id,
@@ -216,7 +222,15 @@ pub(crate) fn boolean(
         ));
     }
     let points = crate::section_boolean::combine(id, &a.points, &b.points, operation)?;
-    finish(id, points, a.axis, a.center).map_err(|e| {
+    finish_section(id, points, a.axis, a.center)
+}
+fn finish_section(
+    id: &str,
+    points: Vec<Point>,
+    axis: usize,
+    center: [Q; 3],
+) -> Result<AnalyticPrism> {
+    finish(id, points, axis, center).map_err(|e| {
         if e.code == "unsupported_revolution" {
             error(
                 "unsupported_coaxial_result",

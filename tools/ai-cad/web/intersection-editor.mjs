@@ -75,7 +75,7 @@ export function installIntersectionEditor({
     }
     $("intersection-feedback").textContent =
       kind === "coaxial_intersection"
-        ? "Keep shared volume of cylinders, frusta or convex radial-profile revolutions on exactly the same axis. Ring sections are supported; nonconvex stepped sections and offset/crossing axes reject. Saving consumes both inputs; undo restores them."
+        ? "Keep shared volume of cylinders, frusta or simple radial-profile revolutions on exactly the same axis. Stepped and undercut sections are supported when the result has one connected radial contour. Cavities, separate regions and offset/crossing axes reject. Saving consumes both inputs; undo restores them."
         : "Keep only the volume shared by two convex planar solids. Saving consumes both inputs; undo restores them.";
   }
   $("intersection-kind").addEventListener("change", populate);
