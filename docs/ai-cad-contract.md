@@ -527,3 +527,11 @@ schemas to author the command. This is linear dimensional constraint compilation
 not a general nonlinear sketch solver: distances, angles, tangency, inequalities,
 branch selection and automatic degrees-of-freedom choices remain unsupported.
 [Editable coupled-part workflow](../examples/ai-cad/linear-constraints/README.md).
+
+## Orthographic reference sheets
+
+Read-only MCP `cad_reference_sheet(expected_revision, feature_id)` and HTTP `GET /api/export.svg?revision=...&body=...` export a saved terminal solid. MCP returns SVG text, source revision, canonical-model SHA-256, exact `bounds_mm`/`extents_mm` and view edge counts. HTTP returns the same SVG bytes. Native topology supplies all line and quarter-circle edges; no tessellation or mesh silhouette replaces those curves.
+
+Views use X-right/Y-up for top, X-right/Z-up for front and Y-right/Z-up for right. One common scale fits a1000×760 SVG sheet. Coordinates are centered and scaled as exact fractions before conversion to12-significant-digit SVG coordinates. Face-on quarter circles use SVG circular arcs with native orientation; edge-on quarter circles become lines. Exactly collapsed projected edges are counted and omitted. Nonzero projected edges collapsing at output precision reject with `drawing_precision`. Exact extent labels longer than80 characters and SVG files above4MiB reject with `drawing_limit`.
+
+Every sheet visibly states that all native edges are shown, including occluded edges and smooth surface seams. No hidden-line removal, section view, tolerance, manufacturing annotation or printable fixed scale is claimed. Use exact dimension labels rather than measuring the page. The sheet is a snapshot bound to its source revision/hash; re-export after edits. Store revision checks, native validation and content/executable cache remain authoritative; export does not alter model/history. No external resources or active SVG scripts are emitted. [Editable sources, finished SVGs, browser download and MCP replay](../examples/ai-cad/reference-sheets/README.md).

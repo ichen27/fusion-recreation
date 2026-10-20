@@ -463,3 +463,16 @@ Choose **Measure combined mass**, select up to 16 saved solids and enter a posit
 ### Independent feature rebuilds
 
 An edit to one branch can now reuse unchanged features later in the history, including their validated intermediate geometry. Referenced parameters, dependency ancestry, history position and consumption state must all match. [Exact equivalence, editable fixtures and CPU/RSS measurements](../../examples/ai-cad/independent-rebuild/README.md) document the limits. Run `python tools/ai-cad/verify_independent_rebuild.py`; optional MCP validation is `verify_independent_rebuild_mcp.py`. `benchmark_independent_rebuild.py --samples 9` measures the current binary without enforcing a timing threshold.
+
+### Orthographic SVG reference sheets
+
+Select a saved solid and choose **Download reference sheet (SVG)**. Open the SVG in a browser or vector editor. Top/front/right views retain native circles as arcs, and labels report exact overall dimensions in millimeters. All edges and surface seams are shown; hidden-line removal and manufacturing annotations are not included. The scale fits the page, so use dimension labels rather than measuring the page. [Editable sources, SVG exports and verification](../../examples/ai-cad/reference-sheets/README.md).
+
+AI clients use `cad_reference_sheet` with the saved revision and feature ID. CLI export:
+
+```sh
+python tools/ai-cad/drawings.py --store examples/ai-cad/reference-sheets/source.cad.json --revision 1 --body part --output reference.svg
+python tools/ai-cad/verify_drawings.py
+# With MCP dependencies installed:
+python tools/ai-cad/verify_drawings_mcp.py
+```
