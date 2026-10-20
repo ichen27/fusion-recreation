@@ -30,6 +30,7 @@ jobs:
       - run: python tools/ai-cad/verify_interference_mcp.py
       - run: python tools/ai-cad/verify_edge_measurements_mcp.py
       - run: python tools/ai-cad/benchmark_native_worker.py --samples 3
+      - run: python tools/ai-cad/benchmark_curved_runtime.py --samples 1
       - run: python tools/ai-cad/verify_mcp.py
       - run: python tools/ai-cad/verify_boolean_mcp.py
       - run: python tools/ai-cad/verify_polyhedral_transform_mcp.py

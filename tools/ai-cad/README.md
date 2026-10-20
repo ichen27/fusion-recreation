@@ -429,3 +429,7 @@ to change an existing operation without replacing its inputs. Blind recesses,
 through-bores and stepped joins retain exact geometry and editable dimensions.
 Disconnected radial regions, enclosed cavities and multiple axis contacts currently
 reject. [Native examples, exports and independent validation](../../examples/ai-cad/coaxial-booleans/README.md).
+
+## Integrated geometry performance
+
+[Curved workload CPU/RSS measurements](../../examples/ai-cad/curved-runtime/README.md) compare fresh processes and the native worker on seven editable geometry models. Run `python3 tools/ai-cad/benchmark_curved_runtime.py --samples 7` after building the release binary. Every workload checks exact response equivalence; timings are observations, not CI thresholds.
