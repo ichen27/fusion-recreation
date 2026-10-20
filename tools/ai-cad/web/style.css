@@ -508,6 +508,7 @@ dialog::backdrop {
 #plane-dialog,
 #stock-dialog,
 #intersection-dialog,
+#loft-dialog,
 #boolean-dialog,
 #translate-dialog,
 #rotation-dialog {
@@ -596,4 +597,11 @@ dialog p[role="status"] {
 }
 #startup-reload {
   margin-left: 12px;
+}
+
+#sketch-profile-only-row[hidden] {
+  display: none;
+}
+#sketch-profile-only {
+  width: auto;
 }

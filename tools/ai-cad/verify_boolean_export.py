@@ -5,6 +5,7 @@ import json
 import math
 from pathlib import Path
 import tempfile
+from OCP.BRepOffsetAPI import BRepOffsetAPI_ThruSections
 from OCP.BRepAlgoAPI import BRepAlgoAPI_Fuse, BRepAlgoAPI_Cut, BRepAlgoAPI_Common
 from OCP.BRepBuilderAPI import (
     BRepBuilderAPI_MakePolygon,
@@ -46,6 +47,24 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "planar_loft":
+            bottom = next(p for p in model["features"] if p["id"] == f["bottom"])
+            top = next(p for p in model["features"] if p["id"] == f["top"])
+            top_by_id = {p["id"]: p for p in top["vertices"]}
+            builder = BRepOffsetAPI_ThruSections(True, True, 1e-9)
+            builder.CheckCompatibility(False)
+            for vertices, z in [
+                (bottom["vertices"], 0),
+                ([top_by_id[p["id"]] for p in bottom["vertices"]], values[f["height"]]),
+            ]:
+                polygon = BRepBuilderAPI_MakePolygon()
+                for p in vertices:
+                    polygon.Add(gp_Pnt(values[p["x"]], values[p["y"]], z))
+                polygon.Close()
+                builder.AddWire(polygon.Wire())
+            builder.Build()
+            assert builder.IsDone()
+            shape = builder.Shape()
         elif f["kind"] == "conical_frustum":
             shape = BRepPrimAPI_MakeCone(
                 gp_Ax2(gp_Pnt(values[f["x"]], values[f["y"]], 0), gp_Dir(0, 0, 1)),

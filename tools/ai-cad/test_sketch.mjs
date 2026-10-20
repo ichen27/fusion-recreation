@@ -1,3 +1,4 @@
+import { loftCandidates, loftProposal } from "./web/loft-model.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -234,5 +235,61 @@ test("removing a draft point removes only links involving its vanished coordinat
   assert.equal(
     evaluate(empty, sketchOperations(d)).result.bodies[0].volume_mm3,
     "18000",
+  );
+});
+
+test("standalone sketches feed a named planar loft and upstream edits rebuild it", () => {
+  let m = structuredClone(empty);
+  for (const [prefix, points] of [
+    [
+      "bottom",
+      [
+        [0, 0],
+        [40, 0],
+        [40, 20],
+        [0, 20],
+      ],
+    ],
+    [
+      "top",
+      [
+        [5, 5],
+        [35, 5],
+        [35, 15],
+        [5, 15],
+      ],
+    ],
+  ]) {
+    const draft = draftSketch(m, prefix);
+    draft.profileOnly = true;
+    for (const [x, y] of points) addPoint(draft, x, y);
+    const result = evaluate(m, sketchOperations(draft)).result;
+    assert.equal(result.bodies.length, 0);
+    assert.equal(result.model.parameters[`${prefix}.height`], undefined);
+    m = result.model;
+  }
+  const state = { model: m, revision: 2 };
+  assert.equal(loftCandidates(state).length, 2);
+  const proposal = loftProposal(state, "bottom.profile", "top.profile", "12");
+  const result = evaluate(m, proposal.operations, proposal.preserve).result;
+  assert.equal(result.bodies[0].volume_mm3, "6400");
+  const draft = draftSketch(result.model, "unused", "top.profile");
+  setCoordinate(draft, 0, "x", "8");
+  setCoordinate(draft, 3, "x", "8");
+  const changed = evaluate(result.model, sketchOperations(draft)).result;
+  assert.equal(changed.bodies[0].volume_mm3, "6160");
+  assert.deepEqual(changed.model.features, result.model.features);
+  assert.throws(
+    () => loftProposal(state, "missing", "top.profile", "12"),
+    /polygon profiles/,
+  );
+  assert.equal(
+    loftProposal(
+      { ...state, model: result.model },
+      "bottom.profile",
+      "top.profile",
+      "12",
+    ).operations[1].feature.id,
+    "loft2",
   );
 });

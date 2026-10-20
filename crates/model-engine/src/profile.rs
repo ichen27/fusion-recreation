@@ -296,6 +296,81 @@ pub(super) fn extrude(profile: &Profile, height: &Q) -> Boundary {
     }
 }
 
+/// The boundary is exact only when all corresponding side quadrilaterals are
+/// planar and bound a convex solid. Do not silently triangulate a curved side.
+pub(super) fn loft(id: &str, bottom: &Profile, top: &Profile, height: &Q) -> Result<Boundary> {
+    let fail = |message: &str| error("unsupported_loft", id, message);
+    if !is_convex(bottom) || !is_convex(top) {
+        return Err(fail(
+            "Planar loft requires two strictly convex polygon profiles",
+        ));
+    }
+    let n = bottom.points.len();
+    if n != top.points.len()
+        || bottom.vertex_ids.iter().collect::<BTreeSet<_>>() != top.vertex_ids.iter().collect()
+    {
+        return Err(fail("Loft profiles must have the same named vertex IDs"));
+    }
+    let mut names = bottom.vertex_ids.clone();
+    if bottom.twice_area.is_negative() {
+        names.reverse();
+    }
+    let indices: Vec<_> = names
+        .iter()
+        .map(|name| top.vertex_ids.iter().position(|v| v == name).unwrap())
+        .collect();
+    for i in 0..n {
+        let a = indices[i];
+        let b = indices[(i + 1) % n];
+        if (a + 1) % n != b && (b + 1) % n != a {
+            return Err(fail(
+                "Named loft vertices must preserve profile edge adjacency",
+            ));
+        }
+    }
+    let mut boundary = extrude(bottom, height);
+    for (i, index) in indices.into_iter().enumerate() {
+        let point = &top.points[index];
+        boundary.vertices[n + i] = [
+            point[0].to_string(),
+            point[1].to_string(),
+            height.to_string(),
+        ];
+    }
+    let points: Vec<[Q; 3]> = boundary
+        .vertices
+        .iter()
+        .map(|p| p.clone().map(|v| v.parse().unwrap()))
+        .collect();
+    for face in &mut boundary.faces {
+        let vertices: Vec<_> = face.loops[0]
+            .iter()
+            .map(|u| boundary.edges[u.edge].vertices[usize::from(!u.forward)])
+            .collect();
+        let a = &points[vertices[0]];
+        let b: [Q; 3] = std::array::from_fn(|i| &points[vertices[1]][i] - &a[i]);
+        let c: [Q; 3] = std::array::from_fn(|i| &points[vertices[2]][i] - &a[i]);
+        let normal = [
+            &b[1] * &c[2] - &b[2] * &c[1],
+            &b[2] * &c[0] - &b[0] * &c[2],
+            &b[0] * &c[1] - &b[1] * &c[0],
+        ];
+        let dot = |p: &[Q; 3]| (0..3).map(|i| &normal[i] * &p[i]).sum::<Q>();
+        let offset = dot(a);
+        if normal.iter().all(Zero::is_zero) || vertices.iter().any(|i| dot(&points[*i]) != offset) {
+            return Err(fail("Corresponding loft edges form a nonplanar or degenerate side; curved/twisted lofts are unsupported"));
+        }
+        if points.iter().any(|p| dot(p) > offset) {
+            return Err(fail(
+                "Corresponding loft profiles must form a convex solid without twists",
+            ));
+        }
+        face.normal = normal.map(|v| v.to_string());
+        face.offset = offset.to_string();
+    }
+    Ok(boundary)
+}
+
 fn cross(a: &[Q; 2], b: &[Q; 2], c: &[Q; 2]) -> Q {
     (&b[0] - &a[0]) * (&c[1] - &a[1]) - (&b[1] - &a[1]) * (&c[0] - &a[0])
 }

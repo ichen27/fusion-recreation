@@ -205,3 +205,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Individual blind-depth checkpoint
 
 [Per-hole depth references](../examples/ai-cad/individual-depths/README.md) retain a shared default while allowing distinct flat floors within one group. Exact measurements, topology, placements and STEP use each resolved depth; browser fields can reconnect the default without deleting old parameters. Actual browser/MCP creation, edit, rejection and native history are retained. Counterbore/countersink groups still share recess dimensions. Broader profile construction and curved modeling remain open.
+
+## Convex planar loft checkpoint
+
+[Standalone sketches and exact planar lofts](../examples/ai-cad/planar-loft/README.md) support matching convex polygon sections, taper/skew and downstream planar operations. Exact side-planarity and convexity checks reject unsupported curved/twisted geometry. Fifteen browser calls create both profiles from empty, loft, resize, export, reject and undo; ten MCP calls and eight independent ruled-loft comparisons cover shared surfaces and exact moments. General curved/multisection lofts, differing vertex counts and concave sections remain open.

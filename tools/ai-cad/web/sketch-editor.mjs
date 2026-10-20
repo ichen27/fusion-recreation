@@ -176,7 +176,12 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
     $("sketch-rectangle").disabled = !!draft.featureId || pending;
     $("sketch-preview").disabled = pending;
     $("sketch-close").disabled = pending;
-    $("sketch-height-row").hidden = !!draft.featureId;
+    $("sketch-profile-only-row").hidden = !!draft.featureId;
+    $("sketch-profile-only").disabled = pending;
+    $("sketch-height-row").hidden = !!draft.featureId || draft.profileOnly;
+    $("sketch-preview").textContent = draft.profileOnly
+      ? "Preview sketch"
+      : "Preview solid";
     $("sketch-height").disabled = pending;
   }
   function fit() {
@@ -201,6 +206,10 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
     dialog.close();
     onClose();
   }
+  $("sketch-profile-only").addEventListener("change", () => {
+    draft.profileOnly = $("sketch-profile-only").checked;
+    render();
+  });
   $("sketch-close").addEventListener("click", close);
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
@@ -299,6 +308,7 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
         ? `Edit ${featureId}`
         : "Draw a planar profile";
       $("sketch-height").value = "6";
+      $("sketch-profile-only").checked = false;
       svg.setAttribute("viewBox", "-20 -140 240 160");
       message(
         featureId

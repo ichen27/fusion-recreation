@@ -103,3 +103,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Countersunk through-holes](countersinks/README.md): exact inward conical walls, editable recess dimensions, surface-bound editing, native history and independent STEP/moment checks.
 
 - [Individual blind-hole depths](individual-depths/README.md): exact per-hole floors, editable group defaults, native history and independent STEP/moment comparisons.
+
+- [Planar profile lofts](planar-loft/README.md): standalone sketches, exact convex lofts, upstream editing and independent STEP/measurement comparisons.

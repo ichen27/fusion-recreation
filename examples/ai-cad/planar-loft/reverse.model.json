@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "height": "12",
+    "bottom.0.x": "0",
+    "bottom.0.y": "0",
+    "bottom.1.x": "40",
+    "bottom.1.y": "0",
+    "bottom.2.x": "40",
+    "bottom.2.y": "20",
+    "bottom.3.x": "0",
+    "bottom.3.y": "20",
+    "top.0.x": "5",
+    "top.0.y": "5",
+    "top.1.x": "35",
+    "top.1.y": "5",
+    "top.2.x": "35",
+    "top.2.y": "15",
+    "top.3.x": "5",
+    "top.3.y": "15"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "bottom",
+      "vertices": [
+        {
+          "id": "v3",
+          "x": "bottom.3.x",
+          "y": "bottom.3.y"
+        },
+        {
+          "id": "v2",
+          "x": "bottom.2.x",
+          "y": "bottom.2.y"
+        },
+        {
+          "id": "v1",
+          "x": "bottom.1.x",
+          "y": "bottom.1.y"
+        },
+        {
+          "id": "v0",
+          "x": "bottom.0.x",
+          "y": "bottom.0.y"
+        }
+      ]
+    },
+    {
+      "kind": "planar_profile",
+      "id": "top",
+      "vertices": [
+        {
+          "id": "v3",
+          "x": "top.3.x",
+          "y": "top.3.y"
+        },
+        {
+          "id": "v2",
+          "x": "top.2.x",
+          "y": "top.2.y"
+        },
+        {
+          "id": "v1",
+          "x": "top.1.x",
+          "y": "top.1.y"
+        },
+        {
+          "id": "v0",
+          "x": "top.0.x",
+          "y": "top.0.y"
+        }
+      ]
+    },
+    {
+      "kind": "planar_loft",
+      "id": "part",
+      "bottom": "bottom",
+      "top": "top",
+      "height": "height"
+    }
+  ]
+}

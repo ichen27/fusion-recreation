@@ -16,6 +16,7 @@ export function draftSketch(model, prefix, featureId = null) {
     vertices: feature ? structuredClone(feature.vertices) : [],
     values: { ...model.parameters },
     height: "6",
+    profileOnly: false,
     relationEdits: {},
   };
 }
@@ -143,7 +144,9 @@ export function sketchOperations(draft) {
     throw Error("Sketch IDs already exist; reopen the editor");
   return [
     ...refs.map((id) => ({ op: "define_parameter", id, mm: draft.values[id] })),
-    { op: "define_parameter", id: height, mm: draft.height },
+    ...(draft.profileOnly
+      ? []
+      : [{ op: "define_parameter", id: height, mm: draft.height }]),
     ...relationOperations(draft),
     {
       op: "add_feature",
@@ -153,10 +156,14 @@ export function sketchOperations(draft) {
         vertices: structuredClone(draft.vertices),
       },
     },
-    {
-      op: "add_feature",
-      feature: { kind: "extrude", id: solid, profile, height },
-    },
+    ...(draft.profileOnly
+      ? []
+      : [
+          {
+            op: "add_feature",
+            feature: { kind: "extrude", id: solid, profile, height },
+          },
+        ]),
   ];
 }
 export function sketchProposal(state, draft) {
