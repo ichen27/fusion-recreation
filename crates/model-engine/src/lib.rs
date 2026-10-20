@@ -122,6 +122,15 @@ pub enum Feature {
         count: usize,
         step: [String; 3],
     },
+    /// Exact reflection across a rational plane, optionally retaining the source.
+    MirrorPlane {
+        id: String,
+        input: String,
+        normal: [String; 3],
+        offset: String,
+        #[serde(default)]
+        keep_original: bool,
+    },
     /// Exact right-handed quarter turns about a parameter-backed pivot.
     RotateQuarter {
         id: String,
@@ -213,6 +222,7 @@ impl Feature {
             | Self::PlaneCut { id, .. }
             | Self::PlanarShell { id, .. }
             | Self::LinearPattern { id, .. }
+            | Self::MirrorPlane { id, .. }
             | Self::Intersection { id, .. }
             | Self::Translate { id, .. }
             | Self::Instance { id, .. }
@@ -730,6 +740,32 @@ fn evaluate_geometry_from(
                     e
                 })?;
                 evaluated.insert(id.into(), polyhedral_body(id, solid));
+                continue;
+            }
+            Feature::MirrorPlane {
+                input,
+                normal,
+                offset,
+                keep_original,
+                ..
+            } => {
+                if !keep_original && !consumed.insert(input.clone()) {
+                    return Err(error(
+                        "unsupported_branch",
+                        input,
+                        "Choose a terminal source when replacing it with its mirror",
+                    ));
+                }
+                let normal = [
+                    rational(&normal[0], id)?,
+                    rational(&normal[1], id)?,
+                    rational(&normal[2], id)?,
+                ];
+                let offset = parameter(m, offset)?;
+                let body = transformed_body(m, &profiles, &evaluated, id, input, |boundary| {
+                    solid_ops::mirror(id, boundary, &normal, &offset)
+                })?;
+                evaluated.insert(id.into(), body);
                 continue;
             }
             Feature::RotateQuarter {

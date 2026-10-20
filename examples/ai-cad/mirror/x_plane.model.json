@@ -1,0 +1,56 @@
+{
+  "parameters": {
+    "part.height": "20",
+    "part.c0": "0",
+    "part.c1": "40",
+    "part.c2": "30",
+    "mirror.offset": "50"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "planar_profile",
+      "id": "part.profile",
+      "vertices": [
+        {
+          "id": "v0",
+          "x": "part.c0",
+          "y": "part.c0"
+        },
+        {
+          "id": "v1",
+          "x": "part.c1",
+          "y": "part.c0"
+        },
+        {
+          "id": "v2",
+          "x": "part.c1",
+          "y": "part.c2"
+        },
+        {
+          "id": "v3",
+          "x": "part.c0",
+          "y": "part.c2"
+        }
+      ]
+    },
+    {
+      "kind": "extrude",
+      "id": "part",
+      "profile": "part.profile",
+      "height": "part.height"
+    },
+    {
+      "kind": "mirror_plane",
+      "id": "mirror",
+      "input": "part",
+      "normal": [
+        "1",
+        "0",
+        "0"
+      ],
+      "offset": "mirror.offset",
+      "keep_original": false
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+[
+  {
+    "case": "x_plane",
+    "volume_mm3": 24000.0,
+    "step_volume_mm3": 24000.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 9.094947017729282e-13,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "60",
+          "0",
+          "0"
+        ],
+        [
+          "100",
+          "30",
+          "20"
+        ]
+      ],
+      "centroid_mm": [
+        "80",
+        "15",
+        "10"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "2600000",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "4000000",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "5000000"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 0.0
+  },
+  {
+    "case": "y_plane",
+    "volume_mm3": 24000.0,
+    "step_volume_mm3": 24000.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 9.094947017729282e-13,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "-50",
+          "0"
+        ],
+        [
+          "40",
+          "-20",
+          "20"
+        ]
+      ],
+      "centroid_mm": [
+        "20",
+        "-35",
+        "10"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "2600000",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "4000000",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "5000000"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 0.0,
+    "inertia_error_mm5": 0.0
+  },
+  {
+    "case": "z_plane",
+    "volume_mm3": 24000.0,
+    "step_volume_mm3": 24000.0,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 9.094947017729282e-13,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "0",
+          "0",
+          "-10"
+        ],
+        [
+          "40",
+          "30",
+          "10"
+        ]
+      ],
+      "centroid_mm": [
+        "20",
+        "15",
+        "0"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "2600000",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "4000000",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "5000000"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 1.5158245029548803e-16,
+    "inertia_error_mm5": 4.3655745685100555e-11
+  },
+  {
+    "case": "oblique",
+    "volume_mm3": 24000.000000000004,
+    "step_volume_mm3": 23999.999999993866,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 4.82032191939652e-10,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 0.0,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-353/21",
+          "-586/21",
+          "-333/7"
+        ],
+        [
+          "727/21",
+          "284/21",
+          "1"
+        ]
+      ],
+      "centroid_mm": [
+        "187/21",
+        "-151/21",
+        "-163/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "154600000/49",
+          "34800000/49",
+          "31200000/49"
+        ],
+        [
+          "34800000/49",
+          "226400000/49",
+          "3600000/49"
+        ],
+        [
+          "31200000/49",
+          "3600000/49",
+          "187400000/49"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 1.0658141036401503e-14,
+    "inertia_error_mm5": 2.7939677238464355e-09
+  },
+  {
+    "case": "scaled_plane",
+    "volume_mm3": 24000.000000000004,
+    "step_volume_mm3": 23999.999999993866,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 4.82032191939652e-10,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 0.0,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-353/21",
+          "-586/21",
+          "-333/7"
+        ],
+        [
+          "727/21",
+          "284/21",
+          "1"
+        ]
+      ],
+      "centroid_mm": [
+        "187/21",
+        "-151/21",
+        "-163/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "154600000/49",
+          "34800000/49",
+          "31200000/49"
+        ],
+        [
+          "34800000/49",
+          "226400000/49",
+          "3600000/49"
+        ],
+        [
+          "31200000/49",
+          "3600000/49",
+          "187400000/49"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 1.0658141036401503e-14,
+    "inertia_error_mm5": 2.7939677238464355e-09
+  },
+  {
+    "case": "concave",
+    "volume_mm3": 3599.999999999999,
+    "step_volume_mm3": 3600.000000000001,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 4.547473508864641e-13,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 4.547473508864641e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "20",
+          "10",
+          "0"
+        ],
+        [
+          "50",
+          "50",
+          "6"
+        ]
+      ],
+      "centroid_mm": [
+        "40",
+        "35",
+        "3"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "520800",
+          "180000",
+          "0"
+        ],
+        [
+          "180000",
+          "250800",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "750000"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "3600"
+    },
+    "centroid_error_mm": 2.1316282072803006e-14,
+    "inertia_error_mm5": 3.725290298461914e-09
+  },
+  {
+    "case": "tapered",
+    "volume_mm3": 6400.000000000003,
+    "step_volume_mm3": 6400.000000001153,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 5.397851055022329e-10,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 4.547473508864641e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "10/7",
+          "-27/7",
+          "-90/7"
+        ],
+        [
+          "290/7",
+          "160/7",
+          "150/7"
+        ]
+      ],
+      "centroid_mm": [
+        "2157/112",
+        "477/56",
+        "159/56"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "17981400/49",
+          "7767570/49",
+          "10289190/49"
+        ],
+        [
+          "7767570/49",
+          "37332755/49",
+          "-2521620/49"
+        ],
+        [
+          "10289190/49",
+          "-2521620/49",
+          "32507075/49"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "6400"
+    },
+    "centroid_error_mm": 1.7763568394002505e-15,
+    "inertia_error_mm5": 8.149072527885437e-10
+  },
+  {
+    "case": "disconnected",
+    "volume_mm3": 72000.00000000003,
+    "step_volume_mm3": 71999.99999999737,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 3.6561687011271715e-10,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 1.8189894035458565e-12,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-10",
+          "-300/7",
+          "-70"
+        ],
+        [
+          "890/7",
+          "190/7",
+          "150/7"
+        ]
+      ],
+      "centroid_mm": [
+        "410/7",
+        "-55/7",
+        "-170/7"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "2023800000/49",
+          "1544400000/49",
+          "2253600000/49"
+        ],
+        [
+          "1544400000/49",
+          "6079200000/49",
+          "-709200000/49"
+        ],
+        [
+          "2253600000/49",
+          "-709200000/49",
+          "5362200000/49"
+        ]
+      ],
+      "feature_id": "mirror",
+      "volume_mm3": "72000"
+    },
+    "centroid_error_mm": 7.105427357601002e-15,
+    "inertia_error_mm5": 8.940696716308594e-08
+  },
+  {
+    "case": "turned",
+    "volume_mm3": 24000.00000000001,
+    "step_volume_mm3": 24000.00000000689,
+    "directed_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "area_error_mm2": 1.0577423381619155e-09,
+    "shared_boundary_residual_mm3": [
+      0.0,
+      0.0
+    ],
+    "shared_boundary_area_error_mm2": 9.094947017729282e-13,
+    "exact_measurements": {
+      "bounds_mm": [
+        [
+          "-25/3",
+          "-29/3",
+          "-146/3"
+        ],
+        [
+          "45",
+          "121/3",
+          "-2"
+        ]
+      ],
+      "centroid_mm": [
+        "55/3",
+        "46/3",
+        "-76/3"
+      ],
+      "centroidal_volume_inertia_mm5": [
+        [
+          "31400000/9",
+          "-7600000/9",
+          "-800000/9"
+        ],
+        [
+          "-7600000/9",
+          "34400000/9",
+          "-6800000/9"
+        ],
+        [
+          "-800000/9",
+          "-6800000/9",
+          "38600000/9"
+        ]
+      ],
+      "feature_id": "turned",
+      "volume_mm3": "24000"
+    },
+    "centroid_error_mm": 3.552713678800501e-15,
+    "inertia_error_mm5": 4.6566128730773926e-09
+  }
+]

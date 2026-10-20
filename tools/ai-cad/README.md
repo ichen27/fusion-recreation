@@ -372,3 +372,12 @@ remain components of that result. Use **Linked copy** for independent parts. Cur
 stock, edge/point-only joins and patterns beyond the native geometry budget reject.
 [Examples and verification](../../examples/ai-cad/linear-pattern/README.md) include
 source edits, negative/fractional spacing and exact exported unions.
+
+## Mirror planar parts
+
+**Mirror solid** reflects saved planar material across an exact plane. Enter a normal
+and parameter-backed offset; normal `(1,0,0)` with offset `50` means `x=50`. Keep the
+source to create a separately selectable linked counterpart, or clear the checkbox
+to replace it with its reflection. **Edit mirror** changes the plane/retention.
+[Editable examples, oblique reflections and export verification](../../examples/ai-cad/mirror/README.md)
+cover cavities and disconnected pieces. Curved analytic stock is not supported yet.

@@ -237,3 +237,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Linear material pattern checkpoint
 
 [Exact repeated planar material](../examples/ai-cad/linear-pattern/README.md) keeps source dimensions and parameter-backed step dependencies inside one count-editable feature. Each copy is computed from the source at an integer multiple of the step; exact unions handle separated, touching and overlapping material. This deliberately differs from independent assembly instances. General curved/circular patterns, body-versus-feature identity for multi-output assembly features and larger-model scheduling remain open.
+
+## Exact planar mirror checkpoint
+
+[Reflection across rational planes](../examples/ai-cad/mirror/README.md) supports oblique symmetry, optional linked source retention and exact dependent edits. Native boundary orientation, double-reflection recovery, browser/MCP history and nine independent STEP/moment comparisons are verified. Curved reflections, arbitrary-angle rotations and persistent face naming remain open. The expanding feature list now needs a more compact action layout so existing capabilities stay discoverable without overwhelming the tree.
