@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "left.cx": "0",
+    "left.cy": "0",
+    "left.radius": "1/3",
+    "left.height": "7/5",
+    "right.cx": "0",
+    "right.cy": "0",
+    "right.radius": "2/7",
+    "right.height": "11/13"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "left.stock",
+      "x": "left.cx",
+      "y": "left.cy",
+      "radius": "left.radius",
+      "height": "left.height"
+    },
+    {
+      "kind": "cylinder",
+      "id": "right.stock",
+      "x": "right.cx",
+      "y": "right.cy",
+      "radius": "right.radius",
+      "height": "right.height"
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "common",
+      "left": "left.stock",
+      "right": "right.stock"
+    }
+  ]
+}

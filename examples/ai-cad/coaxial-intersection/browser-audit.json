@@ -1,0 +1,6 @@
+{
+  "invalid": {
+    "diagnostic": "empty_solid: Coaxial inputs have no common positive volume",
+    "invalidText": "20"
+  }
+}

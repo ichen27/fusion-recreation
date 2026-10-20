@@ -1,0 +1,80 @@
+{
+  "parameters": {
+    "left.cx": "0",
+    "left.cy": "0",
+    "left.radius": "10",
+    "left.height": "12",
+    "left.turn.x": "0",
+    "left.turn.y": "0",
+    "left.turn.z": "0",
+    "right.cx": "0",
+    "right.cy": "0",
+    "right.radius": "5",
+    "right.height": "8",
+    "right.move.x": "0",
+    "right.move.y": "0",
+    "right.move.z": "6",
+    "right.turn.x": "0",
+    "right.turn.y": "0",
+    "right.turn.z": "0"
+  },
+  "fixed": {},
+  "features": [
+    {
+      "kind": "cylinder",
+      "id": "left.stock",
+      "x": "left.cx",
+      "y": "left.cy",
+      "radius": "left.radius",
+      "height": "left.height"
+    },
+    {
+      "kind": "rotate_quarter",
+      "id": "left.turned",
+      "input": "left.stock",
+      "axis": "y",
+      "turns": 1,
+      "pivot": [
+        "left.turn.x",
+        "left.turn.y",
+        "left.turn.z"
+      ]
+    },
+    {
+      "kind": "cylinder",
+      "id": "right.stock",
+      "x": "right.cx",
+      "y": "right.cy",
+      "radius": "right.radius",
+      "height": "right.height"
+    },
+    {
+      "kind": "translate",
+      "id": "right.moved",
+      "input": "right.stock",
+      "offset": [
+        "right.move.x",
+        "right.move.y",
+        "right.move.z"
+      ]
+    },
+    {
+      "kind": "rotate_quarter",
+      "id": "right.turned",
+      "input": "right.moved",
+      "axis": "y",
+      "turns": 1,
+      "pivot": [
+        "right.turn.x",
+        "right.turn.y",
+        "right.turn.z"
+      ]
+    },
+    {
+      "kind": "coaxial_intersection",
+      "id": "common",
+      "left": "left.turned",
+      "right": "right.turned"
+    }
+  ]
+}

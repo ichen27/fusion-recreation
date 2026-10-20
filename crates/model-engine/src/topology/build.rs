@@ -196,6 +196,7 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
             Feature::Extrude { .. }
             | Feature::Cylinder { .. }
             | Feature::ConicalFrustum { .. }
+            | Feature::CoaxialIntersection { .. }
             | Feature::Revolve { .. } => return Ok((f, holes)),
             _ => return Err(fail("Unsupported analytic source")),
         }
@@ -206,7 +207,12 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
     let (source, hole_owner) = owners(model, &body.feature_id)?;
     let owner = source.id();
     if shape.revolution.is_some() {
-        return revolved(body, shape, owner);
+        return revolved(
+            body,
+            shape,
+            owner,
+            matches!(source, Feature::Revolve { .. }),
+        );
     }
     let h = value(&shape.height)?;
     let mut b = Builder::new(&body.feature_id, "authored_surfaces");
@@ -395,14 +401,21 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
     }
     Ok(topology)
 }
-fn revolved(body: &Body, shape: &AnalyticPrism, owner: &str) -> Result<Topology> {
+fn revolved(body: &Body, shape: &AnalyticPrism, owner: &str, authored: bool) -> Result<Topology> {
     let profile = shape.revolution.as_ref().unwrap();
     let points = profile
         .points
         .iter()
         .map(|p| Ok([value(&p[0])?, value(&p[1])?]))
         .collect::<Result<Vec<_>>>()?;
-    let mut b = Builder::new(&body.feature_id, "authored_surfaces");
+    let mut b = Builder::new(
+        &body.feature_id,
+        if authored {
+            "authored_surfaces"
+        } else {
+            "revision_only"
+        },
+    );
     let center = [q(0), q(0)];
     let rings: Vec<_> = points
         .iter()

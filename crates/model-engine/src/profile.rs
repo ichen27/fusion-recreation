@@ -118,6 +118,23 @@ fn resolve_mode(
     })
 }
 
+// Derived section coordinates already passed exact geometry arithmetic; they are
+// not new 128-bit input literals. Downstream topology enforces computed budgets.
+pub(crate) fn computed_polygon(id: &str, points: Vec<[Q; 2]>) -> Result<Profile> {
+    let n = points.len();
+    let twice_area: Q = (0..n)
+        .map(|i| &points[i][0] * &points[(i + 1) % n][1] - &points[(i + 1) % n][0] * &points[i][1])
+        .sum();
+    validate_simple(&points, &twice_area, id)?;
+    Ok(Profile {
+        id: id.into(),
+        vertex_ids: (0..n).map(|i| format!("v{i}")).collect(),
+        points,
+        twice_area,
+        convex_only: false,
+    })
+}
+
 // Every other vertex must lie strictly inside every oriented edge. This also
 // rejects star polygons, unlike testing only consecutive turns.
 fn strictly_convex(points: &[[Q; 2]], twice_area: &Q) -> bool {
