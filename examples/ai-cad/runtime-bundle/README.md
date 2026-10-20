@@ -8,7 +8,7 @@ A private development bundle runs the original engine and workbench without a Ru
 - [manifest.json](manifest.json): source commit, tested OS/compiler, exact file hashes and native dependency provenance. The bundle's copy is authoritative for its contents.
 - [build.json](build.json): archive SHA-256, size and source state.
 - [verification.json](verification.json): actual isolated doctor, CLI,45 HTTP asset checks, preview/save, platform/tamper rejection and3 typed MCP calls.
-- [browser.png](browser.png): actual packaged viewer, loaded from the extracted bundle.
+- [browser.png](browser.png), [browser-audit.json](browser-audit.json): actual packaged WebGL2 viewer, loaded from the extracted bundle; native sample unchanged.
 
 The retained build is tested on the declared Mac mini platform only. The builder supports the macOS/Linux host layout; the new Linux packaging CI check remains unexecuted while GitHub account billing blocks jobs. Windows is unsupported. No signed distribution, installer service, auto-update or embedded model inference is claimed.
 

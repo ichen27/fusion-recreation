@@ -1,0 +1,831 @@
+{
+  "archive_sha256": "cd2957641b00629c19cfc36e5311f5586f956b039784f825fe3d2678637c0d47",
+  "archive_bytes": 1480716,
+  "doctor": {
+    "source_commit": "1de20e4e36d8698787a3943cf06db19d32818886",
+    "source_dirty": false,
+    "platform": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "tested_os": "27.0.1"
+    },
+    "python": "3.14.3",
+    "files_verified": 120,
+    "saved_solids": 2,
+    "preview_save_reopen_undo": "passed",
+    "assigned_mass_kg": "1/6250",
+    "section_area_mm2": "20",
+    "native_worker_starts": 1,
+    "optional_mcp": {
+      "ready": false,
+      "required_mcp": "2.3.0",
+      "installed_mcp": null,
+      "mismatched_packages": [
+        "annotated-types",
+        "anyio",
+        "attrs",
+        "cffi",
+        "click",
+        "cryptography",
+        "h11",
+        "httpcore2",
+        "httpx2",
+        "idna",
+        "jsonschema",
+        "jsonschema-specifications",
+        "mcp",
+        "mcp-types",
+        "opentelemetry-api",
+        "pycparser",
+        "pydantic",
+        "pydantic_core",
+        "PyJWT",
+        "python-multipart",
+        "referencing",
+        "rpds-py",
+        "sse-starlette",
+        "starlette",
+        "truststore",
+        "typing-inspection",
+        "typing_extensions",
+        "uvicorn"
+      ]
+    }
+  },
+  "http_assets": [
+    "/app.js",
+    "/boolean-editor.mjs",
+    "/boolean-model.mjs",
+    "/camera.mjs",
+    "/dimension-input.mjs",
+    "/display-data.mjs",
+    "/edge-display.mjs",
+    "/feature-actions.mjs",
+    "/hole-editor.mjs",
+    "/hole-model.mjs",
+    "/",
+    "/intersection-editor.mjs",
+    "/intersection-model.mjs",
+    "/linear-editor.mjs",
+    "/linear-model.mjs",
+    "/loft-editor.mjs",
+    "/loft-model.mjs",
+    "/mass-editor.mjs",
+    "/material-editor.mjs",
+    "/mirror-editor.mjs",
+    "/mirror-model.mjs",
+    "/pattern-editor.mjs",
+    "/pattern-model.mjs",
+    "/picking.mjs",
+    "/plane-editor.mjs",
+    "/plane-model.mjs",
+    "/preview-client.mjs",
+    "/revolve-editor.mjs",
+    "/revolve-model.mjs",
+    "/rotation-editor.mjs",
+    "/rotation-model.mjs",
+    "/shell-editor.mjs",
+    "/shell-model.mjs",
+    "/sketch-editor.mjs",
+    "/sketch-model.mjs",
+    "/startup.js",
+    "/stock-editor.mjs",
+    "/stock-model.mjs",
+    "/style.css",
+    "/sweep-editor.mjs",
+    "/sweep-model.mjs",
+    "/topology-view.mjs",
+    "/translate-editor.mjs",
+    "/translate-model.mjs",
+    "/vector-parameters.mjs"
+  ],
+  "http_preview_save": "passed",
+  "core_site_packages_disabled": true,
+  "core_toolchain_path_removed": true,
+  "external_document_policy": "passed",
+  "platform_mismatch_rejected": true,
+  "tampering_rejected": true,
+  "development_path_remapping": "passed",
+  "mcp": {
+    "calls": [
+      {
+        "tool": "cad_inspect",
+        "arguments": {},
+        "reply": {
+          "result": {
+            "revision": 1,
+            "can_undo": true,
+            "can_redo": false,
+            "preview": false,
+            "bodies": [
+              {
+                "boundary": {
+                  "edges": [
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        0,
+                        1
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        1,
+                        2
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        2,
+                        3
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        0,
+                        3
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        4,
+                        5
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        5,
+                        6
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        6,
+                        7
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        4,
+                        7
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        2,
+                        5
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        3,
+                        4
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        1,
+                        6
+                      ]
+                    },
+                    {
+                      "kind": "line",
+                      "vertices": [
+                        0,
+                        7
+                      ]
+                    }
+                  ],
+                  "faces": [
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 0,
+                            "forward": true
+                          },
+                          {
+                            "edge": 1,
+                            "forward": true
+                          },
+                          {
+                            "edge": 2,
+                            "forward": true
+                          },
+                          {
+                            "edge": 3,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "0",
+                        "0",
+                        "-1"
+                      ],
+                      "offset": "0"
+                    },
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 4,
+                            "forward": true
+                          },
+                          {
+                            "edge": 5,
+                            "forward": true
+                          },
+                          {
+                            "edge": 6,
+                            "forward": true
+                          },
+                          {
+                            "edge": 7,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "0",
+                        "0",
+                        "1"
+                      ],
+                      "offset": "2"
+                    },
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 2,
+                            "forward": false
+                          },
+                          {
+                            "edge": 8,
+                            "forward": true
+                          },
+                          {
+                            "edge": 4,
+                            "forward": false
+                          },
+                          {
+                            "edge": 9,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "0",
+                        "-10",
+                        "0"
+                      ],
+                      "offset": "0"
+                    },
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 1,
+                            "forward": false
+                          },
+                          {
+                            "edge": 10,
+                            "forward": true
+                          },
+                          {
+                            "edge": 5,
+                            "forward": false
+                          },
+                          {
+                            "edge": 8,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "4",
+                        "0",
+                        "0"
+                      ],
+                      "offset": "120"
+                    },
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 0,
+                            "forward": false
+                          },
+                          {
+                            "edge": 11,
+                            "forward": true
+                          },
+                          {
+                            "edge": 6,
+                            "forward": false
+                          },
+                          {
+                            "edge": 10,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "0",
+                        "10",
+                        "0"
+                      ],
+                      "offset": "40"
+                    },
+                    {
+                      "kind": "plane",
+                      "loops": [
+                        [
+                          {
+                            "edge": 3,
+                            "forward": true
+                          },
+                          {
+                            "edge": 9,
+                            "forward": true
+                          },
+                          {
+                            "edge": 7,
+                            "forward": true
+                          },
+                          {
+                            "edge": 11,
+                            "forward": false
+                          }
+                        ]
+                      ],
+                      "normal": [
+                        "-4",
+                        "0",
+                        "0"
+                      ],
+                      "offset": "-80"
+                    }
+                  ],
+                  "vertices": [
+                    [
+                      "20",
+                      "4",
+                      "0"
+                    ],
+                    [
+                      "30",
+                      "4",
+                      "0"
+                    ],
+                    [
+                      "30",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "20",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "20",
+                      "0",
+                      "2"
+                    ],
+                    [
+                      "30",
+                      "0",
+                      "2"
+                    ],
+                    [
+                      "30",
+                      "4",
+                      "2"
+                    ],
+                    [
+                      "20",
+                      "4",
+                      "2"
+                    ]
+                  ]
+                },
+                "feature_id": "copy",
+                "volume_mm3": "80"
+              },
+              {
+                "analytic": {
+                  "height": "2",
+                  "holes": [],
+                  "kind": "polygon_prism",
+                  "outer": [
+                    [
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "4"
+                    ],
+                    [
+                      "0",
+                      "4"
+                    ]
+                  ],
+                  "volume": {
+                    "constant_mm3": "80",
+                    "pi_subtract_mm3": "0"
+                  }
+                },
+                "feature_id": "part",
+                "volume_mm3": "80"
+              }
+            ],
+            "changed_parameters": [],
+            "model": {
+              "features": [
+                {
+                  "id": "part.profile",
+                  "kind": "planar_profile",
+                  "vertices": [
+                    {
+                      "id": "v0",
+                      "x": "part.c0",
+                      "y": "part.c0"
+                    },
+                    {
+                      "id": "v1",
+                      "x": "part.c1",
+                      "y": "part.c0"
+                    },
+                    {
+                      "id": "v2",
+                      "x": "part.c1",
+                      "y": "part.c2"
+                    },
+                    {
+                      "id": "v3",
+                      "x": "part.c0",
+                      "y": "part.c2"
+                    }
+                  ]
+                },
+                {
+                  "height": "part.height",
+                  "id": "part",
+                  "kind": "extrude",
+                  "profile": "part.profile"
+                },
+                {
+                  "id": "copy",
+                  "kind": "instance",
+                  "offset": [
+                    "copy.x",
+                    "copy.y",
+                    "copy.z"
+                  ],
+                  "source": "part"
+                }
+              ],
+              "fixed": {},
+              "materials": {
+                "part": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Test material"
+                }
+              },
+              "parameters": {
+                "copy.x": "20",
+                "copy.y": "0",
+                "copy.z": "0",
+                "part.c0": "0",
+                "part.c1": "10",
+                "part.c2": "4",
+                "part.height": "2"
+              }
+            },
+            "profiles": [
+              {
+                "area_mm2": "40",
+                "feature_id": "part.profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "position": [
+                      "0",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "id": "v1",
+                    "position": [
+                      "10",
+                      "0",
+                      "0"
+                    ]
+                  },
+                  {
+                    "id": "v2",
+                    "position": [
+                      "10",
+                      "4",
+                      "0"
+                    ]
+                  },
+                  {
+                    "id": "v3",
+                    "position": [
+                      "0",
+                      "4",
+                      "0"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "resolved_materials": {
+              "copy": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Test material"
+                },
+                "source_features": [
+                  "part"
+                ],
+                "status": "assigned"
+              },
+              "part": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Test material"
+                },
+                "source_features": [
+                  "part"
+                ],
+                "status": "assigned"
+              }
+            },
+            "schema_version": 1,
+            "units": "mm"
+          }
+        }
+      },
+      {
+        "tool": "cad_material_mass",
+        "arguments": {
+          "expected_revision": 1,
+          "feature_ids": [
+            "part",
+            "copy"
+          ]
+        },
+        "reply": {
+          "result": {
+            "revision": 1,
+            "material_sources": {
+              "copy": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Test material"
+                },
+                "source_features": [
+                  "part"
+                ],
+                "status": "assigned"
+              },
+              "part": {
+                "material": {
+                  "density_kg_per_m3": "1000",
+                  "name": "Test material"
+                },
+                "source_features": [
+                  "part"
+                ],
+                "status": "assigned"
+              }
+            },
+            "density_policy": "persistent_uniform_feature_materials",
+            "center_of_mass_mm": [
+              "15",
+              "2",
+              "1"
+            ],
+            "centroidal_inertia_kg_m2": [
+              [
+                "1/3750000000",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "163/9375000000",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "329/18750000000"
+              ]
+            ],
+            "mass_kg": "1/6250",
+            "overlap_policy": "count_each_selected_occurrence",
+            "parts": [
+              {
+                "bounds_mm": [
+                  [
+                    "20",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "30",
+                    "4",
+                    "2"
+                  ]
+                ],
+                "centroid_mm": [
+                  "25",
+                  "2",
+                  "1"
+                ],
+                "centroidal_volume_inertia_mm5": [
+                  [
+                    "400/3",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "2080/3",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "2320/3"
+                  ]
+                ],
+                "feature_id": "copy",
+                "mass_properties": {
+                  "centroidal_inertia_kg_m2": [
+                    [
+                      "1/7500000000",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "13/18750000000",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "0",
+                      "29/37500000000"
+                    ]
+                  ],
+                  "density_kg_per_m3": "1000",
+                  "mass_kg": "1/12500"
+                },
+                "volume_mm3": "80"
+              },
+              {
+                "bounds_mm": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "4",
+                    "2"
+                  ]
+                ],
+                "centroid_mm": [
+                  "5",
+                  "2",
+                  "1"
+                ],
+                "centroidal_volume_inertia_mm5": [
+                  [
+                    "400/3",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "2080/3",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "2320/3"
+                  ]
+                ],
+                "feature_id": "part",
+                "mass_properties": {
+                  "centroidal_inertia_kg_m2": [
+                    [
+                      "1/7500000000",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "13/18750000000",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "0",
+                      "29/37500000000"
+                    ]
+                  ],
+                  "density_kg_per_m3": "1000",
+                  "mass_kg": "1/12500"
+                },
+                "volume_mm3": "80"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "tool": "cad_section",
+        "arguments": {
+          "expected_revision": 1,
+          "feature_id": "part",
+          "axis": "Y",
+          "offset_mm": "2"
+        },
+        "reply": {
+          "result": {
+            "revision": 1,
+            "feature_id": "part",
+            "source_model_sha256": "ba7e245ad324db8c2a292dec2bc34532f9c14985b0f1ec7534efd5fa34d9570e",
+            "representation": "planar_cross_section",
+            "units": "mm",
+            "axis": "Y",
+            "offset_mm": "2",
+            "horizontal_axis": "X",
+            "vertical_axis": "Z",
+            "area_mm2": "20",
+            "centroid_mm": [
+              "5",
+              "2",
+              "1"
+            ],
+            "material_regions": 1,
+            "loops": [
+              {
+                "points_mm": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "0"
+                  ],
+                  [
+                    "10",
+                    "2"
+                  ],
+                  [
+                    "0",
+                    "2"
+                  ]
+                ],
+                "hole": false,
+                "nesting_depth": 0
+              }
+            ],
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1000\" height=\"760\" viewBox=\"0 0 1000 760\" role=\"img\" font-family=\"Arial, sans-serif\"><title>Section Y = 2 mm: part</title><desc>Exact planar cross-section. Hatched regions are material; white openings contain no material. Selected solid only. Scale to fit; do not measure the page.</desc><rect width=\"1000\" height=\"760\" fill=\"white\" /><rect x=\"20\" y=\"20\" width=\"960\" height=\"720\" fill=\"none\" stroke=\"#9caeb1\" /><text x=\"40\" y=\"58\" font-size=\"22\" fill=\"#172b32\">PLANAR SECTION REFERENCE</text><text x=\"40\" y=\"84\" font-size=\"14\" fill=\"#172b32\">part \u00b7 Saved revision 1 \u00b7 Millimeters</text><defs><pattern id=\"hatch\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><path d=\"M -2 2 L 2 -2 M 0 8 L 8 0 M 6 10 L 10 6\" stroke=\"#69888e\" stroke-width=\"0.7\" /></pattern></defs><path id=\"section-material\" d=\"M 80 402 L 600 402 L 600 298 L 80 298 Z\" fill=\"url(#hatch)\" fill-rule=\"evenodd\" stroke=\"#172b32\" stroke-width=\"1.2\" /><text x=\"650\" y=\"155\" font-size=\"14\" fill=\"#172b32\">Y = 2 mm</text><text x=\"650\" y=\"183\" font-size=\"14\" fill=\"#172b32\">Area: 20 mm\u00b2</text><text x=\"650\" y=\"211\" font-size=\"14\" fill=\"#172b32\">Area centroid \u00b7 mm</text><text x=\"650\" y=\"239\" font-size=\"14\" fill=\"#172b32\">X: 5</text><text x=\"650\" y=\"267\" font-size=\"14\" fill=\"#172b32\">Y: 2</text><text x=\"650\" y=\"295\" font-size=\"14\" fill=\"#172b32\">Z: 1</text><text x=\"650\" y=\"323\" font-size=\"14\" fill=\"#172b32\">Material regions: 1</text><text x=\"650\" y=\"351\" font-size=\"14\" fill=\"#172b32\">Openings: 0</text><text x=\"80\" y=\"615\" font-size=\"14\" fill=\"#172b32\">X right / Z up \u00b7 common scale to fit</text><text x=\"40\" y=\"674\" font-size=\"12\" fill=\"#172b32\">Hatching marks material in the cut plane. Separate terminal solids are excluded.</text><text x=\"40\" y=\"698\" font-size=\"12\" fill=\"#172b32\">Reference section only; no tolerances or manufacturing annotations. Do not measure the page.</text><text x=\"40\" y=\"724\" font-size=\"10\" fill=\"#172b32\">Source model SHA-256: ba7e245ad324db8c2a292dec2bc34532f9c14985b0f1ec7534efd5fa34d9570e</text><metadata>{\"area_mm2\":\"20\",\"axis\":\"Y\",\"centroid_mm\":[\"5\",\"2\",\"1\"],\"feature_id\":\"part\",\"horizontal_axis\":\"X\",\"loops\":[{\"hole\":false,\"nesting_depth\":0,\"points_mm\":[[\"0\",\"0\"],[\"10\",\"0\"],[\"10\",\"2\"],[\"0\",\"2\"]]}],\"material_regions\":1,\"offset_mm\":\"2\",\"representation\":\"planar_cross_section\",\"revision\":1,\"source_model_sha256\":\"ba7e245ad324db8c2a292dec2bc34532f9c14985b0f1ec7534efd5fa34d9570e\",\"units\":\"mm\",\"vertical_axis\":\"Z\"}</metadata></svg>"
+          }
+        }
+      }
+    ]
+  }
+}
