@@ -24,6 +24,7 @@ mod mesh_counterbore;
 mod pattern;
 pub mod polyhedral;
 mod rebuild;
+pub mod references;
 mod revolution;
 mod section_boolean;
 mod shell;
@@ -62,6 +63,8 @@ pub struct Model {
     pub relations: BTreeMap<String, Relation>,
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub materials: BTreeMap<String, materials::Material>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub references: BTreeMap<String, references::Reference>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -268,6 +271,14 @@ impl Feature {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "op", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Operation {
+    SetReference {
+        id: String,
+        feature_id: String,
+        target: references::Target,
+    },
+    RemoveReference {
+        id: String,
+    },
     SetMaterial {
         feature_id: String,
         material: materials::Material,
@@ -351,6 +362,8 @@ pub struct Evaluation {
     pub changed_parameters: Vec<String>,
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
     pub resolved_materials: BTreeMap<String, materials::Resolved>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub resolved_references: BTreeMap<String, references::Resolved>,
 }
 fn identifier(s: &str) -> Result<()> {
     if s.is_empty()
@@ -1295,6 +1308,13 @@ fn evaluate_geometry_from(
         );
     }
     checkpoints.push(consumed.clone());
+    references::resolve(
+        m,
+        evaluated
+            .iter()
+            .filter(|(id, _)| !consumed.contains(*id))
+            .map(|(_, body)| body),
+    )?;
     Ok(rebuild::Geometry {
         evaluated,
         profiles,
@@ -1325,6 +1345,24 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
     let mut model = before.clone();
     for op in request.operations {
         match op {
+            Operation::SetReference {
+                id,
+                feature_id,
+                target,
+            } => {
+                identifier(&id)?;
+                let reference = references::bind(&model, feature_id, target)?;
+                model.references.insert(id, reference);
+            }
+            Operation::RemoveReference { id } => {
+                if model.references.remove(&id).is_none() {
+                    return Err(error(
+                        "reference_missing",
+                        &id,
+                        "No saved reference has this name",
+                    ));
+                }
+            }
             Operation::SetMaterial {
                 feature_id,
                 material,
@@ -1480,7 +1518,9 @@ fn evaluate_with_reuse(request: Request, reuse: bool) -> Result<Evaluation> {
         materials::resolve(&model)?
     };
     resolved_materials.retain(|id, _| bodies.iter().any(|body| &body.feature_id == id));
+    let resolved_references = references::resolve(&model, bodies.iter())?;
     Ok(Evaluation {
+        resolved_references,
         resolved_materials,
         schema_version: 1,
         units: "mm",

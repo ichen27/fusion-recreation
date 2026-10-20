@@ -1,16 +1,16 @@
 # Portable runtime validation
 
-A private development bundle runs the original engine and workbench without a Rust installation on the destination. It contains the built engine, editable host/browser sources, pinned optional MCP requirements, native samples and third-party notices. This is an internal validation artifact; project distribution licensing and a public product release remain unresolved.
+A development alpha bundle runs the original engine and workbench without a Rust installation on the destination. It contains the built engine, editable host/browser sources, pinned optional MCP requirements, native samples and third-party notices. The public source repository contains this validation artifact; a project redistribution license and tagged product release remain unresolved.
 
 ## Downloadable artifact
 
 - [original-cad-darwin-arm64.tar.gz](original-cad-darwin-arm64.tar.gz): macOS ARM64 runtime archive. Extract it and follow its README. Python3.14+ and a WebGL2 browser are required.
 - [manifest.json](manifest.json): source commit, tested OS/compiler, exact file hashes and native dependency provenance. The bundle's copy is authoritative for its contents.
 - [build.json](build.json): archive SHA-256, size and source state.
-- [verification.json](verification.json): actual isolated doctor, CLI,46 HTTP asset checks, preview/save, platform/tamper rejection and4 typed MCP calls, including the parts inventory.
+- [verification.json](verification.json): actual isolated doctor, CLI,47 HTTP asset checks, preview/save, platform/tamper rejection and4 typed MCP calls, including the parts inventory. All three alpha samples reopen with the expected exact volumes; the mount retains its named rim.
 - [browser.png](browser.png), [browser-audit.json](browser-audit.json): actual packaged WebGL2 viewer, loaded from the extracted bundle; native sample unchanged.
 
-The retained build is tested on the declared Mac mini platform only. The builder supports the macOS/Linux host layout; the new Linux packaging CI check remains unexecuted while GitHub account billing blocks jobs. Windows is unsupported. No signed distribution, installer service, auto-update or embedded model inference is claimed.
+The retained build is tested on the declared Mac mini platform only. The builder supports the macOS/Linux host layout; Linux packaging is also checked in CI. Windows is unsupported. No signed distribution, installer service, auto-update or embedded model inference is claimed.
 
 ## Run
 
@@ -21,7 +21,7 @@ python3 cad.py doctor
 python3 cad.py viewer --store ../my-part.cad.json
 ```
 
-Open http://127.0.0.1:8765. Save documents outside the bundle. For a sample, copy `samples/materials.cad.json` outside the bundle and pass that path instead. The [bundled instructions](../../../tools/ai-cad/runtime-bundle.md) describe optional MCP installation, remote loopback forwarding, source provenance and updates.
+Open http://127.0.0.1:8765. Save documents outside the bundle. For a modelling sample, copy `samples/counterbored-mount.cad.json` (or `rectangular-plate.cad.json` / `turned-spacer.cad.json`) outside the bundle and pass that path instead. The [bundled instructions](../../../tools/ai-cad/runtime-bundle.md) describe optional MCP installation, remote loopback forwarding, source provenance and updates.
 
 ## Rebuild and validate
 

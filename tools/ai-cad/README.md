@@ -1,4 +1,6 @@
-# AI-native CAD: first editable workflow
+# AI-native CAD: modelling alpha
+
+Start with the [modelling alpha guide](../../docs/modelling-alpha.md) for a runnable build and three complete part workflows.
 
 A bounded working slice of an original CAD engine. A signed-in Codex or Claude Code client can use typed MCP tools to inspect and change a local editable model. The same document is visible and editable in a WebGL 2 browser viewer. Geometry is computed by our Rust boundary kernel, with no OCCT modeling fallback.
 
@@ -136,7 +138,7 @@ python3 scripts/check.py
 
 The CPU performs exact rational geometry and validation. The client browser submits float display triangles/edges to WebGL 2. Those triangles are a disposable display cache; the saved model remains parametric and exact. No GPU geometry compute or local model inference is implemented. Every history snapshot is checked against bounded content/executable-keyed validated results or evaluated through Rust. The bounded native worker validates the starting model, then reuses unchanged feature geometry during the transaction when dependencies and consumption state match. Cross-request geometry reuse and the final large-document scheduler remain open. See [runtime measurements](../../examples/ai-cad/runtime/README.md).
 
-No general geometric sketch solver, arbitrary curved profiles, general booleans, blind/arbitrarily oriented holes, fillets, transforms, assemblies, collaborative editing protocol or production crash-recovery guarantee is added here. Bounded analytic through-holes and explicit STL/optional STEP export are available as described below. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
+No general geometric sketch solver, arbitrary curved profiles, arbitrary-axis holes/rotations, generic fillets, assembly joints, collaborative editing protocol or production crash-recovery guarantee is provided. Bounded planar Booleans, blind holes, translations and supported analytic placements are implemented; see the feature sections below. Bounded analytic through-holes and explicit STL/optional STEP export are available as described below. Atomic replace plus file/directory fsync is tested with injected failures; filesystem/power-loss behavior on physical hardware is not certified. Checksums detect accidental corruption, not hostile tampering.
 
 The C++/OCCT foundation and earlier research remain separate and intact. Existing repository ownership/license status applies; see [dependency attribution](THIRD_PARTY.md). Report issues with the command JSON, error, platform, and Rust/Python versions; remove private design data before sharing.
 

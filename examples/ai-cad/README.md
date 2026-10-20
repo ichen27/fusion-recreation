@@ -1,5 +1,7 @@
 # Two-turn CAD example artifacts
 
+[Modelling alpha](modelling-alpha/README.md): three complete editable part workflows, named references, constrained rectangle authoring, native stages, STL/STEP/SVG exports and actual MCP/browser evidence.
+
 All files are synthetic project examples, not private user designs.
 
 | Artifact | Purpose |

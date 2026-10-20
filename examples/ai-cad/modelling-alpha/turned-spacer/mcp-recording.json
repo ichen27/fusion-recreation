@@ -1,0 +1,1219 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "1"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c3",
+            "mm": "12"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c1"
+                },
+                {
+                  "id": "v1",
+                  "x": "c2",
+                  "y": "c1"
+                },
+                {
+                  "id": "v2",
+                  "x": "c2",
+                  "y": "c3"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c3"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "revolve",
+              "id": "revolved",
+              "profile": "outline"
+            }
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "12"
+                    ],
+                    [
+                      "3",
+                      "12"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1092"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1092*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "c3",
+            "height"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "12",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "84",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "height",
+            "mm": "1"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c0",
+            "mm": "3"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c1",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c2",
+            "mm": "10"
+          },
+          {
+            "op": "define_parameter",
+            "id": "c3",
+            "mm": "12"
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "x": "c0",
+                  "y": "c1"
+                },
+                {
+                  "id": "v1",
+                  "x": "c2",
+                  "y": "c1"
+                },
+                {
+                  "id": "v2",
+                  "x": "c2",
+                  "y": "c3"
+                },
+                {
+                  "id": "v3",
+                  "x": "c0",
+                  "y": "c3"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "revolve",
+              "id": "revolved",
+              "profile": "outline"
+            }
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "12"
+                    ],
+                    [
+                      "3",
+                      "12"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1092"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1092*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c0",
+            "c1",
+            "c2",
+            "c3",
+            "height"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "12",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "84",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "c3",
+            "mm": "15"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c2"
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "15",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "15"
+                    ],
+                    [
+                      "3",
+                      "15"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1365"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1365*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c3"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "15",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "105",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "15",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "15",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "c3",
+            "mm": "15"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c2"
+        ],
+        "transaction_id": "resize"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "15",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "15"
+                    ],
+                    [
+                      "3",
+                      "15"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1365"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1365*pi"
+            }
+          ],
+          "changed_parameters": [
+            "c3"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "15",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "105",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "15",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "15",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "c3",
+            "mm": "0"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "invalid_profile",
+          "message": "Expected one simple polygon: no crossings, repeated points, overlapping edges or collinear corners",
+          "entity": "outline"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "c3",
+            "mm": "15"
+          }
+        ],
+        "preserve": [
+          "c0",
+          "c2"
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Expected current revision 2; inspect and replan",
+          "entity": "document"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "12",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "12"
+                    ],
+                    [
+                      "3",
+                      "12"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1092"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1092*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "12",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "84",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "12",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "12",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "redo",
+        "expected_revision": 3,
+        "transaction_id": "redo"
+      },
+      "reply": {
+        "result": {
+          "revision": 4,
+          "committed_revision": 4,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "15",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "15"
+                    ],
+                    [
+                      "3",
+                      "15"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1365"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1365*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "15",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "105",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "15",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "15",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inspect",
+      "arguments": {},
+      "reply": {
+        "result": {
+          "revision": 4,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "15",
+                "holes": [],
+                "kind": "revolved_profile",
+                "revolution": {
+                  "axis_contact": false,
+                  "points": [
+                    [
+                      "3",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "0"
+                    ],
+                    [
+                      "10",
+                      "15"
+                    ],
+                    [
+                      "3",
+                      "15"
+                    ]
+                  ],
+                  "roles": [
+                    "profile/edge/v0/v1",
+                    "profile/edge/v1/v2",
+                    "profile/edge/v2/v3",
+                    "profile/edge/v0/v3"
+                  ]
+                },
+                "volume": {
+                  "constant_mm3": "0",
+                  "pi_subtract_mm3": "-1365"
+                }
+              },
+              "feature_id": "revolved",
+              "volume_mm3": "1365*pi"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "outline",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v0",
+                    "x": "c0",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v1",
+                    "x": "c2",
+                    "y": "c1"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "c2",
+                    "y": "c3"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "c0",
+                    "y": "c3"
+                  }
+                ]
+              },
+              {
+                "id": "revolved",
+                "kind": "revolve",
+                "profile": "outline"
+              }
+            ],
+            "fixed": {},
+            "parameters": {
+              "c0": "3",
+              "c1": "0",
+              "c2": "10",
+              "c3": "15",
+              "height": "1"
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "105",
+              "feature_id": "outline",
+              "vertices": [
+                {
+                  "id": "v0",
+                  "position": [
+                    "3",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v1",
+                  "position": [
+                    "10",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "10",
+                    "15",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "3",
+                    "15",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

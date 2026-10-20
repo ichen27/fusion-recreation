@@ -6,6 +6,8 @@ The current workflow supports interactive convex/simple-concave profile extrusio
 
 The [platform delivery plan](docs/platform-delivery-plan.md) tracks the full long-term scope and acceptance gates. [Exact parameter relationships](examples/ai-cad/relationships/README.md) now preserve declared design relationships across edits.
 
+**Modelling alpha:** [start here](docs/modelling-alpha.md) for the runnable bundle, three editable sample parts and tested workflows. It targets bounded mechanical parts; full CAD parity remains outside this alpha.
+
 Start with the [AI CAD quickstart](tools/ai-cad/README.md), [command contract](docs/ai-cad-contract.md), and [working demo artifacts](examples/ai-cad/README.md).
 
 - [Approved full-product specification](docs/superpowers/specs/2026-10-11-fusion-recreation-design.md)
@@ -25,7 +27,7 @@ Development and engineering computation run on the Mac mini SSD. Read `/Volumes/
 - [Analytic-cylinder experiment](docs/research/2026-10-11-kernel-cylinder-experiment.md): separate parallel-axis curve prototype, 34 OCCT comparisons and a verified STEP demonstration.
 
 ## Source and GitHub
-Private repository: https://github.com/ichen27/fusion-recreation.
+Public source repository: https://github.com/ichen27/fusion-recreation.
 All original prototype source is now preserved in [experiments/](experiments/README.md).
 Future source changes are committed on feature branches, pushed at meaningful checkpoints,
 checked by GitHub Actions, and reviewed through PRs. See [AGENTS.md](AGENTS.md).

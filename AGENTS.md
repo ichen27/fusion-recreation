@@ -1,6 +1,6 @@
 # Fusion recreation operating guide
 
-Repository: https://github.com/ichen27/fusion-recreation (private).
+Repository: https://github.com/ichen27/fusion-recreation (public).
 Canonical checkout: /Volumes/SamsungSSD1/code/fusion-recreation on the Mac mini.
 Read /Volumes/SamsungSSD1/AGENTS.md and the registry before edits.
 
@@ -8,6 +8,9 @@ Read /Volumes/SamsungSSD1/AGENTS.md and the registry before edits.
 Current objective (2026-10-15): an original AI-native CAD/3D modeling engine.
 For Rust model, subscription-client MCP, document host or viewer work, read
 tools/ai-cad/README.md and docs/ai-cad-contract.md; validation is listed there.
+For modelling alpha work, read docs/modelling-alpha.md and retain the three-part
+acceptance corpus in examples/ai-cad/modelling-alpha. Test on synthetic documents;
+the registered personal model is not a test fixture.
 crates/model-engine currently depends on the exact boundary research crate.
 Preserve the earlier browser/OCCT architecture and headless C++ foundation as a separate track.
 include/cad and src contain original native application code; see docs/native-protocol.md.

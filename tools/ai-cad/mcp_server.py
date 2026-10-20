@@ -344,6 +344,30 @@ class ClearMaterial(Strict):
     feature_id: str
 
 
+class ReferenceSurface(Strict):
+    kind: Literal["surface"]
+    surface_id: str
+
+
+class ReferenceEdgeChain(Strict):
+    kind: Literal["edge_chain"]
+    surfaces: tuple[str, str]
+
+
+class SetReference(Strict):
+    op: Literal["set_reference"]
+    id: str
+    feature_id: str
+    target: Annotated[
+        Union[ReferenceSurface, ReferenceEdgeChain], Field(discriminator="kind")
+    ]
+
+
+class RemoveReference(Strict):
+    op: Literal["remove_reference"]
+    id: str
+
+
 Operation = Annotated[
     Union[
         Define,
@@ -359,6 +383,8 @@ Operation = Annotated[
         ConstrainLinear,
         SetMaterial,
         ClearMaterial,
+        SetReference,
+        RemoveReference,
     ],
     Field(discriminator="op"),
 ]
@@ -523,7 +549,7 @@ def server(path):
         preserve: list[str],
         selection_guard: SelectionGuard | None = None,
     ) -> dict:
-        """Validate a proposed edit without saving. For an edit based on shared selection, pass selection_guard={feature_id,surface_id}, using null surface_id only for body-only selection. Copy the same guard to commit. Selection conflicts require reading current context and replanning; never silently drop the guard. Preserve lists existing parameter IDs whose values must remain unchanged, including derived values if explicitly requested. Do not preserve an automatically dependent parameter when the intended edit requires it to move. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
+        """Validate a proposed edit without saving. set_reference binds a name to a terminal body authored surface or a connected edge chain between two authored surfaces; get topology names first. References survive dimension edits but reject feature-structure changes or consumed sources until explicitly removed/rebound after the changed operations. remove_reference clears a name. Inspect resolved_references for current face IDs/edge indices; indices themselves are revision-bound. Generated Boolean/cut faces are unsupported. For an edit based on shared selection, pass selection_guard={feature_id,surface_id}, using null surface_id only for body-only selection. Copy the same guard to commit. Selection conflicts require reading current context and replanning; never silently drop the guard. Preserve lists existing parameter IDs whose values must remain unchanged, including derived values if explicitly requested. Do not preserve an automatically dependent parameter when the intended edit requires it to move. Fixed constraints are enforced by Rust. Return structured diagnostics or proposed editable model and exact geometry. Inspect/replan on revision_conflict; explain unsupported geometry rather than substituting a mesh."""
         return dispatch(
             store,
             {

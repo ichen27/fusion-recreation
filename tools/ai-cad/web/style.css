@@ -798,3 +798,10 @@ dialog p[role="status"] {
 #inventory-source {
   overflow-wrap: anywhere;
 }
+
+#reference-dialog {
+  width: min(640px, 92vw);
+}
+#reference-second-label[hidden] {
+  display: none;
+}

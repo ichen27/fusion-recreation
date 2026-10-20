@@ -1,6 +1,8 @@
 import { dimensionNumber as number } from "./dimension-input.mjs";
 import {
   draftSketch,
+  sketchDrivers,
+  startRectangle,
   nextSketchPrefix,
   editable,
   addPoint,
@@ -90,6 +92,22 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
         return row;
       }),
     );
+    for (const id of sketchDrivers(draft)) {
+      const label = document.createElement("label");
+      label.textContent = `Driving dimension · ${id}`;
+      const input = document.createElement("input");
+      input.value = draft.values[id];
+      input.setAttribute("aria-label", `Driving dimension ${id}`);
+      input.disabled = pending || !editable(draft, id);
+      input.addEventListener("change", () => {
+        draft.values[id] = input.value;
+        message(
+          "Driving dimension changed. Preview to update the constrained outline and its solid.",
+        );
+      });
+      label.append(input);
+      $("sketch-coordinates").prepend(label);
+    }
     if (draft.vertices.length >= 3) {
       const details = document.createElement("details");
       details.className = "sketch-relationships";
@@ -218,15 +236,10 @@ export function installSketchEditor({ getState, onOpen, onClose, onPreview }) {
     render();
   });
   $("sketch-rectangle").addEventListener("click", () => {
-    draft.vertices = [];
-    draft.relationEdits = {};
-    for (const [x, y] of [
-      [0, 0],
-      [100, 0],
-      [100, 60],
-      [0, 60],
-    ])
-      addPoint(draft, x, y);
+    startRectangle(draft);
+    message(
+      "Rectangle anchored at the origin. Change its width and depth driving dimensions; the four corners stay constrained.",
+    );
     render();
     fit();
   });

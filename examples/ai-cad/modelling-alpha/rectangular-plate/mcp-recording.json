@@ -1,0 +1,1743 @@
+{
+  "calls": [
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "plate.v1.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v1.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v2.x",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v2.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v3.x",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v3.y",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v4.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v4.y",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.width",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.depth",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.height",
+            "mm": "6"
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v1.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v1.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v2.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.width": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v2.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v3.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.width": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v3.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.depth": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v4.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v4.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.depth": "1"
+              }
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "x": "plate.v1.x",
+                  "y": "plate.v1.y"
+                },
+                {
+                  "id": "v2",
+                  "x": "plate.v2.x",
+                  "y": "plate.v2.y"
+                },
+                {
+                  "id": "v3",
+                  "x": "plate.v3.x",
+                  "y": "plate.v3.y"
+                },
+                {
+                  "id": "v4",
+                  "x": "plate.v4.x",
+                  "y": "plate.v4.y"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "plate.solid",
+              "profile": "plate.profile",
+              "height": "plate.height"
+            }
+          },
+          {
+            "op": "fix_parameter",
+            "id": "plate.height"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "result": {
+          "revision": 0,
+          "can_undo": false,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "36000"
+            }
+          ],
+          "changed_parameters": [
+            "plate.depth",
+            "plate.height",
+            "plate.v1.x",
+            "plate.v1.y",
+            "plate.v2.x",
+            "plate.v2.y",
+            "plate.v3.x",
+            "plate.v3.y",
+            "plate.v4.x",
+            "plate.v4.y",
+            "plate.width"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "100",
+              "plate.v2.y": "0",
+              "plate.v3.x": "100",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "100"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 0,
+        "operations": [
+          {
+            "op": "define_parameter",
+            "id": "plate.v1.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v1.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v2.x",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v2.y",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v3.x",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v3.y",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v4.x",
+            "mm": "0"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.v4.y",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.width",
+            "mm": "100"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.depth",
+            "mm": "60"
+          },
+          {
+            "op": "define_parameter",
+            "id": "plate.height",
+            "mm": "6"
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v1.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v1.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v2.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.width": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v2.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v3.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.width": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v3.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.depth": "1"
+              }
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v4.x",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {}
+            }
+          },
+          {
+            "op": "set_relation",
+            "id": "plate.v4.y",
+            "relation": {
+              "offset_mm": "0",
+              "terms": {
+                "plate.depth": "1"
+              }
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "planar_profile",
+              "id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "x": "plate.v1.x",
+                  "y": "plate.v1.y"
+                },
+                {
+                  "id": "v2",
+                  "x": "plate.v2.x",
+                  "y": "plate.v2.y"
+                },
+                {
+                  "id": "v3",
+                  "x": "plate.v3.x",
+                  "y": "plate.v3.y"
+                },
+                {
+                  "id": "v4",
+                  "x": "plate.v4.x",
+                  "y": "plate.v4.y"
+                }
+              ]
+            }
+          },
+          {
+            "op": "add_feature",
+            "feature": {
+              "kind": "extrude",
+              "id": "plate.solid",
+              "profile": "plate.profile",
+              "height": "plate.height"
+            }
+          },
+          {
+            "op": "fix_parameter",
+            "id": "plate.height"
+          }
+        ],
+        "preserve": [],
+        "transaction_id": "create"
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "committed_revision": 1,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "36000"
+            }
+          ],
+          "changed_parameters": [
+            "plate.depth",
+            "plate.height",
+            "plate.v1.x",
+            "plate.v1.y",
+            "plate.v2.x",
+            "plate.v2.y",
+            "plate.v3.x",
+            "plate.v3.y",
+            "plate.v4.x",
+            "plate.v4.y",
+            "plate.width"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "100",
+              "plate.v2.y": "0",
+              "plate.v3.x": "100",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "100"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.width",
+            "mm": "120"
+          }
+        ],
+        "preserve": [
+          "plate.depth",
+          "plate.height"
+        ]
+      },
+      "reply": {
+        "result": {
+          "revision": 1,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "43200",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "43200"
+            }
+          ],
+          "changed_parameters": [
+            "plate.v2.x",
+            "plate.v3.x",
+            "plate.width"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "120",
+              "plate.v2.y": "0",
+              "plate.v3.x": "120",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "120"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "7200",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "120",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "120",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_commit",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.width",
+            "mm": "120"
+          }
+        ],
+        "preserve": [
+          "plate.depth",
+          "plate.height"
+        ],
+        "transaction_id": "resize"
+      },
+      "reply": {
+        "result": {
+          "revision": 2,
+          "committed_revision": 2,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "43200",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "43200"
+            }
+          ],
+          "changed_parameters": [
+            "plate.v2.x",
+            "plate.v3.x",
+            "plate.width"
+          ],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "120",
+              "plate.v2.y": "0",
+              "plate.v3.x": "120",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "120"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "7200",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "120",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "120",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 2,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.height",
+            "mm": "9"
+          }
+        ],
+        "preserve": []
+      },
+      "reply": {
+        "error": {
+          "code": "constraint_conflict",
+          "message": "Parameter is fixed; release its constraint explicitly before changing it",
+          "entity": "plate.height"
+        }
+      }
+    },
+    {
+      "tool": "cad_preview",
+      "arguments": {
+        "expected_revision": 1,
+        "operations": [
+          {
+            "op": "set_parameter",
+            "id": "plate.width",
+            "mm": "120"
+          }
+        ],
+        "preserve": [
+          "plate.depth",
+          "plate.height"
+        ]
+      },
+      "reply": {
+        "error": {
+          "code": "revision_conflict",
+          "message": "Expected current revision 2; inspect and replan",
+          "entity": "document"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "undo",
+        "expected_revision": 2,
+        "transaction_id": "undo"
+      },
+      "reply": {
+        "result": {
+          "revision": 3,
+          "committed_revision": 3,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": true,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "0"
+                  ],
+                  [
+                    "100",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "36000",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "36000"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "100",
+              "plate.v2.y": "0",
+              "plate.v3.x": "100",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "100"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "6000",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "100",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "100",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_history",
+      "arguments": {
+        "action": "redo",
+        "expected_revision": 3,
+        "transaction_id": "redo"
+      },
+      "reply": {
+        "result": {
+          "revision": 4,
+          "committed_revision": 4,
+          "replayed": false,
+          "can_undo": true,
+          "can_redo": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "43200",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "43200"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "120",
+              "plate.v2.y": "0",
+              "plate.v3.x": "120",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "120"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "7200",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "120",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "120",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "tool": "cad_inspect",
+      "arguments": {},
+      "reply": {
+        "result": {
+          "revision": 4,
+          "can_undo": true,
+          "can_redo": false,
+          "preview": false,
+          "bodies": [
+            {
+              "analytic": {
+                "height": "6",
+                "holes": [],
+                "kind": "polygon_prism",
+                "outer": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "0"
+                  ],
+                  [
+                    "120",
+                    "60"
+                  ],
+                  [
+                    "0",
+                    "60"
+                  ]
+                ],
+                "volume": {
+                  "constant_mm3": "43200",
+                  "pi_subtract_mm3": "0"
+                }
+              },
+              "feature_id": "plate.solid",
+              "volume_mm3": "43200"
+            }
+          ],
+          "changed_parameters": [],
+          "model": {
+            "features": [
+              {
+                "id": "plate.profile",
+                "kind": "planar_profile",
+                "vertices": [
+                  {
+                    "id": "v1",
+                    "x": "plate.v1.x",
+                    "y": "plate.v1.y"
+                  },
+                  {
+                    "id": "v2",
+                    "x": "plate.v2.x",
+                    "y": "plate.v2.y"
+                  },
+                  {
+                    "id": "v3",
+                    "x": "plate.v3.x",
+                    "y": "plate.v3.y"
+                  },
+                  {
+                    "id": "v4",
+                    "x": "plate.v4.x",
+                    "y": "plate.v4.y"
+                  }
+                ]
+              },
+              {
+                "height": "plate.height",
+                "id": "plate.solid",
+                "kind": "extrude",
+                "profile": "plate.profile"
+              }
+            ],
+            "fixed": {
+              "plate.height": "6"
+            },
+            "parameters": {
+              "plate.depth": "60",
+              "plate.height": "6",
+              "plate.v1.x": "0",
+              "plate.v1.y": "0",
+              "plate.v2.x": "120",
+              "plate.v2.y": "0",
+              "plate.v3.x": "120",
+              "plate.v3.y": "60",
+              "plate.v4.x": "0",
+              "plate.v4.y": "60",
+              "plate.width": "120"
+            },
+            "relations": {
+              "plate.v1.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v1.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v2.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v2.y": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v3.x": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.width": "1"
+                }
+              },
+              "plate.v3.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              },
+              "plate.v4.x": {
+                "offset_mm": "0",
+                "terms": {}
+              },
+              "plate.v4.y": {
+                "offset_mm": "0",
+                "terms": {
+                  "plate.depth": "1"
+                }
+              }
+            }
+          },
+          "profiles": [
+            {
+              "area_mm2": "7200",
+              "feature_id": "plate.profile",
+              "vertices": [
+                {
+                  "id": "v1",
+                  "position": [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v2",
+                  "position": [
+                    "120",
+                    "0",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v3",
+                  "position": [
+                    "120",
+                    "60",
+                    "0"
+                  ]
+                },
+                {
+                  "id": "v4",
+                  "position": [
+                    "0",
+                    "60",
+                    "0"
+                  ]
+                }
+              ]
+            }
+          ],
+          "schema_version": 1,
+          "units": "mm"
+        }
+      }
+    }
+  ]
+}

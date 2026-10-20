@@ -100,6 +100,11 @@ def build(output, development=False):
             ROOT / "examples/ai-cad/planar-sections/source.cad.json",
             Path("samples/cavity.cad.json"),
         )
+        for name in ("rectangular-plate", "counterbored-mount", "turned-spacer"):
+            copy(
+                ROOT / f"examples/ai-cad/modelling-alpha/{name}/edited.cad.json",
+                Path(f"samples/{name}.cad.json"),
+            )
         notices = []
         for package in metadata["packages"]:
             if package["source"] is None:

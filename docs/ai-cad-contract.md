@@ -583,3 +583,11 @@ Browser exports re-read at the captured revision before download. CSV includes
 revision/hash per row and uses RFC-style quoted cells; formula-like cells receive an
 apostrophe prefix. JSON preserves exact strings. Import exact numeric CSV columns
 as text to avoid spreadsheet conversion. No new native schema fields are introduced.
+
+## Saved authored references
+
+`set_reference` takes `id`, terminal `feature_id`, and a target: `{ "kind": "surface", "surface_id": "feature/..." }` or `{ "kind": "edge_chain", "surfaces": ["feature/...", "feature/..."] }`. Obtain names from topology inspection. `remove_reference` takes an existing reference `id`. Both are ordinary preview/commit operations, including revision checks, history and atomic failure.
+
+The optional native `references` map stores target plus exact source feature ancestry. Parameter values are not part of this guard, so dimension edits can preserve the reference. A changed ancestry, absent/nonterminal source, missing surface or ambiguous edge intersection rejects. Rebinding after structural edits must be explicit and occur after those operations in the batch. Loaded references are validated as well as newly bound ones. Targets require `authored_surfaces`; generated Boolean/cut face indices are rejected. An edge chain must be a single connected, nonbranching intersection on one native curve (a full circular rim can span four arcs). At most 16 names are allowed.
+
+Evaluation includes `resolved_references` only when names exist, with feature, target, current face IDs and edge indices. Indices remain revision-bound; persist the named reference and target, never an index. Surface reselection in the browser uses the current saved context. Saved references are not yet downstream feature inputs or a general topology naming mechanism.
