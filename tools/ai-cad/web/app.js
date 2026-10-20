@@ -1,3 +1,12 @@
+import {
+  presetCamera,
+  fitCamera,
+  orbitCamera,
+  panCamera,
+  zoomCamera,
+  displayCamera,
+  cameraShader,
+} from "/camera.mjs";
 import { createFeatureActions } from "/feature-actions.mjs";
 import { installLoftEditor } from "/loft-editor.mjs";
 import { loftCandidates } from "/loft-model.mjs";
@@ -22,7 +31,6 @@ import {
   packVertices,
   formatMeasurement,
   displayFrame,
-  fittedZoom,
 } from "/display-data.mjs";
 import { installSketchEditor } from "/sketch-editor.mjs";
 import { installHoleEditor } from "/hole-editor.mjs";
@@ -49,9 +57,7 @@ let saved,
   busy = false;
 const canvas = $("viewport");
 const gl = canvas.getContext("webgl2", { antialias: true });
-let yaw = -0.65,
-  pitch = 0.65,
-  zoom = 1,
+let camera = presetCamera("isometric"),
   selectedBody = null,
   selectedSurface = null,
   visibleBodies = [],
@@ -85,11 +91,9 @@ function initializeGL() {
       gl.VERTEX_SHADER,
       `#version 300 es
     in vec3 position; in vec3 color; out vec3 tint;
-    uniform vec2 angles; uniform float zoom; uniform float aspect;
-    void main(){ vec3 p=position*zoom;
-      float c=cos(angles.x),s=sin(angles.x);p=vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);
-      c=cos(angles.y);s=sin(angles.y);p=vec3(p.x,-s*p.y+c*p.z,c*p.y+s*p.z);
-      gl_Position=vec4(p.x/aspect,p.y,-p.z*0.2,1.0);gl_PointSize=7.0;tint=color; }`,
+    uniform vec2 angles; uniform float zoom; uniform float aspect; uniform vec2 pan;
+    ${cameraShader}
+    void main(){ gl_Position=vec4(cameraProject(position),1.0);gl_PointSize=7.0;tint=color; }`,
     ),
   );
   gl.attachShader(
@@ -258,8 +262,10 @@ function draw() {
   gl.viewport(0, 0, w, h);
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  gl.uniform2f(gl.getUniformLocation(program, "angles"), yaw, pitch);
-  gl.uniform1f(gl.getUniformLocation(program, "zoom"), fittedZoom(zoom, w / h));
+  const view = displayCamera(camera, w / h);
+  gl.uniform2f(gl.getUniformLocation(program, "angles"), view.yaw, view.pitch);
+  gl.uniform2f(gl.getUniformLocation(program, "pan"), ...view.pan);
+  gl.uniform1f(gl.getUniformLocation(program, "zoom"), view.zoom);
   gl.uniform1f(gl.getUniformLocation(program, "aspect"), w / h);
   gl.enable(gl.POLYGON_OFFSET_FILL);
   gl.polygonOffset(1, 1);
@@ -756,9 +762,12 @@ function selectBody(id) {
 $("clear-selection").addEventListener("click", () => selectBody(null));
 let pointer;
 canvas.addEventListener("pointerdown", (e) => {
-  if (e.button !== 0 || pointer) return;
+  if (![0, 1].includes(e.button) || pointer) return;
+  e.preventDefault();
+  canvas.focus({ preventScroll: true });
   pointer = {
     id: e.pointerId,
+    mode: e.button === 1 || e.shiftKey ? "pan" : "orbit",
     start: [e.clientX, e.clientY],
     last: [e.clientX, e.clientY],
     dragged: false,
@@ -772,20 +781,26 @@ canvas.addEventListener("pointermove", (e) => {
   )
     pointer.dragged = true;
   if (!pointer.dragged) return;
-  yaw += (e.clientX - pointer.last[0]) * 0.008;
-  pitch += (e.clientY - pointer.last[1]) * 0.008;
+  const dx = e.clientX - pointer.last[0],
+    dy = e.clientY - pointer.last[1];
+  if (pointer.mode === "pan")
+    camera = panCamera(camera, dx, dy, canvas.clientWidth, canvas.clientHeight);
+  else {
+    camera = orbitCamera(camera, dx, dy);
+    $("view-preset").value = "custom";
+  }
   pointer.last = [e.clientX, e.clientY];
   draw();
 });
 canvas.addEventListener("pointerup", (e) => {
   if (!pointer || pointer.id !== e.pointerId) return;
-  if (!pointer.dragged && gl && !contextLost) {
+  if (!pointer.dragged && pointer.mode === "orbit" && gl && !contextLost) {
     const rect = canvas.getBoundingClientRect(),
       aspect = canvas.width / canvas.height;
     const hit = pickSurface(
       packedDisplay,
       bodyGroups,
-      { yaw, pitch, zoom: fittedZoom(zoom, aspect), aspect },
+      displayCamera(camera, aspect),
       (2 * (e.clientX - rect.left)) / rect.width - 1,
       1 - (2 * (e.clientY - rect.top)) / rect.height,
     );
@@ -806,13 +821,49 @@ canvas.addEventListener(
   "wheel",
   (e) => {
     e.preventDefault();
-    zoom = Math.min(4, Math.max(0.3, zoom * Math.exp(-e.deltaY * 0.001)));
+    const rect = canvas.getBoundingClientRect();
+    const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? rect.height : 1;
+    camera = zoomCamera(camera, e.deltaY * unit, [
+      (2 * (e.clientX - rect.left)) / rect.width - 1,
+      1 - (2 * (e.clientY - rect.top)) / rect.height,
+    ]);
     draw();
   },
   { passive: false },
 );
 $("fit-view").addEventListener("click", () => {
-  zoom = 1;
+  camera = fitCamera(camera);
+  draw();
+});
+$("view-preset").addEventListener("change", () => {
+  camera = presetCamera($("view-preset").value);
+  draw();
+});
+canvas.addEventListener("keydown", (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const delta = {
+    ArrowLeft: [-12, 0],
+    ArrowRight: [12, 0],
+    ArrowUp: [0, -12],
+    ArrowDown: [0, 12],
+  }[e.key];
+  if (delta) {
+    if (e.shiftKey)
+      camera = panCamera(
+        camera,
+        ...delta,
+        canvas.clientWidth,
+        canvas.clientHeight,
+      );
+    else {
+      camera = orbitCamera(camera, ...delta);
+      $("view-preset").value = "custom";
+    }
+  } else if (["+", "="].includes(e.key)) camera = zoomCamera(camera, -120);
+  else if (e.key === "-") camera = zoomCamera(camera, 120);
+  else if (e.key.toLowerCase() === "f") camera = fitCamera(camera);
+  else return;
+  e.preventDefault();
   draw();
 });
 new ResizeObserver(draw).observe(canvas);

@@ -12,7 +12,7 @@ const packed = (points) =>
   new Float32Array(points.flatMap((p) => [...p, 0.3, 0.6, 0.5]));
 const group = (id, first = 0) => ({ feature_id: id, first, count: 3 });
 test("frontmost solid wins independent of body order, with stable coplanar ties", () => {
-  const data = packed([...triangle(0), ...triangle(1)]);
+  const data = packed([...triangle(0), ...triangle(-1)]);
   const groups = [group("back"), group("front", 3)];
   assert.equal(pickBody(data, groups, camera, 0, 0), "front");
   assert.equal(pickBody(data, groups.toReversed(), camera, 0, 0), "front");
@@ -111,7 +111,7 @@ test("missing triangles, collapsed faces, clipping and a hole stay unselected", 
 
 test("surface picking returns exact provenance of the visible triangle and retains body fallback", async () => {
   const { pickSurface } = await import("./web/picking.mjs");
-  const data = packed([...triangle(0), ...triangle(1)]);
+  const data = packed([...triangle(0), ...triangle(-1)]);
   const groups = [
     { ...group("copy", 0), triangle_surfaces: ["feature/part/cap/top"] },
     {

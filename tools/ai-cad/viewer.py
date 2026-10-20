@@ -180,6 +180,7 @@ def handler(store, port):
                 "/vector-parameters.mjs": ("vector-parameters.mjs", "text/javascript"),
                 "/translate-model.mjs": ("translate-model.mjs", "text/javascript"),
                 "/translate-editor.mjs": ("translate-editor.mjs", "text/javascript"),
+                "/camera.mjs": ("camera.mjs", "text/javascript"),
                 "/picking.mjs": ("picking.mjs", "text/javascript"),
                 "/edge-display.mjs": ("edge-display.mjs", "text/javascript"),
                 "/topology-view.mjs": ("topology-view.mjs", "text/javascript"),

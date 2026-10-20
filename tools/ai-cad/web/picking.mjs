@@ -1,26 +1,19 @@
 // Disposable display-space selection. Exact modeling uses the returned feature ID.
-function projector({ yaw, pitch, zoom, aspect }) {
-  const cy = Math.cos(yaw),
-    sy = Math.sin(yaw),
-    cp = Math.cos(pitch),
-    sp = Math.sin(pitch);
-  return (x, y, z) => {
-    x *= zoom;
-    y *= zoom;
-    z *= zoom;
-    const xx = cy * x - sy * y,
-      yy = sy * x + cy * y;
-    return [xx / aspect, -sp * yy + cp * z, -0.2 * (cp * yy + sp * z)];
-  };
-}
+import { projector } from "./camera.mjs";
 export function projectVertex(point, camera) {
   return projector(camera)(...point);
 }
 export function pickSurface(packed, groups, camera, x, y) {
   if (
-    ![x, y, camera.yaw, camera.pitch, camera.zoom, camera.aspect].every(
-      Number.isFinite,
-    ) ||
+    ![
+      x,
+      y,
+      camera.yaw,
+      camera.pitch,
+      camera.zoom,
+      camera.aspect,
+      ...(camera.pan ?? [0, 0]),
+    ].every(Number.isFinite) ||
     camera.aspect <= 0 ||
     Math.abs(x) > 1 ||
     Math.abs(y) > 1

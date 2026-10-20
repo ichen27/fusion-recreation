@@ -387,3 +387,7 @@ cover cavities and disconnected pieces. Curved analytic stock is not supported y
 ### Exact decimal and unit entry
 
 User dimension operations accept `12.5`, `1/2 in` and `2.54 cm`, with exact rational millimeter storage. Bare values are mm; supported suffixes are mm, cm, m, in and ft. See [the command contract](../../docs/ai-cad-contract.md#exact-dimension-entry) for grammar and limits. Native model and dimensionless/relationship literals remain integer/fraction strings. Browser draft drawings are approximate; saved geometry is exact. [Retained dimension-entry demonstration](../../examples/ai-cad/dimensions/README.md).
+
+### Viewport navigation
+
+Choose an orthographic view from the View control. Drag to orbit; Shift-drag or middle-drag pans; scroll zooms at the cursor. Focus the viewport for arrow-key orbit, Shift+arrow pan, +/− zoom and F to fit. Named views fit automatically; Fit view preserves orientation. These controls update disposable camera state only. [Navigation evidence and limits](../../examples/ai-cad/navigation/README.md).
