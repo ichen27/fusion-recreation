@@ -24,6 +24,7 @@ MODES = {
     "--topology": 4,
     "--edge": 5,
     "--interference": 6,
+    "--clearance": 7,
 }
 
 

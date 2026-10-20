@@ -225,3 +225,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Planar interference checkpoint
 
 [Exact positive-volume overlap checks](../examples/ai-cad/interference/README.md) inspect pairs of saved planar parts without consuming geometry. Backing cells preserve cavities, concavity and disconnected material; native CPU half-space checks avoid display approximations. Browser/MCP results distinguish positive common volume from unresolved contact and explicitly reject curved stock. General contact/clearance, curved intersections, all-pairs scheduling and assembly joints remain open.
+
+## Exact planar separation checkpoint
+
+[Material distance and contact classification](../examples/ai-cad/clearance/README.md) distinguish separated, touching and overlapping planar parts, including cavities and disconnected pieces. Exact squared distances and rational closest points are checked against independent solids; limits reject incomplete searches. Browser/MCP preserve native history. Curved clearance, penetration depth, motion envelopes and tolerance-aware assembly analysis remain open. Next broaden original modeling with hollow planar parts for enclosures.

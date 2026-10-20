@@ -35,7 +35,7 @@ fn cells(model: &Model, geometry: &crate::rebuild::Geometry, id: &str) -> Result
         Err(e) => Err(e),
     }
 }
-fn bounds(boundary: &Boundary) -> Result<[[Q; 3]; 2]> {
+pub(super) fn bounds(boundary: &Boundary) -> Result<[[Q; 3]; 2]> {
     let points = boundary
         .vertices
         .iter()
@@ -53,7 +53,7 @@ fn bounds(boundary: &Boundary) -> Result<[[Q; 3]; 2]> {
     }
     Ok(bounds)
 }
-pub fn inspect(request: Request) -> Result<Interference> {
+pub(super) fn prepare(request: &Request) -> Result<(Vec<Boundary>, Vec<Boundary>)> {
     if request.left == request.right {
         return Err(error(
             "invalid_pair",
@@ -64,6 +64,10 @@ pub fn inspect(request: Request) -> Result<Interference> {
     let geometry = crate::evaluate_geometry(&request.model)?;
     let left = cells(&request.model, &geometry, &request.left)?;
     let right = cells(&request.model, &geometry, &request.right)?;
+    Ok((left, right))
+}
+pub fn inspect(request: Request) -> Result<Interference> {
+    let (left, right) = prepare(&request)?;
     let left_bounds = left.iter().map(bounds).collect::<Result<Vec<_>>>()?;
     let right_bounds = right.iter().map(bounds).collect::<Result<Vec<_>>>()?;
     let mut volume = Q::zero();

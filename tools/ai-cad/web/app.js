@@ -357,6 +357,8 @@ function intentControls() {
     saved?.bodies.some(
       (b) => b.feature_id === selectedBody && planeCandidate(b),
     ) && $("interference-other").value;
+  $("measure-clearance").disabled =
+    interferencePending || busy || !!preview || editPending || !canCompare;
   $("check-interference").disabled =
     interferencePending || busy || !!preview || editPending || !canCompare;
   $("interference-other").disabled =
@@ -486,7 +488,7 @@ $("interference-other").addEventListener("change", () => {
   interferenceEpoch += 1;
   $("interference-info").textContent = "";
 });
-$("check-interference").addEventListener("click", async () => {
+async function inspectPair(mode) {
   const expected_revision = saved.revision,
     left = selectedBody,
     right = $("interference-other").value,
@@ -502,10 +504,13 @@ $("check-interference").addEventListener("click", async () => {
     saved.revision === expected_revision;
   interferencePending = true;
   intentControls();
-  $("interference-info").textContent = "Checking exact shared material volume…";
+  $("interference-info").textContent =
+    mode === "clearance"
+      ? "Measuring exact separation…"
+      : "Checking exact shared material volume…";
   try {
     const reply = await (
-      await fetch("/api/interference", {
+      await fetch(`/api/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ expected_revision, left, right }),
@@ -514,16 +519,29 @@ $("check-interference").addEventListener("click", async () => {
     if (!current()) return;
     if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
     const value = reply.result;
-    $("interference-info").textContent = value.positive_volume_overlap
-      ? `${left} and ${right} overlap by ${value.overlap_volume_mm3} mm³ (exact).`
-      : `${left} and ${right} have no positive-volume overlap. They may still touch; clearance has not been measured.`;
+    if (mode === "clearance") {
+      $("interference-info").textContent =
+        value.relation === "overlapping"
+          ? `${left} and ${right} overlap. Material separation is 0 mm; penetration depth has not been measured.`
+          : `${left} and ${right}: ${value.relation === "touching" ? "touching" : "separated"}; minimum distance ${value.distance_mm} mm (exact). Closest points: (${value.closest_points_mm[0].join(", ")}) → (${value.closest_points_mm[1].join(", ")}) mm. This does not include manufacturing tolerances.`;
+    } else {
+      $("interference-info").textContent = value.positive_volume_overlap
+        ? `${left} and ${right} overlap by ${value.overlap_volume_mm3} mm³ (exact).`
+        : `${left} and ${right} have no positive-volume overlap. They may still touch; clearance has not been measured.`;
+    }
   } catch (error) {
     if (current()) $("interference-info").textContent = error.message;
   } finally {
     interferencePending = false;
     intentControls();
   }
-});
+}
+$("check-interference").addEventListener("click", () =>
+  inspectPair("interference"),
+);
+$("measure-clearance").addEventListener("click", () =>
+  inspectPair("clearance"),
+);
 $("topology-selection").addEventListener("click", async () => {
   const expected_revision = saved.revision,
     feature_id = selectedBody,

@@ -24,7 +24,7 @@ pub struct Measurement {
     pub incident_surfaces: Vec<String>,
     pub patch_seam: bool,
 }
-fn root(value: &Q) -> String {
+pub(super) fn root(value: &Q) -> String {
     let numerator = value.numer().sqrt();
     let denominator = value.denom().sqrt();
     if &numerator * &numerator == *value.numer() && &denominator * &denominator == *value.denom() {
