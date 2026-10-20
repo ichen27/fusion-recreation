@@ -28,7 +28,7 @@ pub struct EvaluatedProfile {
 
 pub(super) struct Profile {
     id: String,
-    vertex_ids: Vec<String>,
+    pub(super) vertex_ids: Vec<String>,
     pub(super) points: Vec<[Q; 2]>,
     pub(super) twice_area: Q,
     pub(super) convex_only: bool,

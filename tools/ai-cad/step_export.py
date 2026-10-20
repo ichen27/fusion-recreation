@@ -1,6 +1,7 @@
 """Optional OCCT translation of an already validated analytic boundary; no booleans."""
 
 from frustum_export import conical_faces, conical_wall
+from revolve_export import faces as revolved_faces
 from fractions import Fraction
 import math
 import os
@@ -59,7 +60,9 @@ def translate(body):
     converted = []
     if "analytic" in body:
         shape = body["analytic"]
-        if "top_radius" in shape:
+        if "revolution" in shape:
+            converted = revolved_faces(shape)
+        elif "top_radius" in shape:
             converted = conical_faces(shape)
         else:
             h = number(shape["height"])

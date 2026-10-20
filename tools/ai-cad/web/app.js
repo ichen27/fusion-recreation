@@ -1,3 +1,5 @@
+import { installRevolveEditor } from "/revolve-editor.mjs";
+import { revolveCandidates } from "/revolve-model.mjs";
 import {
   presetCamera,
   fitCamera,
@@ -45,6 +47,7 @@ let sketches,
   stocks,
   intersections,
   lofts,
+  revolutions,
   translations,
   rotations,
   booleans;
@@ -877,6 +880,12 @@ function controls() {
     editPending ||
     !saved ||
     booleanCandidates(saved).length < 2;
+  $("new-revolve").disabled =
+    busy ||
+    !!preview ||
+    editPending ||
+    !saved ||
+    revolveCandidates(saved).length < 1;
   $("new-loft").disabled =
     busy ||
     !!preview ||
@@ -890,7 +899,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
+    ".edit-revolve, .edit-mirror, .edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -912,7 +921,7 @@ function render(state) {
   const profiles = state.profiles ?? [];
   const extruded = new Set(
     state.model.features.flatMap((f) =>
-      f.kind === "extrude"
+      ["extrude", "revolve"].includes(f.kind)
         ? [f.profile]
         : f.kind === "planar_loft"
           ? [f.bottom, f.top]
@@ -992,6 +1001,14 @@ function render(state) {
               : null,
           ),
         );
+        div.append(button);
+      }
+      if (f.kind === "revolve") {
+        const button = document.createElement("button");
+        button.className = "edit-revolve";
+        button.textContent = "Edit revolution";
+        button.setAttribute("aria-label", `Edit revolution ${f.id}`);
+        button.addEventListener("click", () => revolutions.open(f.id));
         div.append(button);
       }
       if (
@@ -1407,6 +1424,8 @@ shells = installShellEditor(editorCallbacks("Shell"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));
 rotations = installRotationEditor(editorCallbacks("Rotation"));
+revolutions = installRevolveEditor(editorCallbacks("Revolve"));
+$("new-revolve").addEventListener("click", () => revolutions.open());
 lofts = installLoftEditor(editorCallbacks("Loft"));
 $("new-loft").addEventListener("click", () => lofts.open());
 intersections = installIntersectionEditor(editorCallbacks("Intersection"));

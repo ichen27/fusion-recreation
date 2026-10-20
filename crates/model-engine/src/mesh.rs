@@ -169,6 +169,57 @@ fn build_mesh(body: &Body, segments: usize, phase: f64, tagged: bool) -> Result<
             }
         }
         mesh.edges = b.edges.iter().map(|e| e.vertices).collect();
+    } else if let Some(profile) = body.analytic.as_ref().and_then(|s| s.revolution.as_ref()) {
+        let mut rings = Vec::new();
+        let mut radii = Vec::new();
+        for p in &profile.points {
+            let r = value(&p[0])?;
+            let z = value(&p[1])?;
+            radii.push(r);
+            if r == 0.0 {
+                let index = mesh.vertices.len();
+                mesh.vertices.push([0.0, 0.0, z]);
+                rings.push(vec![index; segments]);
+            } else {
+                let mut ring = Vec::new();
+                for i in 0..segments {
+                    let theta = std::f64::consts::TAU * (i as f64 + phase) / segments as f64;
+                    ring.push(mesh.vertices.len());
+                    mesh.vertices.push([r * theta.cos(), r * theta.sin(), z]);
+                }
+                for i in 0..segments {
+                    mesh.edges.push([ring[i], ring[(i + 1) % segments]]);
+                }
+                rings.push(ring);
+                mesh.max_radial_error_mm = mesh
+                    .max_radial_error_mm
+                    .max(r * (1.0 - (std::f64::consts::PI / segments as f64).cos()));
+            }
+        }
+        for i in 0..rings.len() {
+            let next = (i + 1) % rings.len();
+            if radii[i] == 0.0 && radii[next] == 0.0 {
+                continue;
+            }
+            for k in 0..segments {
+                let j = (k + 1) % segments;
+                for t in [
+                    [rings[i][k], rings[i][j], rings[next][j]],
+                    [rings[i][k], rings[next][j], rings[next][k]],
+                ] {
+                    if t[0] != t[1] && t[1] != t[2] && t[0] != t[2] {
+                        mesh.triangle(t, &profile.roles[i]);
+                    }
+                }
+                if radii[i] > 0.0
+                    && radii[next] > 0.0
+                    && profile.points[i][1] != profile.points[next][1]
+                    && k % (segments / 4) == 0
+                {
+                    mesh.edges.push([rings[i][k], rings[next][k]]);
+                }
+            }
+        }
     } else if body
         .analytic
         .as_ref()

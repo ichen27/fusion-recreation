@@ -19,6 +19,7 @@ mod mesh_counterbore;
 mod pattern;
 pub mod polyhedral;
 mod rebuild;
+mod revolution;
 mod shell;
 pub mod topology;
 pub use polyhedral::Operation as BooleanOperation;
@@ -79,6 +80,8 @@ pub enum Feature {
         profile: String,
         height: String,
     },
+    /// Full turn about Z: source profile X is radius and Y is axial Z.
+    Revolve { id: String, profile: String },
     /// Join matching convex XY profiles at z=0 and z=height with planar sides.
     PlanarLoft {
         id: String,
@@ -217,6 +220,7 @@ impl Feature {
             | Self::ThroughHoles { id, .. }
             | Self::Cylinder { id, .. }
             | Self::ConicalFrustum { id, .. }
+            | Self::Revolve { id, .. }
             | Self::BlindHoles { id, .. }
             | Self::CounterboreHoles { id, .. }
             | Self::CountersinkHoles { id, .. }
@@ -883,6 +887,32 @@ fn evaluate_geometry_from(
                     }
                 }
                 evaluated.insert(id.into(), solid_ops::intersection(id, a, &b)?);
+                continue;
+            }
+            Feature::Revolve { profile, .. } => {
+                let input = profiles.get(profile.as_str()).ok_or_else(|| {
+                    error(
+                        "unsupported_reference",
+                        profile,
+                        "Revolution must reference an earlier polygon profile",
+                    )
+                })?;
+                let shape = revolution::resolve(id, input)?;
+                let volume_mm3 = format!(
+                    "{}*pi",
+                    shape.volume.pi_subtract_mm3.trim_start_matches('-')
+                );
+                evaluated.insert(
+                    id.into(),
+                    Body {
+                        feature_id: id.into(),
+                        components: None,
+                        polyhedral: None,
+                        boundary: None,
+                        analytic: Some(shape),
+                        volume_mm3,
+                    },
+                );
                 continue;
             }
             Feature::ConicalFrustum {

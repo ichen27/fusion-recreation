@@ -144,7 +144,9 @@ pub fn inspect(request: Request) -> Result<Topology> {
     let mut topology = build::body(&evaluated.model, &body)?;
     let (shells, euler) = validate::check(&topology)?;
     if let Some(shape) = &body.analytic {
-        let through = if shape.hole_depth.is_none() {
+        let through = if let Some(profile) = &shape.revolution {
+            usize::from(!profile.axis_contact)
+        } else if shape.hole_depth.is_none() {
             shape.holes.len()
         } else {
             0

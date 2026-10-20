@@ -60,7 +60,11 @@ pub fn measure(request: Request) -> Result<Measurements> {
         .find(|b| &b.feature_id == id)
         .ok_or_else(|| error("missing_body", id, "Select a terminal solid"))?;
     if let Some(shape) = &body.analytic {
-        if shape.outer_circle.is_some() || !shape.holes.is_empty() || shape.placement.is_some() {
+        if shape.revolution.is_some()
+            || shape.outer_circle.is_some()
+            || !shape.holes.is_empty()
+            || shape.placement.is_some()
+        {
             return crate::measure_curved::measure(id, shape, &body.volume_mm3);
         }
     }

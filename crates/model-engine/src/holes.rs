@@ -49,6 +49,8 @@ pub struct AnalyticPrism {
     pub outer_circle: Option<CircularBoundary>,
     pub height: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub revolution: Option<crate::revolution::Revolution>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub top_radius: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hole_depth: Option<String>,
@@ -135,6 +137,7 @@ pub(super) fn prism(profile: &Profile, height: &Q) -> AnalyticPrism {
     }
     AnalyticPrism {
         placement: None,
+        revolution: None,
         kind: "polygon_prism",
         outer: points
             .into_iter()
@@ -179,6 +182,7 @@ pub(super) fn round(
     }
     Ok(AnalyticPrism {
         placement: None,
+        revolution: None,
         kind: "round_prism",
         outer: vec![],
         outer_circle: Some(CircularBoundary {

@@ -193,9 +193,10 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
                 holes = Some(id.as_str());
                 current = input;
             }
-            Feature::Extrude { .. } | Feature::Cylinder { .. } | Feature::ConicalFrustum { .. } => {
-                return Ok((f, holes))
-            }
+            Feature::Extrude { .. }
+            | Feature::Cylinder { .. }
+            | Feature::ConicalFrustum { .. }
+            | Feature::Revolve { .. } => return Ok((f, holes)),
             _ => return Err(fail("Unsupported analytic source")),
         }
     }
@@ -204,6 +205,9 @@ fn owners<'a>(model: &'a Model, id: &str) -> Result<(&'a Feature, Option<&'a str
 fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topology> {
     let (source, hole_owner) = owners(model, &body.feature_id)?;
     let owner = source.id();
+    if shape.revolution.is_some() {
+        return revolved(body, shape, owner);
+    }
     let h = value(&shape.height)?;
     let mut b = Builder::new(&body.feature_id, "authored_surfaces");
     let (bottom, top) = if let Some(circle) = &shape.outer_circle {
@@ -391,6 +395,85 @@ fn analytic(model: &Model, body: &Body, shape: &AnalyticPrism) -> Result<Topolog
     }
     Ok(topology)
 }
+fn revolved(body: &Body, shape: &AnalyticPrism, owner: &str) -> Result<Topology> {
+    let profile = shape.revolution.as_ref().unwrap();
+    let points = profile
+        .points
+        .iter()
+        .map(|p| Ok([value(&p[0])?, value(&p[1])?]))
+        .collect::<Result<Vec<_>>>()?;
+    let mut b = Builder::new(&body.feature_id, "authored_surfaces");
+    let center = [q(0), q(0)];
+    let rings: Vec<_> = points
+        .iter()
+        .map(|p| {
+            if p[0].is_zero() {
+                None
+            } else {
+                Some(b.circle(&center, &p[0], &p[1]))
+            }
+        })
+        .collect();
+    for i in 0..points.len() {
+        let j = (i + 1) % points.len();
+        let (a, c) = (&points[i], &points[j]);
+        if a[0].is_zero() && c[0].is_zero() {
+            continue;
+        }
+        let role = &profile.roles[i];
+        if a[1] == c[1] {
+            let up = a[0] > c[0];
+            let (outer, inner) = if up {
+                (&rings[i], &rings[j])
+            } else {
+                (&rings[j], &rings[i])
+            };
+            let mut loops = vec![outer.as_ref().unwrap().edges.clone()];
+            if let Some(inner) = inner {
+                loops.push(reverse(&inner.edges));
+            }
+            if !up {
+                loops = loops.iter().map(|ring| reverse(ring)).collect();
+            }
+            b.cap(owner, role, &a[1], up, loops);
+        } else {
+            let inward = c[1] < a[1];
+            let (lo, hi) = if inward { (j, i) } else { (i, j) };
+            let bottom = rings[lo].as_ref().unwrap();
+            let top = rings[hi].as_ref().unwrap();
+            let (r0, r1, z0, z1) = (
+                &points[lo][0],
+                &points[hi][0],
+                &points[lo][1],
+                &points[hi][1],
+            );
+            if r0 == r1 {
+                b.cylinder(owner, role, &center, r0, (bottom, top), inward);
+            } else {
+                let surface = b.surface(
+                    owner,
+                    role,
+                    Surface::ConicalFrustum {
+                        origin: output(&[q(0), q(0), z0.clone()]),
+                        axis: [0, 0, 1],
+                        bottom_radius: r0.to_string(),
+                        top_radius: r1.to_string(),
+                        height: (z1 - z0).to_string(),
+                        inward,
+                    },
+                );
+                b.wall(&[surface], bottom, top, inward);
+            }
+        }
+    }
+    let mut topology = b.topology;
+    topology.components = vec![(0..topology.faces.len()).collect()];
+    if let Some(frame) = &shape.placement {
+        place(&mut topology, frame)?;
+    }
+    Ok(topology)
+}
+
 fn place(topology: &mut Topology, frame: &crate::placement::Placement) -> Result<()> {
     let origin = point(&frame.origin)?;
     let vector =
