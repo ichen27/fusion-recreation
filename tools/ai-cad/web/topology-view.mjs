@@ -19,7 +19,7 @@ function label(reference) {
   };
   return `Hole ${role[1]} · ${names[role[2]] ?? role[2]}`;
 }
-export function renderTopology(container, info, onSelect) {
+export function renderTopology(container, info, onSelect, onMeasureEdge) {
   container.replaceChildren();
   const summary = document.createElement("p");
   summary.textContent = `${Object.keys(info.surfaces).length} surfaces · ${info.shells.length} closed shell${info.shells.length === 1 ? "" : "s"} · ${info.components.length} material component${info.components.length === 1 ? "" : "s"}.`;
@@ -30,6 +30,48 @@ export function renderTopology(container, info, onSelect) {
       ? "Surface names follow feature, hole and profile IDs. Refresh references after edits."
       : "These face references apply to this saved revision. Refresh after edits.";
   container.append(note);
+  if (onMeasureEdge) {
+    const section = document.createElement("section"),
+      select = document.createElement("select"),
+      button = document.createElement("button"),
+      output = document.createElement("p"),
+      hint = document.createElement("p");
+    select.id = "measurement-edge";
+    select.setAttribute("aria-label", "Edge to measure");
+    for (const [index, edge] of info.edges.entries()) {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `Edge ${index + 1} · ${edge.curve.kind === "line" ? "line" : "quarter circle"} · vertices ${edge.vertices.map((v) => v + 1).join(" → ")}`;
+      select.append(option);
+    }
+    button.id = "measure-edge";
+    button.type = "button";
+    button.textContent = "Measure edge";
+    output.id = "edge-measurement";
+    output.setAttribute("role", "status");
+    hint.textContent =
+      "Edge numbers apply to this saved revision. Some edges are smooth surface seams.";
+    select.addEventListener("change", () => {
+      output.textContent = "";
+    });
+    button.addEventListener("click", async () => {
+      const index = Number(select.value);
+      button.disabled = true;
+      select.disabled = true;
+      output.textContent = "Measuring…";
+      try {
+        const result = await onMeasureEdge(index);
+        output.textContent = `Edge ${index + 1}: ${result.length_mm} mm (exact); approximately ${result.length_approx_mm.toPrecision(8)} mm. Chord: ${result.chord_mm} mm. ${result.patch_seam ? "Smooth surface seam" : "Boundary between surfaces"}. Endpoints: (${result.endpoints_mm[0].join(", ")}) → (${result.endpoints_mm[1].join(", ")}) mm.`;
+      } catch (error) {
+        output.textContent = error.message;
+      } finally {
+        button.disabled = false;
+        select.disabled = false;
+      }
+    });
+    section.append(hint, select, button, output);
+    container.append(section);
+  }
   for (const [reference, surface] of Object.entries(info.surfaces)) {
     const details = document.createElement("details"),
       title = document.createElement("summary"),

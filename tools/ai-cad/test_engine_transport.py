@@ -31,14 +31,25 @@ class EngineTransport(unittest.TestCase):
                 model=model,
                 feature_id="part",
                 **(
-                    dict(segments=32, include_surfaces=True) if mode == "--mesh" else {}
+                    dict(segments=32, include_surfaces=True)
+                    if mode == "--mesh"
+                    else dict(edge_index=0)
+                    if mode == "--edge"
+                    else {}
                 ),
             )
         )
 
     def test_all_modes_match_cli_and_errors_do_not_poison_next_request(self):
         for model in (loft(), individual()):
-            for mode in (None, "--mesh", "--explain", "--measure", "--topology"):
+            for mode in (
+                None,
+                "--mesh",
+                "--explain",
+                "--measure",
+                "--topology",
+                "--edge",
+            ):
                 data = self.payload(mode, model)
                 fresh = subprocess.run(
                     [str(BINARY)] + ([mode] if mode else []),
@@ -52,7 +63,7 @@ class EngineTransport(unittest.TestCase):
             self.assertEqual(self.worker.run(BINARY, None, data).returncode, 1)
         self.assertEqual(self.worker.run(BINARY, None, self.payload()).returncode, 0)
         self.assertEqual(self.worker.starts, 1)
-        self.assertEqual(self.worker.requests, 13)
+        self.assertEqual(self.worker.requests, 15)
 
     def test_threads_serialize_distinct_requests_and_killed_worker_restarts(self):
         requests = [self.payload(model=loft(height=str(i + 1))) for i in range(12)]

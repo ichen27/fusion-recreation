@@ -107,3 +107,5 @@ A separate [live Codex recording](live-codex/README.md) now contains the actual 
 - [Planar profile lofts](planar-loft/README.md): standalone sketches, exact convex lofts, upstream editing and independent STEP/measurement comparisons.
 
 - [Persistent native worker](native-worker/README.md): bounded serial process reuse, exact reply equivalence, fault isolation and measured startup savings.
+
+[Exact edge lengths, arc/chord distinction and smooth seams](edge-measurements/README.md).

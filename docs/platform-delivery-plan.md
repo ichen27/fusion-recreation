@@ -213,3 +213,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Native worker checkpoint
 
 [A bounded persistent native process](../examples/ai-cad/native-worker/README.md) serves five operation modes with deadline/error/replacement/fork isolation and unchanged exact replies. Ten measured workloads compare fresh CLI and warm worker calls; browser native-history loading plus explanation/measurement/topology reuse one process without document changes. This reduces process startup overhead; cross-request geometry reuse, parallel scheduling and GPU compute remain separate work.
+
+## Exact edge measurement checkpoint
+
+[Revision-bound edge lengths](../examples/ai-cad/edge-measurements/README.md) expose exact line and quarter-circle lengths through the browser and typed MCP. Chord length is separate; smooth patch seams are identified. Independent source-dimension identities, 196 translated-support integrations, strict/stale reference tests and actual browser/MCP recordings preserve native history. Viewport edge highlighting/picking and general entity distances remain open.

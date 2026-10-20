@@ -16,7 +16,14 @@ import time
 
 MAX_REQUEST = 1_048_576
 MAX_RESPONSE = 16 * MAX_REQUEST
-MODES = {None: 0, "--mesh": 1, "--explain": 2, "--measure": 3, "--topology": 4}
+MODES = {
+    None: 0,
+    "--mesh": 1,
+    "--explain": 2,
+    "--measure": 3,
+    "--topology": 4,
+    "--edge": 5,
+}
 
 
 class NativeWorker:

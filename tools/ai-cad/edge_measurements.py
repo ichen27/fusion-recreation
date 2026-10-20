@@ -1,0 +1,79 @@
+"""Read-only, revision-bound original-engine edge lengths."""
+
+import json
+import subprocess
+from engine_transport import run as engine_run
+from store import BINARY, CadError, encode
+
+
+def measure_edge(model, feature_id, edge_index):
+    request = encode(
+        {"model": model, "feature_id": feature_id, "edge_index": edge_index}
+    )
+    if len(request) > 1_048_576:
+        raise CadError("request_limit", "Edge measurement request exceeds 1 MiB")
+    try:
+        process = engine_run(BINARY, "--edge", request)
+        reply = json.loads(process.stdout)
+    except FileNotFoundError as exc:
+        raise CadError("engine_unavailable", "Build the model engine first") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise CadError(
+            "engine_timeout", "Edge measurement exceeded 20 seconds"
+        ) from exc
+    except ValueError as exc:
+        raise CadError("engine_failure", "Invalid edge measurement reply") from exc
+    if "error" in reply:
+        error = reply["error"]
+        raise CadError(error["code"], error["message"], error["entity"])
+    if process.returncode:
+        raise CadError("engine_failure", "Edge measurement process failed")
+    return reply["result"]
+
+
+def dispatch_edge_measure(store, command):
+    try:
+        if (
+            not isinstance(command, dict)
+            or set(command) != {"expected_revision", "feature_id", "edge_index"}
+            or not isinstance(command["feature_id"], str)
+            or type(command["edge_index"]) is not int
+            or command["edge_index"] < 0
+        ):
+            raise CadError(
+                "invalid_command",
+                "Expected revision, feature_id and a nonnegative edge_index",
+            )
+        with store.locked():
+            state = store.load()
+            if (
+                type(command["expected_revision"]) is not int
+                or command["expected_revision"] != state["revision"]
+            ):
+                raise CadError(
+                    "revision_conflict",
+                    "Refresh before inspecting an edge of this solid",
+                )
+            request = {
+                "measure_edge": state["model"],
+                "feature_id": command["feature_id"],
+                "edge_index": command["edge_index"],
+            }
+            measurement = store.evaluations.get(
+                BINARY,
+                request,
+                lambda: measure_edge(
+                    state["model"], command["feature_id"], command["edge_index"]
+                ),
+            )
+            return {"result": {"revision": state["revision"], **measurement}}
+    except CadError as exc:
+        return {"error": exc.detail}
+    except (OSError, ValueError, TypeError) as exc:
+        return {
+            "error": {
+                "code": "host_error",
+                "entity": "edge",
+                "message": str(exc),
+            }
+        }
