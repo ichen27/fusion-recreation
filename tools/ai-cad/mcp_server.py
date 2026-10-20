@@ -9,6 +9,7 @@ from selection import dispatch_selection
 from intent import dispatch_explain
 from measurements import dispatch_measure
 from topology import dispatch_topology
+from edge_measurements import dispatch_edge_measure
 from store import Store, dispatch
 
 
@@ -275,6 +276,22 @@ def server(path):
         """Read exact world-axis bounds, volume centroid and centroidal volume inertia tensor for a terminal supported solid. Values are exact arithmetic strings: rational numbers or rational functions of pi (using integers, parentheses, +, -, *, / and pi); units are mm, mm^3 and mm^5. The tensor integrates (r^2 I - r r^T) dV about the volume centroid in global XYZ axes. It assumes uniform density for interpreting the centroid as center of mass; no material density or physical mass is assigned. Includes planar cavities/disconnected pieces as one selected body. Circular stock and through/blind/counterbored-hole groups, including exact placements, are supported with symbolic pi integration. Read-only and revision-bound; does not sum overlapping bodies or infer clearance/collision."""
         return dispatch_measure(
             store, {"expected_revision": expected_revision, "feature_id": feature_id}
+        )
+
+    @mcp.tool()
+    def cad_measure_edge(
+        expected_revision: int,
+        feature_id: str,
+        edge_index: Annotated[int, Field(strict=True, ge=0)],
+    ) -> dict:
+        """Measure one shared edge from cad_topology at the same saved body/revision. edge_index is zero-based and must be refreshed after edits. length_mm is an exact rational, sqrt(rational), or rational*pi expression; length_approx_mm is for display only. Quarter-circle length follows the arc; chord_mm and chord_squared_mm2 describe straight endpoint separation. Returns exact endpoints/support and incident surface IDs. patch_seam:true means a subdivision within one smooth surface, not a physical sharp edge. Read-only; stale revisions or missing edges reject without retargeting. This does not measure distance between arbitrary entities."""
+        return dispatch_edge_measure(
+            store,
+            {
+                "expected_revision": expected_revision,
+                "feature_id": feature_id,
+                "edge_index": edge_index,
+            },
         )
 
     @mcp.tool()

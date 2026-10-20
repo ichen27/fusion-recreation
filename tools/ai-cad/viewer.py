@@ -12,6 +12,7 @@ from selection import dispatch_selection
 from intent import dispatch_explain
 from measurements import dispatch_measure
 from topology import dispatch_topology
+from edge_measurements import dispatch_edge_measure
 from exports import display, export_stl, export_stl_archive
 from result_cache import ResultCache
 from preview_jobs import PreviewJobs
@@ -199,6 +200,7 @@ def handler(store, port):
                 "/api/explain",
                 "/api/measure",
                 "/api/topology",
+                "/api/measure-edge",
                 "/api/preview-jobs",
             ):
                 return self.reply(404, b"{}")
@@ -234,7 +236,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_topology(store, command)
+                    dispatch_edge_measure(store, command)
+                    if self.path == "/api/measure-edge"
+                    else dispatch_topology(store, command)
                     if self.path == "/api/topology"
                     else dispatch_measure(store, command)
                     if self.path == "/api/measure"

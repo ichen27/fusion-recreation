@@ -438,17 +438,43 @@ $("topology-selection").addEventListener("click", async () => {
     ).json();
     if (intentKey !== key) return;
     if (reply.error) throw Error(`${reply.error.code}: ${reply.error.message}`);
-    renderTopology($("topology-info"), reply.result, (reference) => {
-      if (
-        busy ||
-        preview ||
-        editPending ||
-        intentKey !== key ||
-        saved.revision !== expected_revision
-      )
-        return;
-      shareSelection(feature_id, reference);
-    });
+    renderTopology(
+      $("topology-info"),
+      reply.result,
+      (reference) => {
+        if (
+          busy ||
+          preview ||
+          editPending ||
+          intentKey !== key ||
+          saved.revision !== expected_revision
+        )
+          return;
+        shareSelection(feature_id, reference);
+      },
+      async (edge_index) => {
+        const current = () =>
+          !busy &&
+          !preview &&
+          !editPending &&
+          intentKey === key &&
+          saved.revision === expected_revision;
+        if (!current())
+          throw Error("Refresh the saved selection before measuring.");
+        const reply = await (
+          await fetch("/api/measure-edge", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ expected_revision, feature_id, edge_index }),
+          })
+        ).json();
+        if (!current())
+          throw Error("Selection changed; refresh before measuring.");
+        if (reply.error)
+          throw Error(`${reply.error.code}: ${reply.error.message}`);
+        return reply.result;
+      },
+    );
   } catch (error) {
     if (intentKey === key) $("topology-info").textContent = error.message;
   } finally {

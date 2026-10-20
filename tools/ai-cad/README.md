@@ -317,3 +317,14 @@ The host reuses one serial Rust worker for native operations, reducing process-s
 python tools/ai-cad/verify_native_worker.py
 python tools/ai-cad/benchmark_native_worker.py --samples 15
 ```
+
+### Exact edge measurements
+
+Select a saved solid, choose **Inspect surfaces**, select an edge and choose **Measure edge**. The inspector reports exact length, display approximation, endpoints and chord separately, and labels smooth surface seams. Numbers apply only to that saved revision; refresh after edits. AI clients use `cad_topology` followed by `cad_measure_edge` with the returned body/revision and zero-based index. [Editable examples and evidence](../../examples/ai-cad/edge-measurements/README.md).
+
+```sh
+python tools/ai-cad/verify_edge_measurements.py
+python tools/ai-cad/verify_edge_measurements_mcp.py
+# Optional comparison environment:
+python tools/ai-cad/verify_edge_measurements_reference.py
+```
