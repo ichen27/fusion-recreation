@@ -120,6 +120,38 @@ class Viewer(unittest.TestCase):
                 )
         self.assertEqual(self.store.path.read_bytes(), before)
 
+    def test_mass_set_http_read_only_revision_and_validation(self):
+        result = self.store.execute(CREATE)
+        before = self.store.path.read_bytes()
+        feature = result["bodies"][0]["feature_id"]
+        for revision, density, expected_status in [
+            (1, "1000", 200),
+            (0, "1000", 400),
+            (1, "0", 400),
+        ]:
+            status, payload = self.request(
+                "POST",
+                "/api/mass-set",
+                json.dumps(
+                    {
+                        "expected_revision": revision,
+                        "parts": [
+                            {"feature_id": feature, "density_kg_per_m3": density}
+                        ],
+                    }
+                ),
+                {"Content-Type": "application/json"},
+            )
+            self.assertEqual(status, expected_status)
+            if status == 200:
+                from fractions import Fraction
+
+                self.assertEqual(
+                    Fraction(json.loads(payload)["result"]["mass_kg"]),
+                    Fraction(result["bodies"][0]["volume_mm3"]) / 1000000,
+                )
+        self.assertEqual(self.store.path.read_bytes(), before)
+
     def test_surface_selection_http_is_shared_with_other_client(self):
         from test_counterbores import counterbored
         from test_intersection import operations
@@ -259,6 +291,7 @@ class Viewer(unittest.TestCase):
             "/sweep-editor.mjs",
             "/linear-model.mjs",
             "/linear-editor.mjs",
+            "/mass-editor.mjs",
             "/display-data.mjs",
             "/preview-client.mjs",
             "/picking.mjs",

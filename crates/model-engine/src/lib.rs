@@ -15,6 +15,7 @@ pub mod edge_measure;
 mod holes;
 pub mod intent;
 pub mod interference;
+pub mod mass_set;
 pub mod measure;
 mod measure_curved;
 pub mod mesh;

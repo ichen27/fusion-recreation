@@ -108,6 +108,7 @@
           “Make it 20 mm wider. Keep the thickness and other dimensions.”
         </blockquote>
         <div class="status-dot">Exact Rust geometry · mm</div>
+        <button id="measure-parts" disabled>Measure combined mass</button>
         <h2>Selected solid</h2>
         <p id="selection-info" role="status">
           Click a solid or select it in the feature list.
@@ -814,6 +815,28 @@
         <button type="submit" id="rotation-preview" class="primary">
           Preview rotation
         </button>
+      </form>
+    </dialog>
+    <dialog id="mass-dialog" aria-labelledby="mass-title">
+      <form id="mass-form">
+        <header class="sketch-heading">
+          <h2 id="mass-title">Combined mass properties</h2>
+          <button type="button" id="mass-close">Close</button>
+        </header>
+        <p>
+          Select up to 16 saved parts and supply each density as a positive
+          integer or fraction in kg/m³. Densities are used for this measurement
+          only.
+        </p>
+        <p>
+          Overlapping parts are counted separately. This calculation does not
+          check interference or combine material.
+        </p>
+        <div id="mass-parts"></div>
+        <button id="mass-calculate" type="submit" class="primary">
+          Calculate combined mass
+        </button>
+        <div id="mass-result" role="status"></div>
       </form>
     </dialog>
     <dialog id="compute-dialog">

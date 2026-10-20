@@ -11,6 +11,7 @@ from store import MAX_BYTES, CadError, Store, dispatch
 from selection import dispatch_selection
 from intent import dispatch_explain
 from measurements import dispatch_measure
+from mass_properties import dispatch_mass_set
 from topology import dispatch_topology
 from edge_measurements import dispatch_edge_measure
 from interference import dispatch_interference
@@ -150,6 +151,7 @@ def handler(store, port):
                 "/": ("index.html", "text/html; charset=utf-8"),
                 "/app.js": ("app.js", "text/javascript"),
                 "/linear-model.mjs": ("linear-model.mjs", "text/javascript"),
+                "/mass-editor.mjs": ("mass-editor.mjs", "text/javascript"),
                 "/linear-editor.mjs": ("linear-editor.mjs", "text/javascript"),
                 "/startup.js": ("startup.js", "text/javascript"),
                 "/preview-client.mjs": ("preview-client.mjs", "text/javascript"),
@@ -217,6 +219,7 @@ def handler(store, port):
                 "/api/selection",
                 "/api/explain",
                 "/api/measure",
+                "/api/mass-set",
                 "/api/topology",
                 "/api/measure-edge",
                 "/api/interference",
@@ -256,7 +259,9 @@ def handler(store, port):
                         )
                         return self.reply(400, json.dumps({"error": error}).encode())
                 reply = (
-                    dispatch_clearance(store, command)
+                    dispatch_mass_set(store, command)
+                    if self.path == "/api/mass-set"
+                    else dispatch_clearance(store, command)
                     if self.path == "/api/clearance"
                     else dispatch_interference(store, command)
                     if self.path == "/api/interference"

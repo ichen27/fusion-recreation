@@ -455,3 +455,7 @@ This is not a nonlinear distance/angle sketch solver.
 Select a saved solid, enter a positive integer or fraction in **Uniform density · kg/m³**, and choose **Measure solid**. Leave density blank for geometry only. The read-only result includes exact mass in kg and centroidal mass inertia in kg m². It does not assign a material or change the model. AI clients use the optional `density_kg_per_m3` string on `cad_measure`. [Editable input, recorded browser/MCP reads and unit-conversion checks](../../examples/ai-cad/mass/README.md).
 
 Run `python tools/ai-cad/verify_mass.py`; with the MCP dependencies installed, run `python tools/ai-cad/verify_mass_mcp.py`.
+
+### Combined mass of selected parts
+
+Choose **Measure combined mass**, select up to 16 saved solids and enter a positive rational density in kg/m³ for each. The result reports total mass, center of mass and centroidal inertia in global XYZ. Every selected occurrence contributes separately, including overlaps; use interference checks separately when needed. Nothing is saved to the document. AI clients use `cad_mass_properties(expected_revision, parts)` with each part's `feature_id` and `density_kg_per_m3`. [Native input, browser/MCP recordings and independent verification](../../examples/ai-cad/combined-mass/README.md). Run `verify_mass_set.py` and optional `verify_mass_set_mcp.py`.
