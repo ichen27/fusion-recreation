@@ -13,6 +13,7 @@ import { installIntersectionEditor } from "/intersection-editor.mjs";
 import { intersectionCandidates } from "/intersection-model.mjs";
 import { installStockEditor } from "/stock-editor.mjs";
 import { planeCandidate } from "/plane-model.mjs";
+import { installPatternEditor } from "/pattern-editor.mjs";
 import { installShellEditor } from "/shell-editor.mjs";
 import { installPlaneEditor } from "/plane-editor.mjs";
 import {
@@ -28,6 +29,7 @@ let sketches,
   holes,
   planes,
   shells,
+  patterns,
   stocks,
   intersections,
   lofts,
@@ -833,7 +835,7 @@ function controls() {
     !saved ||
     intersectionCandidates(saved).length < 2;
   for (const button of document.querySelectorAll(
-    ".edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
+    ".edit-pattern, .edit-shell, .edit-sketch, .edit-holes, .edit-plane, .edit-move, .edit-rotation, .edit-boolean, .edit-instance",
   ))
     button.disabled = busy || !!preview || editPending;
   $("undo").disabled = busy || !!preview || !saved?.can_undo;
@@ -934,6 +936,20 @@ function render(state) {
               ? f.id
               : null,
           ),
+        );
+        div.append(button);
+      }
+      if (
+        f.kind === "linear_pattern" ||
+        state.bodies.some((b) => b.feature_id === f.id && planeCandidate(b))
+      ) {
+        const button = document.createElement("button");
+        button.className = "edit-pattern";
+        button.textContent =
+          f.kind === "linear_pattern" ? "Edit pattern" : "Linear pattern";
+        button.setAttribute("aria-label", `${button.textContent} ${f.id}`);
+        button.addEventListener("click", () =>
+          patterns.open(f.id, f.kind === "linear_pattern" ? f.id : null),
         );
         div.append(button);
       }
@@ -1315,6 +1331,7 @@ const editorCallbacks = (name) => ({
 sketches = installSketchEditor(editorCallbacks("Sketch"));
 holes = installHoleEditor(editorCallbacks("Hole"));
 planes = installPlaneEditor(editorCallbacks("Plane cut"));
+patterns = installPatternEditor(editorCallbacks("Pattern"));
 shells = installShellEditor(editorCallbacks("Shell"));
 stocks = installStockEditor(editorCallbacks("Stock"));
 translations = installTranslateEditor(editorCallbacks("Move"));

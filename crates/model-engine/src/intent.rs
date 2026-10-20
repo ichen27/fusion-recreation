@@ -58,6 +58,7 @@ impl Feature {
             Self::PlanarShell {
                 input, thickness, ..
             } => (vec![input], vec![thickness]),
+            Self::LinearPattern { input, step, .. } => (vec![input], step.iter().collect()),
             Self::Translate { input, offset, .. }
             | Self::Instance {
                 source: input,

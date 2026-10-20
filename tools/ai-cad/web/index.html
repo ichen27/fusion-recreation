@@ -532,6 +532,43 @@
         </button>
       </form>
     </dialog>
+    <dialog id="pattern-dialog" aria-labelledby="pattern-title">
+      <form id="pattern-form">
+        <header class="sketch-heading">
+          <h2 id="pattern-title">Linear material pattern</h2>
+          <button type="button" id="pattern-close">Cancel</button>
+        </header>
+        <p id="pattern-feedback" role="status"></p>
+        <label
+          >Count, including source<input
+            id="pattern-count"
+            aria-label="Pattern count"
+            type="number"
+            min="1"
+            max="16"
+            step="1"
+            required
+        /></label>
+        <label
+          >Step X (mm)<input id="pattern-x" aria-label="Step X" required
+        /></label>
+        <label
+          >Step Y (mm)<input id="pattern-y" aria-label="Step Y" required
+        /></label>
+        <label
+          >Step Z (mm)<input id="pattern-z" aria-label="Step Z" required
+        /></label>
+        <p class="hint">
+          Planar material only. Count includes the source. Overlaps combine into
+          one result; use linked copies for independent parts. Step and total
+          displacement stay within ±1,000,000 mm per axis. Complex patterns may
+          reach the geometry limit before 16 copies.
+        </p>
+        <button type="submit" id="pattern-preview" class="primary">
+          Preview pattern
+        </button>
+      </form>
+    </dialog>
     <dialog id="translate-dialog" aria-labelledby="translate-title">
       <form id="translate-form">
         <header class="sketch-heading">

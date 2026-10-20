@@ -47,6 +47,18 @@ def oracle(model):
             shape = BRepPrimAPI_MakePrism(
                 shapes[f["profile"]], gp_Vec(0, 0, values[f["height"]])
             ).Shape()
+        elif f["kind"] == "linear_pattern":
+            source = shapes[f["input"]]
+            shape = source
+            for index in range(1, f["count"]):
+                placement = gp_Trsf()
+                placement.SetTranslation(
+                    gp_Vec(*(index * values[p] for p in f["step"]))
+                )
+                copy = BRepBuilderAPI_Transform(source, placement, True).Shape()
+                result = BRepAlgoAPI_Fuse(shape, copy)
+                assert result.IsDone()
+                shape = result.Shape()
         elif f["kind"] == "planar_loft":
             bottom = next(p for p in model["features"] if p["id"] == f["bottom"])
             top = next(p for p in model["features"] if p["id"] == f["top"])

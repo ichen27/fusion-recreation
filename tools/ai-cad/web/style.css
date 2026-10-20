@@ -511,6 +511,7 @@ dialog::backdrop {
 #intersection-dialog,
 #loft-dialog,
 #boolean-dialog,
+#pattern-dialog,
 #translate-dialog,
 #rotation-dialog {
   max-width: 560px;

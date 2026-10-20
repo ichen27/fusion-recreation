@@ -233,3 +233,7 @@ Progress reporting identifies the completed gate, evidence, remaining limits, so
 ## Exact planar shell checkpoint
 
 [Parameter-backed hollow parts](../examples/ai-cad/planar-shell/README.md) support convex planar stock, one optional opening and exact uniform inward wall thickness. Browser and typed MCP author/edit the same native feature; invalid thickness preserves saved history. Independent explicit inner solids verify twelve box/tapered/triangular/placed cases, STEP boundaries and moments. Irrational retained-plane offsets, curved/nonconvex shells, multiple openings and variable thickness remain open. Next broaden repeated modeling intent with linked parametric patterns while preserving exact source dependencies and bounded work.
+
+## Linear material pattern checkpoint
+
+[Exact repeated planar material](../examples/ai-cad/linear-pattern/README.md) keeps source dimensions and parameter-backed step dependencies inside one count-editable feature. Each copy is computed from the source at an integer multiple of the step; exact unions handle separated, touching and overlapping material. This deliberately differs from independent assembly instances. General curved/circular patterns, body-versus-feature identity for multi-output assembly features and larger-model scheduling remain open.
